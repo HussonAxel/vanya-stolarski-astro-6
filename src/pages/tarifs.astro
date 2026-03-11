@@ -1,0 +1,362 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+const contact = {
+  email: "vanya.stolarski@gmail.com",
+  instagramHandle: "vanyastolar.auteure",
+  instagramUrl: "https://www.instagram.com/vanyastolar.auteure/",
+};
+
+const services = [
+  {
+    name: "Couverture",
+    price: "X",
+    accent: "#3a4d45",
+    image: "/assets/services/couvertures/cover-1.webp",
+    alt: "Exemple de couverture fantasy",
+    tags: ["Fantasy", "Science-fiction", "Sur mesure"],
+    description:
+      "Je propose des couvertures pour les romans de fantasy et de science-fiction. Elles sont pensees pour donner une impression de luxe et de qualite au livre, dans des formats adaptables et personnalises selon vos besoins.",
+  },
+  {
+    name: "Premades",
+    price: "X",
+    accent: "#3a4d45",
+    image: "/assets/services/premades/premade2.webp",
+    alt: "Exemple de premade fantasy",
+    tags: ["Fantasy", "Science-fiction", "Disponible"],
+    description:
+      "Je propose des premades pour les romans de fantasy et de science-fiction. Elles gardent une impression de luxe et de qualite, avec plusieurs tailles et formats possibles, et une adaptation selon votre projet.",
+  },
+  {
+    name: "Jaspages",
+    price: "80 EUR / 120 EUR",
+    accent: "#3d3834",
+    image: "/assets/services/jaspages/jaspage-one.webp",
+    alt: "Exemple de jaspage decoratif",
+    tags: ["Edition collector", "Fantasy", "Personnalisable"],
+    description:
+      "Je cree des jaspages pour les romans de fantasy et de science-fiction. Ils sont concus pour renforcer la sensation d'objet precieux, avec plusieurs formats et une personnalisation possible selon votre univers.",
+  },
+  {
+    name: "Pages de gardes",
+    price: "Sous devis",
+    accent: "#3d3834",
+    image: "/assets/services/pagedegarde/pdg2.webp",
+    alt: "Exemple de pages de garde illustrees",
+    tags: ["Interieur", "Sur devis", "Univers sur mesure"],
+    description:
+      "Je realise des pages de garde pour les romans de fantasy et de science-fiction. Elles sont pensees pour donner de la profondeur a l'objet livre, avec un traitement adapte au format et au style du projet.",
+  },
+  {
+    name: "Entetes de chapitres",
+    price: "A partir de 20 EUR",
+    accent: "#3a4d45",
+    image: "/assets/services/headers/header-three.webp",
+    alt: "Exemple d'entete de chapitre",
+    tags: ["Chapitrage", "A partir de 20 EUR", "Personnalisable"],
+    description:
+      "Je propose des entetes de chapitres pour les romans de fantasy et de science-fiction. Ils apportent une finition plus soignee au texte, avec plusieurs formats possibles et une personnalisation selon vos besoins.",
+  },
+  {
+    name: "Cartographie",
+    price: "1 page 200 EUR / 2 pages 400 EUR",
+    accent: "#3a4d45",
+    image: "/assets/services/maps/maps-four.webp",
+    alt: "Exemple de carte fantasy",
+    tags: ["1 page", "2 pages", "Mondes imaginaires"],
+    description:
+      "La cartographie donne vie aux mondes de fantasy et de science-fiction a travers des cartes detaillees et personnalisees. Que ce soit pour un royaume medieval-fantastique ou un archipel mysterieux, je m'adapte a votre univers et a votre style.",
+  },
+  {
+    name: "Illustration",
+    price: "Sous devis",
+    accent: "#3d3834",
+    image: "/assets/services/illustrations/illustration-seven.webp",
+    alt: "Exemple d'illustration fantasy",
+    tags: ["Illustration", "Fantasy", "Sous devis"],
+    description:
+      "Je propose des illustrations pour les romans de fantasy et de science-fiction. Elles sont concues pour prolonger l'univers du livre avec une finition forte, dans des formats adaptables et une personnalisation selon vos besoins.",
+  },
+];
+
+const commitments = [
+  {
+    title: "Univers cibles",
+    text: "Je travaille avant tout autour de la fantasy et de la science-fiction, avec une recherche de rendu plus luxueux, plus singulier et plus editorial.",
+  },
+  {
+    title: "Formats variables",
+    text: "Les prestations peuvent s'adapter a plusieurs tailles, niveaux de finition et contraintes de fabrication selon le projet et le support final.",
+  },
+  {
+    title: "Demande sur mesure",
+    text: "Pour toute demande personnalisee ou pour un devis, tu peux me contacter directement par mail ou via Instagram afin que l'on cadre le besoin ensemble.",
+  },
+];
+
+const process = [
+  {
+    step: "01",
+    title: "Prise de contact",
+    text: "On echange sur le livre, l'univers, les references visuelles et le type de rendu attendu.",
+  },
+  {
+    step: "02",
+    title: "Devis et cadrage",
+    text: "Je precise le format, la personnalisation possible, les livrables et le tarif selon la demande.",
+  },
+  {
+    step: "03",
+    title: "Production",
+    text: "Je realise le visuel ou l'element editorial en gardant la coherence du projet et la qualite d'execution.",
+  },
+];
+---
+
+<Layout title="Tarifs - Vanya Stolarski">
+  <main class="overflow-hidden bg-[#FFFAFA] text-[#3d3834]">
+    <section class="relative overflow-hidden bg-[#3d3834] px-6 py-24 text-[#FFFAFA]">
+      <div class="relative mx-auto max-w-7xl">
+        <a href="/" class="inline-flex items-center gap-3 font-sans text-[10px] font-bold tracking-[0.35em] text-[#3a4d45] uppercase">
+          <span class="h-px w-10 bg-[#3a4d45]"></span>
+          Retour a l'accueil
+        </a>
+
+        <div class="mt-10 grid gap-10 md:grid-cols-[1.12fr_0.88fr] md:items-end">
+          <div class="space-y-6">
+            <span class="inline-flex rounded-full border border-[#FFFAFA]/10 bg-[#FFFAFA] px-4 py-2 font-sans text-[10px] font-bold tracking-[0.25em] text-[#3d3834] uppercase">
+              Tarifs
+            </span>
+            <h1 class="max-w-5xl font-serif text-5xl leading-none md:text-7xl">
+              Voici les tarifs de mes services pour enrichir, habiller et donner plus de presence a un univers de livre.
+            </h1>
+            <p class="max-w-2xl font-sans text-base leading-relaxed text-[#FFFAFA] md:text-lg">
+              Je propose des visuels et elements editoriaux pour les romans de fantasy et de science-fiction, avec une recherche de luxe, de qualite et d'identite forte.
+            </p>
+
+            <div class="flex flex-wrap gap-3 pt-2">
+              <a
+                href="#services"
+                class="inline-flex items-center gap-3 rounded-full bg-[#3a4d45] px-7 py-4 font-sans text-[11px] font-bold tracking-[0.25em] text-[#FFFAFA] uppercase transition-all duration-300 hover:-translate-y-1 hover:bg-[#FFFAFA] hover:text-[#3d3834]"
+              >
+                Voir les tarifs
+              </a>
+              <a
+                href={`mailto:${contact.email}`}
+                class="inline-flex items-center gap-3 rounded-full border border-[#FFFAFA]/12 bg-[#FFFAFA] px-7 py-4 font-sans text-[11px] font-bold tracking-[0.25em] text-[#3d3834] uppercase transition-all duration-300 hover:-translate-y-1 hover:border-[#3a4d45]/40 hover:bg-[#FFFAFA]"
+              >
+                Demander un devis
+              </a>
+            </div>
+          </div>
+
+          <div class="section-panel fade-up rounded-[2rem] border border-[#FFFAFA]/10 bg-[#FFFAFA] p-8 backdrop-blur-sm">
+            <div class="grid gap-6 sm:grid-cols-3 md:grid-cols-1 xl:grid-cols-3">
+              <div>
+                <p class="font-serif text-5xl text-[#3a4d45]">7</p>
+                <p class="mt-2 font-sans text-[10px] font-bold tracking-[0.25em] text-[#3d3834] uppercase">
+                  Services
+                </p>
+              </div>
+              <div>
+                <p class="font-serif text-5xl text-[#3a4d45]">SF</p>
+                <p class="mt-2 font-sans text-[10px] font-bold tracking-[0.25em] text-[#3d3834] uppercase">
+                  Fantasy & SF
+                </p>
+              </div>
+              <div>
+                <p class="font-serif text-5xl text-[#3a4d45]">Devis</p>
+                <p class="mt-2 font-sans text-[10px] font-bold tracking-[0.25em] text-[#3d3834] uppercase">
+                  Sur mesure
+                </p>
+              </div>
+            </div>
+
+            <div class="mt-8 rounded-[1.6rem] border border-[#FFFAFA]/10 bg-[#FFFAFA] p-6">
+              <p class="font-sans text-[10px] font-bold tracking-[0.3em] text-[#3a4d45] uppercase">
+                Contact
+              </p>
+              <div class="mt-4 space-y-3 font-sans text-sm leading-relaxed text-[#3d3834]">
+                <p>
+                  Mail: <a href={`mailto:${contact.email}`} class="text-[#3d3834] underline underline-offset-4">{contact.email}</a>
+                </p>
+                <p>
+                  Instagram: <a href={contact.instagramUrl} target="_blank" rel="noreferrer" class="text-[#3d3834] underline underline-offset-4">{contact.instagramHandle}</a>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="services" class="relative overflow-hidden bg-[#FFFAFA] px-6 py-24">
+      <div class="relative mx-auto max-w-8xl space-y-10">
+        <div class="max-w-3xl space-y-4">
+          <p class="font-sans text-[10px] font-bold tracking-[0.35em] text-[#3a4d45] uppercase">
+            Services
+          </p>
+          <h2 class="font-serif text-4xl leading-none md:text-6xl">
+            Des prestations pensees pour donner plus de matiere, plus de finition et plus de desir a l'objet livre.
+          </h2>
+          <p class="max-w-2xl font-sans text-base leading-relaxed text-[#3d3834]/78 md:text-lg">
+            Pour toute demande personnalisee ou pour un devis, n'hesite pas a me contacter par mail ou via Instagram. Les tarifs affiches ici servent de repere selon le type de prestation.
+          </p>
+        </div>
+
+        <div class="grid gap-6 lg:grid-cols-2">
+          {
+            services.map((service) => (
+              <article class="section-panel fade-up overflow-hidden rounded-[2.35rem] border border-[#3d3834]/10 bg-[#FFFAFA] shadow-[0_24px_80px_-48px_rgba(61,56,52,0.38)] backdrop-blur-sm transition-all duration-300 hover:-translate-y-1">
+                <div class="grid gap-0 md:grid-cols-[0.92fr_1.08fr]">
+                  <div class="relative min-h-[280px] overflow-hidden bg-[#FFFAFA]">
+                    <div class="absolute inset-0 opacity-20" style={`background:linear-gradient(180deg, ${service.accent} 0%, transparent 100%);`}></div>
+                    <img
+                      src={service.image}
+                      alt={service.alt}
+                      loading="lazy"
+                      class="h-full w-full object-cover"
+                    />
+                  </div>
+
+                  <div class="flex h-full flex-col p-8 md:p-9">
+                    <div class="flex items-start justify-between gap-4">
+                      <div>
+                        <p class="font-sans text-[10px] font-bold tracking-[0.24em] text-[#3a4d45] uppercase">
+                          Service
+                        </p>
+                        <h3 class="mt-3 font-serif text-4xl leading-none text-[#3d3834]">
+                          {service.name}
+                        </h3>
+                      </div>
+                      <span class="rounded-full px-4 py-2 font-sans text-[10px] font-bold tracking-[0.22em] uppercase" style={`background:${service.accent}; color:#FFFAFA;`}>
+                        {service.price}
+                      </span>
+                    </div>
+
+                    <p class="mt-6 font-sans text-base leading-relaxed text-[#3d3834]/78">
+                      {service.description}
+                    </p>
+
+                    <div class="mt-6 flex flex-wrap gap-2">
+                      {
+                        service.tags.map((tag) => (
+                          <span class="rounded-full border border-[#3d3834]/10 bg-[#FFFAFA] px-3 py-1 font-sans text-[10px] font-bold tracking-[0.12em] text-[#3d3834] uppercase">
+                            {tag}
+                          </span>
+                        ))
+                      }
+                    </div>
+
+                    <div class="mt-8 border-t border-[#3d3834]/8 pt-6">
+                      <a
+                        href={`mailto:${contact.email}`}
+                        class="inline-flex items-center gap-3 rounded-full border border-[#3d3834]/10 bg-[#FFFAFA] px-5 py-3 font-sans text-[11px] font-bold tracking-[0.22em] text-[#3d3834] uppercase transition-all duration-300 hover:-translate-y-1 hover:border-[#3a4d45]/35 hover:bg-[#3a4d45] hover:text-[#FFFAFA]"
+                      >
+                        Demander un devis
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </article>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <section class="relative overflow-hidden bg-[#FFFAFA] px-6 py-24">
+      <div class="relative mx-auto grid max-w-8xl gap-6 lg:grid-cols-[0.95fr_1.05fr]">
+        <div class="section-panel fade-up rounded-[2.35rem] border border-[#3d3834]/10 bg-[#3d3834] p-8 text-[#FFFAFA] shadow-[0_24px_80px_-48px_rgba(61,56,52,0.42)] md:p-10">
+          <p class="font-sans text-[10px] font-bold tracking-[0.35em] text-[#3a4d45] uppercase">
+            Comment ca se passe
+          </p>
+          <h2 class="mt-5 font-serif text-4xl leading-none md:text-5xl">
+            Une base claire pour discuter du besoin, du rendu et du bon niveau de personnalisation.
+          </h2>
+          <p class="mt-6 max-w-xl font-sans text-base leading-relaxed text-[#FFFAFA]">
+            Certains tarifs sont fixes, d'autres passent par un devis. Dans tous les cas, l'idee est de cadrer la demande avec precision pour que le visuel final soit coherent avec ton univers de livre.
+          </p>
+
+          <div class="mt-10 space-y-4 border-t border-[#FFFAFA]/10 pt-8">
+            {
+              process.map((item) => (
+                <div class="flex items-start gap-4">
+                  <span class="font-serif text-3xl text-[#3a4d45]">{item.step}</span>
+                  <div>
+                    <p class="font-sans text-[10px] font-bold tracking-[0.3em] text-[#FFFAFA] uppercase">
+                      {item.title}
+                    </p>
+                    <p class="mt-2 font-sans text-sm leading-relaxed text-[#FFFAFA]">
+                      {item.text}
+                    </p>
+                  </div>
+                </div>
+              ))
+            }
+          </div>
+        </div>
+
+        <div class="grid gap-6 md:grid-cols-3">
+          {
+            commitments.map((item, index) => (
+              <article class:list={[
+                "section-panel fade-up rounded-[2.1rem] border border-[#3d3834]/10 p-7 shadow-[0_20px_70px_-45px_rgba(61,56,52,0.34)] backdrop-blur-sm",
+                index === 1 ? "bg-[#FFFAFA]" : "bg-[#FFFAFA]",
+              ]}>
+                <p class="font-sans text-[10px] font-bold tracking-[0.28em] text-[#3a4d45] uppercase">
+                  Repere
+                </p>
+                <h3 class="mt-4 font-serif text-3xl leading-none text-[#3d3834]">
+                  {item.title}
+                </h3>
+                <p class="mt-4 font-sans text-base leading-relaxed text-[#3d3834]/78">
+                  {item.text}
+                </p>
+              </article>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <section class="relative overflow-hidden bg-[#FFFAFA] px-6 py-24">
+      <div class="relative mx-auto max-w-7xl">
+        <div class="section-panel fade-up rounded-[2.5rem] border border-[#3d3834]/10 bg-[#3d3834] px-8 py-10 text-[#FFFAFA] shadow-[0_26px_90px_-55px_rgba(61,56,52,0.45)] md:px-10 md:py-12">
+          <div class="grid gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-end">
+            <div>
+              <p class="font-sans text-[10px] font-bold tracking-[0.35em] text-[#3a4d45] uppercase">
+                Demande personnalisee
+              </p>
+              <h2 class="mt-4 font-serif text-4xl leading-none md:text-5xl">
+                Pour toute demande personnalisee ou pour un devis, ecris-moi directement.
+              </h2>
+              <p class="mt-4 max-w-2xl font-sans text-base leading-relaxed text-[#FFFAFA]">
+                Mail: {contact.email}<br />
+                Instagram: {contact.instagramHandle}
+              </p>
+            </div>
+
+            <div class="flex flex-wrap gap-3 lg:justify-end">
+              <a
+                href={`mailto:${contact.email}`}
+                class="inline-flex items-center gap-3 rounded-full bg-[#3a4d45] px-7 py-4 font-sans text-[11px] font-bold tracking-[0.25em] text-[#FFFAFA] uppercase transition-all duration-300 hover:-translate-y-1 hover:bg-[#FFFAFA] hover:text-[#3d3834]"
+              >
+                Envoyer un mail
+              </a>
+              <a
+                href={contact.instagramUrl}
+                target="_blank"
+                rel="noreferrer"
+                class="inline-flex items-center gap-3 rounded-full border border-[#FFFAFA]/12 bg-[#FFFAFA] px-7 py-4 font-sans text-[11px] font-bold tracking-[0.25em] text-[#3d3834] uppercase transition-all duration-300 hover:-translate-y-1 hover:bg-[#FFFAFA]"
+              >
+                Ouvrir Instagram
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</Layout>

@@ -1,0 +1,664 @@
+---
+const currentPath = Astro.url.pathname;
+
+const navLinks = [
+  {
+    label: "Livres",
+    subtitle: "Collection",
+    icon: "book",
+    href: "/livres",
+  },
+  {
+    label: "Citations",
+    subtitle: "Presse",
+    icon: "quote",
+    href: "/reviews",
+  },
+  {
+    label: "Reviews",
+    subtitle: "Reviews",
+    icon: "sparkles",
+    href: "/tarifs",
+  },
+  {
+    label: "Galeries",
+    subtitle: "Atelier",
+    icon: "image",
+    href: "/galerie",
+  },
+];
+
+const socialPlatforms = [
+  {
+    label: "TikTok",
+    icon: "tiktok",
+  },
+  {
+    label: "Instagram",
+    icon: "instagram",
+  },
+  {
+    label: "Ulule",
+    icon: "ulule",
+  },
+];
+
+const isActive = (href: string) =>
+  href === "/" ? currentPath === "/" : currentPath.startsWith(href);
+---
+
+<section
+  class="relative flex min-h-screen items-center overflow-hidden bg-[#3d3834] pt-36 pb-20"
+  data-menu-close
+>
+  <div class="container relative z-10 mx-auto max-w-7xl">
+    <div class="grid auto-rows-min grid-cols-1 gap-6 md:grid-cols-12">
+      <div
+        class="section-panel fade-up relative flex min-h-[640px] flex-col justify-between overflow-hidden rounded-[2.75rem] border border-[#3d3834]/10 bg-[#FFFAFA] p-10 shadow-2xl transition-colors duration-300 hover:border-[#3a4d45]/25 md:col-span-4"
+      >
+        <div class="relative z-10 flex h-full flex-col">
+          <div class="flex h-full flex-col">
+            <div class="space-y-12">
+              <div class="space-y-3">
+                <div class="flex items-center gap-2">
+                  <div class="h-[1px] w-8 bg-[#3a4d45]"></div>
+                  <span
+                    class="font-sans text-[10px] font-bold tracking-[0.4em] text-[#3d3834] uppercase"
+                  >
+                    Autrice &amp; Illustratrice
+                  </span>
+                </div>
+                <h1
+                  class="font-serif text-6xl leading-none tracking-tight text-[#3d3834]"
+                >
+                  Explorer
+                </h1>
+              </div>
+
+              <nav class="space-y-3">
+                {
+                  navLinks.map((link) => {
+                    const active = isActive(link.href);
+
+                    return (
+                      <a
+                        href={link.href}
+                        class:list={[
+                          "group flex w-full cursor-pointer items-center justify-between rounded-[1.65rem] p-2 text-left transition-all duration-300 hover:translate-x-2",
+                          active
+                            ? "border border-[#3a4d45]/20 bg-[#3a4d45] text-[#FFFAFA] shadow-sm"
+                            : "border border-[#3d3834]/10 bg-[#FFFAFA] text-[#3d3834] hover:border-[#3d3834]/20 hover:bg-[#3d3834] hover:text-[#FFFAFA]",
+                        ]}
+                      >
+                        <div class="flex items-center gap-5">
+                          <div
+                            class:list={[
+                              "flex h-12 w-12 items-center justify-center rounded-2xl border shadow-sm transition-all duration-300",
+                              active
+                                ? "border-[#3d3834]/10 bg-[#FFFAFA] text-[#3d3834]"
+                                : "border-[#3d3834]/10 bg-[#3d3834] text-[#FFFAFA] group-hover:border-[#FFFAFA]/20 group-hover:bg-[#FFFAFA] group-hover:text-[#3d3834]",
+                            ]}
+                          >
+                            {link.icon === "book" && (
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="20"
+                                height="20"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                              >
+                                <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H19a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1H6.5a1 1 0 0 1 0-5H20" />
+                              </svg>
+                            )}
+                            {link.icon === "image" && (
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="20"
+                                height="20"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                              >
+                                <rect
+                                  width="18"
+                                  height="18"
+                                  x="3"
+                                  y="3"
+                                  rx="2"
+                                  ry="2"
+                                />
+                                <circle cx="9" cy="9" r="2" />
+                                <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21" />
+                              </svg>
+                            )}
+                            {link.icon === "quote" && (
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="20"
+                                height="20"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                              >
+                                <path d="M16 3a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2 1 1 0 0 1 1 1v1a2 2 0 0 1-2 2 1 1 0 0 0-1 1v2a1 1 0 0 0 1 1 6 6 0 0 0 6-6V5a2 2 0 0 0-2-2z" />
+                                <path d="M5 3a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2 1 1 0 0 1 1 1v1a2 2 0 0 1-2 2 1 1 0 0 0-1 1v2a1 1 0 0 0 1 1 6 6 0 0 0 6-6V5a2 2 0 0 0-2-2z" />
+                              </svg>
+                            )}
+                            {link.icon === "sparkles" && (
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="20"
+                                height="20"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                              >
+                                <path d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z" />
+                              </svg>
+                            )}
+                          </div>
+                          <div class="flex flex-col">
+                            <div class="flex items-center gap-2">
+                              <span
+                                class:list={[
+                                  "font-serif text-xl leading-none transition-colors duration-300",
+                                  active
+                                    ? "text-[#FFFAFA]"
+                                    : "text-[#3d3834] group-hover:text-[#FFFAFA]",
+                                ]}
+                              >
+                                {link.label}
+                              </span>
+                              {active && (
+                                <span class="relative flex h-2 w-2">
+                                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#FFFAFA] opacity-75" />
+                                  <span class="relative inline-flex h-2 w-2 rounded-full bg-[#FFFAFA]" />
+                                </span>
+                              )}
+                            </div>
+                            <span
+                              class:list={[
+                                "mt-1 font-sans text-[8px] font-bold tracking-widest uppercase transition-colors duration-300",
+                                active
+                                  ? "text-[#FFFAFA]/78"
+                                  : "text-[#3d3834]/78 group-hover:text-[#FFFAFA]/78",
+                              ]}
+                            >
+                              {link.subtitle}
+                            </span>
+                          </div>
+                        </div>
+
+                        <div class="flex items-center gap-2">
+                          {active ? (
+                            <>
+                              <span class="font-sans text-[9px] font-bold tracking-widest text-[#FFFAFA] opacity-0 transition-opacity group-hover:opacity-100">
+                                EXPLORER
+                              </span>
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="18"
+                                height="18"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                class="text-[#FFFAFA] transition-transform group-hover:translate-x-1"
+                              >
+                                <path d="m9 18 6-6-6-6" />
+                              </svg>
+                            </>
+                          ) : (
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="18"
+                              height="18"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="currentColor"
+                              stroke-width="2"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              class="text-[#3d3834] opacity-35 transition-colors duration-300 group-hover:text-[#FFFAFA] group-hover:opacity-100"
+                            >
+                              <path d="M5 12h14" />
+                              <path d="m12 5 7 7-7 7" />
+                            </svg>
+                          )}
+                        </div>
+                      </a>
+                    );
+                  })
+                }
+              </nav>
+            </div>
+
+            <div class="mt-auto border-t border-[#3d3834]/10 pt-4">
+
+              <div class="flex flex-wrap gap-2 justify-center">
+                {
+                  socialPlatforms.map((platform) => (
+                    <div class="inline-flex items-center gap-2 rounded-full border border-[#3d3834]/10 bg-[#f6f0ea] px-3 py-2 text-[#3d3834] shadow-[0_12px_30px_-24px_rgba(61,56,52,0.45)]">
+                      <span class="flex h-7 w-7 items-center justify-center rounded-full bg-[#FFFAFA] text-[#3d3834]">
+                        {platform.icon === "instagram" && (
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="14"
+                            height="14"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            aria-hidden="true"
+                          >
+                            <rect x="3" y="3" width="18" height="18" rx="5" />
+                            <circle cx="12" cy="12" r="4" />
+                            <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
+                          </svg>
+                        )}
+                        {platform.icon === "tiktok" && (
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="14"
+                            height="14"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            aria-hidden="true"
+                          >
+                            <path d="M14 4c.5 1.9 1.8 3.6 4 4.2" />
+                            <path d="M10 11.5V5h4v10.5a3.5 3.5 0 1 1-3.5-3.5" />
+                          </svg>
+                        )}
+                        {platform.icon === "ulule" && (
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="14"
+                            height="14"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            aria-hidden="true"
+                          >
+                            <path d="M7 7v6a5 5 0 0 0 10 0V7" />
+                            <path d="M7 17h10" />
+                          </svg>
+                        )}
+                      </span>
+                      <span class="font-sans text-[9px] font-bold tracking-[0.24em] uppercase">
+                        {platform.label}
+                      </span>
+                    </div>
+                  ))
+                }
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="pointer-events-none absolute inset-x-0 bottom-0 h-48 opacity-5"
+        >
+          <svg
+            viewBox="0 0 400 150"
+            preserveAspectRatio="none"
+            class="h-full w-full fill-[#3d3834]"
+          >
+            <path d="M0,80 C150,120 250,40 400,80 L400,150 L0,150 Z"></path>
+          </svg>
+        </div>
+      </div>
+
+      <div
+        class="relative z-10 grid grid-cols-1 gap-6 md:col-span-8 md:grid-cols-2"
+      >
+        <div
+          class="section-panel fade-up group relative flex min-h-[310px] flex-col justify-between overflow-hidden rounded-[2.6rem] border border-[#3a4d45]/20 bg-[#3a4d45] p-10 shadow-xl transition-colors duration-500 hover:border-[#3a4d45]/30 hover:bg-[#3d3834]"
+        >
+          <div class="relative z-10 space-y-6">
+            <div class="flex items-center justify-between">
+              <div
+                class="rounded-2xl bg-[#FFFAFA] p-3 backdrop-blur-md transition-colors duration-500 group-hover:bg-[#3a4d45]"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="text-[#3d3834] transition-colors duration-500 group-hover:text-[#FFFAFA]"
+                >
+                  <path
+                    d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z"
+                  ></path>
+                  <path d="M20 2v4"></path>
+                  <path d="M22 4h-4"></path>
+                  <circle cx="4" cy="20" r="2"></circle>
+                </svg>
+              </div>
+              <span
+                class="rounded-full bg-[#3d3834] px-3 py-1 font-sans text-[9px] font-bold tracking-[0.2em] text-[#FFFAFA] uppercase transition-colors duration-500 group-hover:bg-[#3a4d45] group-hover:text-[#FFFAFA]"
+              >
+                Prestations
+              </span>
+            </div>
+
+            <div class="space-y-2">
+              <h3
+                class="font-serif text-4xl leading-none text-[#FFFAFA] transition-colors duration-500 group-hover:text-[#FFFAFA]"
+              >
+                Services
+              </h3>
+              <p
+                class="font-sans text-xs text-[#FFFAFA] transition-colors duration-500 group-hover:text-[#FFFAFA]"
+              >
+                Accompagnement creatif et direction artistique.
+              </p>
+            </div>
+
+            <div class="flex flex-wrap gap-3">
+              <a
+                href="/galerie"
+                class="inline-flex h-10 items-center rounded-full border border-transparent bg-[#FFFAFA] px-6 font-sans text-[10px] font-bold tracking-widest text-[#3d3834] uppercase transition-all duration-300 hover:bg-[#FFFAFA] hover:text-[#3d3834] group-hover:border-[#FFFAFA]/20"
+              >
+                Portfolios
+              </a>
+              <a
+                href="/tarifs"
+                class="inline-flex h-10 items-center rounded-full border border-transparent bg-[#FFFAFA] px-6 font-sans text-[10px] font-bold tracking-widest text-[#3d3834] uppercase transition-all duration-300 hover:bg-[#FFFAFA] hover:text-[#3d3834] group-hover:border-[#FFFAFA]/20"
+              >
+                Tarifs
+              </a>
+            </div>
+          </div>
+
+          <div
+            class="absolute -right-8 -bottom-8 rotate-12 opacity-10 transition-transform duration-1000"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="200"
+              height="200"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="h-full w-full fill-[#FFFAFA] transition-colors duration-500 group-hover:fill-[#FFFAFA] opacity-50 group-hover:opacity-100"
+            >
+              <path
+                d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z"
+              ></path>
+              <path d="M20 2v4"></path>
+              <path d="M22 4h-4"></path>
+              <circle cx="4" cy="20" r="2"></circle>
+            </svg>
+          </div>
+        </div>
+
+        <div
+          class="section-panel fade-up group relative flex min-h-[310px] flex-col justify-between overflow-hidden rounded-[2.6rem] border border-[#FFFAFA]/8 bg-[#FFFAFA] p-10 shadow-xl transition-colors duration-500 hover:border-[#3a4d45]/25 hover:bg-[#FFFAFA]"
+        >
+          <div class="relative z-10 space-y-6">
+            <div class="flex items-center justify-between">
+              <div
+                class="flex h-12 w-12 items-center justify-center rounded-2xl border shadow-sm transition-all duration-300 border-[#3d3834]/10 bg-[#3d3834] text-[#FFFAFA]"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="text-[#FFFAFA]"
+                >
+                  <path
+                    d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17"
+                  ></path>
+                  <path d="m10 15 5-3-5-3z"></path>
+                </svg>
+              </div>
+              <span
+                class="rounded-full bg-[#3d3834] px-3 py-1 font-sans text-[9px] font-bold tracking-[0.2em] text-[#FFFAFA] uppercase"
+              >
+                Playlists
+              </span>
+            </div>
+
+            <h3 class="font-serif text-4xl leading-none text-[#3d3834]">
+              YouTube
+            </h3>
+
+            <div class="space-y-3">
+              <a
+                href="#"
+                class="group/link flex items-center justify-between rounded-xl bg-[#FFFAFA] p-3 transition-all hover:bg-[#FFFAFA] ring ring-[#3d3834]/10"
+              >
+                <span
+                  class="flex items-center gap-2 font-sans text-xs text-[#3d3834]"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="12"
+                    height="12"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="fill-[#3d3834]/40 transition-all group-hover/link:fill-[#3d3834]"
+                  >
+                    <path
+                      d="M5 5a2 2 0 0 1 3.008-1.728l11.997 6.998a2 2 0 0 1 .003 3.458l-12 7A2 2 0 0 1 5 19z"
+                    ></path>
+                  </svg>
+                  Playlist 1
+                </span>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="-translate-x-2 text-[#3d3834]/55 opacity-0 transition-all group-hover/link:translate-x-0 group-hover/link:opacity-100"
+                >
+                  <path d="M5 12h14"></path>
+                  <path d="m12 5 7 7-7 7"></path>
+                </svg>
+              </a>
+              <a
+                href="#"
+                class="group/link flex items-center justify-between rounded-xl bg-[#FFFAFA] p-3 transition-all hover:bg-[#FFFAFA] ring ring-[#3d3834]/10"
+              >
+                <span
+                  class="flex items-center gap-2 font-sans text-xs text-[#3d3834]"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="12"
+                    height="12"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="fill-[#3d3834]/40 transition-all group-hover/link:fill-[#3d3834]"
+                  >
+                    <path
+                      d="M5 5a2 2 0 0 1 3.008-1.728l11.997 6.998a2 2 0 0 1 .003 3.458l-12 7A2 2 0 0 1 5 19z"
+                    ></path>
+                  </svg>
+                  Playlist 2
+                </span>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="-translate-x-2 text-[#3d3834]/55 opacity-0 transition-all group-hover/link:translate-x-0 group-hover/link:opacity-100"
+                >
+                  <path d="M5 12h14"></path>
+                  <path d="m12 5 7 7-7 7"></path>
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="section-panel fade-up group relative flex min-h-[310px] flex-col justify-between overflow-hidden rounded-[2.7rem] border border-[#3a4d45]/20 bg-[#3a4d45] p-12 shadow-xl backdrop-blur-md transition-all duration-500 hover:border-[#3a4d45]/30 hover:bg-[#3d3834] md:col-span-2"
+        >
+          <div class="relative z-10 max-w-md space-y-6">
+            <div class="flex items-center gap-3">
+              <div
+                class="rounded-2xl bg-[#FFFAFA] p-3 backdrop-blur-md transition-colors duration-500 group-hover:bg-[#3a4d45]"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="text-[#3d3834] transition-colors duration-500 group-hover:text-[#FFFAFA]"
+                >
+                  <path
+                    d="M14.106 5.553a2 2 0 0 0 1.788 0l3.659-1.83A1 1 0 0 1 21 4.619v12.764a1 1 0 0 1-.553.894l-4.553 2.277a2 2 0 0 1-1.788 0l-4.212-2.106a2 2 0 0 0-1.788 0l-3.659 1.83A1 1 0 0 1 3 19.381V6.618a1 1 0 0 1 .553-.894l4.553-2.277a2 2 0 0 1 1.788 0z"
+                  ></path>
+                  <path d="M15 5.764v15"></path>
+                  <path d="M9 3.236v15"></path>
+                </svg>
+              </div>
+              <span
+                class="font-sans text-[10px] font-bold tracking-[0.4em] text-[#FFFAFA] uppercase transition-colors duration-500 group-hover:text-[#FFFAFA]"
+              >
+                Archive Interactive
+              </span>
+            </div>
+
+            <div class="space-y-3">
+              <h3
+                class="font-serif text-5xl leading-none text-[#FFFAFA] transition-colors duration-500 group-hover:text-[#FFFAFA]"
+              >
+                Carte des recits
+              </h3>
+              <p
+                class="font-sans text-sm leading-relaxed font-light text-[#FFFAFA]/72 transition-colors duration-500 group-hover:text-[#FFFAFA]/72"
+              >
+                Voyagez a travers les epoques et les mondes que j'ai crees pour
+                chaque roman.
+              </p>
+            </div>
+          </div>
+
+          <div
+            class="relative z-10 flex flex-col items-start justify-between gap-8 sm:flex-row sm:items-end"
+          >
+            <div class="flex gap-16">
+              <div class="space-y-1">
+                <span
+                  class="font-serif text-5xl tabular-nums text-[#FFFAFA] transition-colors duration-500 group-hover:text-[#FFFAFA]"
+                >
+                  0<span
+                    class="text-2xl text-[#FFFAFA]/72 transition-colors duration-500 group-hover:text-[#FFFAFA]/72"
+                    >/245</span
+                  >
+                </span>
+                <p
+                  class="font-sans text-[9px] font-bold tracking-widest text-[#FFFAFA]/72 uppercase transition-colors duration-500 group-hover:text-[#FFFAFA]/72"
+                >
+                  Objets trouves
+                </p>
+              </div>
+              <div class="space-y-1">
+                <span
+                  class="font-serif text-5xl tabular-nums text-[#FFFAFA] transition-colors duration-500 group-hover:text-[#FFFAFA]"
+                >
+                  3<span
+                    class="text-2xl text-[#FFFAFA]/72 transition-colors duration-500 group-hover:text-[#FFFAFA]/72"
+                    >/3</span
+                  >
+                </span>
+                <p
+                  class="font-sans text-[9px] font-bold tracking-widest text-[#FFFAFA]/72 uppercase transition-colors duration-500 group-hover:text-[#FFFAFA]/72"
+                >
+                  Mondes explores
+                </p>
+              </div>
+            </div>
+
+            <button
+              class="h-14 rounded-2xl bg-[#3d3834] px-10 font-sans text-[10px] font-bold tracking-widest text-[#FFFAFA] uppercase shadow-2xl transition-all duration-300 hover:bg-[#FFFAFA] hover:text-[#3d3834] group-hover:bg-[#3d3834] group-hover:text-[#FFFAFA]"
+            >
+              Ouvrir le Journal
+            </button>
+
+            <button
+              class="h-14 rounded-2xl bg-[#3d3834] px-10 font-sans text-[10px] font-bold tracking-widest text-[#FFFAFA] uppercase shadow-2xl transition-all duration-300 hover:bg-[#FFFAFA] hover:text-[#3d3834] group-hover:bg-[#3d3834] group-hover:text-[#FFFAFA]"
+            >
+              Ouvrir le Journal
+            </button>
+          </div>
+
+          <div
+            class="pointer-events-none absolute top-0 right-0 h-full w-full opacity-5 transition-transform duration-[4s] group-hover:scale-110"
+          >
+            <svg
+              viewBox="0 0 1000 1000"
+              class="h-full w-full fill-[#FFFAFA] transition-colors duration-500 group-hover:fill-[#FFFAFA] opacity-50 group-hover:opacity-100"
+            >
+              <circle cx="800" cy="200" r="300"></circle>
+              <circle cx="200" cy="800" r="400"></circle>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

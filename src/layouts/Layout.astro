@@ -1,0 +1,177 @@
+---
+import "../styles/global.css";
+import Hero from "../components/Hero.astro";
+
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+
+---
+
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content={Astro.generator} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" />
+    <title>{title}</title>
+  </head>
+  <body class="bg-[#FFFAFA] text-[#3d3834]">
+    <header class="fixed inset-x-0 top-0 z-[60] px-4 py-4">
+      <div class="mx-auto flex max-w-8xl items-center justify-between rounded-full border border-[#3d3834]/10 bg-[#FFFAFA]/92 px-4 py-3 shadow-[0_18px_50px_-30px_rgba(61,56,52,0.35)] backdrop-blur-md">
+        <a href="/" class="inline-flex items-center gap-3 text-[#3d3834]">
+          <span class="flex h-12 w-12 items-center justify-center rounded-full bg-[#3d3834] font-serif text-2xl text-[#FFFAFA]">
+            VS
+          </span>
+          <span class="hidden sm:block">
+            <span class="block font-sans text-[10px] font-bold tracking-[0.28em] uppercase">
+              Vanya Stolarski
+            </span>
+          </span>
+        </a>
+
+        <button
+          type="button"
+          id="site-menu-toggle"
+          class="inline-flex h-11 w-11 items-center justify-center rounded-full bg-[#3d3834] text-[#FFFAFA] transition-transform duration-300 hover:scale-[1.03]"
+          aria-label="Ouvrir le menu"
+          aria-expanded="false"
+          aria-controls="site-menu-panel"
+        >
+          <svg
+            id="site-menu-icon-open"
+            xmlns="http://www.w3.org/2000/svg"
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M4 7h16" />
+            <path d="M4 12h16" />
+            <path d="M4 17h16" />
+          </svg>
+          <svg
+            id="site-menu-icon-close"
+            xmlns="http://www.w3.org/2000/svg"
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="hidden"
+          >
+            <path d="M18 6 6 18" />
+            <path d="m6 6 12 12" />
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <div
+      id="site-menu-overlay"
+      class="pointer-events-none fixed inset-0 z-40 bg-[#3d3834]/40 opacity-0 transition-opacity duration-300"
+      aria-hidden="true"
+    ></div>
+
+    <aside
+      id="site-menu-panel"
+      class="pointer-events-none fixed inset-0 z-50 overflow-y-auto opacity-0 transition-opacity duration-300"
+      aria-hidden="true"
+    >
+      <Hero />
+    </aside>
+
+    <slot />
+
+    <script>
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("visible");
+            }
+          });
+        },
+        { threshold: 0.1 }
+      );
+
+      document.querySelectorAll(".fade-up").forEach((el) => observer.observe(el));
+
+      const menuToggle = document.getElementById("site-menu-toggle");
+      const menuPanel = document.getElementById("site-menu-panel");
+      const menuOverlay = document.getElementById("site-menu-overlay");
+      const menuOpenIcon = document.getElementById("site-menu-icon-open");
+      const menuCloseIcon = document.getElementById("site-menu-icon-close");
+      const menuLinks = Array.from(document.querySelectorAll("#site-menu-panel a"));
+      let lastTrigger = null;
+
+      const setMenuState = (isOpen) => {
+        if (
+          !(menuToggle instanceof HTMLButtonElement) ||
+          !(menuPanel instanceof HTMLElement) ||
+          !(menuOverlay instanceof HTMLElement)
+        ) {
+          return;
+        }
+
+        menuToggle.setAttribute("aria-expanded", String(isOpen));
+        menuToggle.setAttribute(
+          "aria-label",
+          isOpen ? "Fermer le menu" : "Ouvrir le menu"
+        );
+        menuPanel.setAttribute("aria-hidden", String(!isOpen));
+        menuOverlay.setAttribute("aria-hidden", String(!isOpen));
+        menuPanel.classList.toggle("pointer-events-none", !isOpen);
+        menuPanel.classList.toggle("opacity-0", !isOpen);
+        menuOverlay.classList.toggle("opacity-0", !isOpen);
+        menuOverlay.classList.toggle("pointer-events-none", !isOpen);
+        document.body.style.overflow = isOpen ? "hidden" : "";
+
+        if (menuOpenIcon instanceof HTMLElement) {
+          menuOpenIcon.classList.toggle("hidden", isOpen);
+        }
+
+        if (menuCloseIcon instanceof HTMLElement) {
+          menuCloseIcon.classList.toggle("hidden", !isOpen);
+        }
+
+        if (!isOpen && lastTrigger instanceof HTMLElement) {
+          lastTrigger.focus();
+        }
+      };
+
+      if (menuToggle instanceof HTMLButtonElement) {
+        menuToggle.addEventListener("click", () => {
+          const isOpen = menuToggle.getAttribute("aria-expanded") === "true";
+          lastTrigger = menuToggle;
+          setMenuState(!isOpen);
+        });
+      }
+
+      if (menuOverlay instanceof HTMLElement) {
+        menuOverlay.addEventListener("click", () => setMenuState(false));
+      }
+
+      menuLinks.forEach((link) => {
+        link.addEventListener("click", () => setMenuState(false));
+      });
+
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") {
+          setMenuState(false);
+        }
+      });
+    </script>
+  </body>
+</html>

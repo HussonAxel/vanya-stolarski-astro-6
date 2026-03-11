@@ -1,0 +1,372 @@
+---
+import Layout from "../layouts/Layout.astro";
+import {
+  galleryItems,
+  galleryArtistFilters,
+  galleryBookFilters,
+  galleryBookFilterLabels,
+} from "../data/gallery";
+---
+
+<Layout title="Galerie - Vanya Stolarski">
+  <main class="overflow-hidden bg-[#FFFAFA] text-[#3d3834]">
+    <section class="relative overflow-hidden bg-[#3d3834] px-6 py-24 text-[#FFFAFA]">
+      <div class="relative mx-auto max-w-7xl">
+        <a href="/" class="inline-flex items-center gap-3 font-sans text-[10px] font-bold tracking-[0.35em] text-[#3a4d45] uppercase">
+          <span class="h-px w-10 bg-[#3a4d45]"></span>
+          Retour a l'accueil
+        </a>
+
+        <div class="mt-10 grid gap-10 md:grid-cols-[1.15fr_0.85fr] md:items-end">
+          <div class="space-y-6">
+            <span class="inline-flex rounded-full border border-[#FFFAFA]/10 bg-[#FFFAFA] px-4 py-2 font-sans text-[10px] font-bold tracking-[0.25em] text-[#3d3834] uppercase">
+              Galerie editoriale
+            </span>
+            <h1 class="max-w-4xl font-serif text-5xl leading-none md:text-7xl">
+              Une galerie plus brute, plus collection, plus proche d'un mur d'atelier vivant.
+            </h1>
+            <p class="max-w-2xl font-sans text-base leading-relaxed text-[#FFFAFA] md:text-lg">
+              Les images se lisent d'abord comme une matiere visuelle. Au clic, chaque illustration s'ouvre dans une fiche plus detaillee avec son contexte et son rattachement au roman.
+            </p>
+          </div>
+
+          <div class="section-panel fade-up rounded-[2rem] border border-[#FFFAFA]/10 bg-[#FFFAFA] p-8 backdrop-blur-sm">
+            <div class="grid grid-cols-2 gap-6">
+              <div>
+                <p class="font-serif text-5xl text-[#3a4d45]">{galleryItems.length}</p>
+                <p class="mt-2 font-sans text-[10px] font-bold tracking-[0.25em] text-[#3d3834] uppercase">
+                  Visuels
+                </p>
+              </div>
+              <div>
+                <p class="font-serif text-5xl text-[#3a4d45]">{galleryArtistFilters.length - 1}</p>
+                <p class="mt-2 font-sans text-[10px] font-bold tracking-[0.25em] text-[#3d3834] uppercase">
+                  Artistes
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="relative overflow-hidden bg-[#FFFAFA] px-6 py-16 md:py-20">
+      <div class="relative mx-auto max-w-8xl space-y-8">
+        <div class="section-panel fade-up rounded-[1.8rem] border border-[#3d3834]/10 bg-[#FFFAFA] p-4 shadow-[0_20px_70px_-45px_rgba(61,56,52,0.3)] backdrop-blur-sm md:p-5">
+          <div class="space-y-3">
+            <p id="gallery-book-filter-label" class="sr-only">Filtrer par roman</p>
+            <div class="flex flex-wrap gap-2" data-filter-group="book" aria-labelledby="gallery-book-filter-label">
+              {
+                galleryBookFilters.map((filter) => (
+                  <button
+                    type="button"
+                    data-book-filter={filter}
+                    data-filter-kind="book"
+                    data-active={filter === "all" ? "true" : "false"}
+                    class="gallery-filter rounded-full border border-[#3d3834]/10 bg-[#FFFAFA] px-3 py-2 font-sans text-[9px] font-bold tracking-[0.18em] text-[#3d3834] uppercase transition-all duration-300"
+                    aria-label={filter === "all" ? "Afficher tous les romans" : `Filtrer par ${galleryBookFilterLabels[filter]}`}
+                  >
+                    {filter === "all" ? "Tout" : galleryBookFilterLabels[filter]}
+                  </button>
+                ))
+              }
+            </div>
+
+            <div class="h-px w-full bg-[#3d3834]"></div>
+
+            <p id="gallery-artist-filter-label" class="sr-only">Filtrer par artiste</p>
+            <div class="flex flex-wrap gap-2" data-filter-group="artist" aria-labelledby="gallery-artist-filter-label">
+              {
+                galleryArtistFilters.map((filter) => (
+                  <button
+                    type="button"
+                    data-artist-filter={filter}
+                    data-filter-kind="artist"
+                    data-active={filter === "all" ? "true" : "false"}
+                    class="gallery-filter rounded-full border border-[#3d3834]/10 bg-[#FFFAFA] px-3 py-2 font-sans text-[9px] font-bold tracking-[0.18em] text-[#3d3834] uppercase transition-all duration-300"
+                    aria-label={filter === "all" ? "Afficher tous les artistes" : `Filtrer par ${filter}`}
+                  >
+                    {filter === "all" ? "Tout" : filter}
+                  </button>
+                ))
+              }
+            </div>
+          </div>
+        </div>
+
+        <div class="w-full md:w-11/12 md:mx-auto">
+          <div
+            id="gallery-grid"
+            class="gallery-columns columns-1 gap-4 sm:columns-2 xl:columns-4"
+          >
+            {
+              galleryItems.map((item) => (
+                <button
+                  type="button"
+                  class="gallery-item gallery-card fade-up group relative mb-4 block w-full break-inside-avoid overflow-hidden rounded-[1.35rem] border border-[#3d3834]/8 bg-[#FFFAFA] shadow-[0_24px_80px_-52px_rgba(61,56,52,0.45)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_30px_90px_-52px_rgba(61,56,52,0.5)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#3a4d45]"
+                  data-book={item.bookKey}
+                  data-artist={item.artist}
+                  data-gallery-trigger
+                  data-title={item.title}
+                  data-image={item.image}
+                  data-alt={item.alt}
+                  data-book-label={item.book}
+                  data-book-href={item.bookHref ?? ""}
+                  data-artist-label={item.artist}
+                  data-date={item.date}
+                  data-description={item.description}
+                  aria-label={`Ouvrir la fiche de ${item.title}`}
+                >
+                  <div class="relative overflow-hidden bg-[#FFFAFA]">
+                    <img
+                      src={item.image}
+                      alt={item.alt}
+                      loading="lazy"
+                      class="w-full rounded-[1.35rem] object-cover transition-transform duration-700 group-hover:scale-[1.025]"
+                    />
+                  </div>
+                </button>
+              ))
+            }
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div
+      id="gallery-modal"
+      class="pointer-events-none fixed inset-0 z-50 flex items-center justify-center bg-[#3d3834]/72 px-4 py-6 opacity-0 transition-all duration-300"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="gallery-modal-title"
+      aria-hidden="true"
+    >
+      <div data-gallery-close class="absolute inset-0"></div>
+      <div class="relative z-10 max-h-[92vh] w-full max-w-6xl overflow-hidden rounded-[2rem] border border-[#FFFAFA]/10 bg-[#FFFAFA] shadow-[0_35px_120px_-50px_rgba(61,56,52,0.6)]">
+        <button
+          type="button"
+          id="gallery-modal-close"
+          class="absolute top-4 right-4 z-20 inline-flex h-11 w-11 items-center justify-center rounded-full border border-[#3d3834]/10 bg-[#FFFAFA]/90 font-sans text-xs font-bold tracking-[0.2em] text-[#3d3834] uppercase transition-all duration-300 hover:-translate-y-0.5"
+          aria-label="Fermer la popup"
+        >
+          X
+        </button>
+
+        <div class="grid lg:grid-cols-[minmax(0,1fr)_360px] lg:items-center">
+          <div class="flex items-center justify-center bg-[#3d3834] p-3 md:p-4">
+            <div class="inline-flex max-w-full items-center justify-center overflow-hidden rounded-[1.25rem] border border-[#FFFAFA]/8 bg-[#3d3834] shadow-[0_24px_60px_-45px_rgba(61,56,52,0.45)]">
+              <img
+                id="gallery-modal-image"
+                src=""
+                alt=""
+                class="block max-h-[40vh] max-w-full object-contain md:max-h-[78vh]"
+              />
+            </div>
+          </div>
+
+          <div class="space-y-5 p-6 md:p-8">
+            <div>
+              <p id="gallery-modal-artist" class="font-sans text-[10px] font-bold tracking-[0.3em] text-[#3d3834] uppercase"></p>
+              <h2 id="gallery-modal-title" class="mt-3 font-serif text-3xl leading-none md:text-4xl"></h2>
+              <p id="gallery-modal-description" class="mt-4 font-sans text-sm leading-relaxed text-[#3d3834]/78 md:text-base"></p>
+            </div>
+
+            <div class="grid gap-3 sm:grid-cols-3">
+              <div class="rounded-[1.4rem] border border-[#3d3834]/10 bg-[#FFFAFA] p-4">
+                <p class="font-sans text-[10px] font-bold tracking-[0.22em] text-[#3d3834] uppercase">Roman</p>
+                <p id="gallery-modal-book" class="mt-2 font-serif text-xl leading-tight"></p>
+              </div>
+              <div class="rounded-[1.4rem] border border-[#3d3834]/10 bg-[#FFFAFA] p-4">
+                <p class="font-sans text-[10px] font-bold tracking-[0.22em] text-[#3d3834] uppercase">Artiste</p>
+                <p id="gallery-modal-artist-detail" class="mt-2 font-serif text-xl leading-tight"></p>
+              </div>
+              <div class="rounded-[1.4rem] border border-[#3d3834]/10 bg-[#FFFAFA] p-4">
+                <p class="font-sans text-[10px] font-bold tracking-[0.22em] text-[#3d3834] uppercase">Date</p>
+                <p id="gallery-modal-date" class="mt-2 font-serif text-xl leading-tight"></p>
+              </div>
+            </div>
+
+            <div class="rounded-[1.5rem] border border-[#3d3834]/10 bg-[#FFFAFA] p-5">
+              <p class="font-sans text-[10px] font-bold tracking-[0.22em] text-[#3d3834] uppercase">
+                Note
+              </p>
+              <p id="gallery-modal-alt" class="mt-3 font-sans text-sm leading-relaxed text-[#3d3834]/78"></p>
+            </div>
+
+            <div class="flex flex-wrap gap-3 pt-2">
+              <a
+                id="gallery-modal-link"
+                href="#"
+                class="inline-flex items-center gap-3 rounded-full bg-[#3d3834] px-6 py-4 font-sans text-[11px] font-bold tracking-[0.24em] text-[#FFFAFA] uppercase transition-all duration-300 hover:-translate-y-1"
+              >
+                Voir le roman
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const state = { book: "all", artist: "all" };
+
+      const itemEls = Array.from(document.querySelectorAll(".gallery-item"));
+      const bookButtons = Array.from(document.querySelectorAll("[data-book-filter]"));
+      const artistButtons = Array.from(document.querySelectorAll("[data-artist-filter]"));
+
+      const modal = document.getElementById("gallery-modal");
+      const modalImage = document.getElementById("gallery-modal-image");
+      const modalTitle = document.getElementById("gallery-modal-title");
+      const modalArtist = document.getElementById("gallery-modal-artist");
+      const modalDescription = document.getElementById("gallery-modal-description");
+      const modalBook = document.getElementById("gallery-modal-book");
+      const modalArtistDetail = document.getElementById("gallery-modal-artist-detail");
+      const modalDate = document.getElementById("gallery-modal-date");
+      const modalAlt = document.getElementById("gallery-modal-alt");
+      const modalLink = document.getElementById("gallery-modal-link");
+      const modalCloseButtons = Array.from(document.querySelectorAll("[data-gallery-close]"));
+      const modalCloseButton = document.getElementById("gallery-modal-close");
+      let lastTrigger = null;
+
+      const updateButtonState = (buttons, activeValue, attr) => {
+        buttons.forEach((button) => {
+          const value = button.getAttribute(attr);
+          button.dataset.active = String(value === activeValue);
+        });
+      };
+
+      const applyFilters = () => {
+        itemEls.forEach((item) => {
+          const matchesBook = state.book === "all" || item.dataset.book === state.book;
+          const matchesArtist =
+            state.artist === "all" || item.dataset.artist === state.artist;
+          const visible = matchesBook && matchesArtist;
+
+          item.style.display = visible ? "block" : "none";
+        });
+
+        updateButtonState(bookButtons, state.book, "data-book-filter");
+        updateButtonState(artistButtons, state.artist, "data-artist-filter");
+      };
+
+      const openModal = (trigger) => {
+        if (
+          !modal ||
+          !modalImage ||
+          !modalTitle ||
+          !modalArtist ||
+          !modalDescription ||
+          !modalBook ||
+          !modalArtistDetail ||
+          !modalDate ||
+          !modalAlt ||
+          !modalLink
+        ) {
+          return;
+        }
+
+        lastTrigger = trigger;
+
+        modalImage.setAttribute("src", trigger.dataset.image ?? "");
+        modalImage.setAttribute("alt", trigger.dataset.alt ?? "");
+        modalTitle.textContent = trigger.dataset.title ?? "";
+        modalArtist.textContent = trigger.dataset.artistLabel ?? "";
+        modalDescription.textContent = trigger.dataset.description ?? "";
+        modalBook.textContent = trigger.dataset.bookLabel ?? "";
+        modalArtistDetail.textContent = trigger.dataset.artistLabel ?? "";
+        modalDate.textContent = trigger.dataset.date ?? "";
+        modalAlt.textContent = trigger.dataset.alt ?? "";
+        const bookHref = trigger.dataset.bookHref ?? "";
+        modalLink.setAttribute("href", bookHref || "#");
+        modalLink.toggleAttribute("hidden", !bookHref);
+
+        modal.classList.remove("pointer-events-none", "opacity-0");
+        modal.classList.add("opacity-100");
+        modal.setAttribute("aria-hidden", "false");
+        document.body.style.overflow = "hidden";
+        if (modalCloseButton instanceof HTMLButtonElement) {
+          modalCloseButton.focus();
+        }
+      };
+
+      const closeModal = () => {
+        if (!modal) {
+          return;
+        }
+
+        modal.classList.add("pointer-events-none", "opacity-0");
+        modal.classList.remove("opacity-100");
+        modal.setAttribute("aria-hidden", "true");
+        document.body.style.overflow = "";
+
+        if (lastTrigger instanceof HTMLElement) {
+          lastTrigger.focus();
+        }
+      };
+
+      bookButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+          state.book = button.getAttribute("data-book-filter") ?? "all";
+          applyFilters();
+        });
+      });
+
+      artistButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+          state.artist = button.getAttribute("data-artist-filter") ?? "all";
+          applyFilters();
+        });
+      });
+
+      itemEls.forEach((item) => {
+        item.addEventListener("click", () => openModal(item));
+      });
+
+      if (modalCloseButton instanceof HTMLButtonElement) {
+        modalCloseButton.addEventListener("click", closeModal);
+      }
+
+      modalCloseButtons.forEach((button) => {
+        button.addEventListener("click", closeModal);
+      });
+
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape" && modal?.getAttribute("aria-hidden") === "false") {
+          closeModal();
+        }
+      });
+
+      applyFilters();
+    </script>
+
+    <style>
+      .gallery-filter[data-filter-kind="book"][data-active="true"] {
+        background: #3a4d45;
+        border-color: #3a4d45;
+        color: #FFFAFA;
+      }
+
+      .gallery-filter[data-filter-kind="artist"][data-active="true"] {
+        background: #3d3834;
+        border-color: #3d3834;
+        color: #FFFAFA;
+      }
+
+      .gallery-filter {
+        line-height: 1;
+      }
+
+      .gallery-columns {
+        column-fill: balance;
+      }
+
+      .gallery-card {
+        transform-origin: center top;
+      }
+
+      .gallery-card-overlay {
+        background: linear-gradient(180deg, transparent 0%, rgba(61, 56, 52, 0.12) 24%, rgba(61, 56, 52, 0.58) 100%);
+      }
+    </style>
+  </main>
+</Layout>

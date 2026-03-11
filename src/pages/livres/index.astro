@@ -1,0 +1,135 @@
+---
+import { books } from "../../data/books";
+import Layout from "../../layouts/Layout.astro";
+---
+
+<Layout title="Livres - Vanya Stolarski">
+  <main class="bg-[#FFFAFA] text-[#3d3834]">
+    <section class="relative overflow-hidden bg-[#3d3834] px-6 py-24 text-[#FFFAFA]">
+      <div class="relative mx-auto flex max-w-8xl flex-col gap-10">
+        <a
+          href="/"
+          class="inline-flex items-center gap-3 font-sans text-[10px] font-bold tracking-[0.35em] text-[#3a4d45] uppercase"
+        >
+          <span class="h-px w-10 bg-[#3a4d45]"></span>
+          Retour a l'accueil
+        </a>
+
+        <div class="grid gap-10 md:grid-cols-[1.3fr_0.7fr] md:items-end">
+          <div class="space-y-6">
+            <span class="inline-flex rounded-full border border-[#FFFAFA]/10 bg-[#FFFAFA] px-4 py-2 font-sans text-[10px] font-bold tracking-[0.25em] text-[#3d3834] uppercase">
+              Bibliotheque
+            </span>
+            <h1 class="max-w-4xl font-serif text-5xl leading-none md:text-7xl">
+              Les livres vivent ici, avec la meme tension feutree que la page d'accueil.
+            </h1>
+            <p class="max-w-2xl font-sans text-base leading-relaxed text-[#FFFAFA] md:text-lg">
+              Chaque fiche livre est prete a recevoir vos vrais textes. Pour l'instant,
+              j'ai pose une structure editoriale complete avec des contenus placeholder.
+            </p>
+          </div>
+
+          <div class="fade-up rounded-[2rem] border border-[#FFFAFA]/10 bg-[#FFFAFA] p-8 backdrop-blur-sm">
+            <div class="grid grid-cols-2 gap-6">
+              <div>
+                <p class="font-serif text-5xl text-[#3a4d45]">{books.length}</p>
+                <p class="mt-2 font-sans text-[10px] font-bold tracking-[0.25em] text-[#3d3834] uppercase">
+                  Fiches pretes
+                </p>
+              </div>
+              <div>
+                <p class="font-serif text-5xl text-[#3a4d45]">100%</p>
+                <p class="mt-2 font-sans text-[10px] font-bold tracking-[0.25em] text-[#3d3834] uppercase">
+                  Editable
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="px-6 py-24">
+      <div class="mx-auto max-w-7xl">
+        <div class="grid gap-10 lg:grid-cols-3">
+          {
+            books.map((book, index) => (
+              <article class="fade-up group overflow-hidden rounded-[2rem] border border-[#3d3834]/10 bg-[#FFFAFA] shadow-[0_24px_80px_-40px_rgba(61,56,52,0.45)]">
+                <div class="relative aspect-[4/5] overflow-hidden" style={`background:${book.accent};`}>
+                  <img
+                    src={book.cover}
+                    alt={`Couverture de ${book.title}`}
+                    loading="lazy"
+                    class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  />
+                  <div class="absolute inset-0 bg-gradient-to-t from-[#3d3834]/45 via-transparent to-transparent"></div>
+                  <div class="absolute right-5 bottom-5 left-5 flex items-end justify-between gap-4">
+                    <div>
+                      <p class="font-sans text-[10px] font-bold tracking-[0.3em] text-[#FFFAFA] uppercase">
+                        {book.series}
+                      </p>
+                      <h2 class="mt-2 font-serif text-3xl text-[#FFFAFA]">{book.title}</h2>
+                    </div>
+                    <span class="rounded-full border border-[#FFFAFA]/20 bg-[#FFFAFA] px-3 py-1 font-sans text-[10px] font-bold tracking-[0.25em] text-[#3d3834] uppercase">
+                      {String(index + 1).padStart(2, "0")}
+                    </span>
+                  </div>
+                </div>
+
+                <div class="space-y-6 p-8">
+                  <div class="flex flex-wrap gap-2">
+                    {book.genres.map((genre) => (
+                      <span class="rounded-full border border-[#3d3834]/10 bg-[#FFFAFA] px-3 py-1 font-sans text-[10px] font-bold tracking-[0.12em] text-[#3d3834] uppercase">
+                        {genre}
+                      </span>
+                    ))}
+                  </div>
+
+                  <p class="font-sans text-sm leading-relaxed text-[#3d3834]/78">
+                    {book.description}
+                  </p>
+
+                  <div class="grid grid-cols-3 gap-4 border-y border-[#3d3834]/10 py-5">
+                    <div>
+                      <p class="font-serif text-2xl">{book.pages}</p>
+                      <p class="font-sans text-[10px] font-bold tracking-[0.2em] text-[#3d3834] uppercase">Pages</p>
+                    </div>
+                    <div>
+                      <p class="font-serif text-2xl">{book.tome.replace("Tome ", "T")}</p>
+                      <p class="font-sans text-[10px] font-bold tracking-[0.2em] text-[#3d3834] uppercase">Volume</p>
+                    </div>
+                    <div>
+                      <p class="font-serif text-2xl">{book.status === "En ecriture" ? "WIP" : "OK"}</p>
+                      <p class="font-sans text-[10px] font-bold tracking-[0.2em] text-[#3d3834] uppercase">Etat</p>
+                    </div>
+                  </div>
+
+                  <a
+                    href={`/livres/${book.slug}`}
+                    class="inline-flex items-center gap-3 rounded-full bg-[#3d3834] px-6 py-3 font-sans text-[11px] font-bold tracking-[0.25em] text-[#FFFAFA] uppercase transition-all duration-300 hover:-translate-y-1"
+                  >
+                    Ouvrir la fiche
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="14"
+                      height="14"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <path d="M5 12h14" />
+                      <path d="m12 5 7 7-7 7" />
+                    </svg>
+                  </a>
+                </div>
+              </article>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+  </main>
+</Layout>

@@ -1,0 +1,75 @@
+@import "tailwindcss";
+
+:root {
+  --color-background: #FFFAFA;
+  --color-foreground: #3d3834;
+  --color-primary: #3a4d45;
+  --color-primary-foreground: #FFFAFA;
+  --color-accent-forest: #3a4d45;
+  --color-secondary: #3d3834;
+  --color-muted-foreground: #3d3834aa;
+  --color-border: #3d383420;
+}
+
+@font-face {
+  font-family: "Serif";
+  src: local("Georgia"), local("Times New Roman");
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--color-background);
+  color: var(--color-foreground);
+}
+
+main {
+  isolation: isolate;
+}
+
+.font-serif {
+  font-family: Georgia, "Times New Roman", serif;
+}
+
+.font-sans {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    sans-serif;
+}
+
+@keyframes ping {
+  75%,
+  100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
+.animate-ping {
+  animation: ping 1s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+.fade-up {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.fade-up.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.section-panel {
+  border: 1px solid rgb(61 56 52 / 0.08);
+  box-shadow: 0 34px 120px -72px rgb(61 56 52 / 0.5);
+}

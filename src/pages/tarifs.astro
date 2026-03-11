@@ -10,88 +10,241 @@ const contact = {
 const services = [
   {
     name: "Couverture",
-    price: "X",
+    eyebrow: "Service éditorial",
+    price: "Sous devis",
     accent: "#3a4d45",
-    image: "/assets/services/couvertures/cover-1.webp",
-    alt: "Exemple de couverture fantasy",
+    format: "Sur mesure",
+    universe: "Fantasy & SF",
+    focus: "Objet-livre premium",
+    gallery: [
+      {
+        src: "/assets/services/couvertures/cover-1.webp",
+        alt: "Exemple de couverture fantasy 1",
+        label: "Fantasy",
+      },
+      {
+        src: "/assets/services/couvertures/cover-2.webp",
+        alt: "Exemple de couverture fantasy 2",
+        label: "Collector",
+      },
+      {
+        src: "/assets/services/couvertures/cover-3.webp",
+        alt: "Exemple de couverture fantasy 3",
+        label: "Romance",
+      },
+      {
+        src: "/assets/services/couvertures/cover-5.webp",
+        alt: "Exemple de couverture fantasy 4",
+        label: "Luxe",
+      },
+    ],
     tags: ["Fantasy", "Science-fiction", "Sur mesure"],
     description:
-      "Je propose des couvertures pour les romans de fantasy et de science-fiction. Elles sont pensees pour donner une impression de luxe et de qualite au livre, dans des formats adaptables et personnalises selon vos besoins.",
+      "Des couvertures pensées comme de vrais objets de désir : lisibles, singulières et adaptées à l'univers de ton roman.",
   },
   {
     name: "Premades",
-    price: "X",
+    eyebrow: "Collection disponible",
+    price: "Disponible",
     accent: "#3a4d45",
-    image: "/assets/services/premades/premade2.webp",
-    alt: "Exemple de premade fantasy",
+    format: "Formats adaptables",
+    universe: "Fantasy & SF",
+    focus: "Mise en ligne rapide",
+    gallery: [
+      {
+        src: "/assets/services/premades/premade.webp",
+        alt: "Exemple de premade fantasy 1",
+        label: "Premade 01",
+      },
+      {
+        src: "/assets/services/premades/premade2.webp",
+        alt: "Exemple de premade fantasy 2",
+        label: "Premade 02",
+      },
+    ],
     tags: ["Fantasy", "Science-fiction", "Disponible"],
     description:
-      "Je propose des premades pour les romans de fantasy et de science-fiction. Elles gardent une impression de luxe et de qualite, avec plusieurs tailles et formats possibles, et une adaptation selon votre projet.",
+      "Des premades pour aller plus vite, tout en gardant une présence visuelle premium et un rendu cohérent avec ton projet.",
   },
   {
     name: "Jaspages",
-    price: "80 EUR / 120 EUR",
+    eyebrow: "Finition collector",
+    price: "80 € / 120 €",
     accent: "#3d3834",
-    image: "/assets/services/jaspages/jaspage-one.webp",
-    alt: "Exemple de jaspage decoratif",
-    tags: ["Edition collector", "Fantasy", "Personnalisable"],
+    format: "Édition collector",
+    universe: "Fantasy & SF",
+    focus: "Tranche personnalisée",
+    gallery: [
+      {
+        src: "/assets/services/jaspages/jaspage-one.webp",
+        alt: "Exemple de jaspage décoratif 1",
+        label: "Ornement",
+      },
+      {
+        src: "/assets/services/jaspages/jaspage-two.webp",
+        alt: "Exemple de jaspage décoratif 2",
+        label: "Motif",
+      },
+      {
+        src: "/assets/services/jaspages/jaspage-three.webp",
+        alt: "Exemple de jaspage décoratif 3",
+        label: "Édition",
+      },
+      {
+        src: "/assets/services/jaspages/jaspage-four.webp",
+        alt: "Exemple de jaspage décoratif 4",
+        label: "Collection",
+      },
+    ],
+    tags: ["Édition collector", "Fantasy", "Personnalisable"],
     description:
-      "Je cree des jaspages pour les romans de fantasy et de science-fiction. Ils sont concus pour renforcer la sensation d'objet precieux, avec plusieurs formats et une personnalisation possible selon votre univers.",
+      "Le jaspage ajoute une vraie sensation d'objet précieux, avec une exécution conçue pour enrichir l'expérience du livre.",
   },
   {
-    name: "Pages de gardes",
+    name: "Pages de garde",
+    eyebrow: "Intérieur illustré",
     price: "Sous devis",
     accent: "#3d3834",
-    image: "/assets/services/pagedegarde/pdg2.webp",
-    alt: "Exemple de pages de garde illustrees",
-    tags: ["Interieur", "Sur devis", "Univers sur mesure"],
+    format: "Double page",
+    universe: "Univers sur mesure",
+    focus: "Ouverture immersive",
+    gallery: [
+      {
+        src: "/assets/services/pagedegarde/pdg1.webp",
+        alt: "Exemple de pages de garde illustrées 1",
+        label: "Ouverture",
+      },
+      {
+        src: "/assets/services/pagedegarde/pdg2.webp",
+        alt: "Exemple de pages de garde illustrées 2",
+        label: "Double page",
+      },
+      {
+        src: "/assets/services/pagedegarde/pdg3.webp",
+        alt: "Exemple de pages de garde illustrées 3",
+        label: "Univers",
+      },
+    ],
+    tags: ["Intérieur", "Sur devis", "Univers sur mesure"],
     description:
-      "Je realise des pages de garde pour les romans de fantasy et de science-fiction. Elles sont pensees pour donner de la profondeur a l'objet livre, avec un traitement adapte au format et au style du projet.",
+      "Des pages de garde pour poser un décor, prolonger un imaginaire et donner plus de profondeur au livre dès la première ouverture.",
   },
   {
-    name: "Entetes de chapitres",
-    price: "A partir de 20 EUR",
+    name: "Entêtes de chapitres",
+    eyebrow: "Finition intérieure",
+    price: "À partir de 20 €",
     accent: "#3a4d45",
-    image: "/assets/services/headers/header-three.webp",
-    alt: "Exemple d'entete de chapitre",
-    tags: ["Chapitrage", "A partir de 20 EUR", "Personnalisable"],
+    format: "Chapitrage",
+    universe: "Fantasy & SF",
+    focus: "Rythme de lecture",
+    gallery: [
+      {
+        src: "/assets/services/headers/header-one.webp",
+        alt: "Exemple d'entête de chapitre 1",
+        label: "Minimal",
+      },
+      {
+        src: "/assets/services/headers/header-three.webp",
+        alt: "Exemple d'entête de chapitre 2",
+        label: "Orné",
+      },
+      {
+        src: "/assets/services/headers/header-seven.webp",
+        alt: "Exemple d'entête de chapitre 3",
+        label: "Saga",
+      },
+      {
+        src: "/assets/services/headers/header-ten.webp",
+        alt: "Exemple d'entête de chapitre 4",
+        label: "Prestige",
+      },
+    ],
+    tags: ["Chapitrage", "À partir de 20 €", "Personnalisable"],
     description:
-      "Je propose des entetes de chapitres pour les romans de fantasy et de science-fiction. Ils apportent une finition plus soignee au texte, avec plusieurs formats possibles et une personnalisation selon vos besoins.",
+      "Des entêtes de chapitres pour donner au texte une finition plus élégante et renforcer la cohérence visuelle de l'ensemble.",
   },
   {
     name: "Cartographie",
-    price: "1 page 200 EUR / 2 pages 400 EUR",
+    eyebrow: "Monde & territoire",
+    price: "200 € / 400 €",
     accent: "#3a4d45",
-    image: "/assets/services/maps/maps-four.webp",
-    alt: "Exemple de carte fantasy",
+    format: "1 ou 2 pages",
+    universe: "Mondes imaginaires",
+    focus: "Lecture immersive",
+    gallery: [
+      {
+        src: "/assets/services/maps/maps-one.webp",
+        alt: "Exemple de carte fantasy 1",
+        label: "Royaume",
+      },
+      {
+        src: "/assets/services/maps/maps-four.webp",
+        alt: "Exemple de carte fantasy 2",
+        label: "Archipel",
+      },
+      {
+        src: "/assets/services/maps/maps-six.webp",
+        alt: "Exemple de carte fantasy 3",
+        label: "Relief",
+      },
+      {
+        src: "/assets/services/maps/maps-seven.webp",
+        alt: "Exemple de carte fantasy 4",
+        label: "Double page",
+      },
+    ],
     tags: ["1 page", "2 pages", "Mondes imaginaires"],
     description:
-      "La cartographie donne vie aux mondes de fantasy et de science-fiction a travers des cartes detaillees et personnalisees. Que ce soit pour un royaume medieval-fantastique ou un archipel mysterieux, je m'adapte a votre univers et a votre style.",
+      "Des cartes détaillées pour ancrer les lieux, clarifier les trajets et renforcer la sensation d'univers complet autour du roman.",
   },
   {
     name: "Illustration",
+    eyebrow: "Direction visuelle",
     price: "Sous devis",
     accent: "#3d3834",
-    image: "/assets/services/illustrations/illustration-seven.webp",
-    alt: "Exemple d'illustration fantasy",
+    format: "Illustration sur mesure",
+    universe: "Fantasy & SF",
+    focus: "Campagne & contenu",
+    gallery: [
+      {
+        src: "/assets/services/illustrations/illustration-one.webp",
+        alt: "Exemple d'illustration fantasy 1",
+        label: "Portrait",
+      },
+      {
+        src: "/assets/services/illustrations/illustration-seven.webp",
+        alt: "Exemple d'illustration fantasy 2",
+        label: "Scène",
+      },
+      {
+        src: "/assets/services/illustrations/illustration-eleven.webp",
+        alt: "Exemple d'illustration fantasy 3",
+        label: "Ambiance",
+      },
+      {
+        src: "/assets/services/illustrations/illustration-fifteen.webp",
+        alt: "Exemple d'illustration fantasy 4",
+        label: "Campagne",
+      },
+    ],
     tags: ["Illustration", "Fantasy", "Sous devis"],
     description:
-      "Je propose des illustrations pour les romans de fantasy et de science-fiction. Elles sont concues pour prolonger l'univers du livre avec une finition forte, dans des formats adaptables et une personnalisation selon vos besoins.",
+      "Des illustrations pour prolonger l'univers du livre, nourrir la communication et donner des images fortes aux personnages ou aux scènes.",
   },
 ];
 
 const commitments = [
   {
-    title: "Univers cibles",
-    text: "Je travaille avant tout autour de la fantasy et de la science-fiction, avec une recherche de rendu plus luxueux, plus singulier et plus editorial.",
+    title: "Univers ciblés",
+    text: "Je travaille avant tout autour de la fantasy et de la science-fiction, avec une recherche de rendu plus luxueux, plus singulier et plus éditorial.",
   },
   {
     title: "Formats variables",
-    text: "Les prestations peuvent s'adapter a plusieurs tailles, niveaux de finition et contraintes de fabrication selon le projet et le support final.",
+    text: "Les prestations peuvent s'adapter à plusieurs tailles, niveaux de finition et contraintes de fabrication selon le projet et le support final.",
   },
   {
     title: "Demande sur mesure",
-    text: "Pour toute demande personnalisee ou pour un devis, tu peux me contacter directement par mail ou via Instagram afin que l'on cadre le besoin ensemble.",
+    text: "Pour toute demande personnalisée ou pour un devis, tu peux me contacter directement par mail ou via Instagram afin que l'on cadre le besoin ensemble.",
   },
 ];
 
@@ -99,40 +252,47 @@ const process = [
   {
     step: "01",
     title: "Prise de contact",
-    text: "On echange sur le livre, l'univers, les references visuelles et le type de rendu attendu.",
+    text: "On échange sur le livre, l'univers, les références visuelles et le type de rendu attendu.",
   },
   {
     step: "02",
     title: "Devis et cadrage",
-    text: "Je precise le format, la personnalisation possible, les livrables et le tarif selon la demande.",
+    text: "Je précise le format, la personnalisation possible, les livrables et le tarif selon la demande.",
   },
   {
     step: "03",
     title: "Production",
-    text: "Je realise le visuel ou l'element editorial en gardant la coherence du projet et la qualite d'execution.",
+    text: "Je réalise le visuel ou l'élément éditorial en gardant la cohérence du projet et la qualité d'exécution.",
   },
 ];
 ---
 
 <Layout title="Tarifs - Vanya Stolarski">
   <main class="overflow-hidden bg-[#FFFAFA] text-[#3d3834]">
-    <section class="relative overflow-hidden bg-[#3d3834] px-6 py-24 text-[#FFFAFA]">
-      <div class="relative mx-auto max-w-7xl">
-        <a href="/" class="inline-flex items-center gap-3 font-sans text-[10px] font-bold tracking-[0.35em] text-[#3a4d45] uppercase">
-          <span class="h-px w-10 bg-[#3a4d45]"></span>
-          Retour a l'accueil
-        </a>
-
-        <div class="mt-10 grid gap-10 md:grid-cols-[1.12fr_0.88fr] md:items-end">
+    <!-- ─── HERO ─── -->
+    <section
+      class="relative overflow-hidden bg-[#3d3834] px-6 py-24 text-[#FFFAFA]"
+    >
+      <div class="site-shell relative mt-20">
+        <div
+          class="mt-10 grid gap-10 md:grid-cols-[1.12fr_0.88fr] md:items-end"
+        >
           <div class="space-y-6">
-            <span class="inline-flex rounded-full border border-[#FFFAFA]/10 bg-[#FFFAFA] px-4 py-2 font-sans text-[10px] font-bold tracking-[0.25em] text-[#3d3834] uppercase">
+            <span
+              class="inline-flex rounded-full border border-[#FFFAFA]/10 bg-[#FFFAFA] px-4 py-2 font-sans text-[10px] font-bold tracking-[0.25em] text-[#3d3834] uppercase"
+            >
               Tarifs
             </span>
             <h1 class="max-w-5xl font-serif text-5xl leading-none md:text-7xl">
-              Voici les tarifs de mes services pour enrichir, habiller et donner plus de presence a un univers de livre.
+              Voici les tarifs de mes services pour enrichir, habiller et donner
+              plus de présence à un univers de livre.
             </h1>
-            <p class="max-w-2xl font-sans text-base leading-relaxed text-[#FFFAFA] md:text-lg">
-              Je propose des visuels et elements editoriaux pour les romans de fantasy et de science-fiction, avec une recherche de luxe, de qualite et d'identite forte.
+            <p
+              class="max-w-2xl font-sans text-base leading-relaxed text-[#FFFAFA] md:text-lg"
+            >
+              Je propose des visuels et éléments éditoriaux pour les romans de
+              fantasy et de science-fiction, avec une recherche de luxe, de
+              qualité et d'identité forte.
             </p>
 
             <div class="flex flex-wrap gap-3 pt-2">
@@ -151,38 +311,64 @@ const process = [
             </div>
           </div>
 
-          <div class="section-panel fade-up rounded-[2rem] border border-[#FFFAFA]/10 bg-[#FFFAFA] p-8 backdrop-blur-sm">
-            <div class="grid gap-6 sm:grid-cols-3 md:grid-cols-1 xl:grid-cols-3">
+          <div
+            class="section-panel fade-up rounded-lg border border-[#FFFAFA]/10 bg-[#FFFAFA] p-8 backdrop-blur-sm"
+          >
+            <div
+              class="grid gap-6 sm:grid-cols-3 md:grid-cols-1 xl:grid-cols-3"
+            >
               <div>
                 <p class="font-serif text-5xl text-[#3a4d45]">7</p>
-                <p class="mt-2 font-sans text-[10px] font-bold tracking-[0.25em] text-[#3d3834] uppercase">
+                <p
+                  class="mt-2 font-sans text-[10px] font-bold tracking-[0.25em] text-[#3d3834] uppercase"
+                >
                   Services
                 </p>
               </div>
               <div>
                 <p class="font-serif text-5xl text-[#3a4d45]">SF</p>
-                <p class="mt-2 font-sans text-[10px] font-bold tracking-[0.25em] text-[#3d3834] uppercase">
+                <p
+                  class="mt-2 font-sans text-[10px] font-bold tracking-[0.25em] text-[#3d3834] uppercase"
+                >
                   Fantasy & SF
                 </p>
               </div>
               <div>
                 <p class="font-serif text-5xl text-[#3a4d45]">Devis</p>
-                <p class="mt-2 font-sans text-[10px] font-bold tracking-[0.25em] text-[#3d3834] uppercase">
+                <p
+                  class="mt-2 font-sans text-[10px] font-bold tracking-[0.25em] text-[#3d3834] uppercase"
+                >
                   Sur mesure
                 </p>
               </div>
             </div>
 
-            <div class="mt-8 rounded-[1.6rem] border border-[#FFFAFA]/10 bg-[#FFFAFA] p-6">
-              <p class="font-sans text-[10px] font-bold tracking-[0.3em] text-[#3a4d45] uppercase">
+            <div
+              class="mt-8 rounded-[1.6rem] border border-[#FFFAFA]/10 bg-[#FFFAFA] p-6"
+            >
+              <p
+                class="font-sans text-[10px] font-bold tracking-[0.3em] text-[#3a4d45] uppercase"
+              >
                 Contact
               </p>
-              <div class="mt-4 space-y-3 font-sans text-sm leading-relaxed text-[#3d3834]">
+              <div
+                class="mt-4 space-y-3 font-sans text-sm leading-relaxed text-[#3d3834]"
+              >
                 <p>
-                  Mail: <a href={`mailto:${contact.email}`} class="text-[#3d3834] underline underline-offset-4">{contact.email}</a>
+                  Mail&nbsp;: <a
+                    href={`mailto:${contact.email}`}
+                    class="text-[#3d3834] underline underline-offset-4"
+                    >{contact.email}</a
+                  >
                 </p>
                 <p>
-                  Instagram: <a href={contact.instagramUrl} target="_blank" rel="noreferrer" class="text-[#3d3834] underline underline-offset-4">{contact.instagramHandle}</a>
+                  Instagram&nbsp;: <a
+                    href={contact.instagramUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    class="text-[#3d3834] underline underline-offset-4"
+                    >{contact.instagramHandle}</a
+                  >
                 </p>
               </div>
             </div>
@@ -191,99 +377,160 @@ const process = [
       </div>
     </section>
 
-    <section id="services" class="relative overflow-hidden bg-[#FFFAFA] px-6 py-24">
-      <div class="relative mx-auto max-w-8xl space-y-10">
+    <!-- ─── SERVICES ─── -->
+    <section
+      id="services"
+      class="relative overflow-hidden bg-[#FFFAFA] px-6 py-24"
+    >
+      <div class="site-shell relative space-y-6">
         <div class="max-w-3xl space-y-4">
-          <p class="font-sans text-[10px] font-bold tracking-[0.35em] text-[#3a4d45] uppercase">
+          <p
+            class="font-sans text-[10px] font-bold tracking-[0.35em] text-[#3a4d45] uppercase"
+          >
             Services
           </p>
           <h2 class="font-serif text-4xl leading-none md:text-6xl">
-            Des prestations pensees pour donner plus de matiere, plus de finition et plus de desir a l'objet livre.
+            Des prestations pensées pour donner plus de matière, plus de
+            finition et plus de désir à l'objet livre.
           </h2>
-          <p class="max-w-2xl font-sans text-base leading-relaxed text-[#3d3834]/78 md:text-lg">
-            Pour toute demande personnalisee ou pour un devis, n'hesite pas a me contacter par mail ou via Instagram. Les tarifs affiches ici servent de repere selon le type de prestation.
+          <p
+            class="max-w-2xl font-sans text-base leading-relaxed text-[#3d3834]/78 md:text-lg"
+          >
+            Pour toute demande personnalisée ou pour un devis, n'hésite pas à me
+            contacter par mail ou via Instagram. Les tarifs affichés ici servent
+            de repère selon le type de prestation.
           </p>
         </div>
 
-        <div class="grid gap-6 lg:grid-cols-2">
+        <div class="space-y-20 pt-8">
           {
             services.map((service) => (
-              <article class="section-panel fade-up overflow-hidden rounded-[2.35rem] border border-[#3d3834]/10 bg-[#FFFAFA] shadow-[0_24px_80px_-48px_rgba(61,56,52,0.38)] backdrop-blur-sm transition-all duration-300 hover:-translate-y-1">
-                <div class="grid gap-0 md:grid-cols-[0.92fr_1.08fr]">
-                  <div class="relative min-h-[280px] overflow-hidden bg-[#FFFAFA]">
-                    <div class="absolute inset-0 opacity-20" style={`background:linear-gradient(180deg, ${service.accent} 0%, transparent 100%);`}></div>
-                    <img
-                      src={service.image}
-                      alt={service.alt}
-                      loading="lazy"
-                      class="h-full w-full object-cover"
-                    />
+              <section class="section-panel fade-up space-y-5">
+                {/* ── En-tête service ── */}
+                <div class="flex flex-wrap items-end justify-between gap-4 border-b border-[#3d3834]/8 pb-5">
+                  <div class="space-y-1.5">
+                    <p class="font-sans text-[10px] font-bold tracking-[0.34em] text-[#3a4d45] uppercase">
+                      {service.eyebrow}
+                    </p>
+                    <h3 class="font-serif text-3xl leading-none text-[#3d3834] md:text-[2.6rem]">
+                      {service.name}
+                    </h3>
                   </div>
+                  <div class="flex flex-wrap items-center gap-3">
+                    <span
+                      class="rounded-full px-4 py-2 font-sans text-[10px] font-bold tracking-[0.22em] uppercase"
+                      style={`background:${service.accent}; color:#FFFAFA;`}
+                    >
+                      {service.price}
+                    </span>
+                    <a
+                      href={`mailto:${contact.email}`}
+                      class="inline-flex items-center gap-2 rounded-full border border-[#3d3834]/10 bg-[#FFFAFA] px-4 py-2 font-sans text-[10px] font-bold tracking-[0.2em] text-[#3d3834] uppercase transition-all duration-300 hover:-translate-y-0.5 hover:border-[#3a4d45]/35 hover:bg-[#3a4d45] hover:text-[#FFFAFA]"
+                    >
+                      Demander un devis
+                    </a>
+                  </div>
+                </div>
 
-                  <div class="flex h-full flex-col p-8 md:p-9">
-                    <div class="flex items-start justify-between gap-4">
-                      <div>
-                        <p class="font-sans text-[10px] font-bold tracking-[0.24em] text-[#3a4d45] uppercase">
-                          Service
-                        </p>
-                        <h3 class="mt-3 font-serif text-4xl leading-none text-[#3d3834]">
-                          {service.name}
-                        </h3>
-                      </div>
-                      <span class="rounded-full px-4 py-2 font-sans text-[10px] font-bold tracking-[0.22em] uppercase" style={`background:${service.accent}; color:#FFFAFA;`}>
-                        {service.price}
-                      </span>
-                    </div>
+                {/* ── Galerie horizontale ── */}
+                <div class="service-gallery -mx-6 px-6">
+                  <div class="flex gap-4 overflow-x-auto pb-4 scrollbar-thin">
+                    {service.gallery.map((img, i) => (
+                      <figure class="group relative flex-shrink-0">
+                        <div class="overflow-hidden rounded-2xl border border-[#3d3834]/6 bg-[#f6efec] shadow-[0_12px_40px_-20px_rgba(61,56,52,0.2)] transition-shadow duration-300 group-hover:shadow-[0_16px_50px_-18px_rgba(61,56,52,0.32)]">
+                          <img
+                            src={img.src}
+                            alt={img.alt}
+                            class="aspect-[3/4] w-56 object-cover transition-transform duration-500 group-hover:scale-[1.02] sm:w-64 md:w-72 lg:w-80"
+                            loading={i === 0 ? "eager" : "lazy"}
+                          />
+                        </div>
+                        <figcaption class="mt-2.5 px-1 font-sans text-[9px] font-bold tracking-[0.2em] text-[#3d3834]/55 uppercase">
+                          {img.label}
+                        </figcaption>
+                      </figure>
+                    ))}
+                  </div>
+                </div>
 
-                    <p class="mt-6 font-sans text-base leading-relaxed text-[#3d3834]/78">
+                {/* ── Infos compactes ── */}
+                <div class="grid gap-4 sm:grid-cols-[1fr_auto] sm:items-start">
+                  <div class="space-y-3">
+                    <p class="max-w-xl font-sans text-[0.94rem] leading-relaxed text-[#3d3834]/72">
                       {service.description}
                     </p>
-
-                    <div class="mt-6 flex flex-wrap gap-2">
-                      {
-                        service.tags.map((tag) => (
-                          <span class="rounded-full border border-[#3d3834]/10 bg-[#FFFAFA] px-3 py-1 font-sans text-[10px] font-bold tracking-[0.12em] text-[#3d3834] uppercase">
-                            {tag}
-                          </span>
-                        ))
-                      }
+                    <div class="flex flex-wrap gap-2">
+                      {service.tags.map((tag) => (
+                        <span class="rounded-full border border-[#3d3834]/8 bg-[#fffaf8] px-3 py-1 font-sans text-[9px] font-bold tracking-[0.16em] text-[#3d3834]/70 uppercase">
+                          {tag}
+                        </span>
+                      ))}
                     </div>
-
-                    <div class="mt-8 border-t border-[#3d3834]/8 pt-6">
-                      <a
-                        href={`mailto:${contact.email}`}
-                        class="inline-flex items-center gap-3 rounded-full border border-[#3d3834]/10 bg-[#FFFAFA] px-5 py-3 font-sans text-[11px] font-bold tracking-[0.22em] text-[#3d3834] uppercase transition-all duration-300 hover:-translate-y-1 hover:border-[#3a4d45]/35 hover:bg-[#3a4d45] hover:text-[#FFFAFA]"
-                      >
-                        Demander un devis
-                      </a>
+                  </div>
+                  <div class="flex flex-wrap gap-2.5 sm:flex-nowrap">
+                    <div class="rounded-2xl border border-[#3d3834]/8 bg-[#fffaf8] px-4 py-3">
+                      <p class="font-sans text-[9px] font-bold tracking-[0.2em] text-[#3d3834]/50 uppercase">
+                        Format
+                      </p>
+                      <p class="mt-1 font-serif text-lg leading-tight text-[#3d3834]">
+                        {service.format}
+                      </p>
+                    </div>
+                    <div class="rounded-2xl border border-[#3d3834]/8 bg-[#fffaf8] px-4 py-3">
+                      <p class="font-sans text-[9px] font-bold tracking-[0.2em] text-[#3d3834]/50 uppercase">
+                        Univers
+                      </p>
+                      <p class="mt-1 font-serif text-lg leading-tight text-[#3d3834]">
+                        {service.universe}
+                      </p>
+                    </div>
+                    <div class="rounded-2xl border border-[#3d3834]/8 bg-[#fffaf8] px-4 py-3">
+                      <p class="font-sans text-[9px] font-bold tracking-[0.2em] text-[#3d3834]/50 uppercase">
+                        Focus
+                      </p>
+                      <p class="mt-1 font-serif text-lg leading-tight text-[#3d3834]">
+                        {service.focus}
+                      </p>
                     </div>
                   </div>
                 </div>
-              </article>
+              </section>
             ))
           }
         </div>
       </div>
     </section>
 
+    <!-- ─── PROCESSUS & ENGAGEMENTS ─── -->
     <section class="relative overflow-hidden bg-[#FFFAFA] px-6 py-24">
-      <div class="relative mx-auto grid max-w-8xl gap-6 lg:grid-cols-[0.95fr_1.05fr]">
-        <div class="section-panel fade-up rounded-[2.35rem] border border-[#3d3834]/10 bg-[#3d3834] p-8 text-[#FFFAFA] shadow-[0_24px_80px_-48px_rgba(61,56,52,0.42)] md:p-10">
-          <p class="font-sans text-[10px] font-bold tracking-[0.35em] text-[#3a4d45] uppercase">
-            Comment ca se passe
+      <div class="site-shell relative grid gap-6 lg:grid-cols-[0.95fr_1.05fr]">
+        <div
+          class="section-panel fade-up rounded-[2.35rem] border border-[#3d3834]/10 bg-[#3d3834] p-8 text-[#FFFAFA] shadow-[0_24px_80px_-48px_rgba(61,56,52,0.42)] md:p-10"
+        >
+          <p
+            class="font-sans text-[10px] font-bold tracking-[0.35em] text-[#3a4d45] uppercase"
+          >
+            Comment ça se passe
           </p>
           <h2 class="mt-5 font-serif text-4xl leading-none md:text-5xl">
-            Une base claire pour discuter du besoin, du rendu et du bon niveau de personnalisation.
+            Une base claire pour discuter du besoin, du rendu et du bon niveau
+            de personnalisation.
           </h2>
-          <p class="mt-6 max-w-xl font-sans text-base leading-relaxed text-[#FFFAFA]">
-            Certains tarifs sont fixes, d'autres passent par un devis. Dans tous les cas, l'idee est de cadrer la demande avec precision pour que le visuel final soit coherent avec ton univers de livre.
+          <p
+            class="mt-6 max-w-xl font-sans text-base leading-relaxed text-[#FFFAFA]"
+          >
+            Certains tarifs sont fixes, d'autres passent par un devis. Dans tous
+            les cas, l'idée est de cadrer la demande avec précision pour que le
+            visuel final soit cohérent avec ton univers de livre.
           </p>
 
           <div class="mt-10 space-y-4 border-t border-[#FFFAFA]/10 pt-8">
             {
               process.map((item) => (
                 <div class="flex items-start gap-4">
-                  <span class="font-serif text-3xl text-[#3a4d45]">{item.step}</span>
+                  <span class="font-serif text-3xl text-[#3a4d45]">
+                    {item.step}
+                  </span>
                   <div>
                     <p class="font-sans text-[10px] font-bold tracking-[0.3em] text-[#FFFAFA] uppercase">
                       {item.title}
@@ -300,13 +547,10 @@ const process = [
 
         <div class="grid gap-6 md:grid-cols-3">
           {
-            commitments.map((item, index) => (
-              <article class:list={[
-                "section-panel fade-up rounded-[2.1rem] border border-[#3d3834]/10 p-7 shadow-[0_20px_70px_-45px_rgba(61,56,52,0.34)] backdrop-blur-sm",
-                index === 1 ? "bg-[#FFFAFA]" : "bg-[#FFFAFA]",
-              ]}>
+            commitments.map((item) => (
+              <article class="section-panel fade-up rounded-[2.1rem] border border-[#3d3834]/10 bg-[#FFFAFA] p-7 shadow-[0_20px_70px_-45px_rgba(61,56,52,0.34)] backdrop-blur-sm">
                 <p class="font-sans text-[10px] font-bold tracking-[0.28em] text-[#3a4d45] uppercase">
-                  Repere
+                  Repère
                 </p>
                 <h3 class="mt-4 font-serif text-3xl leading-none text-[#3d3834]">
                   {item.title}
@@ -321,20 +565,28 @@ const process = [
       </div>
     </section>
 
+    <!-- ─── CTA FINAL ─── -->
     <section class="relative overflow-hidden bg-[#FFFAFA] px-6 py-24">
-      <div class="relative mx-auto max-w-7xl">
-        <div class="section-panel fade-up rounded-[2.5rem] border border-[#3d3834]/10 bg-[#3d3834] px-8 py-10 text-[#FFFAFA] shadow-[0_26px_90px_-55px_rgba(61,56,52,0.45)] md:px-10 md:py-12">
+      <div class="site-shell relative mt-20">
+        <div
+          class="section-panel fade-up rounded-[2.5rem] border border-[#3d3834]/10 bg-[#3d3834] px-8 py-10 text-[#FFFAFA] shadow-[0_26px_90px_-55px_rgba(61,56,52,0.45)] md:px-10 md:py-12"
+        >
           <div class="grid gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-end">
             <div>
-              <p class="font-sans text-[10px] font-bold tracking-[0.35em] text-[#3a4d45] uppercase">
-                Demande personnalisee
+              <p
+                class="font-sans text-[10px] font-bold tracking-[0.35em] text-[#3a4d45] uppercase"
+              >
+                Demande personnalisée
               </p>
               <h2 class="mt-4 font-serif text-4xl leading-none md:text-5xl">
-                Pour toute demande personnalisee ou pour un devis, ecris-moi directement.
+                Pour toute demande personnalisée ou pour un devis, écris-moi
+                directement.
               </h2>
-              <p class="mt-4 max-w-2xl font-sans text-base leading-relaxed text-[#FFFAFA]">
-                Mail: {contact.email}<br />
-                Instagram: {contact.instagramHandle}
+              <p
+                class="mt-4 max-w-2xl font-sans text-base leading-relaxed text-[#FFFAFA]"
+              >
+                Mail&nbsp;: {contact.email}<br />
+                Instagram&nbsp;: {contact.instagramHandle}
               </p>
             </div>
 
@@ -360,3 +612,24 @@ const process = [
     </section>
   </main>
 </Layout>
+
+<style>
+  /* Scrollbar discrète pour les galeries */
+  .scrollbar-thin {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(61, 56, 52, 0.15) transparent;
+  }
+  .scrollbar-thin::-webkit-scrollbar {
+    height: 6px;
+  }
+  .scrollbar-thin::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    background: rgba(61, 56, 52, 0.15);
+    border-radius: 3px;
+  }
+  .scrollbar-thin::-webkit-scrollbar-thumb:hover {
+    background: rgba(61, 56, 52, 0.28);
+  }
+</style>

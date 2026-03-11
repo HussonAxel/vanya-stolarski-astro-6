@@ -1,95 +1,93 @@
-  ---
-  import { latestBook } from "../data/books";
+---
+import { latestBook } from "../data/books";
 
-  const featured = latestBook.featured;
-  ---
+const featured = latestBook.featured;
+---
 
-  <section class="relative overflow-hidden bg-[#FFFAFA] pt-16 pb-14 md:pt-20 md:pb-18">
+<section class="relative overflow-hidden bg-[#FFFAFA] pt-16 pb-14 md:pt-20 md:pb-18">
+  <div class="site-shell relative z-10 mt-16 px-6">
+    <article class="fade-up rounded-[2.8rem] border border-[#3d3834]/8 bg-[#FFFAFA] p-6 shadow-[0_34px_120px_-72px_rgba(61,56,52,0.42)] md:p-8 xl:p-10">
+      <div class="grid gap-8 xl:grid-cols-[1.02fr_0.98fr] xl:items-start">
+        <div class="space-y-8">
+          <div class="space-y-5">
+            <div class="flex flex-wrap items-center gap-3">
+              <span class="rounded-full border border-[#3a4d45]/25 bg-[#3a4d45] px-4 py-2 font-sans text-[10px] font-bold tracking-[0.3em] text-[#FFFAFA] uppercase">
+                {featured?.label}
+              </span>
+              <span class="rounded-full border border-[#3a4d45]/18 bg-[#3a4d45] px-4 py-2 font-sans text-[10px] font-bold tracking-[0.3em] text-[#FFFAFA] uppercase">
+                {featured?.kicker}
+              </span>
+            </div>
 
-    <div class="container relative z-10 mx-auto mt-16 max-w-8xl px-6">
-      <article class="fade-up rounded-[2.8rem] border border-[#3d3834]/8 bg-[#FFFAFA] p-6 shadow-[0_34px_120px_-72px_rgba(61,56,52,0.42)] md:p-8 xl:p-10">
-        <div class="grid gap-8 xl:grid-cols-[1.02fr_0.98fr] xl:items-start">
-          <div class="space-y-8">
-            <div class="space-y-5">
-              <div class="flex flex-wrap items-center gap-3">
-                <span class="rounded-full border border-[#3a4d45]/25 bg-[#3a4d45] px-4 py-2 font-sans text-[10px] font-bold tracking-[0.3em] text-[#FFFAFA] uppercase">
-                  {featured?.label}
-                </span>
-                <span class="rounded-full border border-[#3a4d45]/18 bg-[#3a4d45] px-4 py-2 font-sans text-[10px] font-bold tracking-[0.3em] text-[#FFFAFA] uppercase">
-                  {featured?.kicker}
-                </span>
-              </div>
-
-              <div>
-                <p class="font-sans text-[10px] font-bold tracking-[0.35em] text-[#3d3834]/72 uppercase">
-                  {latestBook.series} - {latestBook.tome}
-                </p>
-                <h2 class="mt-4 max-w-3xl font-serif text-5xl leading-none text-[#3d3834] md:text-6xl xl:text-7xl">
-                  {latestBook.title}
-                </h2>
-              </div>
-
-              <p class="max-w-2xl font-sans text-base leading-relaxed text-[#3d3834]/76 md:text-lg">
-                {latestBook.hook}
+            <div>
+              <p class="font-sans text-[10px] font-bold tracking-[0.35em] text-[#3d3834]/72 uppercase">
+                {latestBook.series} - {latestBook.tome}
               </p>
-
-              <p class="max-w-2xl font-sans text-sm leading-relaxed text-[#3d3834]/72 md:text-base">
-                {featured?.shortPitch}
-              </p>
+              <h2 class="mt-4 max-w-3xl font-serif text-5xl leading-none text-[#3d3834] md:text-6xl xl:text-7xl">
+                {latestBook.title}
+              </h2>
             </div>
 
-            <div class="flex flex-wrap gap-3">
-              <a
-                href={`/livres/${latestBook.slug}`}
-                class="inline-flex items-center gap-3 rounded-full bg-[#3d3834] px-7 py-4 font-sans text-[11px] font-bold tracking-[0.25em] text-[#FFFAFA] uppercase transition-all duration-300 hover:-translate-y-1 hover:bg-[#3a4d45]"
-              >
-                Lire la fiche du roman
-              </a>
-              <a
-                href="/reviews"
-                class="inline-flex items-center gap-3 rounded-full border border-[#3d3834]/10 bg-[#FFFAFA] px-7 py-4 font-sans text-[11px] font-bold tracking-[0.25em] text-[#3d3834] uppercase transition-all duration-300 hover:-translate-y-1 hover:border-[#3a4d45]/35 hover:bg-[#3a4d45] hover:text-[#FFFAFA]"
-              >
-                Voir les reviews
-              </a>
-            </div>
+            <p class="max-w-2xl font-sans text-base leading-relaxed text-[#3d3834]/76 md:text-lg">
+              {latestBook.hook}
+            </p>
 
-            <div class="grid gap-4 sm:grid-cols-3">
-              {
-                featured?.stats.map((item) => (
-                  <div class="rounded-[1.9rem] border border-[#3d3834]/8 bg-[#FFFAFA] p-5 shadow-[0_22px_60px_-48px_rgba(61,56,52,0.22)]">
-                    <p class="font-serif text-[1.7rem] leading-tight text-[#3d3834]">{item.value}</p>
-                    <p class="mt-3 font-sans text-[10px] font-bold tracking-[0.24em] text-[#3d3834]/78 uppercase">
-                      {item.label}
-                    </p>
-                  </div>
-                ))
-              }
-            </div>
+            <p class="max-w-2xl font-sans text-sm leading-relaxed text-[#3d3834]/72 md:text-base">
+              {featured?.shortPitch}
+            </p>
           </div>
 
-          <div class="space-y-5">
-            <div class="relative overflow-hidden rounded-[2.4rem]">
-              {
-                featured?.mediaType === "video" ? (
-                  <video
-                    controls
-                    poster={featured.mediaPoster}
-                    class="aspect-[5/6] w-full rounded-[1.85rem] object-cover"
-                  >
-                    <source src={featured.mediaSrc} />
-                  </video>
-                ) : (
-                  <img
-                    src={featured?.mediaSrc}
-                    alt={featured?.mediaAlt}
-                    class="aspect-[5/6] max-w-xl w-full rounded-[1.85rem] object-cover"
-                  />
-                )
-              }
-              </div>
-            </div>
+          <div class="flex flex-wrap gap-3">
+            <a
+              href={`/livres/${latestBook.slug}`}
+              class="inline-flex items-center gap-3 rounded-full bg-[#3d3834] px-7 py-4 font-sans text-[11px] font-bold tracking-[0.25em] text-[#FFFAFA] uppercase transition-all duration-300 hover:-translate-y-1 hover:bg-[#3a4d45]"
+            >
+              Lire la fiche du roman
+            </a>
+            <a
+              href="/reviews"
+              class="inline-flex items-center gap-3 rounded-full border border-[#3d3834]/10 bg-[#FFFAFA] px-7 py-4 font-sans text-[11px] font-bold tracking-[0.25em] text-[#3d3834] uppercase transition-all duration-300 hover:-translate-y-1 hover:border-[#3a4d45]/35 hover:bg-[#3a4d45] hover:text-[#FFFAFA]"
+            >
+              Voir les reviews
+            </a>
+          </div>
+
+          <div class="grid gap-4 sm:grid-cols-3">
+            {
+              featured?.stats.map((item) => (
+                <div class="rounded-[1.9rem] border border-[#3d3834]/8 bg-[#FFFAFA] p-5 shadow-[0_22px_60px_-48px_rgba(61,56,52,0.22)]">
+                  <p class="font-serif text-[1.7rem] leading-tight text-[#3d3834]">{item.value}</p>
+                  <p class="mt-3 font-sans text-[10px] font-bold tracking-[0.24em] text-[#3d3834]/78 uppercase">
+                    {item.label}
+                  </p>
+                </div>
+              ))
+            }
           </div>
         </div>
-      </article>
-    </div>
-  </section>
+
+        <div class="space-y-5">
+          <div class="relative overflow-hidden rounded-[2.4rem]">
+            {
+              featured?.mediaType === "video" ? (
+                <video
+                  controls
+                  poster={featured.mediaPoster}
+                  class="aspect-[5/6] w-full rounded-[1.85rem] object-cover"
+                >
+                  <source src={featured.mediaSrc} />
+                </video>
+              ) : (
+                <img
+                  src={featured?.mediaSrc}
+                  alt={featured?.mediaAlt}
+                  class="aspect-[5/6] max-w-xl w-full rounded-[1.85rem] object-cover"
+                />
+              )
+            }
+          </div>
+        </div>
+      </div>
+    </article>
+  </div>
+</section>

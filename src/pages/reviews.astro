@@ -6,11 +6,7 @@ import Layout from "../layouts/Layout.astro";
 <Layout title="Reviews - Vanya Stolarski">
   <main class="overflow-hidden bg-[#FFFAFA] text-[#3d3834]">
     <section class="relative overflow-hidden bg-[#3d3834] px-6 py-24 text-[#FFFAFA]">
-      <div class="relative mx-auto max-w-7xl">
-        <a href="/" class="inline-flex items-center gap-3 font-sans text-[10px] font-bold tracking-[0.35em] text-[#3a4d45] uppercase">
-          <span class="h-px w-10 bg-[#3a4d45]"></span>
-          Retour a l'accueil
-        </a>
+      <div class="site-shell relative mt-20">
 
         <div class="mt-10 grid gap-10 md:grid-cols-[1.15fr_0.85fr] md:items-end">
           <div class="space-y-6">
@@ -25,7 +21,7 @@ import Layout from "../layouts/Layout.astro";
             </p>
           </div>
 
-          <div class="section-panel fade-up rounded-[2rem] border border-[#FFFAFA]/10 bg-[#FFFAFA] p-8 backdrop-blur-sm">
+          <div class="section-panel fade-up rounded-lg border border-[#FFFAFA]/10 bg-[#FFFAFA] p-8 backdrop-blur-sm">
             <p class="font-serif text-6xl text-[#3a4d45]">{reviews.length}</p>
             <p class="mt-3 font-sans text-[10px] font-bold tracking-[0.25em] text-[#3d3834] uppercase">
               Reviews placeholders prêtes a etre remplacees
@@ -36,7 +32,7 @@ import Layout from "../layouts/Layout.astro";
     </section>
 
     <section class="relative overflow-hidden bg-[#FFFAFA] px-6 py-20">
-      <div class="mx-auto grid max-w-8xl gap-6 lg:grid-cols-2">
+      <div class="site-shell grid gap-6 lg:grid-cols-2">
         {
           reviews.map((review, index) => (
             <article class:list={[

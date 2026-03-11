@@ -9,6 +9,7 @@
   --color-secondary: #3d3834;
   --color-muted-foreground: #3d3834aa;
   --color-border: #3d383420;
+  --site-shell-width: 82rem;
 }
 
 @font-face {
@@ -20,10 +21,22 @@ html {
   scroll-behavior: smooth;
 }
 
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
 body {
   margin: 0;
   background: var(--color-background);
   color: var(--color-foreground);
+}
+
+.site-shell {
+  width: min(100%, var(--site-shell-width));
+  max-width: var(--site-shell-width);
+  margin-inline: auto;
 }
 
 main {

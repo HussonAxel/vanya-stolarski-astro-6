@@ -19,16 +19,144 @@ const { title } = Astro.props;
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" href="/favicon.ico" />
     <title>{title}</title>
+    <style>
+      :root {
+        --header-ease: cubic-bezier(0.22, 1, 0.36, 1);
+        --header-ease-soft: cubic-bezier(0.34, 1.56, 0.64, 1);
+        --dock-progress: 0;
+        --dock-eased: 0;
+      }
+
+      #site-header,
+      #site-header-shell,
+      #site-header-badge,
+      #site-header-brand,
+      #site-header-brand-text,
+      #site-menu-toggle {
+        will-change: transform, opacity, max-width, padding, box-shadow, background-color, backdrop-filter;
+      }
+
+      #site-header {
+        transform-origin: top center;
+        padding-top: calc(1rem - (0.38rem * var(--dock-eased)));
+        padding-bottom: calc(1rem - (0.62rem * var(--dock-eased)));
+        transition: padding 0.18s linear;
+      }
+
+      #site-header-shell {
+        transform-origin: top center;
+        max-width: calc(var(--site-shell-width) - (49rem * var(--dock-eased)));
+        padding: calc(0.75rem - (0.2rem * var(--dock-eased))) calc(1rem - (0.3rem * var(--dock-eased)));
+        border-color: rgba(61, 56, 52, calc(0.1 + (0.06 * var(--dock-eased))));
+        background: rgba(255, 250, 250, calc(0.92 - (0.1 * var(--dock-eased))));
+        backdrop-filter: blur(calc(14px + (8px * var(--dock-eased)))) saturate(calc(1 + (0.12 * var(--dock-eased))));
+        box-shadow:
+          0 calc(18px - (2px * var(--dock-eased))) calc(50px - (12px * var(--dock-eased))) calc(-30px + (2px * var(--dock-eased))) rgba(61, 56, 52, calc(0.35 + (0.12 * var(--dock-eased)))),
+          0 0 0 1px rgba(255, 250, 250, calc(0.24 * var(--dock-eased))) inset;
+        transform: translateY(calc(-1px * var(--dock-eased))) scale(calc(1 - (0.015 * var(--dock-eased))));
+        transition:
+          max-width 0.18s linear,
+          padding 0.18s linear,
+          border-color 0.18s linear,
+          background-color 0.18s linear,
+          box-shadow 0.18s linear,
+          transform 0.18s linear,
+          backdrop-filter 0.18s linear;
+      }
+
+      #site-header-badge,
+      #site-menu-toggle {
+        height: calc(3rem - (0.35rem * var(--dock-eased)));
+        width: calc(3rem - (0.35rem * var(--dock-eased)));
+        transform: scale(calc(1 - (0.04 * var(--dock-eased))));
+        transition:
+          height 0.18s linear,
+          width 0.18s linear,
+          font-size 0.18s linear,
+          transform 0.18s linear,
+          box-shadow 0.18s linear;
+      }
+
+      #site-header-badge {
+        font-size: calc(1.5rem - (0.35rem * var(--dock-eased)));
+      }
+
+      #site-header-brand {
+        transition:
+          max-width 0.18s linear,
+          opacity 0.18s linear,
+          transform 0.18s linear;
+      }
+
+      #site-header-brand-text {
+        transition: opacity 0.18s linear, letter-spacing 0.18s linear;
+      }
+
+      @media (min-width: 640px) {
+        #site-header-brand {
+          max-width: calc(12rem - (12rem * var(--dock-eased)));
+          opacity: calc(1 - (1 * var(--dock-eased)));
+          overflow: hidden;
+          transform: translateX(calc(-0.35rem * var(--dock-eased))) scale(calc(1 - (0.04 * var(--dock-eased))));
+        }
+
+        #site-header-brand-text {
+          opacity: calc(1 - (1 * var(--dock-eased)));
+          letter-spacing: calc(0.28em - (0.08em * var(--dock-eased)));
+        }
+      }
+
+      @keyframes headerDockSnapIn {
+        0% {
+          transform: translateY(0) scale(1);
+        }
+        55% {
+          transform: translateY(-3px) scale(0.972);
+        }
+        100% {
+          transform: translateY(calc(-1px * var(--dock-eased))) scale(calc(1 - (0.015 * var(--dock-eased))));
+        }
+      }
+
+      @keyframes headerDockFloat {
+        0% {
+          transform: translateY(calc(-1px - (1px * var(--dock-eased)))) scale(calc(1 - (0.015 * var(--dock-eased))));
+        }
+        100% {
+          transform: translateY(calc(-3px - (1px * var(--dock-eased)))) scale(calc(1 - (0.015 * var(--dock-eased))));
+        }
+      }
+
+      body.site-header-docking #site-header-shell {
+        animation: headerDockSnapIn 0.5s var(--header-ease) both;
+      }
+
+      body.site-header-floating #site-header-shell {
+        animation: headerDockFloat 4.8s ease-in-out infinite alternate;
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        #site-header,
+        #site-header-shell,
+        #site-header-badge,
+        #site-header-brand,
+        #site-header-brand-text,
+        #site-menu-toggle {
+          transition: none;
+          animation: none !important;
+        }
+      }
+    </style>
   </head>
   <body class="bg-[#FFFAFA] text-[#3d3834]">
-    <header class="fixed inset-x-0 top-0 z-[60] px-4 py-4">
-      <div class="mx-auto flex max-w-8xl items-center justify-between rounded-full border border-[#3d3834]/10 bg-[#FFFAFA]/92 px-4 py-3 shadow-[0_18px_50px_-30px_rgba(61,56,52,0.35)] backdrop-blur-md">
+    <header id="site-header" class="fixed inset-x-0 top-0 z-[60] px-4 py-4">
+      <div id="site-header-shell" class="site-shell flex w-full items-center justify-between rounded-full border border-[#3d3834]/10 bg-[#FFFAFA]/92 px-4 py-3 shadow-[0_18px_50px_-30px_rgba(61,56,52,0.35)] backdrop-blur-md">
         <a href="/" class="inline-flex items-center gap-3 text-[#3d3834]">
-          <span class="flex h-12 w-12 items-center justify-center rounded-full bg-[#3d3834] font-serif text-2xl text-[#FFFAFA]">
+          <span id="site-header-badge" class="flex h-12 w-12 items-center justify-center rounded-full bg-[#3d3834] font-serif text-2xl text-[#FFFAFA]">
             VS
           </span>
-          <span class="hidden sm:block">
-            <span class="block font-sans text-[10px] font-bold tracking-[0.28em] uppercase">
+          <span id="site-header-brand" class="hidden sm:block">
+            <span id="site-header-brand-text" class="block font-sans text-[10px] font-bold tracking-[0.28em] uppercase">
               Vanya Stolarski
             </span>
           </span>
@@ -115,6 +243,55 @@ const { title } = Astro.props;
       const menuCloseIcon = document.getElementById("site-menu-icon-close");
       const menuLinks = Array.from(document.querySelectorAll("#site-menu-panel a"));
       let lastTrigger = null;
+      let headerDockInitialized = false;
+      let headerDockTimeout = null;
+      let headerScrollTicking = false;
+
+      const syncHeaderDock = () => {
+        const maxScroll = 180;
+        const rawProgress = Math.min(window.scrollY / maxScroll, 1);
+        const easedProgress = 1 - Math.pow(1 - rawProgress, 3);
+        const shouldDock = rawProgress > 0.16;
+        const isDocked = document.body.classList.contains("site-header-docked");
+
+        document.documentElement.style.setProperty("--dock-progress", rawProgress.toFixed(4));
+        document.documentElement.style.setProperty("--dock-eased", easedProgress.toFixed(4));
+        document.body.classList.toggle("site-header-floating", rawProgress > 0.72);
+
+        if (!headerDockInitialized) {
+          document.body.classList.toggle("site-header-docked", shouldDock);
+          headerDockInitialized = true;
+          return;
+        }
+
+        if (shouldDock !== isDocked) {
+          document.body.classList.remove("site-header-docking");
+          void document.body.offsetWidth;
+          document.body.classList.toggle("site-header-docked", shouldDock);
+
+          if (shouldDock) {
+            document.body.classList.add("site-header-docking");
+            if (headerDockTimeout) {
+              window.clearTimeout(headerDockTimeout);
+            }
+            headerDockTimeout = window.setTimeout(() => {
+              document.body.classList.remove("site-header-docking");
+            }, 520);
+          }
+        }
+      };
+
+      const requestHeaderSync = () => {
+        if (headerScrollTicking) {
+          return;
+        }
+
+        headerScrollTicking = true;
+        window.requestAnimationFrame(() => {
+          syncHeaderDock();
+          headerScrollTicking = false;
+        });
+      };
 
       const setMenuState = (isOpen) => {
         if (
@@ -172,6 +349,10 @@ const { title } = Astro.props;
           setMenuState(false);
         }
       });
+
+      window.addEventListener("scroll", requestHeaderSync, { passive: true });
+      window.addEventListener("resize", requestHeaderSync, { passive: true });
+      syncHeaderDock();
     </script>
   </body>
 </html>

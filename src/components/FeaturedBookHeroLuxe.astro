@@ -1,0 +1,140 @@
+---
+import { latestBook } from "../data/books";
+
+const featured = latestBook.featured;
+---
+
+<section class="relative overflow-hidden bg-[#FFFAFA] pt-14 pb-12 md:pt-18 md:pb-16">
+  <div class="pointer-events-none absolute inset-0">
+    <div class="absolute top-0 left-0 h-64 w-64 -translate-x-1/3 -translate-y-1/3 rounded-full bg-[#3a4d45]/8 blur-3xl"></div>
+    <div class="absolute right-0 bottom-0 h-72 w-72 translate-x-1/4 translate-y-1/4 rounded-full bg-[#3d3834]/6 blur-3xl"></div>
+  </div>
+
+  <div class="site-shell relative z-10 mt-10 px-6">
+    <article class="fade-up overflow-hidden rounded-[2.45rem] border border-[#3d3834]/8 bg-[linear-gradient(180deg,rgba(255,250,250,0.98),rgba(255,250,250,0.94))] p-5 shadow-[0_28px_100px_-68px_rgba(61,56,52,0.35)] backdrop-blur-sm md:p-7 xl:p-8">
+      <div class="grid gap-6 xl:grid-cols-[minmax(0,1fr)_26rem] xl:items-start">
+        <div class="min-w-0 space-y-6">
+          <div class="space-y-4">
+            <div class="flex flex-wrap items-center gap-2.5">
+              <span class="rounded-full border border-[#3a4d45]/16 bg-[#3a4d45] px-3.5 py-1.5 font-sans text-[10px] font-bold tracking-[0.28em] text-[#FFFAFA] uppercase">
+                {featured?.label}
+              </span>
+              <span class="rounded-full border border-[#3a4d45]/12 bg-[#3a4d45]/92 px-3.5 py-1.5 font-sans text-[10px] font-bold tracking-[0.28em] text-[#FFFAFA] uppercase">
+                {featured?.kicker}
+              </span>
+            </div>
+
+            <div class="space-y-3">
+              <p class="font-sans text-[10px] font-bold tracking-[0.34em] text-[#3d3834]/62 uppercase">
+                {latestBook.series} - {latestBook.tome}
+              </p>
+              <h2 class="max-w-3xl font-serif text-4xl leading-[0.96] text-[#3d3834] md:text-5xl xl:text-6xl">
+                {latestBook.title}
+              </h2>
+            </div>
+
+            <p class="max-w-2xl font-sans text-[1.05rem] leading-relaxed text-[#3d3834]/84 md:text-[1.12rem]">
+              {latestBook.hook}
+            </p>
+
+            <p class="max-w-2xl font-sans text-sm leading-relaxed text-[#3d3834]/68 md:text-[0.97rem]">
+              {featured?.shortPitch}
+            </p>
+          </div>
+
+          <div class="flex flex-wrap gap-2.5">
+            <span class="rounded-full border border-[#3d3834]/10 bg-[#FFFAFA] px-3 py-1.5 font-sans text-[10px] font-bold tracking-[0.22em] text-[#3d3834]/74 uppercase">
+              {latestBook.status}
+            </span>
+            <span class="rounded-full border border-[#3d3834]/10 bg-[#FFFAFA] px-3 py-1.5 font-sans text-[10px] font-bold tracking-[0.22em] text-[#3d3834]/74 uppercase">
+              {latestBook.releaseDate}
+            </span>
+            <span class="rounded-full border border-[#3d3834]/10 bg-[#FFFAFA] px-3 py-1.5 font-sans text-[10px] font-bold tracking-[0.22em] text-[#3d3834]/74 uppercase">
+              {latestBook.format}
+            </span>
+            <span class="rounded-full border border-[#3d3834]/10 bg-[#FFFAFA] px-3 py-1.5 font-sans text-[10px] font-bold tracking-[0.22em] text-[#3d3834]/74 uppercase">
+              {latestBook.pages} pages
+            </span>
+          </div>
+
+          <div class="flex flex-wrap gap-2.5">
+            {latestBook.genres.map((genre) => (
+              <span class="rounded-full border border-[#3a4d45]/10 bg-[#3a4d45]/[0.05] px-3 py-1.5 font-sans text-[10px] font-bold tracking-[0.2em] text-[#3d3834]/70 uppercase">
+                {genre}
+              </span>
+            ))}
+          </div>
+
+          <div class="flex flex-wrap gap-3 pt-1">
+            <a
+              href={`/livres/${latestBook.slug}`}
+              class="inline-flex items-center gap-3 rounded-full bg-[#3d3834] px-6 py-3.5 font-sans text-[11px] font-bold tracking-[0.23em] text-[#FFFAFA] uppercase transition-all duration-300 hover:-translate-y-1 hover:bg-[#3a4d45]"
+            >
+              Lire la fiche du roman
+            </a>
+            <a
+              href="/reviews"
+              class="inline-flex items-center gap-3 rounded-full border border-[#3d3834]/10 bg-[#FFFAFA] px-6 py-3.5 font-sans text-[11px] font-bold tracking-[0.23em] text-[#3d3834] uppercase transition-all duration-300 hover:-translate-y-1 hover:border-[#3a4d45]/35 hover:bg-[#3a4d45] hover:text-[#FFFAFA]"
+            >
+              Voir les reviews
+            </a>
+          </div>
+
+          <div class="grid gap-3 sm:grid-cols-3">
+            {
+              featured?.stats.map((item) => (
+                <div class="rounded-[1.45rem] border border-[#3d3834]/8 bg-[#FFFAFA]/92 p-4 shadow-[0_18px_50px_-42px_rgba(61,56,52,0.25)]">
+                  <p class="font-sans text-[9px] font-bold tracking-[0.24em] text-[#3d3834]/56 uppercase">
+                    {item.label}
+                  </p>
+                  <p class="mt-2 font-serif text-[1.18rem] leading-snug text-[#3d3834]">
+                    {item.value}
+                  </p>
+                </div>
+              ))
+            }
+          </div>
+        </div>
+
+        <div class="flex h-full flex-col gap-4 xl:pl-2">
+          <div class="rounded-lg border border-[#3d3834]/8 bg-[#FFFAFA] p-3 shadow-[0_24px_70px_-52px_rgba(61,56,52,0.35)]">
+            <div class="relative overflow-hidden rounded-[1.55rem] bg-[#f6efec]">
+              {
+                featured?.mediaType === "video" ? (
+                  <video
+                    controls
+                    poster={featured.mediaPoster}
+                    class="aspect-[4/4.9] w-full object-cover"
+                  >
+                    <source src={featured.mediaSrc} />
+                  </video>
+                ) : (
+                  <img
+                    src={featured?.mediaSrc}
+                    alt={featured?.mediaAlt}
+                    class="aspect-[4/4.9] w-full object-cover"
+                  />
+                )
+              }
+            </div>
+          </div>
+
+          <div class="grid gap-2 rounded-[1.7rem] border border-[#3d3834]/8 bg-[#fffdfc] p-4 shadow-[0_18px_55px_-45px_rgba(61,56,52,0.18)]">
+            {
+              featured?.spotlight.map((item) => (
+                <div class="flex items-start justify-between gap-4 border-b border-[#3d3834]/8 pb-3 last:border-b-0 last:pb-0">
+                  <p class="font-sans text-[10px] font-bold tracking-[0.24em] text-[#3d3834]/52 uppercase">
+                    {item.label}
+                  </p>
+                  <p class="max-w-[13rem] text-right font-sans text-sm leading-relaxed text-[#3d3834]/78">
+                    {item.value}
+                  </p>
+                </div>
+              ))
+            }
+          </div>
+        </div>
+      </div>
+    </article>
+  </div>
+</section>

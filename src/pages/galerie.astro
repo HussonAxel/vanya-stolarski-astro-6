@@ -11,11 +11,7 @@ import {
 <Layout title="Galerie - Vanya Stolarski">
   <main class="overflow-hidden bg-[#FFFAFA] text-[#3d3834]">
     <section class="relative overflow-hidden bg-[#3d3834] px-6 py-24 text-[#FFFAFA]">
-      <div class="relative mx-auto max-w-7xl">
-        <a href="/" class="inline-flex items-center gap-3 font-sans text-[10px] font-bold tracking-[0.35em] text-[#3a4d45] uppercase">
-          <span class="h-px w-10 bg-[#3a4d45]"></span>
-          Retour a l'accueil
-        </a>
+      <div class="site-shell relative mt-20">
 
         <div class="mt-10 grid gap-10 md:grid-cols-[1.15fr_0.85fr] md:items-end">
           <div class="space-y-6">
@@ -30,7 +26,7 @@ import {
             </p>
           </div>
 
-          <div class="section-panel fade-up rounded-[2rem] border border-[#FFFAFA]/10 bg-[#FFFAFA] p-8 backdrop-blur-sm">
+          <div class="section-panel fade-up rounded-lg border border-[#FFFAFA]/10 bg-[#FFFAFA] p-8 backdrop-blur-sm">
             <div class="grid grid-cols-2 gap-6">
               <div>
                 <p class="font-serif text-5xl text-[#3a4d45]">{galleryItems.length}</p>
@@ -51,7 +47,7 @@ import {
     </section>
 
     <section class="relative overflow-hidden bg-[#FFFAFA] px-6 py-16 md:py-20">
-      <div class="relative mx-auto max-w-8xl space-y-8">
+      <div class="site-shell relative space-y-8">
         <div class="section-panel fade-up rounded-[1.8rem] border border-[#3d3834]/10 bg-[#FFFAFA] p-4 shadow-[0_20px_70px_-45px_rgba(61,56,52,0.3)] backdrop-blur-sm md:p-5">
           <div class="space-y-3">
             <p id="gallery-book-filter-label" class="sr-only">Filtrer par roman</p>
@@ -94,7 +90,7 @@ import {
           </div>
         </div>
 
-        <div class="w-full md:w-11/12 md:mx-auto">
+        <div class="w-full">
           <div
             id="gallery-grid"
             class="gallery-columns columns-1 gap-4 sm:columns-2 xl:columns-4"
@@ -135,72 +131,87 @@ import {
 
     <div
       id="gallery-modal"
-      class="pointer-events-none fixed inset-0 z-50 flex items-center justify-center bg-[#3d3834]/72 px-4 py-6 opacity-0 transition-all duration-300"
+      class="pointer-events-none fixed inset-0 z-50 flex items-start justify-center overflow-y-auto bg-[#3d3834]/72 px-4 py-4 opacity-0 transition-all duration-300 md:items-center md:py-8"
       role="dialog"
       aria-modal="true"
       aria-labelledby="gallery-modal-title"
       aria-hidden="true"
     >
       <div data-gallery-close class="absolute inset-0"></div>
-      <div class="relative z-10 max-h-[92vh] w-full max-w-6xl overflow-hidden rounded-[2rem] border border-[#FFFAFA]/10 bg-[#FFFAFA] shadow-[0_35px_120px_-50px_rgba(61,56,52,0.6)]">
+      <div class="relative z-10 my-auto w-full max-w-[min(96vw,1380px)] overflow-hidden rounded-[2.2rem] border border-[#FFFAFA]/10 bg-[#FFFAFA] shadow-[0_35px_120px_-50px_rgba(61,56,52,0.6)] lg:max-h-[92vh]">
         <button
           type="button"
           id="gallery-modal-close"
-          class="absolute top-4 right-4 z-20 inline-flex h-11 w-11 items-center justify-center rounded-full border border-[#3d3834]/10 bg-[#FFFAFA]/90 font-sans text-xs font-bold tracking-[0.2em] text-[#3d3834] uppercase transition-all duration-300 hover:-translate-y-0.5"
+          class="absolute top-4 right-4 z-20 inline-flex h-11 w-11 items-center justify-center rounded-full border border-[#3d3834]/10 bg-[#FFFAFA]/92 font-sans text-xs font-bold tracking-[0.2em] text-[#3d3834] uppercase shadow-[0_10px_30px_-24px_rgba(61,56,52,0.55)] transition-all duration-300 hover:-translate-y-0.5 hover:border-[#3a4d45]/30 hover:bg-[#3a4d45] hover:text-[#FFFAFA]"
           aria-label="Fermer la popup"
         >
           X
         </button>
 
-        <div class="grid lg:grid-cols-[minmax(0,1fr)_360px] lg:items-center">
-          <div class="flex items-center justify-center bg-[#3d3834] p-3 md:p-4">
-            <div class="inline-flex max-w-full items-center justify-center overflow-hidden rounded-[1.25rem] border border-[#FFFAFA]/8 bg-[#3d3834] shadow-[0_24px_60px_-45px_rgba(61,56,52,0.45)]">
+        <div class="grid lg:grid-cols-[minmax(0,1fr)_400px] lg:items-stretch">
+          <div class="relative flex min-h-[38vh] items-center justify-center overflow-hidden bg-[#3d3834] p-3 md:min-h-[48vh] md:p-4 lg:min-h-0 lg:p-5">
+            <div class="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,250,248,0.08),transparent_56%)]"></div>
+            <div class="relative inline-flex h-full w-full max-w-full items-center justify-center overflow-hidden rounded-[1.55rem] border border-[#FFFAFA]/8 bg-[#312d2a] p-3 shadow-[0_24px_60px_-45px_rgba(61,56,52,0.45)] md:p-4">
               <img
                 id="gallery-modal-image"
                 src=""
                 alt=""
-                class="block max-h-[40vh] max-w-full object-contain md:max-h-[78vh]"
+                class="block max-h-[58vh] max-w-full rounded-[1rem] object-contain md:max-h-[72vh] lg:max-h-[calc(92vh-5.5rem)]"
               />
             </div>
           </div>
 
-          <div class="space-y-5 p-6 md:p-8">
-            <div>
-              <p id="gallery-modal-artist" class="font-sans text-[10px] font-bold tracking-[0.3em] text-[#3d3834] uppercase"></p>
-              <h2 id="gallery-modal-title" class="mt-3 font-serif text-3xl leading-none md:text-4xl"></h2>
-              <p id="gallery-modal-description" class="mt-4 font-sans text-sm leading-relaxed text-[#3d3834]/78 md:text-base"></p>
-            </div>
-
-            <div class="grid gap-3 sm:grid-cols-3">
-              <div class="rounded-[1.4rem] border border-[#3d3834]/10 bg-[#FFFAFA] p-4">
-                <p class="font-sans text-[10px] font-bold tracking-[0.22em] text-[#3d3834] uppercase">Roman</p>
-                <p id="gallery-modal-book" class="mt-2 font-serif text-xl leading-tight"></p>
+          <div class="min-h-0 overflow-y-auto p-6 md:p-8 lg:max-h-[92vh] lg:p-9">
+            <div class="space-y-6">
+              <div class="space-y-4">
+                <div class="flex flex-wrap items-center gap-2.5">
+                  <p id="gallery-modal-artist" class="font-sans text-[10px] font-bold tracking-[0.3em] text-[#3d3834] uppercase"></p>
+                  <span class="inline-flex rounded-full border border-[#3d3834]/10 bg-[#fffaf8] px-3 py-1.5 font-sans text-[9px] font-bold tracking-[0.22em] text-[#3d3834]/70 uppercase">
+                    Illustration
+                  </span>
+                </div>
+                <div>
+                  <h2 id="gallery-modal-title" class="font-serif text-3xl leading-none md:text-4xl"></h2>
+                  <p id="gallery-modal-description" class="mt-4 font-sans text-sm leading-relaxed text-[#3d3834]/78 md:text-base"></p>
+                </div>
               </div>
-              <div class="rounded-[1.4rem] border border-[#3d3834]/10 bg-[#FFFAFA] p-4">
-                <p class="font-sans text-[10px] font-bold tracking-[0.22em] text-[#3d3834] uppercase">Artiste</p>
-                <p id="gallery-modal-artist-detail" class="mt-2 font-serif text-xl leading-tight"></p>
-              </div>
-              <div class="rounded-[1.4rem] border border-[#3d3834]/10 bg-[#FFFAFA] p-4">
-                <p class="font-sans text-[10px] font-bold tracking-[0.22em] text-[#3d3834] uppercase">Date</p>
-                <p id="gallery-modal-date" class="mt-2 font-serif text-xl leading-tight"></p>
-              </div>
-            </div>
 
-            <div class="rounded-[1.5rem] border border-[#3d3834]/10 bg-[#FFFAFA] p-5">
-              <p class="font-sans text-[10px] font-bold tracking-[0.22em] text-[#3d3834] uppercase">
-                Note
-              </p>
-              <p id="gallery-modal-alt" class="mt-3 font-sans text-sm leading-relaxed text-[#3d3834]/78"></p>
-            </div>
+              <div class="rounded-[1.7rem] border border-[#3d3834]/10 bg-[#fffaf8] p-5">
+                <p class="font-sans text-[10px] font-bold tracking-[0.22em] text-[#3d3834]/58 uppercase">
+                  Contexte
+                </p>
+                <dl class="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-1">
+                  <div class="space-y-1">
+                    <dt class="font-sans text-[10px] font-bold tracking-[0.22em] text-[#3d3834]/55 uppercase">Roman</dt>
+                    <dd id="gallery-modal-book" class="font-serif text-[1.55rem] leading-tight text-[#3d3834] break-words"></dd>
+                  </div>
+                  <div class="space-y-1">
+                    <dt class="font-sans text-[10px] font-bold tracking-[0.22em] text-[#3d3834]/55 uppercase">Artiste</dt>
+                    <dd id="gallery-modal-artist-detail" class="font-serif text-[1.45rem] leading-tight text-[#3d3834] break-words"></dd>
+                  </div>
+                  <div class="space-y-1 sm:col-span-2 lg:col-span-1">
+                    <dt class="font-sans text-[10px] font-bold tracking-[0.22em] text-[#3d3834]/55 uppercase">Date</dt>
+                    <dd id="gallery-modal-date" class="font-serif text-[1.45rem] leading-tight text-[#3d3834]"></dd>
+                  </div>
+                </dl>
+              </div>
 
-            <div class="flex flex-wrap gap-3 pt-2">
+              <div class="rounded-[1.7rem] border border-[#3d3834]/10 bg-[#FFFAFA] p-5">
+                <p class="font-sans text-[10px] font-bold tracking-[0.22em] text-[#3d3834]/58 uppercase">
+                  Note visuelle
+                </p>
+                <p id="gallery-modal-alt" class="mt-3 font-sans text-sm leading-relaxed text-[#3d3834]/78 md:text-[0.95rem]"></p>
+              </div>
+
+              <div class="flex flex-wrap gap-3 pt-1">
               <a
                 id="gallery-modal-link"
                 href="#"
-                class="inline-flex items-center gap-3 rounded-full bg-[#3d3834] px-6 py-4 font-sans text-[11px] font-bold tracking-[0.24em] text-[#FFFAFA] uppercase transition-all duration-300 hover:-translate-y-1"
+                class="inline-flex items-center gap-3 rounded-full bg-[#3d3834] px-6 py-4 font-sans text-[11px] font-bold tracking-[0.24em] text-[#FFFAFA] uppercase transition-all duration-300 hover:-translate-y-1 hover:bg-[#3a4d45]"
               >
                 Voir le roman
               </a>
+              </div>
             </div>
           </div>
         </div>

@@ -1,5 +1,6 @@
 ---
 import { books } from "../data/books";
+import BookCardGallery from "./BookCardGallery.astro";
 ---
 
 <section
@@ -17,7 +18,7 @@ import { books } from "../data/books";
     </div>
   </div>
 
-  <div class="container relative z-10 mx-auto max-w-7xl">
+  <div class="site-shell relative z-10">
     <div
       class="mb-16 flex flex-col gap-6 md:flex-row md:items-end md:justify-between"
     >
@@ -44,7 +45,7 @@ import { books } from "../data/books";
 
       <a
         href="/reviews"
-        class="section-panel inline-flex items-center gap-3 self-start rounded-full border border-[#FFFAFA]/12 bg-[#FFFAFA] px-6 py-4 font-sans text-[11px] font-bold tracking-[0.25em] text-[#3d3834] uppercase shadow-[0_18px_60px_-35px_rgba(61,56,52,0.45)] transition-all duration-300 hover:border-[#3a4d45]/35 hover:bg-[#3a4d45] hover:text-[#FFFAFA]"
+        class="section-panel inline-flex items-center gap-3 self-start rounded-full border-2 border-[#FFFAFA] bg-[#3a4d45] px-6 py-4 font-sans text-[11px] font-bold tracking-[0.25em] text-[#FFFAFA] uppercase shadow-[0_18px_60px_-35px_rgba(61,56,52,0.45)] transition-all duration-300 hover:border-[#3a4d45]/35 hover:bg-[#FFFAFA] hover:text-[#3d3834]"
       >
         Voir toutes les reviews
         <svg
@@ -66,60 +67,72 @@ import { books } from "../data/books";
 
     <div class="grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-3">
       {
-        books.map((book) => (
-          <article class="section-panel fade-up group overflow-hidden rounded-[2.2rem] border border-[#FFFAFA]/10 bg-[#FFFAFA] text-[#3d3834] shadow-[0_30px_90px_-54px_rgba(0,0,0,0.45)] backdrop-blur-sm transition-transform duration-500">
-            <div class="relative overflow-hidden rounded-b-[1.5rem]">
-              <div class="relative aspect-[4/4.8] overflow-hidden bg-[#FFFAFA]">
-                <img
-                  alt={`Couverture de ${book.title}`}
-                  class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
-                  src={book.cover}
-                  loading="lazy"
+        books.map((book) => {
+          const galleryItems = book.gallery?.length
+            ? book.gallery
+            : book.featured?.gallery?.length
+              ? book.featured.gallery
+              : [
+                  {
+                    src: book.cover,
+                    alt: `Couverture de ${book.title}`,
+                    label: "Couverture",
+                  },
+                ];
+
+          return (
+            <article class="section-panel fade-up group flex h-full flex-col overflow-hidden rounded-[2.2rem] border border-[#FFFAFA]/10 bg-[#FFFAFA] text-[#3d3834] shadow-[0_30px_90px_-54px_rgba(0,0,0,0.45)] backdrop-blur-sm transition-transform duration-500">
+              <div class="relative overflow-hidden rounded-b-[1.5rem]">
+                <BookCardGallery
+                  items={galleryItems}
+                  title={`Galerie ${book.title}`}
                 />
               </div>
-            </div>
 
-            <div class="p-6 text-center md:text-left">
-              <div class="space-y-4">
-                <h3 class="font-serif text-2xl text-[#3d3834]">{book.title}</h3>
-                <p class="font-sans text-xs tracking-widest text-[#3d3834]/78 uppercase">
-                  {book.tome} - {book.pages} pages - ISBN {book.isbn}
-                </p>
-                <div class="flex flex-wrap justify-center gap-2 md:justify-start">
-                  {book.genres.map((genre) => (
-                    <span class="border border-[#3d3834]/10 bg-[#FFFAFA] px-2 py-1 text-[10px] tracking-wide text-[#3d3834] uppercase">
-                      {genre}
-                    </span>
-                  ))}
-                </div>
-                <p class="line-clamp-3 text-sm leading-relaxed font-light text-[#3d3834]/80">
-                  {book.description}
-                </p>
-                <a
-                  href={`/livres/${book.slug}`}
-                  class="mt-2 inline-flex items-center text-xs font-bold tracking-widest text-[#3a4d45] uppercase hover:underline"
-                >
-                  En savoir plus
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="12"
-                    height="12"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    class="ml-1"
+              <div class="flex flex-1 flex-col p-6 text-center md:text-left">
+                <div class="flex flex-1 flex-col gap-4">
+                  <h3 class="font-serif text-2xl text-[#3d3834]">
+                    {book.title}
+                  </h3>
+                  <p class="font-sans text-xs tracking-widest text-[#3d3834]/78 uppercase">
+                    {book.tome} - {book.pages} pages - ISBN {book.isbn}
+                  </p>
+                  <div class="flex flex-wrap justify-center gap-2 md:justify-start">
+                    {book.genres.map((genre) => (
+                      <span class="border border-[#3d3834]/10 bg-[#FFFAFA] px-2 py-1 text-[10px] tracking-wide text-[#3d3834] uppercase">
+                        {genre}
+                      </span>
+                    ))}
+                  </div>
+                  <p class="line-clamp-3 text-sm leading-relaxed font-light text-[#3d3834]/80">
+                    {book.description}
+                  </p>
+                  <a
+                    href={`/livres/${book.slug}`}
+                    class="mt-auto inline-flex items-center text-xs font-bold tracking-widest text-[#3a4d45] uppercase hover:underline"
                   >
-                    <path d="M5 12h14" />
-                    <path d="m12 5 7 7-7 7" />
-                  </svg>
-                </a>
+                    En savoir plus
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="12"
+                      height="12"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      class="ml-1"
+                    >
+                      <path d="M5 12h14" />
+                      <path d="m12 5 7 7-7 7" />
+                    </svg>
+                  </a>
+                </div>
               </div>
-            </div>
-          </article>
-        ))
+            </article>
+          );
+        })
       }
     </div>
 

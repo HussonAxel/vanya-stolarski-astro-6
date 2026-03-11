@@ -1,0 +1,154 @@
+---
+import type { BookGalleryItem } from "../data/books";
+
+interface Props {
+  items: BookGalleryItem[];
+  title?: string;
+}
+
+const { items, title = "Galerie du livre" } = Astro.props as Props;
+const galleryId = `card-gallery-${Math.random().toString(36).slice(2, 10)}`;
+const slides = items.length > 0 ? items : [];
+const hasMultiple = slides.length > 1;
+---
+
+<div
+  class="book-card-gallery space-y-2"
+  id={galleryId}
+  data-card-gallery
+  aria-label={title}
+>
+  <div class="relative aspect-[4/4.8] overflow-hidden bg-[#FFFAFA]">
+    {
+      slides.map((item, index) => (
+        <figure
+          class:list={[
+            "book-card-gallery-slide h-full w-full",
+            index === 0 ? "block" : "hidden",
+          ]}
+          data-slide
+          data-index={index}
+        >
+          <img
+            alt={item.alt}
+            class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+            src={item.src}
+            loading={index === 0 ? "eager" : "lazy"}
+          />
+        </figure>
+      ))
+    }
+
+    <slot name="overlay" />
+
+    {
+      hasMultiple && (
+        <>
+          <div class="pointer-events-none absolute inset-x-0 top-0 flex items-center justify-between p-3">
+            <span class="pointer-events-auto rounded-full bg-[#fffaf8]/92 px-2.5 py-1 font-sans text-[9px] font-bold tracking-[0.18em] text-[#3d3834]/72 uppercase backdrop-blur-sm" data-counter>
+              1 / {slides.length}
+            </span>
+            <span class="pointer-events-auto rounded-full bg-[#3d3834]/78 px-2.5 py-1 font-sans text-[9px] font-bold tracking-[0.18em] text-[#FFFAFA] uppercase backdrop-blur-sm" data-label>
+              {slides[0]?.label ?? `Vue 1`}
+            </span>
+          </div>
+
+          <div class="pointer-events-none absolute inset-x-0 top-1/2 flex -translate-y-1/2 items-center justify-between px-3">
+            <button
+              type="button"
+              class="pointer-events-auto inline-flex h-9 w-9 items-center justify-center rounded-full bg-[#fffaf8]/92 text-[#3d3834] shadow-[0_10px_25px_-18px_rgba(61,56,52,0.55)] backdrop-blur-sm transition-transform duration-300 hover:scale-[1.03]"
+              data-prev
+              aria-label="Image precedente"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="m15 18-6-6 6-6" />
+              </svg>
+            </button>
+            <button
+              type="button"
+              class="pointer-events-auto inline-flex h-9 w-9 items-center justify-center rounded-full bg-[#fffaf8]/92 text-[#3d3834] shadow-[0_10px_25px_-18px_rgba(61,56,52,0.55)] backdrop-blur-sm transition-transform duration-300 hover:scale-[1.03]"
+              data-next
+              aria-label="Image suivante"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="m9 18 6-6-6-6" />
+              </svg>
+            </button>
+          </div>
+        </>
+      )
+    }
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll("[data-card-gallery]").forEach((galleryRoot) => {
+    if (!(galleryRoot instanceof HTMLElement)) {
+      return;
+    }
+
+    if (galleryRoot.dataset.bound === "true") {
+      return;
+    }
+    galleryRoot.dataset.bound = "true";
+
+    const slides = Array.from(galleryRoot.querySelectorAll("[data-slide]"));
+    const thumbs = Array.from(galleryRoot.querySelectorAll("[data-thumb]"));
+    const prevButton = galleryRoot.querySelector("[data-prev]");
+    const nextButton = galleryRoot.querySelector("[data-next]");
+    const counter = galleryRoot.querySelector("[data-counter]");
+    const label = galleryRoot.querySelector("[data-label]");
+
+    if (slides.length <= 1) {
+      return;
+    }
+
+    let currentIndex = 0;
+
+    const update = (nextIndex) => {
+      currentIndex = (nextIndex + slides.length) % slides.length;
+
+      slides.forEach((slide, slideIndex) => {
+        if (!(slide instanceof HTMLElement)) {
+          return;
+        }
+        slide.classList.toggle("hidden", slideIndex !== currentIndex);
+        slide.classList.toggle("block", slideIndex === currentIndex);
+      });
+
+      thumbs.forEach((thumb, thumbIndex) => {
+        if (!(thumb instanceof HTMLElement)) {
+          return;
+        }
+        thumb.classList.toggle("ring-2", thumbIndex === currentIndex);
+        thumb.classList.toggle("ring-[#3a4d45]/40", thumbIndex === currentIndex);
+        thumb.setAttribute("aria-selected", String(thumbIndex === currentIndex));
+      });
+
+      const activeThumb = thumbs[currentIndex];
+      if (counter instanceof HTMLElement) {
+        counter.textContent = `${currentIndex + 1} / ${slides.length}`;
+      }
+      if (label instanceof HTMLElement && activeThumb instanceof HTMLElement) {
+        label.textContent = activeThumb.getAttribute("aria-label")?.replace("Afficher ", "") || `Vue ${currentIndex + 1}`;
+      }
+    };
+
+    thumbs.forEach((thumb) => {
+      thumb.addEventListener("click", () => {
+        if (!(thumb instanceof HTMLElement)) {
+          return;
+        }
+        update(Number(thumb.dataset.index ?? 0));
+      });
+    });
+
+    if (prevButton instanceof HTMLButtonElement) {
+      prevButton.addEventListener("click", () => update(currentIndex - 1));
+    }
+
+    if (nextButton instanceof HTMLButtonElement) {
+      nextButton.addEventListener("click", () => update(currentIndex + 1));
+    }
+  });
+</script>

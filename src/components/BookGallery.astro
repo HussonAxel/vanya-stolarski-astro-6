@@ -1,0 +1,203 @@
+---
+import type { BookGalleryItem } from "../data/books";
+
+interface Props {
+  items: BookGalleryItem[];
+  title?: string;
+}
+
+const { items, title = "Galerie du livre" } = Astro.props as Props;
+const galleryId = `gallery-${Math.random().toString(36).slice(2, 10)}`;
+const slides = items.length > 0 ? items : [];
+const hasMultiple = slides.length > 1;
+---
+
+<div
+  class="book-gallery space-y-3"
+  id={galleryId}
+  data-gallery
+  data-count={slides.length}
+  aria-label={title}
+>
+  <div class="rounded-lg border border-[#3d3834]/8 bg-[#FFFAFA] p-3 shadow-[0_24px_70px_-52px_rgba(61,56,52,0.35)]">
+    <div class="relative overflow-hidden rounded-[1.55rem] bg-[#f6efec]">
+      {
+        slides.map((item, index) => (
+          <figure
+            class:list={[
+              "book-gallery-slide",
+              index === 0 ? "block" : "hidden",
+            ]}
+            data-slide
+            data-index={index}
+          >
+            <img
+              src={item.src}
+              alt={item.alt}
+              class="aspect-[4/4.9] w-full object-cover"
+              loading={index === 0 ? "eager" : "lazy"}
+            />
+          </figure>
+        ))
+      }
+
+      {
+        hasMultiple && (
+          <>
+            <div class="pointer-events-none absolute inset-x-0 top-0 flex items-center justify-between p-3">
+              <span class="pointer-events-auto rounded-full bg-[#fffaf8]/92 px-3 py-1.5 font-sans text-[10px] font-bold tracking-[0.22em] text-[#3d3834]/72 uppercase backdrop-blur-sm" data-counter>
+                1 / {slides.length}
+              </span>
+              <span class="pointer-events-auto rounded-full bg-[#3d3834]/78 px-3 py-1.5 font-sans text-[10px] font-bold tracking-[0.22em] text-[#FFFAFA] uppercase backdrop-blur-sm" data-label>
+                {slides[0]?.label ?? `Vue 1`}
+              </span>
+            </div>
+
+            <div class="pointer-events-none absolute inset-x-0 top-1/2 flex -translate-y-1/2 items-center justify-between px-3">
+              <button
+                type="button"
+                class="pointer-events-auto inline-flex h-11 w-11 items-center justify-center rounded-full bg-[#fffaf8]/92 text-[#3d3834] shadow-[0_10px_25px_-18px_rgba(61,56,52,0.55)] backdrop-blur-sm transition-transform duration-300 hover:scale-[1.03]"
+                data-prev
+                aria-label="Image precedente"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="m15 18-6-6 6-6" />
+                </svg>
+              </button>
+              <button
+                type="button"
+                class="pointer-events-auto inline-flex h-11 w-11 items-center justify-center rounded-full bg-[#fffaf8]/92 text-[#3d3834] shadow-[0_10px_25px_-18px_rgba(61,56,52,0.55)] backdrop-blur-sm transition-transform duration-300 hover:scale-[1.03]"
+                data-next
+                aria-label="Image suivante"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="m9 18 6-6-6-6" />
+                </svg>
+              </button>
+            </div>
+          </>
+        )
+      }
+    </div>
+  </div>
+
+  {
+    hasMultiple && (
+      <div class="grid grid-cols-3 gap-2.5" role="tablist" aria-label={`${title} miniatures`}>
+        {
+          slides.map((item, index) => (
+            <button
+              type="button"
+              class:list={[
+                "group overflow-hidden rounded-[1.2rem] border border-[#3d3834]/8 bg-[#FFFAFA] p-1.5 text-left transition-all duration-300",
+                index === 0 ? "ring-2 ring-[#3a4d45]/40" : "",
+              ]}
+              data-thumb
+              data-index={index}
+              aria-label={`Afficher ${item.label ?? `image ${index + 1}`}`}
+              aria-selected={index === 0 ? "true" : "false"}
+              role="tab"
+            >
+              <div class="overflow-hidden rounded-[0.9rem] bg-[#f6efec]">
+                <img
+                  src={item.src}
+                  alt=""
+                  class="aspect-[4/4.9] w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                  loading="lazy"
+                />
+              </div>
+              <p class="px-1.5 pt-2 pb-1 font-sans text-[9px] font-bold tracking-[0.18em] text-[#3d3834]/62 uppercase">
+                {item.label ?? `Vue ${index + 1}`}
+              </p>
+            </button>
+          ))
+        }
+      </div>
+    )
+  }
+</div>
+
+<script>
+  document.querySelectorAll("[data-gallery]").forEach((galleryRoot) => {
+    if (!(galleryRoot instanceof HTMLElement)) {
+      return;
+    }
+
+    if (galleryRoot.dataset.bound === "true") {
+      return;
+    }
+    galleryRoot.dataset.bound = "true";
+
+    const slides = Array.from(galleryRoot.querySelectorAll("[data-slide]"));
+    const thumbs = Array.from(galleryRoot.querySelectorAll("[data-thumb]"));
+    const prevButton = galleryRoot.querySelector("[data-prev]");
+    const nextButton = galleryRoot.querySelector("[data-next]");
+    const counter = galleryRoot.querySelector("[data-counter]");
+    const label = galleryRoot.querySelector("[data-label]");
+
+    if (slides.length <= 1) {
+      return;
+    }
+
+    let currentIndex = 0;
+
+    const update = (nextIndex) => {
+      currentIndex = (nextIndex + slides.length) % slides.length;
+
+      slides.forEach((slide, slideIndex) => {
+        if (!(slide instanceof HTMLElement)) {
+          return;
+        }
+
+        slide.classList.toggle("hidden", slideIndex !== currentIndex);
+        slide.classList.toggle("block", slideIndex === currentIndex);
+      });
+
+      thumbs.forEach((thumb, thumbIndex) => {
+        if (!(thumb instanceof HTMLElement)) {
+          return;
+        }
+
+        thumb.classList.toggle("ring-2", thumbIndex === currentIndex);
+        thumb.classList.toggle("ring-[#3a4d45]/40", thumbIndex === currentIndex);
+        thumb.setAttribute("aria-selected", String(thumbIndex === currentIndex));
+      });
+
+      const activeThumb = thumbs[currentIndex];
+      if (counter instanceof HTMLElement) {
+        counter.textContent = `${currentIndex + 1} / ${slides.length}`;
+      }
+      if (label instanceof HTMLElement && activeThumb instanceof HTMLElement) {
+        const thumbLabel = activeThumb.querySelector("p");
+        label.textContent = thumbLabel?.textContent?.trim() || `Vue ${currentIndex + 1}`;
+      }
+
+      galleryRoot.dispatchEvent(
+        new CustomEvent("book-gallery:change", {
+          bubbles: true,
+          detail: { index: currentIndex },
+        }),
+      );
+    };
+
+    thumbs.forEach((thumb) => {
+      thumb.addEventListener("click", () => {
+        if (!(thumb instanceof HTMLElement)) {
+          return;
+        }
+        const nextIndex = Number(thumb.dataset.index ?? 0);
+        update(nextIndex);
+      });
+    });
+
+    if (prevButton instanceof HTMLButtonElement) {
+      prevButton.addEventListener("click", () => update(currentIndex - 1));
+    }
+
+    if (nextButton instanceof HTMLButtonElement) {
+      nextButton.addEventListener("click", () => update(currentIndex + 1));
+    }
+
+    update(0);
+  });
+</script>

@@ -61,203 +61,151 @@ export interface Book {
 export const books: Book[] = [
   {
     slug: "coeur-de-renard",
-    title: "Coeur De Renard",
+    title: "Coeur de Renard",
     tome: "Tome 1",
-    series: "Chroniques du Verre",
+    series: "Duologie",
     pages: 371,
     isbn: "979-10-978469-1-6",
-    releaseDate: "Printemps 2027",
-    format: "Broche + numerique",
-    status: "Disponible bientot",
-    price: "19,90 EUR",
+    releaseDate: "2025",
+    format: "Relié + broché",
+    status: "Disponible",
+    price: "Selon édition",
+    purchaseLinks: [
+      {
+        label: "Boutique SumUp",
+        href: "https://vanyastolarski.sumupstore.com/product/coeur-de-renard-relie",
+      },
+    ],
     genres: [
-      "Thriller Psychologique",
+      "Thriller",
+      "Psychologique",
       "Romance sombre",
       "Historique",
       "Art",
       "Duologie",
     ],
     description:
-      "Un roman tendu, sensuel et trouble ou une chasse a l'homme se transforme en pacte fragile.",
+      "Il est arnaqueur d'art. Elle va en être victime. Elle va le traquer sans merci. Il va l'aider sous une fausse identité.",
     longDescription:
-      "Texte placeholder. Remplacez ce paragraphe par une presentation longue du livre, de ses themes et de ses enjeux emotionnels. Vous pouvez raconter le point de depart, le contexte historique et la promesse de lecture en plusieurs phrases.",
-    cover: "/assets/covers/cdr-cover.webp",
+      "En pleine occupation, Renard tente de survivre en remboursant une dette qui le pousse aux pires vices, notamment en vendant des faux tableaux. Fortune, quant à elle, voit, impuissante, ses parents sombrer dans les idéologies nazies et d'extrême droite. Alors qu'elle tente de leur faire ouvrir les yeux sur les conséquences de leurs décisions, les occupants gagnent en influence sur la banque dont elle doit hériter. Son honneur sera sali si elle échoue à retrouver l'escroc qui souhaite la chute de la banque, mais quel honneur lui restera-t-il si ses parents se vendent aux nazis ?",
+    cover: "/assets/covers/coeur-de-renard-cover.webp",
     gallery: [
       {
+        src: "/assets/covers/coeur-de-renard-cover.webp",
+        alt: "Format relié de Coeur de Renard",
+        label: "Relié",
+      },
+      {
+        src: "/assets/covers/cdr-cover-broche.webp",
+        alt: "Format broché de Coeur de Renard",
+        label: "Broché",
+      },
+      {
         src: "/assets/covers/cdr-cover.webp",
-        alt: "Couverture de Coeur De Renard",
-        label: "Couverture",
+        alt: "Visuel éditorial de Coeur de Renard",
+        label: "Visuel",
       },
     ],
-    accent: "#3a4d45",
+    accent: "#3d3834",
     quote:
-      "Placeholder citation. Ajoutez ici une phrase marquante extraite du livre ou de son univers.",
-    hook: "Une fausse identite. Une dette. Une poursuite qui bascule dans l'obsession.",
+      "Fortune était ce genre de femme à trouver un cap en pleine tempête, à remplacer le capitaine si celui-ci venait à tomber.",
+    hook:
+      "En pleine Seconde Guerre mondiale, la règle est de ne jamais croire un coeur de renard.",
     details: [
-      { label: "Heroine", value: "Nom placeholder" },
-      { label: "Hero", value: "Nom placeholder" },
-      { label: "Cadre", value: "Europe, annees 1940" },
-      { label: "Ambiance", value: "Velours, cendres et musees" },
+      { label: "Personnages", value: "Renard & Fortune" },
+      { label: "Cadre", value: "Paris, 1943" },
+      { label: "Promesse", value: "Traque, faux tableaux, morale grise" },
+      { label: "Edition", value: "Roman relié ou broché" },
     ],
   },
   {
     slug: "fous-papillons",
     title: "Fous-Papillons",
-    tome: "Tome 1",
-    series: "Les Nuits d'Opaline",
+    tome: "One-shot",
+    series: "Roman historique fantastique",
     pages: 412,
     isbn: "979-8287581428",
-    releaseDate: "Ete 2027",
-    format: "Broche + collector",
-    status: "Precommande ouverte",
-    price: "21,50 EUR",
+    releaseDate: "2025",
+    format: "Relié + broché",
+    status: "Disponible",
+    price: "Selon édition",
     purchaseLinks: [
       {
         label: "Amazon",
-        href: "https://www.amazon.fr/s?k=Fous-Papillons+Vanya+Stolarski",
+        href: "https://www.amazon.fr/Fous-Papillons-Vanya-Stolarski/dp/B0FGCKQLX6",
       },
       {
-        label: "Fnac",
-        href: "https://www.fnac.com/SearchResult/ResultList.aspx?Search=Fous-Papillons+Vanya+Stolarski",
+        label: "Boutique SumUp",
+        href: "https://vanyastolarski.sumupstore.com/product/fous-papillons-relie-avec-jaquette",
       },
     ],
     genres: [
       "Fantastique",
       "Historique",
       "Romance tragique",
-      "Mariage arrange",
+      "Mariage arrangé",
+      "Soulmates",
+      "One-shot",
     ],
     description:
-      "Un drame romantique et fantastique ou les alliances imposees cachent des forces plus anciennes.",
+      "Mariée de force au général de l'Etat major, Esther voit son cœur tiraillé entre un mari dangereux et un amour d'enfance qui a vendu son âme pour elle.",
     longDescription:
-      "Texte placeholder. Utilisez cette zone pour decrire l'intrigue, les tensions politiques, les personnages centraux et le type d'emotions que vous voulez promettre au lecteur. Vous pourrez aussi y ajouter des details sur le ton et les tropes.",
+      "Fous-Papillons est une romance aux airs de tragédie, où s'aimer frôle la haine, voire s'y confond lorsqu'il ne reste plus d'autre solution pour rester dans le cœur de l'autre. Vous suivrez les aventures d'Ethan et Esther de 1880 à 1920, dans de nombreux pays différents à l’époque où les conflits de la Première Guerre mondiale font des ravages. Paris, les Vosges, la Sicile et Saint-Pétersbourg : vous voyagerez autant dans la neige que sous le soleil de la Méditerranée.",
     cover: "/assets/covers/fous-papillons-cover.webp",
     gallery: [
       {
         src: "/assets/covers/fous-papillons-cover.webp",
-        alt: "Couverture brochee de Fous-Papillons",
-        label: "Broche",
-        edition: {
-          format: "Broche classique",
-          price: "21,50 EUR",
-          pages: 412,
-          isbn: "979-8287581428",
-          releaseDate: "Ete 2027",
-          status: "Precommande ouverte",
-          hook: "L'edition brochee pour entrer dans l'univers de Fous-Papillons.",
-          description:
-            "Edition standard en broche, parfaite pour une premiere decouverte du roman et de son atmosphere tragique.",
-          purchaseLinks: [
-            {
-              label: "Amazon",
-              href: "https://www.amazon.fr/s?k=Fous-Papillons+Vanya+Stolarski",
-            },
-            {
-              label: "Fnac",
-              href: "https://www.fnac.com/SearchResult/ResultList.aspx?Search=Fous-Papillons+Vanya+Stolarski",
-            },
-          ],
-        },
+        alt: "Format relié de Fous-Papillons",
+        label: "Relié",
       },
       {
-        src: "/assets/covers/fous-papillons-cover.webp",
-        alt: "Edition collector de Fous-Papillons",
-        label: "Collector",
-        edition: {
-          format: "Collector relie + bonus",
-          price: "29,90 EUR",
-          pages: 436,
-          isbn: "979-8287581435",
-          releaseDate: "Automne 2027",
-          status: "Tirage limite",
-          hook: "Une edition collector pensee pour les lecteurs qui veulent conserver le livre comme objet.",
-          description:
-            "Edition collector reliee avec contenu bonus, finitions plus riches et pagination augmentee pour accueillir des extras.",
-          purchaseLinks: [
-            {
-              label: "Amazon Collector",
-              href: "https://www.amazon.fr/s?k=Fous-Papillons+collector+Vanya+Stolarski",
-            },
-            {
-              label: "Fnac Collector",
-              href: "https://www.fnac.com/SearchResult/ResultList.aspx?Search=Fous-Papillons+collector+Vanya+Stolarski",
-            },
-          ],
-        },
-      },
-      {
-        src: "/assets/covers/fous-papillons-cover.webp",
-        alt: "Dos collector de Fous-Papillons",
-        label: "Dos collector",
-        edition: {
-          format: "Collector relie + bonus",
-          price: "29,90 EUR",
-          pages: 436,
-          isbn: "979-8287581435",
-          releaseDate: "Automne 2027",
-          status: "Tirage limite",
-          hook: "Le dos collector met en avant les finitions et la presence en bibliotheque.",
-          description:
-            "Vue du dos de l'edition collector, avec un rendu plus objet et une presentation orientee collection.",
-          purchaseLinks: [
-            {
-              label: "Amazon Collector",
-              href: "https://www.amazon.fr/s?k=Fous-Papillons+collector+Vanya+Stolarski",
-            },
-            {
-              label: "Fnac Collector",
-              href: "https://www.fnac.com/SearchResult/ResultList.aspx?Search=Fous-Papillons+collector+Vanya+Stolarski",
-            },
-          ],
-        },
+        src: "/assets/covers/fous-papillons-featured.webp",
+        alt: "Format broché de Fous-Papillons",
+        label: "Visuel",
       },
     ],
     accent: "#3a4d45",
     quote:
-      "Placeholder citation. Inserez ici une phrase emblematique, romantique ou tragique.",
-    hook: "Une union forcee. Un coeur deja pris. Une ville qui observe tout.",
+      "Si Ethan ne voyait pas d’un mauvais oeil l’idée d’aller en enfer, celle qu’Esther soit condamnée à l’éternelle perdition ne lui était pas supportable.",
+    hook:
+      "Entre Frantz, son mystérieux mari, et Ethan, cet amoureux d'enfance qu'elle veut à tout prix protéger, Esther ne sait plus qui aimer.",
     details: [
-      { label: "Heroine", value: "Nom placeholder" },
-      { label: "Epoux", value: "Nom placeholder" },
-      { label: "Lieu", value: "Paris, 1890" },
-      { label: "Promesse", value: "Secrets, bals et blessures" },
+      { label: "Personnages", value: "Esther, Ethan, Frantz" },
+      { label: "Période", value: "1880 à 1920" },
+      { label: "Lieux", value: "Paris, Vosges, Sicile, Saint-Pétersbourg" },
+      { label: "Promesse", value: "Âmes soeurs maudites et tragédie" },
     ],
     isLatest: true,
     featured: {
       label: "Dernier roman paru",
-      kicker: "Roman phare",
+      kicker: "Lecture phare",
       shortPitch:
-        "Mariée de force au général de l'Etat major, Esther se retrouve embourbée dans les conflits politiques d'une France de 1890. Son cœur est pourtant ailleurs, loin de Paris, dans une forêt où l'attend un garçon ayant vendu son âme au diable pour elle. Entre Frantz, son mystérieux mari aussi froid que manipulateur et Ethan, cet amoureux d'enfance qu'elle veut à tout prix protéger, Esther ne sait plus qui aimer. Malheureusement, à cette époque où les tensions sont aussi vives que les conflits sont destructeurs, ils devront parvenir à survivre sans que le monde n'apprenne leurs machinations sans quoi... ils risquent tous l'exécution.",
+        "Une romance tragique et fantastique où l'Histoire, les conflits politiques et une malédiction intime se heurtent sans jamais relâcher la tension.",
       mediaType: "image",
-      mediaSrc: "/assets/covers/fous-papillons-cover.webp",
-      mediaPoster: "/assets/covers/fous-papillons-cover.webp",
-      mediaAlt: "Visuel de campagne pour Fous-Papillons",
+      mediaSrc: "/assets/covers/fous-papillons-featured.webp",
+      mediaPoster: "/assets/covers/fous-papillons-featured.webp",
+      mediaAlt: "Visuel éditorial de Fous-Papillons",
       gallery: [
         {
           src: "/assets/covers/fous-papillons-cover.webp",
-          alt: "Visuel de campagne pour Fous-Papillons",
-          label: "Edition principale",
+          alt: "Couverture de Fous-Papillons",
+          label: "Couverture",
         },
         {
-          src: "/assets/covers/fous-papillons-cover.webp",
-          alt: "Visuel de campagne pour Fous-Papillons",
-          label: "Edition principale",
-        },
-        {
-          src: "/assets/covers/fous-papillons-cover.webp",
-          alt: "Visuel de campagne pour Fous-Papillons",
-          label: "Edition principale",
+          src: "/assets/covers/fous-papillons-featured.webp",
+          alt: "Visuel collector de Fous-Papillons",
+          label: "Collector",
         },
       ],
       stats: [
-        { label: "Edition", value: "Collector + broche" },
-        { label: "Atmosphere", value: "Bals, tensions, mystere" },
-        { label: "Lecture", value: "Romance sombre et lyrique" },
+        { label: "Pagination", value: "412 pages" },
+        { label: "Format", value: "Relié + broché" },
+        { label: "Tonalité", value: "Historique & tragique" },
       ],
       spotlight: [
-        { label: "Heroine", value: "Esther placeholder" },
-        { label: "Promesse", value: "Mariage force, ville en ebulition" },
-        { label: "Media", value: "Image aujourd'hui, video demain" },
+        { label: "Héroïne", value: "Esther" },
+        { label: "Amour maudit", value: "Ethan" },
+        { label: "Cadre", value: "1880-1920" },
       ],
     },
   },
@@ -265,18 +213,24 @@ export const books: Book[] = [
     slug: "le-coeur-dankaa",
     title: "Le coeur d'Ankaa",
     tome: "Tome 1",
-    series: "Le Royaume Fendu",
+    series: "Imposteurs",
     pages: 479,
     isbn: "978-2957655106",
-    releaseDate: "Hiver 2027",
-    format: "Grand format",
-    status: "En ecriture",
-    price: "24,00 EUR",
+    releaseDate: "2021",
+    format: "Broché",
+    status: "Disponible",
+    price: "Selon édition",
+    purchaseLinks: [
+      {
+        label: "Amazon",
+        href: "https://www.amazon.fr/C%C5%93ur-dAnkaa-1-Imposteurs/dp/2957655101",
+      },
+    ],
     genres: ["Fantasy", "Guerre", "Magie"],
     description:
-      "Une fantasy epique centree sur l'exil, la foi et la reconquete d'un royaume brise.",
+      "Chassé de chez lui, Johen part en quête du coeur d’Ankaa pendant qu'une guerre menace d'engloutir le royaume.",
     longDescription:
-      "Texte placeholder. Detaillez ici l'univers, la magie, les enjeux militaires et la quete du protagoniste. Cette section peut devenir votre texte de quatrieme de couverture longue ou une note d'intention pour les lecteurs.",
+      "Dans un monde de fantasy où les nymphes et la magie ont été bannis, Johen apprend qu’il n’est en réalité pas le fils légitime de son père. Il l’apprend lorsqu’il doit porter la couronne et qu’il se fait trahir par son oncle. Alycie, elle, ne connaît rien du monde après son île. Tout ce qu’elle sait, c’est qu’elle n’est pas comme les autres nymphes et que sa déesse ne lui parle pas. Entre complots, guerre et magie, ils vont devoir survivre à des révélations qui bouleversent tout.",
     cover: "/assets/covers/le-coeur-dankaa-cover.webp",
     gallery: [
       {
@@ -285,15 +239,15 @@ export const books: Book[] = [
         label: "Couverture",
       },
     ],
-    accent: "#3a4d45",
-    quote:
-      "Placeholder citation. Ajoutez ici une phrase liee au mythe d'Ankaa ou a la guerre.",
-    hook: "Un exil. Un artefact legendaire. Un royaume qui ne pardonne rien.",
+    accent: "#3d3834",
+    quote: "Ils sont nés imposteurs. Ils seront inoubliables.",
+    hook:
+      "Entre complots, guerre et magie, Alycie et Johen vont devoir faire confiance à leur instinct pour survivre.",
     details: [
-      { label: "Protagoniste", value: "Nom placeholder" },
-      { label: "Quete", value: "Retrouver le coeur d'Ankaa" },
-      { label: "Territoire", value: "Royaume frontalier fictif" },
-      { label: "Magie", value: "Reliques, serments et ciel rouge" },
+      { label: "Personnages", value: "Johen & Alycie" },
+      { label: "Quête", value: "Retrouver le coeur d'Ankaa" },
+      { label: "Monde", value: "Fantasy, guerre, magie" },
+      { label: "Promesse", value: "Trahisons et destin contrarié" },
     ],
   },
 ];
@@ -302,5 +256,3 @@ export const getBookBySlug = (slug: string) =>
   books.find((book) => book.slug === slug);
 
 export const latestBook = books.find((book) => book.isLatest) ?? books[0];
-
-

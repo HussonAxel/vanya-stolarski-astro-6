@@ -1,43 +1,27 @@
-# Astro Starter Kit: Minimal
+# Vanya Stolarski
 
-```sh
-npm create astro@latest -- --template minimal
-```
+## Commandes
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+| Commande          | Action                                  |
+| :---------------- | :-------------------------------------- |
+| `npm install`     | Installe les dependances                |
+| `npm run dev`     | Lance le site en local                  |
+| `npm run build`   | Genere la version de production         |
+| `npm run preview` | Ouvre un apercu local de la production  |
 
-## 🚀 Project Structure
+## Campagne Ulule dynamique
 
-Inside of your Astro project, you'll see the following folders and files:
+Le menu principal embarque une carte `Derniere campagne Ulule` rendue cote serveur via une server island Astro.
 
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
+Configuration:
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+1. Copier `.env.example` en `.env`
+2. Renseigner `ULULE_PROJECT_ID` avec l'identifiant du projet Ulule
+3. Optionnel: ajuster `ULULE_SECONDARY_HREF` et `ULULE_SECONDARY_LABEL`
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+Notes techniques:
 
-Any static assets, like images, can be placed in the `public/` directory.
-
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+- Les donnees Ulule sont recuperees cote serveur
+- Le cache memoire est conserve pendant `4 heures`
+- Si Ulule ne repond pas ou si `ULULE_PROJECT_ID` est absent, le site retombe sur une carte de campagne statique
+- Le projet utilise `@astrojs/node` pour supporter ce rendu serveur cible

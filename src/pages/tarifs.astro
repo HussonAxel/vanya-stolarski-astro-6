@@ -1,4 +1,5 @@
 ---
+import { services } from "../data/services";
 import Layout from "../layouts/Layout.astro";
 
 const contact = {
@@ -6,232 +7,6 @@ const contact = {
   instagramHandle: "vanyastolar.auteure",
   instagramUrl: "https://www.instagram.com/vanyastolar.auteure/",
 };
-
-const services = [
-  {
-    name: "Couverture",
-    eyebrow: "Service éditorial",
-    price: "Sous devis",
-    accent: "#3a4d45",
-    format: "Sur mesure",
-    universe: "Fantasy & SF",
-    focus: "Objet-livre premium",
-    gallery: [
-      {
-        src: "/assets/services/couvertures/cover-1.webp",
-        alt: "Exemple de couverture fantasy 1",
-        label: "Fantasy",
-      },
-      {
-        src: "/assets/services/couvertures/cover-2.webp",
-        alt: "Exemple de couverture fantasy 2",
-        label: "Collector",
-      },
-      {
-        src: "/assets/services/couvertures/cover-3.webp",
-        alt: "Exemple de couverture fantasy 3",
-        label: "Romance",
-      },
-      {
-        src: "/assets/services/couvertures/cover-5.webp",
-        alt: "Exemple de couverture fantasy 4",
-        label: "Luxe",
-      },
-    ],
-    tags: ["Fantasy", "Science-fiction", "Sur mesure"],
-    description:
-      "Des couvertures pensées comme de vrais objets de désir : lisibles, singulières et adaptées à l'univers de ton roman.",
-  },
-  {
-    name: "Premades",
-    eyebrow: "Collection disponible",
-    price: "Disponible",
-    accent: "#3a4d45",
-    format: "Formats adaptables",
-    universe: "Fantasy & SF",
-    focus: "Mise en ligne rapide",
-    gallery: [
-      {
-        src: "/assets/services/premades/premade.webp",
-        alt: "Exemple de premade fantasy 1",
-        label: "Premade 01",
-      },
-      {
-        src: "/assets/services/premades/premade2.webp",
-        alt: "Exemple de premade fantasy 2",
-        label: "Premade 02",
-      },
-    ],
-    tags: ["Fantasy", "Science-fiction", "Disponible"],
-    description:
-      "Des premades pour aller plus vite, tout en gardant une présence visuelle premium et un rendu cohérent avec ton projet.",
-  },
-  {
-    name: "Jaspages",
-    eyebrow: "Finition collector",
-    price: "80 € / 120 €",
-    accent: "#3d3834",
-    format: "Édition collector",
-    universe: "Fantasy & SF",
-    focus: "Tranche personnalisée",
-    gallery: [
-      {
-        src: "/assets/services/jaspages/jaspage-one.webp",
-        alt: "Exemple de jaspage décoratif 1",
-        label: "Ornement",
-      },
-      {
-        src: "/assets/services/jaspages/jaspage-two.webp",
-        alt: "Exemple de jaspage décoratif 2",
-        label: "Motif",
-      },
-      {
-        src: "/assets/services/jaspages/jaspage-three.webp",
-        alt: "Exemple de jaspage décoratif 3",
-        label: "Édition",
-      },
-      {
-        src: "/assets/services/jaspages/jaspage-four.webp",
-        alt: "Exemple de jaspage décoratif 4",
-        label: "Collection",
-      },
-    ],
-    tags: ["Édition collector", "Fantasy", "Personnalisable"],
-    description:
-      "Le jaspage ajoute une vraie sensation d'objet précieux, avec une exécution conçue pour enrichir l'expérience du livre.",
-  },
-  {
-    name: "Pages de garde",
-    eyebrow: "Intérieur illustré",
-    price: "Sous devis",
-    accent: "#3d3834",
-    format: "Double page",
-    universe: "Univers sur mesure",
-    focus: "Ouverture immersive",
-    gallery: [
-      {
-        src: "/assets/services/pagedegarde/pdg1.webp",
-        alt: "Exemple de pages de garde illustrées 1",
-        label: "Ouverture",
-      },
-      {
-        src: "/assets/services/pagedegarde/pdg2.webp",
-        alt: "Exemple de pages de garde illustrées 2",
-        label: "Double page",
-      },
-      {
-        src: "/assets/services/pagedegarde/pdg3.webp",
-        alt: "Exemple de pages de garde illustrées 3",
-        label: "Univers",
-      },
-    ],
-    tags: ["Intérieur", "Sur devis", "Univers sur mesure"],
-    description:
-      "Des pages de garde pour poser un décor, prolonger un imaginaire et donner plus de profondeur au livre dès la première ouverture.",
-  },
-  {
-    name: "Entêtes de chapitres",
-    eyebrow: "Finition intérieure",
-    price: "À partir de 20 €",
-    accent: "#3a4d45",
-    format: "Chapitrage",
-    universe: "Fantasy & SF",
-    focus: "Rythme de lecture",
-    gallery: [
-      {
-        src: "/assets/services/headers/header-one.webp",
-        alt: "Exemple d'entête de chapitre 1",
-        label: "Minimal",
-      },
-      {
-        src: "/assets/services/headers/header-three.webp",
-        alt: "Exemple d'entête de chapitre 2",
-        label: "Orné",
-      },
-      {
-        src: "/assets/services/headers/header-seven.webp",
-        alt: "Exemple d'entête de chapitre 3",
-        label: "Saga",
-      },
-      {
-        src: "/assets/services/headers/header-ten.webp",
-        alt: "Exemple d'entête de chapitre 4",
-        label: "Prestige",
-      },
-    ],
-    tags: ["Chapitrage", "À partir de 20 €", "Personnalisable"],
-    description:
-      "Des entêtes de chapitres pour donner au texte une finition plus élégante et renforcer la cohérence visuelle de l'ensemble.",
-  },
-  {
-    name: "Cartographie",
-    eyebrow: "Monde & territoire",
-    price: "200 € / 400 €",
-    accent: "#3a4d45",
-    format: "1 ou 2 pages",
-    universe: "Mondes imaginaires",
-    focus: "Lecture immersive",
-    gallery: [
-      {
-        src: "/assets/services/maps/maps-one.webp",
-        alt: "Exemple de carte fantasy 1",
-        label: "Royaume",
-      },
-      {
-        src: "/assets/services/maps/maps-four.webp",
-        alt: "Exemple de carte fantasy 2",
-        label: "Archipel",
-      },
-      {
-        src: "/assets/services/maps/maps-six.webp",
-        alt: "Exemple de carte fantasy 3",
-        label: "Relief",
-      },
-      {
-        src: "/assets/services/maps/maps-seven.webp",
-        alt: "Exemple de carte fantasy 4",
-        label: "Double page",
-      },
-    ],
-    tags: ["1 page", "2 pages", "Mondes imaginaires"],
-    description:
-      "Des cartes détaillées pour ancrer les lieux, clarifier les trajets et renforcer la sensation d'univers complet autour du roman.",
-  },
-  {
-    name: "Illustration",
-    eyebrow: "Direction visuelle",
-    price: "Sous devis",
-    accent: "#3d3834",
-    format: "Illustration sur mesure",
-    universe: "Fantasy & SF",
-    focus: "Campagne & contenu",
-    gallery: [
-      {
-        src: "/assets/services/illustrations/illustration-one.webp",
-        alt: "Exemple d'illustration fantasy 1",
-        label: "Portrait",
-      },
-      {
-        src: "/assets/services/illustrations/illustration-seven.webp",
-        alt: "Exemple d'illustration fantasy 2",
-        label: "Scène",
-      },
-      {
-        src: "/assets/services/illustrations/illustration-eleven.webp",
-        alt: "Exemple d'illustration fantasy 3",
-        label: "Ambiance",
-      },
-      {
-        src: "/assets/services/illustrations/illustration-fifteen.webp",
-        alt: "Exemple d'illustration fantasy 4",
-        label: "Campagne",
-      },
-    ],
-    tags: ["Illustration", "Fantasy", "Sous devis"],
-    description:
-      "Des illustrations pour prolonger l'univers du livre, nourrir la communication et donner des images fortes aux personnages ou aux scènes.",
-  },
-];
 
 const commitments = [
   {
@@ -265,6 +40,133 @@ const process = [
     text: "Je réalise le visuel ou l'élément éditorial en gardant la cohérence du projet et la qualité d'exécution.",
   },
 ];
+
+const serviceImageDimensions: Record<string, { width: number; height: number }> =
+  {
+    "/assets/services/couvertures/cover-1.webp": { width: 1816, height: 1217 },
+    "/assets/services/couvertures/cover-2.webp": { width: 2360, height: 1657 },
+    "/assets/services/couvertures/cover-3.webp": { width: 2360, height: 1622 },
+    "/assets/services/couvertures/cover-5.webp": { width: 2360, height: 1663 },
+    "/assets/services/premades/premade.webp": { width: 2360, height: 1657 },
+    "/assets/services/premades/premade2.webp": { width: 2360, height: 1663 },
+    "/assets/services/jaspages/jaspage-five.webp": { width: 319, height: 1819 },
+    "/assets/services/jaspages/jaspage-six.webp": { width: 319, height: 1819 },
+    "/assets/services/jaspages/jaspage-seven.webp": { width: 449, height: 2551 },
+    "/assets/services/jaspages/jaspage-eight.webp": { width: 472, height: 1772 },
+    "/assets/services/jaspages/jaspage-nine.webp": { width: 378, height: 2480 },
+    "/assets/services/jaspages/jaspage-one.webp": { width: 2048, height: 2048 },
+    "/assets/services/jaspages/jaspage-two.webp": { width: 2048, height: 2048 },
+    "/assets/services/jaspages/jaspage-three.webp": { width: 2048, height: 2048 },
+    "/assets/services/jaspages/jaspage-four.webp": { width: 319, height: 2551 },
+    "/assets/services/pagedegarde/pdg1.webp": { width: 2360, height: 1578 },
+    "/assets/services/pagedegarde/pdg2.webp": { width: 3223, height: 2360 },
+    "/assets/services/pagedegarde/pdg3.webp": { width: 3041, height: 1563 },
+    "/assets/services/headers/header-eight.webp": { width: 1800, height: 2700 },
+    "/assets/services/headers/header-eleven.webp": { width: 1800, height: 2700 },
+    "/assets/services/headers/header-twelve.webp": { width: 1800, height: 2700 },
+    "/assets/services/headers/header-thirteen.webp": { width: 1800, height: 2700 },
+    "/assets/services/headers/header-fourteen.webp": { width: 1800, height: 2700 },
+    "/assets/services/headers/header-fifteen.webp": { width: 1800, height: 2700 },
+    "/assets/services/headers/header-one.webp": { width: 1640, height: 2360 },
+    "/assets/services/headers/header-three.webp": { width: 1087, height: 1625 },
+    "/assets/services/headers/header-seven.webp": { width: 1800, height: 2700 },
+    "/assets/services/headers/header-ten.webp": { width: 1800, height: 2700 },
+    "/assets/services/maps/maps-two.webp": { width: 780, height: 1196 },
+    "/assets/services/maps/maps-three.webp": { width: 3307, height: 2480 },
+    "/assets/services/maps/maps-height.webp": { width: 3543, height: 2953 },
+    "/assets/services/maps/maps-one.webp": { width: 2048, height: 2048 },
+    "/assets/services/maps/maps-four.webp": { width: 1640, height: 2360 },
+    "/assets/services/maps/maps-six.webp": { width: 2374, height: 2000 },
+    "/assets/services/maps/maps-seven.webp": { width: 1714, height: 2480 },
+    "/assets/services/illustrations/illustration-five.webp": {
+      width: 4000,
+      height: 4500,
+    },
+    "/assets/services/illustrations/illustration-six.webp": {
+      width: 1640,
+      height: 2360,
+    },
+    "/assets/services/illustrations/illustration-eight.webp": {
+      width: 1640,
+      height: 2360,
+    },
+    "/assets/services/illustrations/illustration-nine.webp": {
+      width: 1640,
+      height: 2360,
+    },
+    "/assets/services/illustrations/illustration-ten.webp": {
+      width: 1640,
+      height: 2360,
+    },
+    "/assets/services/illustrations/illustration-twelve.webp": {
+      width: 4000,
+      height: 5000,
+    },
+    "/assets/services/illustrations/illustration-thirteen.webp": {
+      width: 4000,
+      height: 4500,
+    },
+    "/assets/services/illustrations/illustration-fourteen.webp": {
+      width: 1000,
+      height: 1000,
+    },
+    "/assets/services/illustrations/illustration-sixteen.webp": {
+      width: 3000,
+      height: 3000,
+    },
+    "/assets/services/illustrations/illustration-seventeen.webp": {
+      width: 3000,
+      height: 4000,
+    },
+    "/assets/services/illustrations/illustration-eighteen.webp": {
+      width: 1273,
+      height: 1563,
+    },
+    "/assets/services/illustrations/illustration-one.webp": {
+      width: 1640,
+      height: 2360,
+    },
+    "/assets/services/illustrations/illustration-seven.webp": {
+      width: 1640,
+      height: 2360,
+    },
+    "/assets/services/illustrations/illustration-eleven.webp": {
+      width: 4000,
+      height: 5000,
+    },
+    "/assets/services/illustrations/illustration-fifteen.webp": {
+      width: 3506,
+      height: 4001,
+    },
+  };
+
+const getServiceGalleryCardWidth = (src: string) => {
+  const dimensions = serviceImageDimensions[src];
+
+  if (!dimensions) {
+    return "width:min(72vw, 24rem);";
+  }
+
+  const ratio = dimensions.width / dimensions.height;
+
+  if (ratio >= 1.75) {
+    return "width:min(90vw, 42rem);";
+  }
+
+  if (ratio >= 1.2) {
+    return "width:min(82vw, 34rem);";
+  }
+
+  if (ratio >= 0.9) {
+    return "width:min(72vw, 28rem);";
+  }
+
+  if (ratio >= 0.55) {
+    return "width:min(58vw, 22rem);";
+  }
+
+  return "width:min(52vw, 18rem);";
+};
 ---
 
 <Layout title="Tarifs - Vanya Stolarski">
@@ -402,21 +304,21 @@ const process = [
           </p>
         </div>
 
-        <div class="space-y-20 pt-8">
+        <div class="space-y-10 pt-8 lg:space-y-12">
           {
             services.map((service) => (
-              <section class="section-panel fade-up space-y-5">
+              <section class="section-panel fade-up space-y-7 overflow-hidden rounded-[2.4rem] bg-[#fffdfa] p-6 md:p-8 xl:p-10">
                 {/* ── En-tête service ── */}
-                <div class="flex flex-wrap items-end justify-between gap-4 border-b border-[#3d3834]/8 pb-5">
-                  <div class="space-y-1.5">
+                <div class="flex flex-wrap items-start justify-between gap-5 border-b border-[#3d3834]/8 pb-6">
+                  <div class="space-y-2.5">
                     <p class="font-sans text-[10px] font-bold tracking-[0.34em] text-[#3a4d45] uppercase">
                       {service.eyebrow}
                     </p>
-                    <h3 class="font-serif text-3xl leading-none text-[#3d3834] md:text-[2.6rem]">
+                    <h3 class="font-serif text-3xl leading-[0.95] text-[#3d3834] md:text-[2.6rem]">
                       {service.name}
                     </h3>
                   </div>
-                  <div class="flex flex-wrap items-center gap-3">
+                  <div class="flex flex-wrap items-center gap-3 pt-1">
                     <span
                       class="rounded-full px-4 py-2 font-sans text-[10px] font-bold tracking-[0.22em] uppercase"
                       style={`background:${service.accent}; color:#FFFAFA;`}
@@ -432,31 +334,61 @@ const process = [
                   </div>
                 </div>
 
-                {/* ── Galerie horizontale ── */}
-                <div class="service-gallery -mx-6 px-6">
-                  <div class="flex gap-4 overflow-x-auto pb-4 scrollbar-thin">
+                {/* ── Galerie ── */}
+                <div class="service-gallery">
+                  <div class="-mx-2 flex gap-5 overflow-x-auto px-2 pb-3 snap-x snap-mandatory [scrollbar-width:thin] [scrollbar-color:rgba(61,56,52,0.18)_transparent]">
                     {service.gallery.map((img, i) => (
-                      <figure class="group relative flex-shrink-0">
-                        <div class="overflow-hidden rounded-2xl border border-[#3d3834]/6 bg-[#f6efec] shadow-[0_12px_40px_-20px_rgba(61,56,52,0.2)] transition-shadow duration-300 group-hover:shadow-[0_16px_50px_-18px_rgba(61,56,52,0.32)]">
-                          <img
-                            src={img.src}
-                            alt={img.alt}
-                            class="aspect-[3/4] w-56 object-cover transition-transform duration-500 group-hover:scale-[1.02] sm:w-64 md:w-72 lg:w-80"
-                            loading={i === 0 ? "eager" : "lazy"}
-                          />
-                        </div>
-                        <figcaption class="mt-2.5 px-1 font-sans text-[9px] font-bold tracking-[0.2em] text-[#3d3834]/55 uppercase">
-                          {img.label}
-                        </figcaption>
+                      <figure
+                        class="group relative shrink-0 snap-start"
+                        style={getServiceGalleryCardWidth(img.src)}
+                      >
+                        <button
+                          type="button"
+                          class="service-gallery-trigger block w-full text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#3a4d45] focus-visible:ring-offset-4 focus-visible:ring-offset-[#fffdfa]"
+                          data-service-gallery-trigger
+                          data-image={img.src}
+                          data-alt={img.alt}
+                          data-title={img.label}
+                          data-service={service.name}
+                          data-eyebrow={service.eyebrow}
+                          data-price={service.price}
+                          data-description={service.description}
+                          data-format={service.format}
+                          data-universe={service.universe}
+                          data-focus={service.focus}
+                          data-width={serviceImageDimensions[img.src]?.width}
+                          data-height={serviceImageDimensions[img.src]?.height}
+                          aria-label={`Voir ${img.label} en grand`}
+                        >
+                          <div
+                            class="relative flex h-[18rem] items-center justify-center overflow-hidden rounded-[1.9rem] border border-[#3d3834]/8 bg-[linear-gradient(180deg,#fffdfa_0%,#f2e9e4_100%)] p-3 shadow-[0_18px_55px_-34px_rgba(61,56,52,0.3)] transition-all duration-500 group-hover:-translate-y-1 group-hover:shadow-[0_26px_80px_-34px_rgba(61,56,52,0.38)] sm:h-[21rem] sm:p-4 md:h-[24rem] lg:h-[27rem]"
+                          >
+                            <img
+                              src={img.src}
+                              alt={img.alt}
+                              width={serviceImageDimensions[img.src]?.width}
+                              height={serviceImageDimensions[img.src]?.height}
+                              class="h-full w-full rounded-[1.35rem] object-contain transition-transform duration-500 group-hover:scale-[1.02]"
+                              loading={i === 0 ? "eager" : "lazy"}
+                            />
+                            <div class="pointer-events-none absolute inset-x-0 bottom-0 h-24 rounded-b-[1.9rem] bg-gradient-to-t from-[#3d3834]/18 via-transparent to-transparent"></div>
+                            <span class="absolute bottom-4 left-4 inline-flex rounded-full border border-[#FFFAFA]/20 bg-[#3d3834]/78 px-3 py-1.5 font-sans text-[9px] font-bold tracking-[0.22em] text-[#FFFAFA] uppercase backdrop-blur-sm">
+                              {img.label}
+                            </span>
+                            <span class="absolute top-4 right-4 inline-flex rounded-full border border-[#3d3834]/10 bg-[#fffdfa]/92 px-3 py-1.5 font-sans text-[9px] font-bold tracking-[0.18em] text-[#3d3834]/72 uppercase shadow-[0_10px_28px_-22px_rgba(61,56,52,0.45)]">
+                              Agrandir
+                            </span>
+                          </div>
+                        </button>
                       </figure>
                     ))}
                   </div>
                 </div>
 
                 {/* ── Infos compactes ── */}
-                <div class="grid gap-4 sm:grid-cols-[1fr_auto] sm:items-start">
-                  <div class="space-y-3">
-                    <p class="max-w-xl font-sans text-[0.94rem] leading-relaxed text-[#3d3834]/72">
+                <div class="grid gap-6 border-t border-[#3d3834]/8 pt-6 lg:grid-cols-[minmax(0,1.15fr)_minmax(18rem,0.85fr)] lg:items-start lg:gap-8">
+                  <div class="space-y-4">
+                    <p class="max-w-2xl font-sans text-[0.98rem] leading-8 text-[#3d3834]/72">
                       {service.description}
                     </p>
                     <div class="flex flex-wrap gap-2">
@@ -467,28 +399,28 @@ const process = [
                       ))}
                     </div>
                   </div>
-                  <div class="flex flex-wrap gap-2.5 sm:flex-nowrap">
-                    <div class="rounded-2xl border border-[#3d3834]/8 bg-[#fffaf8] px-4 py-3">
+                  <div class="grid gap-3 sm:grid-cols-3 lg:grid-cols-1 xl:grid-cols-3">
+                    <div class="rounded-[1.7rem] border border-[#3d3834]/8 bg-[#fffaf8] px-4 py-4">
                       <p class="font-sans text-[9px] font-bold tracking-[0.2em] text-[#3d3834]/50 uppercase">
                         Format
                       </p>
-                      <p class="mt-1 font-serif text-lg leading-tight text-[#3d3834]">
+                      <p class="mt-2 font-serif text-[1.35rem] leading-tight text-[#3d3834]">
                         {service.format}
                       </p>
                     </div>
-                    <div class="rounded-2xl border border-[#3d3834]/8 bg-[#fffaf8] px-4 py-3">
+                    <div class="rounded-[1.7rem] border border-[#3d3834]/8 bg-[#fffaf8] px-4 py-4">
                       <p class="font-sans text-[9px] font-bold tracking-[0.2em] text-[#3d3834]/50 uppercase">
                         Univers
                       </p>
-                      <p class="mt-1 font-serif text-lg leading-tight text-[#3d3834]">
+                      <p class="mt-2 font-serif text-[1.35rem] leading-tight text-[#3d3834]">
                         {service.universe}
                       </p>
                     </div>
-                    <div class="rounded-2xl border border-[#3d3834]/8 bg-[#fffaf8] px-4 py-3">
+                    <div class="rounded-[1.7rem] border border-[#3d3834]/8 bg-[#fffaf8] px-4 py-4">
                       <p class="font-sans text-[9px] font-bold tracking-[0.2em] text-[#3d3834]/50 uppercase">
                         Focus
                       </p>
-                      <p class="mt-1 font-serif text-lg leading-tight text-[#3d3834]">
+                      <p class="mt-2 font-serif text-[1.35rem] leading-tight text-[#3d3834]">
                         {service.focus}
                       </p>
                     </div>
@@ -500,6 +432,106 @@ const process = [
         </div>
       </div>
     </section>
+
+    <div
+      id="service-gallery-modal"
+      class="pointer-events-none fixed inset-0 z-[80] flex items-start justify-center overflow-y-auto bg-[#3d3834]/74 px-4 py-4 opacity-0 transition-all duration-300 md:items-center md:py-8"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="service-gallery-modal-title"
+      aria-hidden="true"
+    >
+      <div data-service-gallery-close class="absolute inset-0"></div>
+      <div class="relative z-10 my-auto w-full max-w-[min(96vw,1380px)] overflow-hidden rounded-[2.2rem] border border-[#FFFAFA]/10 bg-[#FFFAFA] shadow-[0_35px_120px_-50px_rgba(61,56,52,0.6)] lg:max-h-[92vh]">
+        <button
+          type="button"
+          id="service-gallery-modal-close"
+          class="absolute top-4 right-4 z-20 inline-flex h-11 w-11 items-center justify-center rounded-full border border-[#3d3834]/10 bg-[#FFFAFA]/92 font-sans text-xs font-bold tracking-[0.2em] text-[#3d3834] uppercase shadow-[0_10px_30px_-24px_rgba(61,56,52,0.55)] transition-all duration-300 hover:-translate-y-0.5 hover:border-[#3a4d45]/30 hover:bg-[#3a4d45] hover:text-[#FFFAFA]"
+          aria-label="Fermer la popup"
+        >
+          X
+        </button>
+
+        <div class="grid lg:grid-cols-[minmax(0,1fr)_390px] lg:items-stretch">
+          <div class="relative flex min-h-[40vh] items-center justify-center overflow-hidden bg-[#3d3834] px-4 py-16 md:min-h-[54vh] md:px-6 lg:min-h-0 lg:px-8 lg:py-8">
+            <div class="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,250,248,0.08),transparent_56%)]"></div>
+            <div class="relative flex w-full items-center justify-center">
+              <button
+                type="button"
+                id="service-gallery-modal-prev"
+                class="absolute left-0 top-1/2 z-10 inline-flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-[#FFFAFA]/14 bg-[#FFFAFA]/10 font-sans text-lg text-[#FFFAFA] backdrop-blur-sm transition-all duration-300 hover:bg-[#FFFAFA] hover:text-[#3d3834] disabled:pointer-events-none disabled:opacity-30"
+                aria-label="Image précédente"
+              >
+                ‹
+              </button>
+              <div class="relative inline-flex max-h-[78vh] w-full max-w-full items-center justify-center overflow-hidden rounded-[1.55rem] border border-[#FFFAFA]/8 bg-[#312d2a] p-3 shadow-[0_24px_60px_-45px_rgba(61,56,52,0.45)] md:p-4">
+                <img
+                  id="service-gallery-modal-image"
+                  src=""
+                  alt=""
+                  class="block max-h-[68vh] max-w-full rounded-[1rem] object-contain md:max-h-[74vh] lg:max-h-[calc(92vh-8rem)]"
+                />
+              </div>
+              <button
+                type="button"
+                id="service-gallery-modal-next"
+                class="absolute right-0 top-1/2 z-10 inline-flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-[#FFFAFA]/14 bg-[#FFFAFA]/10 font-sans text-lg text-[#FFFAFA] backdrop-blur-sm transition-all duration-300 hover:bg-[#FFFAFA] hover:text-[#3d3834] disabled:pointer-events-none disabled:opacity-30"
+                aria-label="Image suivante"
+              >
+                ›
+              </button>
+            </div>
+          </div>
+
+          <div class="min-h-0 overflow-y-auto p-6 md:p-8 lg:max-h-[92vh] lg:p-9">
+            <div class="space-y-6">
+              <div class="space-y-4">
+                <div class="flex flex-wrap items-center gap-2.5">
+                  <p id="service-gallery-modal-eyebrow" class="font-sans text-[10px] font-bold tracking-[0.3em] text-[#3a4d45] uppercase"></p>
+                  <span id="service-gallery-modal-price" class="inline-flex rounded-full border border-[#3d3834]/10 bg-[#fffaf8] px-3 py-1.5 font-sans text-[9px] font-bold tracking-[0.22em] text-[#3d3834]/70 uppercase"></span>
+                </div>
+                <div>
+                  <h2 id="service-gallery-modal-title" class="font-serif text-3xl leading-none text-[#3d3834] md:text-4xl"></h2>
+                  <p id="service-gallery-modal-service" class="mt-3 font-sans text-sm font-bold tracking-[0.2em] text-[#3d3834]/56 uppercase"></p>
+                  <p id="service-gallery-modal-description" class="mt-4 font-sans text-sm leading-relaxed text-[#3d3834]/78 md:text-base"></p>
+                </div>
+              </div>
+
+              <div class="rounded-[1.7rem] border border-[#3d3834]/10 bg-[#fffaf8] p-5">
+                <p class="font-sans text-[10px] font-bold tracking-[0.22em] text-[#3d3834]/58 uppercase">
+                  Détails
+                </p>
+                <dl class="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-1">
+                  <div class="space-y-1">
+                    <dt class="font-sans text-[10px] font-bold tracking-[0.22em] text-[#3d3834]/55 uppercase">Format</dt>
+                    <dd id="service-gallery-modal-format" class="font-serif text-[1.45rem] leading-tight text-[#3d3834] break-words"></dd>
+                  </div>
+                  <div class="space-y-1">
+                    <dt class="font-sans text-[10px] font-bold tracking-[0.22em] text-[#3d3834]/55 uppercase">Univers</dt>
+                    <dd id="service-gallery-modal-universe" class="font-serif text-[1.45rem] leading-tight text-[#3d3834] break-words"></dd>
+                  </div>
+                  <div class="space-y-1">
+                    <dt class="font-sans text-[10px] font-bold tracking-[0.22em] text-[#3d3834]/55 uppercase">Focus</dt>
+                    <dd id="service-gallery-modal-focus" class="font-serif text-[1.45rem] leading-tight text-[#3d3834] break-words"></dd>
+                  </div>
+                  <div class="space-y-1">
+                    <dt class="font-sans text-[10px] font-bold tracking-[0.22em] text-[#3d3834]/55 uppercase">Dimensions</dt>
+                    <dd id="service-gallery-modal-dimensions" class="font-serif text-[1.35rem] leading-tight text-[#3d3834]"></dd>
+                  </div>
+                </dl>
+              </div>
+
+              <div class="rounded-[1.7rem] border border-[#3d3834]/10 bg-[#FFFAFA] p-5">
+                <p class="font-sans text-[10px] font-bold tracking-[0.22em] text-[#3d3834]/58 uppercase">
+                  Note visuelle
+                </p>
+                <p id="service-gallery-modal-alt" class="mt-3 font-sans text-sm leading-relaxed text-[#3d3834]/78 md:text-[0.95rem]"></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <!-- ─── PROCESSUS & ENGAGEMENTS ─── -->
     <section class="relative overflow-hidden bg-[#FFFAFA] px-6 py-24">
@@ -613,23 +645,205 @@ const process = [
   </main>
 </Layout>
 
-<style>
-  /* Scrollbar discrète pour les galeries */
-  .scrollbar-thin {
-    scrollbar-width: thin;
-    scrollbar-color: rgba(61, 56, 52, 0.15) transparent;
+<script>
+  const serviceGalleryTriggers = Array.from(
+    document.querySelectorAll("[data-service-gallery-trigger]")
+  );
+
+  const serviceGalleryModal = document.getElementById("service-gallery-modal");
+  const serviceGalleryModalImage = document.getElementById(
+    "service-gallery-modal-image"
+  );
+  const serviceGalleryModalTitle = document.getElementById(
+    "service-gallery-modal-title"
+  );
+  const serviceGalleryModalService = document.getElementById(
+    "service-gallery-modal-service"
+  );
+  const serviceGalleryModalEyebrow = document.getElementById(
+    "service-gallery-modal-eyebrow"
+  );
+  const serviceGalleryModalPrice = document.getElementById(
+    "service-gallery-modal-price"
+  );
+  const serviceGalleryModalDescription = document.getElementById(
+    "service-gallery-modal-description"
+  );
+  const serviceGalleryModalFormat = document.getElementById(
+    "service-gallery-modal-format"
+  );
+  const serviceGalleryModalUniverse = document.getElementById(
+    "service-gallery-modal-universe"
+  );
+  const serviceGalleryModalFocus = document.getElementById(
+    "service-gallery-modal-focus"
+  );
+  const serviceGalleryModalDimensions = document.getElementById(
+    "service-gallery-modal-dimensions"
+  );
+  const serviceGalleryModalAlt = document.getElementById(
+    "service-gallery-modal-alt"
+  );
+  const serviceGalleryModalClose = document.getElementById(
+    "service-gallery-modal-close"
+  );
+  const serviceGalleryModalPrev = document.getElementById(
+    "service-gallery-modal-prev"
+  );
+  const serviceGalleryModalNext = document.getElementById(
+    "service-gallery-modal-next"
+  );
+  const serviceGalleryModalCloseTargets = Array.from(
+    document.querySelectorAll("[data-service-gallery-close]")
+  );
+
+  let currentServiceGalleryIndex = -1;
+  let lastServiceGalleryTrigger = null;
+
+  const updateServiceGalleryNavigation = () => {
+    const hasItems = serviceGalleryTriggers.length > 1;
+
+    if (serviceGalleryModalPrev instanceof HTMLButtonElement) {
+      serviceGalleryModalPrev.disabled = !hasItems;
+    }
+
+    if (serviceGalleryModalNext instanceof HTMLButtonElement) {
+      serviceGalleryModalNext.disabled = !hasItems;
+    }
+  };
+
+  const renderServiceGalleryModal = (index) => {
+    const trigger = serviceGalleryTriggers[index];
+
+    if (
+      !(trigger instanceof HTMLElement) ||
+      !(serviceGalleryModalImage instanceof HTMLImageElement) ||
+      !(serviceGalleryModalTitle instanceof HTMLElement) ||
+      !(serviceGalleryModalService instanceof HTMLElement) ||
+      !(serviceGalleryModalEyebrow instanceof HTMLElement) ||
+      !(serviceGalleryModalPrice instanceof HTMLElement) ||
+      !(serviceGalleryModalDescription instanceof HTMLElement) ||
+      !(serviceGalleryModalFormat instanceof HTMLElement) ||
+      !(serviceGalleryModalUniverse instanceof HTMLElement) ||
+      !(serviceGalleryModalFocus instanceof HTMLElement) ||
+      !(serviceGalleryModalDimensions instanceof HTMLElement) ||
+      !(serviceGalleryModalAlt instanceof HTMLElement)
+    ) {
+      return;
+    }
+
+    currentServiceGalleryIndex = index;
+
+    const width = Number(trigger.dataset.width ?? 0);
+    const height = Number(trigger.dataset.height ?? 0);
+
+    serviceGalleryModalImage.src = trigger.dataset.image ?? "";
+    serviceGalleryModalImage.alt = trigger.dataset.alt ?? "";
+    serviceGalleryModalImage.width = width || 0;
+    serviceGalleryModalImage.height = height || 0;
+
+    serviceGalleryModalTitle.textContent = trigger.dataset.title ?? "";
+    serviceGalleryModalService.textContent = trigger.dataset.service ?? "";
+    serviceGalleryModalEyebrow.textContent = trigger.dataset.eyebrow ?? "";
+    serviceGalleryModalPrice.textContent = trigger.dataset.price ?? "";
+    serviceGalleryModalDescription.textContent =
+      trigger.dataset.description ?? "";
+    serviceGalleryModalFormat.textContent = trigger.dataset.format ?? "";
+    serviceGalleryModalUniverse.textContent = trigger.dataset.universe ?? "";
+    serviceGalleryModalFocus.textContent = trigger.dataset.focus ?? "";
+    serviceGalleryModalAlt.textContent = trigger.dataset.alt ?? "";
+    serviceGalleryModalDimensions.textContent =
+      width && height ? `${width} x ${height}px` : "Format variable";
+
+    updateServiceGalleryNavigation();
+  };
+
+  const openServiceGalleryModal = (index) => {
+    if (!serviceGalleryModal || index < 0 || index >= serviceGalleryTriggers.length) {
+      return;
+    }
+
+    const trigger = serviceGalleryTriggers[index];
+
+    if (!(trigger instanceof HTMLElement)) {
+      return;
+    }
+
+    lastServiceGalleryTrigger = trigger;
+    renderServiceGalleryModal(index);
+
+    serviceGalleryModal.classList.remove("pointer-events-none", "opacity-0");
+    serviceGalleryModal.classList.add("opacity-100");
+    serviceGalleryModal.setAttribute("aria-hidden", "false");
+    document.body.style.overflow = "hidden";
+
+    if (serviceGalleryModalClose instanceof HTMLButtonElement) {
+      serviceGalleryModalClose.focus();
+    }
+  };
+
+  const closeServiceGalleryModal = () => {
+    if (!serviceGalleryModal) {
+      return;
+    }
+
+    serviceGalleryModal.classList.add("pointer-events-none", "opacity-0");
+    serviceGalleryModal.classList.remove("opacity-100");
+    serviceGalleryModal.setAttribute("aria-hidden", "true");
+    document.body.style.overflow = "";
+
+    if (lastServiceGalleryTrigger instanceof HTMLElement) {
+      lastServiceGalleryTrigger.focus();
+    }
+  };
+
+  const moveServiceGallery = (direction) => {
+    if (!serviceGalleryTriggers.length) {
+      return;
+    }
+
+    const nextIndex =
+      (currentServiceGalleryIndex + direction + serviceGalleryTriggers.length) %
+      serviceGalleryTriggers.length;
+
+    renderServiceGalleryModal(nextIndex);
+  };
+
+  serviceGalleryTriggers.forEach((trigger, index) => {
+    trigger.addEventListener("click", () => openServiceGalleryModal(index));
+  });
+
+  if (serviceGalleryModalClose instanceof HTMLButtonElement) {
+    serviceGalleryModalClose.addEventListener("click", closeServiceGalleryModal);
   }
-  .scrollbar-thin::-webkit-scrollbar {
-    height: 6px;
+
+  if (serviceGalleryModalPrev instanceof HTMLButtonElement) {
+    serviceGalleryModalPrev.addEventListener("click", () => moveServiceGallery(-1));
   }
-  .scrollbar-thin::-webkit-scrollbar-track {
-    background: transparent;
+
+  if (serviceGalleryModalNext instanceof HTMLButtonElement) {
+    serviceGalleryModalNext.addEventListener("click", () => moveServiceGallery(1));
   }
-  .scrollbar-thin::-webkit-scrollbar-thumb {
-    background: rgba(61, 56, 52, 0.15);
-    border-radius: 3px;
-  }
-  .scrollbar-thin::-webkit-scrollbar-thumb:hover {
-    background: rgba(61, 56, 52, 0.28);
-  }
-</style>
+
+  serviceGalleryModalCloseTargets.forEach((target) => {
+    target.addEventListener("click", closeServiceGalleryModal);
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (serviceGalleryModal?.getAttribute("aria-hidden") !== "false") {
+      return;
+    }
+
+    if (event.key === "Escape") {
+      closeServiceGalleryModal();
+    }
+
+    if (event.key === "ArrowLeft") {
+      moveServiceGallery(-1);
+    }
+
+    if (event.key === "ArrowRight") {
+      moveServiceGallery(1);
+    }
+  });
+</script>

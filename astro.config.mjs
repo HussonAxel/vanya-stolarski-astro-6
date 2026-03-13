@@ -1,6 +1,6 @@
 // @ts-check
-import { defineConfig, passthroughImageService } from 'astro/config';
 import vercel from '@astrojs/vercel';
+import { defineConfig, passthroughImageService } from 'astro/config';
 
 import tailwindcss from '@tailwindcss/vite';
 

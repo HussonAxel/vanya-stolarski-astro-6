@@ -5,12 +5,12 @@ const campaign = await getUluleCampaignCard();
 ---
 
 <div
-  class="section-panel group relative h-full min-h-[20rem] overflow-hidden rounded-[2.7rem] border border-[#3a4d45]/20 bg-[linear-gradient(135deg,#32433c_0%,#3d3834_100%)] p-6 shadow-xl backdrop-blur-md transition-all duration-500 hover:-translate-y-1 hover:border-[#FFFAFA]/26 hover:shadow-[0_34px_120px_-60px_rgba(0,0,0,0.62)] md:min-h-0 md:p-7 lg:p-8"
+  class="section-panel group relative h-full min-h-[20rem] overflow-hidden rounded-[2.7rem] border border-[#3a4d45]/20 bg-[#3a4d45] p-7 shadow-xl backdrop-blur-md transition-all duration-500 hover:border-[#FFFAFA]/28 hover:bg-[#486158] hover:shadow-[0_34px_120px_-58px_rgba(0,0,0,0.62)] md:min-h-0 md:p-8 lg:p-9"
 >
   <div class="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(255,250,250,0.12),transparent_34%),radial-gradient(circle_at_bottom_left,rgba(255,250,250,0.08),transparent_30%)] opacity-80"></div>
   <div class="pointer-events-none absolute right-[-8%] bottom-[-22%] h-64 w-64 rounded-full bg-[#FFFAFA]/8 blur-3xl transition-transform duration-700 group-hover:scale-110"></div>
 
-  <div class="relative z-10 grid h-full gap-5 lg:grid-cols-[minmax(0,1fr)_minmax(220px,260px)] lg:items-center">
+  <div class="relative z-10 grid h-full gap-7 lg:grid-cols-[minmax(0,1fr)_minmax(240px,300px)] lg:items-end">
     <div class="space-y-5">
       <div class="space-y-4">
         <div class="flex flex-wrap items-center gap-3">
@@ -22,8 +22,8 @@ const campaign = await getUluleCampaignCard();
           </span>
         </div>
 
-        <div class="space-y-2.5">
-          <h3 class="max-w-lg font-serif text-[2.65rem] leading-[0.94] text-[#FFFAFA] md:text-[3rem] lg:text-[3.15rem]">
+        <div class="space-y-3">
+          <h3 class="max-w-lg font-serif text-[2.65rem] leading-[0.94] text-[#FFFAFA] text-balance md:text-[3rem] lg:text-[3.15rem]">
             {campaign.title}
           </h3>
           <p class="max-w-xl font-sans text-[0.94rem] leading-relaxed text-[#FFFAFA]/82">
@@ -35,10 +35,10 @@ const campaign = await getUluleCampaignCard();
         </div>
       </div>
 
-      <div class="grid gap-2.5 sm:grid-cols-3">
+      <div class="grid gap-3 sm:grid-cols-3">
         {
           campaign.stats.map((stat) => (
-            <div class="rounded-[1.5rem] border border-[#FFFAFA]/12 bg-[#FFFAFA]/8 px-3.5 py-3 backdrop-blur-sm transition-colors duration-500 group-hover:bg-[#FFFAFA]/10">
+            <div class="rounded-[1.5rem] border border-[#FFFAFA]/12 bg-[#FFFAFA]/8 px-4 py-3.5 backdrop-blur-sm transition-colors duration-500 group-hover:bg-[#FFFAFA]/10">
               <p class="font-serif text-[1.4rem] leading-none text-[#FFFAFA]">
                 {stat.value}
               </p>
@@ -50,12 +50,12 @@ const campaign = await getUluleCampaignCard();
         }
       </div>
 
-      <div class="flex flex-wrap gap-3">
+      <div class="flex flex-wrap gap-2.5">
         <a
           href={campaign.primaryHref}
           target={campaign.primaryHref.startsWith("http") ? "_blank" : undefined}
           rel={campaign.primaryHref.startsWith("http") ? "noreferrer" : undefined}
-          class="inline-flex h-10 items-center rounded-full border border-transparent bg-[#FFFAFA] px-5 font-sans text-[9px] font-bold tracking-[0.22em] text-[#3d3834] uppercase transition-all duration-300 hover:-translate-y-0.5 hover:border-[#FFFAFA]/20 hover:bg-[#2f413a] hover:text-[#FFFAFA]"
+          class="inline-flex h-10 items-center rounded-full border border-transparent bg-[#FFFAFA] px-5 font-sans text-[9px] font-bold tracking-[0.22em] text-[#3d3834] uppercase transition-all duration-300 hover:border-[#FFFAFA]/20 hover:bg-[#2f413a] hover:text-[#FFFAFA]"
         >
           {campaign.primaryLabel}
         </a>
@@ -63,7 +63,7 @@ const campaign = await getUluleCampaignCard();
           campaign.secondaryHref && campaign.secondaryLabel && (
             <a
               href={campaign.secondaryHref}
-              class="inline-flex h-10 items-center rounded-full border border-[#FFFAFA]/16 bg-transparent px-5 font-sans text-[9px] font-bold tracking-[0.22em] text-[#FFFAFA] uppercase transition-all duration-300 hover:-translate-y-0.5 hover:border-[#FFFAFA]/34 hover:bg-[#FFFAFA] hover:text-[#3d3834]"
+              class="inline-flex h-10 items-center rounded-full border border-[#FFFAFA]/16 bg-transparent px-5 font-sans text-[9px] font-bold tracking-[0.22em] text-[#FFFAFA] uppercase transition-all duration-300 hover:border-[#FFFAFA]/34 hover:bg-[#FFFAFA] hover:text-[#3d3834]"
             >
               {campaign.secondaryLabel}
             </a>
@@ -72,19 +72,23 @@ const campaign = await getUluleCampaignCard();
       </div>
     </div>
 
-    <div class="relative min-h-[12rem] lg:min-h-[14rem]">
-      <div class="absolute inset-x-0 bottom-0 overflow-hidden rounded-[2rem] border border-[#FFFAFA]/14 bg-[#fffaf8]/96 p-3 shadow-[0_30px_90px_-45px_rgba(0,0,0,0.55)] transition-transform duration-700 group-hover:-translate-y-1">
-        <img
-          src={campaign.coverSrc}
-          alt={campaign.coverAlt}
-          class="aspect-[5/4] w-full rounded-[1.45rem] bg-[#f3ece8] object-contain"
-          loading="lazy"
-        />
+    <div class="relative min-h-[13rem] lg:min-h-[15rem]">
+      <div class="pointer-events-none absolute inset-x-[14%] bottom-4 h-8 rounded-full bg-[#1d2723]/38 blur-2xl"></div>
+      <div class="pointer-events-none absolute left-1/2 top-3 h-40 w-40 -translate-x-1/2 rounded-full bg-[#FFFAFA]/10 blur-3xl"></div>
+
+      <div class="absolute inset-x-0 bottom-0 flex justify-center">
+        <div class="w-full max-w-[17.5rem] rounded-[2.15rem] border border-[#FFFAFA]/14 bg-[#fffaf8]/95 p-4 shadow-[0_34px_100px_-46px_rgba(0,0,0,0.58)] transition-all duration-700 group-hover:shadow-[0_42px_120px_-50px_rgba(0,0,0,0.62)]">
+          <div class="flex aspect-[4/5] items-center justify-center rounded-[1.55rem] bg-[linear-gradient(180deg,#f7f1ec_0%,#ebe2dc_100%)] p-4">
+            <img
+              src={campaign.coverSrc}
+              alt={campaign.coverAlt}
+              class="h-full w-auto max-w-full object-contain drop-shadow-[0_20px_30px_rgba(61,56,52,0.2)]"
+              loading="lazy"
+            />
+          </div>
+        </div>
       </div>
 
-      <div class="absolute top-3 left-3 rounded-full border border-[#FFFAFA]/14 bg-[#2f413a]/78 px-3 py-1.5 font-sans text-[8px] font-bold tracking-[0.18em] text-[#FFFAFA] uppercase backdrop-blur-sm">
-        {campaign.source === "ulule" ? "Donnees synchronisees" : "Mode vitrine"}
-      </div>
     </div>
   </div>
 </div>

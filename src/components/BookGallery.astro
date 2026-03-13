@@ -13,13 +13,13 @@ const hasMultiple = slides.length > 1;
 ---
 
 <div
-  class="book-gallery space-y-3"
+  class="book-gallery space-y-4"
   id={galleryId}
   data-gallery
   data-count={slides.length}
   aria-label={title}
 >
-  <div class="rounded-lg border border-[#3d3834]/8 bg-[#FFFAFA] p-3 shadow-[0_24px_70px_-52px_rgba(61,56,52,0.35)]">
+  <div class="rounded-[1.85rem] border border-[#3d3834]/8 bg-[#FFFAFA] p-2.5 shadow-[0_32px_90px_-60px_rgba(61,56,52,0.45)]">
     <div class="relative overflow-hidden rounded-[1.55rem] bg-[#f6efec]">
       {
         slides.map((item, index) => (
@@ -44,19 +44,16 @@ const hasMultiple = slides.length > 1;
       {
         hasMultiple && (
           <>
-            <div class="pointer-events-none absolute inset-x-0 top-0 flex items-center justify-between p-3">
-              <span class="pointer-events-auto rounded-full bg-[#fffaf8]/92 px-3 py-1.5 font-sans text-[10px] font-bold tracking-[0.22em] text-[#3d3834]/72 uppercase backdrop-blur-sm" data-counter>
+            <div class="pointer-events-none absolute left-3 top-3">
+              <span class="pointer-events-auto rounded-full bg-[#fffaf8]/88 px-3 py-1.5 font-sans text-[10px] font-bold tracking-[0.22em] text-[#3d3834]/70 uppercase backdrop-blur-sm" data-counter>
                 1 / {slides.length}
-              </span>
-              <span class="pointer-events-auto rounded-full bg-[#3d3834]/78 px-3 py-1.5 font-sans text-[10px] font-bold tracking-[0.22em] text-[#FFFAFA] uppercase backdrop-blur-sm" data-label>
-                {slides[0]?.label ?? `Vue 1`}
               </span>
             </div>
 
-            <div class="pointer-events-none absolute inset-x-0 top-1/2 flex -translate-y-1/2 items-center justify-between px-3">
+            <div class="pointer-events-none absolute inset-x-0 inset-y-0 flex items-center justify-between px-3">
               <button
                 type="button"
-                class="pointer-events-auto inline-flex h-11 w-11 items-center justify-center rounded-full bg-[#fffaf8]/92 text-[#3d3834] shadow-[0_10px_25px_-18px_rgba(61,56,52,0.55)] backdrop-blur-sm transition-transform duration-300 hover:scale-[1.03]"
+                class="pointer-events-auto inline-flex h-10 w-10 items-center justify-center rounded-full border border-[#FFFAFA]/16 bg-[#3d3834]/22 text-[#FFFAFA] backdrop-blur-sm transition-all duration-300 hover:border-[#FFFAFA]/28 hover:bg-[#fffaf8]/92 hover:text-[#3d3834]"
                 data-prev
                 aria-label="Image precedente"
               >
@@ -66,7 +63,7 @@ const hasMultiple = slides.length > 1;
               </button>
               <button
                 type="button"
-                class="pointer-events-auto inline-flex h-11 w-11 items-center justify-center rounded-full bg-[#fffaf8]/92 text-[#3d3834] shadow-[0_10px_25px_-18px_rgba(61,56,52,0.55)] backdrop-blur-sm transition-transform duration-300 hover:scale-[1.03]"
+                class="pointer-events-auto inline-flex h-10 w-10 items-center justify-center rounded-full border border-[#FFFAFA]/16 bg-[#3d3834]/22 text-[#FFFAFA] backdrop-blur-sm transition-all duration-300 hover:border-[#FFFAFA]/28 hover:bg-[#fffaf8]/92 hover:text-[#3d3834]"
                 data-next
                 aria-label="Image suivante"
               >
@@ -83,35 +80,37 @@ const hasMultiple = slides.length > 1;
 
   {
     hasMultiple && (
-      <div class="grid grid-cols-3 gap-2.5" role="tablist" aria-label={`${title} miniatures`}>
-        {
-          slides.map((item, index) => (
-            <button
-              type="button"
-              class:list={[
-                "group overflow-hidden rounded-[1.2rem] border border-[#3d3834]/8 bg-[#FFFAFA] p-1.5 text-left transition-all duration-300",
-                index === 0 ? "ring-2 ring-[#3a4d45]/40" : "",
-              ]}
-              data-thumb
-              data-index={index}
-              aria-label={`Afficher ${item.label ?? `image ${index + 1}`}`}
-              aria-selected={index === 0 ? "true" : "false"}
-              role="tab"
-            >
-              <div class="overflow-hidden rounded-[0.9rem] bg-[#f6efec]">
-                <img
-                  src={item.src}
-                  alt=""
-                  class="aspect-[4/4.9] w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
-                  loading="lazy"
-                />
-              </div>
-              <p class="px-1.5 pt-2 pb-1 font-sans text-[9px] font-bold tracking-[0.18em] text-[#3d3834]/62 uppercase">
-                {item.label ?? `Vue ${index + 1}`}
-              </p>
-            </button>
-          ))
-        }
+      <div class="rounded-[1.4rem] border border-[#3d3834]/8 bg-[#FFFAFA] p-3 shadow-[0_20px_60px_-48px_rgba(61,56,52,0.35)]">
+        <div class="space-y-2.5">
+          <p class="font-sans text-[10px] font-bold tracking-[0.24em] text-[#3d3834]/58 uppercase">
+            Choisir une vue
+          </p>
+          <div class="flex flex-wrap gap-2.5" role="tablist" aria-label={`${title} miniatures`}>
+          {
+            slides.map((item, index) => (
+              <button
+                type="button"
+                class:list={[
+                  "inline-flex items-center gap-2.5 rounded-full border px-4 py-2.5 text-left transition-all duration-300",
+                  index === 0
+                    ? "border-[#3a4d45]/22 bg-[#3a4d45] text-[#FFFAFA]"
+                    : "border-[#3d3834]/10 bg-[#fffaf8] text-[#3d3834]/72 hover:border-[#3a4d45]/24 hover:bg-[#f3ece8]",
+                ]}
+                data-thumb
+                data-index={index}
+                aria-label={`Afficher ${item.label ?? `image ${index + 1}`}`}
+                aria-selected={index === 0 ? "true" : "false"}
+                role="tab"
+              >
+                <span class="inline-flex h-2.5 w-2.5 rounded-full bg-current opacity-50"></span>
+                <span class="font-sans text-[10px] font-bold tracking-[0.18em] uppercase" data-thumb-label>
+                  {item.label ?? `Vue ${index + 1}`}
+                </span>
+              </button>
+            ))
+          }
+          </div>
+        </div>
       </div>
     )
   }
@@ -158,8 +157,12 @@ const hasMultiple = slides.length > 1;
           return;
         }
 
-        thumb.classList.toggle("ring-2", thumbIndex === currentIndex);
-        thumb.classList.toggle("ring-[#3a4d45]/40", thumbIndex === currentIndex);
+        thumb.classList.toggle("border-[#3a4d45]/22", thumbIndex === currentIndex);
+        thumb.classList.toggle("bg-[#3a4d45]", thumbIndex === currentIndex);
+        thumb.classList.toggle("text-[#FFFAFA]", thumbIndex === currentIndex);
+        thumb.classList.toggle("border-[#3d3834]/10", thumbIndex !== currentIndex);
+        thumb.classList.toggle("bg-[#fffaf8]", thumbIndex !== currentIndex);
+        thumb.classList.toggle("text-[#3d3834]/72", thumbIndex !== currentIndex);
         thumb.setAttribute("aria-selected", String(thumbIndex === currentIndex));
       });
 
@@ -168,7 +171,7 @@ const hasMultiple = slides.length > 1;
         counter.textContent = `${currentIndex + 1} / ${slides.length}`;
       }
       if (label instanceof HTMLElement && activeThumb instanceof HTMLElement) {
-        const thumbLabel = activeThumb.querySelector("p");
+        const thumbLabel = activeThumb.querySelector("[data-thumb-label]");
         label.textContent = thumbLabel?.textContent?.trim() || `Vue ${currentIndex + 1}`;
       }
 

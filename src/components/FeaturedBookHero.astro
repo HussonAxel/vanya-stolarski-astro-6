@@ -23,7 +23,7 @@ const featured = latestBook.featured;
               <p class="font-sans text-[10px] font-bold tracking-[0.35em] text-[#3d3834]/72 uppercase">
                 {latestBook.series} - {latestBook.tome}
               </p>
-              <h2 class="mt-4 max-w-3xl font-serif text-5xl leading-none text-[#3d3834] md:text-6xl xl:text-7xl">
+              <h2 class="mt-4 max-w-3xl font-serif text-5xl leading-none text-[#3d3834] text-balance md:text-6xl xl:text-7xl">
                 {latestBook.title}
               </h2>
             </div>
@@ -40,13 +40,13 @@ const featured = latestBook.featured;
           <div class="flex flex-wrap gap-3">
             <a
               href={`/livres/${latestBook.slug}`}
-              class="inline-flex items-center gap-3 rounded-full bg-[#3d3834] px-7 py-4 font-sans text-[11px] font-bold tracking-[0.25em] text-[#FFFAFA] uppercase transition-all duration-300 hover:-translate-y-1 hover:bg-[#3a4d45]"
+              class="inline-flex items-center gap-3 rounded-full bg-[#3d3834] px-7 py-4 font-sans text-[11px] font-bold tracking-[0.25em] text-[#FFFAFA] uppercase transition-all duration-300 hover:bg-[#3a4d45]"
             >
               Lire la fiche du roman
             </a>
             <a
               href="/reviews"
-              class="inline-flex items-center gap-3 rounded-full border border-[#3d3834]/10 bg-[#FFFAFA] px-7 py-4 font-sans text-[11px] font-bold tracking-[0.25em] text-[#3d3834] uppercase transition-all duration-300 hover:-translate-y-1 hover:border-[#3a4d45]/35 hover:bg-[#3a4d45] hover:text-[#FFFAFA]"
+              class="inline-flex items-center gap-3 rounded-full border border-[#3d3834]/10 bg-[#FFFAFA] px-7 py-4 font-sans text-[11px] font-bold tracking-[0.25em] text-[#3d3834] uppercase transition-all duration-300 hover:border-[#3a4d45]/35 hover:bg-[#3a4d45] hover:text-[#FFFAFA]"
             >
               Voir les avis
             </a>

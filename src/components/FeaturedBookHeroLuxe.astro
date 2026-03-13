@@ -6,8 +6,8 @@ const featured = latestBook.featured;
 
 <section class="relative overflow-hidden bg-[#FFFAFA] pt-14 pb-12 md:pt-18 md:pb-16">
   <div class="pointer-events-none absolute inset-0">
-    <div class="absolute top-0 left-0 h-64 w-64 -translate-x-1/3 -translate-y-1/3 rounded-full bg-[#3a4d45]/8 blur-3xl"></div>
-    <div class="absolute right-0 bottom-0 h-72 w-72 translate-x-1/4 translate-y-1/4 rounded-full bg-[#3d3834]/6 blur-3xl"></div>
+    <div class="absolute -top-20 left-0 h-64 w-64 -translate-x-1/3 rounded-full bg-[#3a4d45]/8 blur-3xl"></div>
+    <div class="absolute right-0 -bottom-[4.5rem] h-72 w-72 translate-x-1/4 rounded-full bg-[#3d3834]/6 blur-3xl"></div>
   </div>
 
   <div class="site-shell relative z-10 mt-10 px-6">
@@ -28,18 +28,28 @@ const featured = latestBook.featured;
               <p class="font-sans text-[10px] font-bold tracking-[0.34em] text-[#3d3834]/62 uppercase">
                 {latestBook.series} - {latestBook.tome}
               </p>
-              <h2 class="max-w-3xl font-serif text-4xl leading-[0.96] text-[#3d3834] md:text-5xl xl:text-6xl">
+              <h2 class="max-w-3xl font-serif text-4xl leading-[0.96] text-[#3d3834] text-balance md:text-5xl xl:text-6xl">
                 {latestBook.title}
               </h2>
             </div>
 
-            <p class="max-w-2xl font-sans text-[1.05rem] leading-relaxed text-[#3d3834]/84 md:text-[1.12rem]">
-              {latestBook.hook}
-            </p>
+            <div class="max-w-2xl rounded-[1.7rem] border border-[#3a4d45]/10 bg-[#3a4d45]/[0.05] px-5 py-4 md:px-6 md:py-5">
+              <p class="font-sans text-[9px] font-bold tracking-[0.28em] text-[#3a4d45] uppercase">
+                Enjeu central
+              </p>
+              <p class="mt-3 font-serif text-[1.3rem] leading-[1.35] text-[#3d3834] text-balance md:text-[1.55rem]">
+                {latestBook.hook}
+              </p>
+            </div>
 
-            <p class="max-w-2xl font-sans text-sm leading-relaxed text-[#3d3834]/68 md:text-[0.97rem]">
-              {featured?.shortPitch}
-            </p>
+            <div class="max-w-2xl space-y-3">
+              <p class="font-sans text-[9px] font-bold tracking-[0.28em] text-[#3d3834]/46 uppercase">
+                Synopsis
+              </p>
+              <p class="font-sans text-sm leading-7 text-[#3d3834]/68 md:text-[0.97rem]">
+                {featured?.shortPitch}
+              </p>
+            </div>
           </div>
 
           <div class="flex flex-wrap gap-2.5">
@@ -68,13 +78,13 @@ const featured = latestBook.featured;
           <div class="flex flex-wrap gap-3 pt-1">
             <a
               href={`/livres/${latestBook.slug}`}
-              class="inline-flex items-center gap-3 rounded-full bg-[#3d3834] px-6 py-3.5 font-sans text-[11px] font-bold tracking-[0.23em] text-[#FFFAFA] uppercase transition-all duration-300 hover:-translate-y-1 hover:bg-[#3a4d45]"
+              class="inline-flex items-center gap-3 rounded-full bg-[#3d3834] px-6 py-3.5 font-sans text-[11px] font-bold tracking-[0.23em] text-[#FFFAFA] uppercase transition-all duration-300 hover:bg-[#3a4d45]"
             >
               Lire la fiche du roman
             </a>
             <a
               href="/reviews"
-              class="inline-flex items-center gap-3 rounded-full border border-[#3d3834]/10 bg-[#FFFAFA] px-6 py-3.5 font-sans text-[11px] font-bold tracking-[0.23em] text-[#3d3834] uppercase transition-all duration-300 hover:-translate-y-1 hover:border-[#3a4d45]/35 hover:bg-[#3a4d45] hover:text-[#FFFAFA]"
+              class="inline-flex items-center gap-3 rounded-full border border-[#3d3834]/10 bg-[#FFFAFA] px-6 py-3.5 font-sans text-[11px] font-bold tracking-[0.23em] text-[#3d3834] uppercase transition-all duration-300 hover:border-[#3a4d45]/35 hover:bg-[#3a4d45] hover:text-[#FFFAFA]"
             >
               Voir les avis
             </a>
@@ -104,7 +114,7 @@ const featured = latestBook.featured;
                   <video
                     controls
                     poster={featured.mediaPoster}
-                    class="aspect-[4/4.9] w-full object-cover"
+                    class="w-full object-cover"
                   >
                     <source src={featured.mediaSrc} />
                   </video>
@@ -112,7 +122,7 @@ const featured = latestBook.featured;
                   <img
                     src={featured?.mediaSrc}
                     alt={featured?.mediaAlt}
-                    class="aspect-[4/4.9] w-full object-cover"
+                    class="w-full object-cover"
                   />
                 )
               }

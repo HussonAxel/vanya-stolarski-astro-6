@@ -34,6 +34,7 @@ export interface Book {
   status: string;
   price: string;
   purchaseLinks?: PurchaseLink[];
+  chapterOneHref?: string;
   genres: string[];
   description: string;
   longDescription: string;
@@ -76,6 +77,7 @@ export const books: Book[] = [
         href: "https://vanyastolarski.sumupstore.com/product/coeur-de-renard-relie",
       },
     ],
+    chapterOneHref: "/assets/chapteronebooks/chapteronebooks-coeur-de-renard.pdf",
     genres: [
       "Thriller",
       "Psychologique",
@@ -88,11 +90,11 @@ export const books: Book[] = [
       "Il est arnaqueur d'art. Elle va en être victime. Elle va le traquer sans merci. Il va l'aider sous une fausse identité.",
     longDescription:
       "En pleine occupation, Renard tente de survivre en remboursant une dette qui le pousse aux pires vices, notamment en vendant des faux tableaux. Fortune, quant à elle, voit, impuissante, ses parents sombrer dans les idéologies nazies et d'extrême droite. Alors qu'elle tente de leur faire ouvrir les yeux sur les conséquences de leurs décisions, les occupants gagnent en influence sur la banque dont elle doit hériter. Son honneur sera sali si elle échoue à retrouver l'escroc qui souhaite la chute de la banque, mais quel honneur lui restera-t-il si ses parents se vendent aux nazis ?",
-    cover: "/assets/covers/coeur-de-renard-cover.webp",
+    cover: "/assets/covers/cdr-cover.webp",
     gallery: [
       {
-        src: "/assets/covers/coeur-de-renard-cover.webp",
-        alt: "Format relié de Coeur de Renard",
+        src: "/assets/covers/cdr-cover.webp",
+        alt: "Visuel éditorial de Coeur de Renard",
         label: "Relié",
       },
       {
@@ -100,11 +102,7 @@ export const books: Book[] = [
         alt: "Format broché de Coeur de Renard",
         label: "Broché",
       },
-      {
-        src: "/assets/covers/cdr-cover.webp",
-        alt: "Visuel éditorial de Coeur de Renard",
-        label: "Visuel",
-      },
+
     ],
     accent: "#3d3834",
     quote:
@@ -139,6 +137,7 @@ export const books: Book[] = [
         href: "https://vanyastolarski.sumupstore.com/product/fous-papillons-relie-avec-jaquette",
       },
     ],
+    chapterOneHref: "/assets/chapteronebooks/chapteronebooks-fous-papillons.pdf",
     genres: [
       "Fantastique",
       "Historique",
@@ -148,7 +147,7 @@ export const books: Book[] = [
       "One-shot",
     ],
     description:
-      "Mariée de force au général de l'Etat major, Esther voit son cœur tiraillé entre un mari dangereux et un amour d'enfance qui a vendu son âme pour elle.",
+      "Fous-Papillons est une romance aux airs de tragédie, où s'aimer frôle la haine, voire s'y confond lorsqu'il ne reste plus d'autre solution pour rester dans le cœur de l'autre. Vous suivrez les aventures de Ethan et Esther de 1880 à 1920, dans de nombreux pays différents à l’époque où les conflits de la première guerre mondiale font des ravages. Paris, les Vosges, la Sicile, et Saint-Pétersbourg, vous voyagerez autant dans la neige que sous le soleil de la méditerranée",
     longDescription:
       "Fous-Papillons est une romance aux airs de tragédie, où s'aimer frôle la haine, voire s'y confond lorsqu'il ne reste plus d'autre solution pour rester dans le cœur de l'autre. Vous suivrez les aventures d'Ethan et Esther de 1880 à 1920, dans de nombreux pays différents à l’époque où les conflits de la Première Guerre mondiale font des ravages. Paris, les Vosges, la Sicile et Saint-Pétersbourg : vous voyagerez autant dans la neige que sous le soleil de la Méditerranée.",
     cover: "/assets/covers/fous-papillons-cover.webp",
@@ -180,7 +179,7 @@ export const books: Book[] = [
       label: "Dernier roman paru",
       kicker: "Lecture phare",
       shortPitch:
-        "Une romance tragique et fantastique où l'Histoire, les conflits politiques et une malédiction intime se heurtent sans jamais relâcher la tension.",
+        "Mariée de force au général de l'Etat major, Esther se retrouve embourbée dans les conflits politiques d'une France de 1890. Son cœur est pourtant ailleurs, loin de Paris, dans une forêt où l'attend un garçon ayant vendu son âme au diable pour elle. Entre Frantz, son mystérieux mari aussi froid que manipulateur et Ethan, cet amoureux d'enfance qu'elle veut à tout prix protéger, Esther ne sait plus qui aimer. Malheureusement, à cette époque où les tensions sont aussi vives que les conflits sont destructeurs, ils devront parvenir à survivre sans que le monde n'apprenne leurs machinations sans quoi... ils risquent tous l'exécution.",
       mediaType: "image",
       mediaSrc: "/assets/covers/fous-papillons-featured.webp",
       mediaPoster: "/assets/covers/fous-papillons-featured.webp",

@@ -23,7 +23,7 @@ const galleryItems = featured?.gallery?.length
     >
     </div>
     <div
-      class="absolute right-0 top-1/2 h-72 w-72 -translate-y-1/2 translate-x-1/3 rounded-full bg-[#3a4d45]/8 blur-3xl"
+      class="absolute right-0 top-[calc(50%-9rem)] h-72 w-72 translate-x-1/3 rounded-full bg-[#3a4d45]/8 blur-3xl"
     >
     </div>
   </div>
@@ -63,12 +63,12 @@ const galleryItems = featured?.gallery?.length
               {latestBook.series} - {latestBook.tome}
             </p>
             <h2
-              class="max-w-3xl font-serif text-4xl leading-[0.94] text-[#3d3834] md:text-5xl xl:text-[4.2rem]"
+              class="max-w-3xl font-serif text-4xl leading-[0.94] text-[#3d3834] text-balance md:text-5xl xl:text-[4.2rem]"
             >
               {latestBook.title}
             </h2>
             <p
-              class="max-w-2xl font-sans text-base leading-relaxed text-[#3d3834]/82 md:text-lg"
+              class="max-w-2xl font-sans text-base leading-relaxed text-[#3d3834]/82 md:text-lg italic"
             >
               {latestBook.hook}
             </p>
@@ -110,7 +110,7 @@ const galleryItems = featured?.gallery?.length
                 </p>
               </div>
               <div
-                class="rounded-[1.55rem] border border-[#3d3834]/8 bg-[#3d3834] p-4 text-[#FFFAFA]"
+                class="rounded-[1.55rem] border border-[#3d3834]/8 bg-[#3a4d45] p-4 text-[#FFFAFA]"
               >
                 <p
                   class="font-sans text-[9px] font-bold tracking-[0.24em] text-[#FFFAFA]/62 uppercase"
@@ -128,13 +128,13 @@ const galleryItems = featured?.gallery?.length
             <div class="flex flex-wrap gap-3">
               <a
                 href={`/livres/${latestBook.slug}`}
-                class="inline-flex items-center gap-3 rounded-full bg-[#3a4d45] px-7 py-4 font-sans text-[11px] font-bold tracking-[0.24em] text-[#FFFAFA] uppercase transition-all duration-300 hover:-translate-y-1 hover:bg-[#3d3834]"
+                class="inline-flex items-center gap-3 rounded-full bg-[#3a4d45] px-7 py-4 font-sans text-[11px] font-bold tracking-[0.24em] text-[#FFFAFA] uppercase transition-all duration-300 hover:bg-[#3d3834]"
               >
                 Decouvrir le roman
               </a>
               <a
                 href="/reviews"
-                class="inline-flex items-center gap-3 rounded-full border border-[#3d3834]/10 bg-[#FFFAFA] px-7 py-4 font-sans text-[11px] font-bold tracking-[0.24em] text-[#3d3834] uppercase transition-all duration-300 hover:-translate-y-1 hover:border-[#3a4d45]/35 hover:bg-[#3a4d45] hover:text-[#FFFAFA]"
+                class="inline-flex items-center gap-3 rounded-full border border-[#3d3834]/10 bg-[#FFFAFA] px-7 py-4 font-sans text-[11px] font-bold tracking-[0.24em] text-[#3d3834] uppercase transition-all duration-300 hover:border-[#3a4d45]/35 hover:bg-[#3a4d45] hover:text-[#FFFAFA]"
               >
                 Voir les avis
               </a>
@@ -152,5 +152,3 @@ const galleryItems = featured?.gallery?.length
     </article>
   </div>
 </section>
-
-

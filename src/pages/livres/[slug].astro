@@ -3,6 +3,8 @@ import BookGallery from "../../components/BookGallery.astro";
 import { books } from "../../data/books";
 import Layout from "../../layouts/Layout.astro";
 
+export const prerender = true;
+
 export function getStaticPaths() {
   return books.map((book) => ({
     params: { slug: book.slug },
@@ -11,10 +13,25 @@ export function getStaticPaths() {
 }
 
 const { book } = Astro.props;
-const relatedBooks = books.filter((entry) => entry.slug !== book.slug).slice(0, 2);
+const relatedBooks = books
+  .filter((entry) => entry.slug !== book.slug)
+  .slice(0, 2);
 const galleryItems = book.gallery?.length
   ? book.gallery
-  : [{ src: book.cover, alt: `Couverture de ${book.title}`, label: "Couverture" }];
+  : [
+      {
+        src: book.cover,
+        alt: `Couverture de ${book.title}`,
+        label: "Couverture",
+      },
+    ];
+const scorePurchaseLink = (label = "") =>
+  /sumup|boutique/i.test(label) ? 2 : 1;
+const sortPurchaseLinks = (links = []) =>
+  [...links].sort(
+    (left, right) =>
+      scorePurchaseLink(right.label) - scorePurchaseLink(left.label),
+  );
 const editionViews = galleryItems.map((item, index) => ({
   label: item.label ?? `Vue ${index + 1}`,
   format: item.edition?.format ?? book.format,
@@ -25,7 +42,9 @@ const editionViews = galleryItems.map((item, index) => ({
   status: item.edition?.status ?? book.status,
   hook: item.edition?.hook ?? book.hook,
   description: item.edition?.description ?? book.description,
-  purchaseLinks: item.edition?.purchaseLinks ?? book.purchaseLinks ?? [],
+  purchaseLinks: sortPurchaseLinks(
+    item.edition?.purchaseLinks ?? book.purchaseLinks ?? [],
+  ),
 }));
 const initialEdition = editionViews[0] ?? {
   label: "Couverture",
@@ -37,146 +56,115 @@ const initialEdition = editionViews[0] ?? {
   status: book.status,
   hook: book.hook,
   description: book.description,
-  purchaseLinks: book.purchaseLinks ?? [],
+  purchaseLinks: sortPurchaseLinks(book.purchaseLinks ?? []),
 };
-const hasAnyPurchaseLinks = editionViews.some((edition) => edition.purchaseLinks?.length);
+const hasAnyPurchaseLinks = editionViews.some(
+  (edition) => edition.purchaseLinks?.length,
+);
+const hasChapterOne = Boolean(book.chapterOneHref);
+const heroGenres = book.genres.slice(0, 4);
+const hiddenGenresCount = Math.max(book.genres.length - heroGenres.length, 0);
 ---
 
 <Layout title={`${book.title} - Vanya Stolarski`}>
   <main class="bg-[#FFFAFA] text-[#3d3834]">
-    <section class="relative overflow-hidden bg-[#3d3834] px-6 py-20 text-[#FFFAFA] md:py-24">
+    <section
+      class="relative overflow-hidden bg-[#3d3834] px-6 py-20 text-[#FFFAFA] md:py-24"
+    >
       <div class="site-shell relative mt-20">
-
         <div class="grid gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:items-center">
           <div class="fade-up relative mx-auto w-full max-w-md">
             <BookGallery items={galleryItems} title={`Galerie ${book.title}`} />
           </div>
 
           <div
-            class="space-y-7 lg:space-y-8"
+            class="space-y-8 lg:space-y-10"
             data-edition-panel
             data-editions={JSON.stringify(editionViews)}
+            data-chapter-one-href={book.chapterOneHref ?? ""}
           >
             <div class="space-y-6">
-              <div class="flex flex-wrap items-center gap-3">
-                <span class="inline-flex rounded-full border border-[#FFFAFA]/10 bg-[#FFFAFA] px-4 py-2 font-sans text-[10px] font-bold tracking-[0.25em] text-[#3d3834] uppercase">
-                  {book.series}
+              <div class="flex flex-wrap gap-2">
+                <span
+                  class="inline-flex rounded-full border border-[#FFFAFA]/12 bg-[#FFFAFA] px-4 py-2 font-sans text-[10px] font-bold tracking-[0.25em] text-[#3d3834] uppercase"
+                >
+                  {book.tome}
                 </span>
                 <span
-                  class="inline-flex rounded-full border border-[#FFFAFA]/12 bg-[#FFFAFA]/6 px-4 py-2 font-sans text-[10px] font-bold tracking-[0.25em] text-[#FFFAFA]/88 uppercase backdrop-blur-sm"
-                  data-edition-label
+                  class="inline-flex rounded-full border border-[#FFFAFA]/10 bg-[#FFFAFA]/5 px-3 py-1.5 font-sans text-[10px] font-bold tracking-[0.16em] text-[#FFFAFA]/76 uppercase backdrop-blur-sm"
                 >
-                  {initialEdition.label}
+                  {book.series}
                 </span>
+                {
+                  heroGenres.map((genre) => (
+                    <span class="inline-flex rounded-full border border-[#FFFAFA]/10 bg-[#FFFAFA]/5 px-3 py-1.5 font-sans text-[10px] font-bold tracking-[0.16em] text-[#FFFAFA]/76 uppercase backdrop-blur-sm">
+                      {genre}
+                    </span>
+                  ))
+                }
+                {
+                  hiddenGenresCount > 0 && (
+                    <span class="inline-flex rounded-full border border-[#FFFAFA]/10 bg-transparent px-3 py-1.5 font-sans text-[10px] font-bold tracking-[0.16em] text-[#FFFAFA]/56 uppercase">
+                      +{hiddenGenresCount}
+                    </span>
+                  )
+                }
               </div>
 
               <div class="space-y-4">
-                <p class="font-sans text-[10px] font-bold tracking-[0.35em] text-[#FFFAFA]/74 uppercase">
-                  {book.tome}
-                </p>
-                <h1 class="max-w-4xl font-serif text-5xl leading-none md:text-7xl">
+                <h1
+                  class="max-w-4xl font-serif text-4xl leading-[0.94] text-balance md:text-6xl xl:text-[5.15rem]"
+                >
                   {book.title}
                 </h1>
-                <p class="max-w-2xl font-sans text-lg leading-relaxed text-[#FFFAFA]" data-edition-hook>
+                <div
+                  class="flex flex-wrap items-center gap-x-4 gap-y-2 font-sans text-sm text-[#FFFAFA]/68 md:text-[0.95rem]"
+                >
+                  <span data-edition-release>{initialEdition.releaseDate}</span>
+                  <span class="h-1 w-1 rounded-full bg-[#FFFAFA]/28"></span>
+                  <span
+                    ><span data-edition-pages-number
+                      >{initialEdition.pages}</span
+                    > pages</span
+                  >
+                  <span class="h-1 w-1 rounded-full bg-[#FFFAFA]/28"></span>
+                  <span data-edition-format>{initialEdition.format}</span>
+                </div>
+                <p
+                  class="max-w-2xl font-sans text-lg leading-relaxed text-[#FFFAFA]/92 md:text-[1.15rem]"
+                  data-edition-hook
+                >
                   {initialEdition.hook}
                 </p>
-              </div>
-
-              <div class="flex flex-wrap gap-2.5">
-                {book.genres.map((genre) => (
-                  <span class="inline-flex rounded-full border border-[#FFFAFA]/10 bg-[#FFFAFA]/6 px-3 py-1.5 font-sans text-[10px] font-bold tracking-[0.18em] text-[#FFFAFA]/84 uppercase backdrop-blur-sm">
-                    {genre}
-                  </span>
-                ))}
-              </div>
-            </div>
-
-            <div class="grid gap-4 xl:grid-cols-[1.12fr_0.88fr]">
-              <div class="rounded-lg border border-[#FFFAFA]/10 bg-[#FFFAFA]/6 p-6 backdrop-blur-sm">
-                <div class="border-b border-[#FFFAFA]/10 pb-4">
-                  <p class="font-sans text-[10px] font-bold tracking-[0.28em] text-[#FFFAFA]/64 uppercase">
-                    Edition selectionnee
-                  </p>
-                  <p
-                    class="mt-2 font-serif text-[1.95rem] leading-none text-[#FFFAFA] md:text-[2.15rem]"
-                    data-edition-format
-                  >
-                    {initialEdition.format}
-                  </p>
-                </div>
-
                 <p
-                  class="mt-5 max-w-2xl font-sans text-sm leading-relaxed text-[#FFFAFA]/78 md:text-base"
+                  class="max-w-2xl font-sans text-base leading-relaxed text-[#FFFAFA]/78 md:text-lg"
                   data-edition-description
                 >
                   {initialEdition.description}
                 </p>
-
-                <dl class="mt-6 grid gap-5 sm:grid-cols-2">
-                  <div class="space-y-1">
-                    <dt class="font-sans text-[10px] font-bold tracking-[0.24em] text-[#FFFAFA]/56 uppercase">
-                      ISBN
-                    </dt>
-                    <dd class="font-sans text-sm leading-relaxed text-[#FFFAFA]/84" data-edition-isbn>
-                      {initialEdition.isbn}
-                    </dd>
-                  </div>
-                  <div class="space-y-1">
-                    <dt class="font-sans text-[10px] font-bold tracking-[0.24em] text-[#FFFAFA]/56 uppercase">
-                      Pagination
-                    </dt>
-                    <dd class="font-sans text-sm leading-relaxed text-[#FFFAFA]/84">
-                      <span data-edition-pages-number>{initialEdition.pages}</span> pages
-                    </dd>
-                  </div>
-                </dl>
               </div>
-
-              <div class="grid gap-3 sm:grid-cols-3 xl:grid-cols-1">
-                <div class="rounded-md border border-[#FFFAFA]/10 bg-[#fffaf8] p-5 shadow-[0_20px_55px_-42px_rgba(0,0,0,0.24)]">
-                  <p class="font-sans text-[10px] font-bold tracking-[0.24em] text-[#3d3834]/58 uppercase">
-                    Tarif
-                  </p>
-                  <p class="mt-4 font-serif text-[1.9rem] leading-none text-[#3d3834]" data-edition-price-large>
-                    {initialEdition.price}
-                  </p>
-                </div>
-                <div class="rounded-md border border-[#FFFAFA]/10 bg-[#fffaf8] p-5 shadow-[0_20px_55px_-42px_rgba(0,0,0,0.24)]">
-                  <p class="font-sans text-[10px] font-bold tracking-[0.24em] text-[#3d3834]/58 uppercase">
-                    Parution
-                  </p>
-                  <p class="mt-4 font-serif text-[1.55rem] leading-tight text-[#3d3834]" data-edition-release-large>
-                    {initialEdition.releaseDate}
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {hasAnyPurchaseLinks && (
-              <div
-                class:list={[
-                  "rounded-[1.9rem] border border-[#FFFAFA]/10 bg-[#FFFAFA]/6 p-4 backdrop-blur-sm md:p-5",
-                  initialEdition.purchaseLinks?.length ? "" : "hidden",
-                ]}
-                data-purchase-section
-              >
-                <div class="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
-                  <div class="max-w-sm space-y-1">
-                    <p class="font-sans text-[10px] font-bold tracking-[0.28em] text-[#FFFAFA]/60 uppercase">
-                      Liens d'achat
-                    </p>
-                    <p class="font-sans text-sm leading-relaxed text-[#FFFAFA]/74">
-                      Retrouvez l'edition souhaitee sur les plateformes disponibles.
-                    </p>
-                  </div>
-
-                  <div class="flex flex-wrap gap-3" data-edition-links>
-                    {initialEdition.purchaseLinks?.map((link) => (
+              {
+                (hasAnyPurchaseLinks || hasChapterOne) && (
+                  <div
+                    class:list={[
+                      "flex flex-col gap-3 sm:flex-row sm:flex-wrap",
+                      initialEdition.purchaseLinks?.length || hasChapterOne
+                        ? ""
+                        : "hidden",
+                    ]}
+                    data-edition-links
+                  >
+                    {initialEdition.purchaseLinks?.map((link, linkIndex) => (
                       <a
                         href={link.href}
                         target="_blank"
                         rel="noreferrer"
-                        class="inline-flex items-center gap-3 rounded-full border border-[#FFFAFA]/12 bg-[#FFFAFA] px-5 py-3.5 font-sans text-[11px] font-bold tracking-[0.22em] text-[#3d3834] uppercase transition-all duration-300 hover:-translate-y-1 hover:border-[#3a4d45]/35 hover:bg-[#3a4d45] hover:text-[#FFFAFA]"
+                        class:list={[
+                          "inline-flex items-center justify-center gap-3 rounded-full px-5 py-3.5 font-sans text-[11px] font-bold tracking-[0.22em] uppercase transition-all duration-300",
+                          linkIndex === 0
+                            ? "bg-[#3a4d45] text-[#FFFAFA] hover:bg-[#2f4039]"
+                            : "border border-[#FFFAFA]/18 bg-transparent text-[#FFFAFA] hover:border-[#3a4d45]/35 hover:bg-[#FFFAFA] hover:text-[#3d3834]",
+                        ]}
                       >
                         {link.label}
                         <svg
@@ -195,20 +183,44 @@ const hasAnyPurchaseLinks = editionViews.some((edition) => edition.purchaseLinks
                         </svg>
                       </a>
                     ))}
+                    {hasChapterOne && (
+                      <a
+                        href={book.chapterOneHref}
+                        download
+                        class="inline-flex items-center justify-center gap-3 rounded-full border border-[#FFFAFA]/18 bg-transparent px-5 py-3.5 font-sans text-[11px] font-bold tracking-[0.22em] text-[#FFFAFA] uppercase transition-all duration-300 hover:border-[#3a4d45]/35 hover:bg-[#FFFAFA] hover:text-[#3d3834]"
+                      >
+                        Télécharger le 1er chapitre
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="14"
+                          height="14"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        >
+                          <path d="M12 3v12" />
+                          <path d="m7 10 5 5 5-5" />
+                          <path d="M5 21h14" />
+                        </svg>
+                      </a>
+                    )}
                   </div>
-                </div>
-              </div>
-            )}
+                )
+              }
+            </div>
             <!-- <div class="flex flex-wrap gap-3"> 
               <a
                 href="#newsletter"
-                class="inline-flex items-center gap-3 rounded-full bg-[#3a4d45] px-7 py-4 font-sans text-[11px] font-bold tracking-[0.24em] text-[#3d3834] uppercase transition-all duration-300 hover:-translate-y-1"
+                class="inline-flex items-center gap-3 rounded-full bg-[#3a4d45] px-7 py-4 font-sans text-[11px] font-bold tracking-[0.24em] text-[#3d3834] uppercase transition-all duration-300"
               >
                 Recevoir les nouvelles
               </a>
               <a
                 href="/livres"
-                class="inline-flex items-center gap-3 rounded-full border border-[#FFFAFA]/15 bg-[#FFFAFA] px-7 py-4 font-sans text-[11px] font-bold tracking-[0.24em] text-[#FFFAFA] uppercase transition-all duration-300 hover:-translate-y-1"
+                class="inline-flex items-center gap-3 rounded-full border border-[#FFFAFA]/15 bg-[#FFFAFA] px-7 py-4 font-sans text-[11px] font-bold tracking-[0.24em] text-[#FFFAFA] uppercase transition-all duration-300"
               >
                 Retour aux livres
               </a>
@@ -220,36 +232,51 @@ const hasAnyPurchaseLinks = editionViews.some((edition) => edition.purchaseLinks
 
     <section class="px-6 py-24">
       <div class="site-shell grid gap-8 lg:grid-cols-[1.1fr_0.9fr]">
-        <article class="fade-up rounded-lg border border-[#3d3834]/10 bg-[#FFFAFA] p-10 shadow-[0_24px_80px_-40px_rgba(61,56,52,0.45)]">
+        <article
+          class="fade-up rounded-lg border border-[#3d3834]/10 bg-[#FFFAFA] p-10 shadow-[0_24px_80px_-40px_rgba(61,56,52,0.45)]"
+        >
           <div class="mb-8 flex items-center gap-3">
             <span class="h-px w-10 bg-[#3a4d45]"></span>
-            <p class="font-sans text-[10px] font-bold tracking-[0.3em] text-[#3a4d45] uppercase">
+            <p
+              class="font-sans text-[10px] font-bold tracking-[0.3em] text-[#3a4d45] uppercase"
+            >
               Synopsis long
             </p>
           </div>
           <div class="space-y-6">
-            <h2 class="font-serif text-4xl">Entrer dans l'univers du roman.</h2>
+            <h2 class="font-serif text-4xl text-balance">
+              Entrer dans l'univers du roman.
+            </h2>
             <p class="font-sans text-base leading-relaxed text-[#3d3834]/72">
               {book.longDescription}
             </p>
             <p class="font-sans text-base leading-relaxed text-[#3d3834]/72">
-              Cette page rassemble la présentation du livre, ses éditions, ses informations clés et une citation pour en donner immédiatement le ton.
+              Cette page rassemble la présentation du livre, ses éditions, ses
+              informations clés et une citation pour en donner immédiatement le
+              ton.
             </p>
           </div>
         </article>
 
-        <aside class="fade-up rounded-lg border border-[#3d3834]/10 bg-[#3a4d45] p-10 text-[#FFFAFA] shadow-[0_24px_80px_-40px_rgba(61,56,52,0.45)]">
+        <aside
+          class="fade-up rounded-lg border border-[#3d3834]/10 bg-[#3a4d45] p-10 text-[#FFFAFA] shadow-[0_24px_80px_-40px_rgba(61,56,52,0.45)]"
+        >
           <div class="mb-8 flex items-center gap-3">
             <span class="h-px w-10 bg-[#FFFAFA]"></span>
-            <p class="font-sans text-[10px] font-bold tracking-[0.3em] text-[#FFFAFA] uppercase">
+            <p
+              class="font-sans text-[10px] font-bold tracking-[0.3em] text-[#FFFAFA] uppercase"
+            >
               Citation
             </p>
           </div>
-          <blockquote class="font-serif text-3xl leading-relaxed italic">
+          <blockquote
+            class="font-serif text-3xl leading-relaxed italic text-balance"
+          >
             "{book.quote}"
           </blockquote>
           <p class="mt-8 font-sans text-sm leading-relaxed text-[#FFFAFA]">
-            Une citation choisie pour refléter la voix, la tension ou l'émotion qui traversent le roman.
+            Une citation choisie pour refléter la voix, la tension ou l'émotion
+            qui traversent le roman.
           </p>
         </aside>
       </div>
@@ -258,45 +285,64 @@ const hasAnyPurchaseLinks = editionViews.some((edition) => edition.purchaseLinks
     <section class="bg-[#FFFAFA] px-6 py-24">
       <div class="site-shell">
         <div class="grid gap-8 lg:grid-cols-[0.8fr_1.2fr]">
-          <div class="fade-up rounded-lg border border-[#3d3834]/10 bg-[#3d3834] p-10 text-[#FFFAFA]">
-            <p class="font-sans text-[10px] font-bold tracking-[0.3em] text-[#3a4d45] uppercase">
+          <div
+            class="fade-up rounded-lg border border-[#3d3834]/10 bg-[#3d3834] p-10 text-[#FFFAFA]"
+          >
+            <p
+              class="font-sans text-[10px] font-bold tracking-[0.3em] text-[#3a4d45] uppercase"
+            >
               Infos rapides
             </p>
-            <h2 class="mt-4 font-serif text-4xl">Les repères essentiels du livre.</h2>
+            <h2 class="mt-4 font-serif text-4xl text-balance">
+              Les repères essentiels du livre.
+            </h2>
             <p class="mt-4 font-sans text-sm leading-relaxed text-[#FFFAFA]">
-              ISBN, formats, statut, personnages et promesse de lecture sont regroupés ici pour garder une lecture rapide et claire.
+              ISBN, formats, statut, personnages et promesse de lecture sont
+              regroupés ici pour garder une lecture rapide et claire.
             </p>
           </div>
 
           <div class="grid gap-4 sm:grid-cols-2">
-            {book.details.map((detail) => (
-              <div class="fade-up rounded-md border border-[#3d3834]/10 bg-[#FFFAFA] p-6 shadow-[0_24px_60px_-45px_rgba(61,56,52,0.45)]">
-                <p class="font-sans text-[10px] font-bold tracking-[0.25em] text-[#3a4d45] uppercase">
-                  {detail.label}
-                </p>
-                <p class="mt-4 font-serif text-3xl leading-tight text-[#3d3834]">
-                  {detail.value}
-                </p>
-              </div>
-            ))}
-            <div class="fade-up rounded-md border border-[#3d3834]/10 bg-[#FFFAFA] p-6 shadow-[0_24px_60px_-45px_rgba(61,56,52,0.45)]">
-              <p class="font-sans text-[10px] font-bold tracking-[0.25em] text-[#3a4d45] uppercase">
+            {
+              book.details.map((detail) => (
+                <div class="fade-up rounded-md border border-[#3d3834]/10 bg-[#FFFAFA] p-6 shadow-[0_24px_60px_-45px_rgba(61,56,52,0.45)]">
+                  <p class="font-sans text-[10px] font-bold tracking-[0.25em] text-[#3a4d45] uppercase">
+                    {detail.label}
+                  </p>
+                  <p class="mt-4 font-serif text-3xl leading-tight text-[#3d3834]">
+                    {detail.value}
+                  </p>
+                </div>
+              ))
+            }
+            <div
+              class="fade-up rounded-md border border-[#3d3834]/10 bg-[#FFFAFA] p-6 shadow-[0_24px_60px_-45px_rgba(61,56,52,0.45)]"
+            >
+              <p
+                class="font-sans text-[10px] font-bold tracking-[0.25em] text-[#3a4d45] uppercase"
+              >
                 Format
               </p>
               <p class="mt-4 font-serif text-3xl leading-tight text-[#3d3834]">
                 {book.format}
               </p>
             </div>
-            <div class="fade-up rounded-md border border-[#3d3834]/10 bg-[#FFFAFA] p-6 shadow-[0_24px_60px_-45px_rgba(61,56,52,0.45)]">
-              <p class="font-sans text-[10px] font-bold tracking-[0.25em] text-[#3a4d45] uppercase">
+            <div
+              class="fade-up rounded-md border border-[#3d3834]/10 bg-[#FFFAFA] p-6 shadow-[0_24px_60px_-45px_rgba(61,56,52,0.45)]"
+            >
+              <p
+                class="font-sans text-[10px] font-bold tracking-[0.25em] text-[#3a4d45] uppercase"
+              >
                 Genres
               </p>
               <div class="mt-4 flex flex-wrap gap-2">
-                {book.genres.map((genre) => (
-                  <span class="rounded-full border border-[#3d3834]/10 bg-[#FFFAFA] px-3 py-1 font-sans text-[10px] font-bold tracking-[0.12em] text-[#3d3834] uppercase">
-                    {genre}
-                  </span>
-                ))}
+                {
+                  book.genres.map((genre) => (
+                    <span class="rounded-full border border-[#3d3834]/10 bg-[#FFFAFA] px-3 py-1 font-sans text-[10px] font-bold tracking-[0.12em] text-[#3d3834] uppercase">
+                      {genre}
+                    </span>
+                  ))
+                }
               </div>
             </div>
           </div>
@@ -305,17 +351,26 @@ const hasAnyPurchaseLinks = editionViews.some((edition) => edition.purchaseLinks
     </section>
 
     <section class="px-6 py-24" id="newsletter">
-      <div class="site-shell rounded-[2.5rem] border border-[#3d3834]/10 bg-[#FFFAFA] p-10 shadow-[0_24px_80px_-40px_rgba(61,56,52,0.45)] md:p-14">
+      <div
+        class="site-shell rounded-[2.5rem] border border-[#3d3834]/10 bg-[#FFFAFA] p-10 shadow-[0_24px_80px_-40px_rgba(61,56,52,0.45)] md:p-14"
+      >
         <div class="grid gap-10 lg:grid-cols-[1fr_0.8fr] lg:items-center">
           <div>
-            <p class="font-sans text-[10px] font-bold tracking-[0.3em] text-[#3a4d45] uppercase">
+            <p
+              class="font-sans text-[10px] font-bold tracking-[0.3em] text-[#3a4d45] uppercase"
+            >
               Appel a l'action
             </p>
-            <h2 class="mt-4 font-serif text-4xl text-[#3d3834] md:text-5xl">
+            <h2
+              class="mt-4 font-serif text-4xl text-[#3d3834] text-balance md:text-5xl"
+            >
               Gardez une section newsletter directement sur chaque page livre.
             </h2>
-            <p class="mt-5 max-w-2xl font-sans text-base leading-relaxed text-[#3d3834]/72">
-              Cette zone peut servir à annoncer les prochaines parutions, les bonus lecteurs ou les nouveautés autour de l'univers du livre.
+            <p
+              class="mt-5 max-w-2xl font-sans text-base leading-relaxed text-[#3d3834]/72"
+            >
+              Cette zone peut servir à annoncer les prochaines parutions, les
+              bonus lecteurs ou les nouveautés autour de l'univers du livre.
             </p>
           </div>
 
@@ -332,171 +387,204 @@ const hasAnyPurchaseLinks = editionViews.some((edition) => edition.purchaseLinks
             >
               M'avertir des nouvelles
             </button>
-              <p class="font-sans text-[11px] leading-relaxed text-[#3d3834]/78">
-              Promesse d'envoi, fréquence et informations de consentement pourront être précisées ici quand la newsletter sera branchée.
+            <p class="font-sans text-[11px] leading-relaxed text-[#3d3834]/78">
+              Promesse d'envoi, fréquence et informations de consentement
+              pourront être précisées ici quand la newsletter sera branchée.
             </p>
           </form>
         </div>
       </div>
     </section>
 
-    {relatedBooks.length > 0 && (
-      <section class="bg-[#3d3834] px-6 py-24 text-[#FFFAFA]">
-        <div class="site-shell">
-          <div class="mb-12 flex items-end justify-between gap-6">
-            <div>
-              <p class="font-sans text-[10px] font-bold tracking-[0.3em] text-[#3a4d45] uppercase">
-                Continuer la visite
-              </p>
-              <h2 class="mt-4 font-serif text-4xl">Autres livres a explorer</h2>
-            </div>
-            <a href="/livres" class="font-sans text-[10px] font-bold tracking-[0.25em] text-[#FFFAFA] uppercase transition-opacity hover:opacity-70">
-              Voir la bibliotheque complete
-            </a>
-          </div>
-
-          <div class="grid gap-6 md:grid-cols-2">
-            {relatedBooks.map((entry) => (
+    {
+      relatedBooks.length > 0 && (
+        <section class="bg-[#3d3834] px-6 py-24 text-[#FFFAFA]">
+          <div class="site-shell">
+            <div class="mb-12 flex items-end justify-between gap-6">
+              <div>
+                <p class="font-sans text-[10px] font-bold tracking-[0.3em] text-[#FFFAFA] uppercase">
+                  Continuer la visite
+                </p>
+                <h2 class="mt-4 font-serif text-4xl text-balance">
+                  Autres livres a explorer
+                </h2>
+              </div>
               <a
-                href={`/livres/${entry.slug}`}
-                class="fade-up group grid gap-6 overflow-hidden rounded-lg border border-[#FFFAFA]/10 bg-[#FFFAFA] p-6 backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 md:grid-cols-[180px_1fr]"
+                href="/livres"
+                class="font-sans text-[10px] font-bold tracking-[0.25em] text-[#FFFAFA] uppercase transition-opacity hover:opacity-70"
               >
-                <img
-                  src={entry.cover}
-                  alt={`Couverture de ${entry.title}`}
-                  loading="lazy"
-                  class="aspect-[4/5] h-full w-full rounded-[1.5rem] object-cover"
-                />
-                <div class="flex flex-col justify-between gap-5">
-                  <div>
-                    <p class="font-sans text-[10px] font-bold tracking-[0.25em] text-[#3a4d45] uppercase">
-                      {entry.series}
-                    </p>
-                    <h3 class="mt-3 font-serif text-3xl">{entry.title}</h3>
-                    <p class="mt-4 font-sans text-sm leading-relaxed text-[#3d3834]">
-                      {entry.description}
-                    </p>
-                  </div>
-                  <span class="inline-flex items-center gap-3 font-sans text-[10px] font-bold tracking-[0.25em] text-[#3d3834] uppercase">
-                    Ouvrir la fiche
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="14"
-                      height="14"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      class="transition-transform duration-300 group-hover:translate-x-1"
-                    >
-                      <path d="M5 12h14" />
-                      <path d="m12 5 7 7-7 7" />
-                    </svg>
-                  </span>
-                </div>
+                Voir la bibliotheque complete
               </a>
-            ))}
+            </div>
+
+            <div class="grid gap-6 md:grid-cols-2">
+              {relatedBooks.map((entry) => (
+                <a
+                  href={`/livres/${entry.slug}`}
+                  class="fade-up group grid gap-6 overflow-hidden rounded-lg border border-[#FFFAFA]/10 bg-[#FFFAFA] p-6 backdrop-blur-sm transition-all duration-300 md:grid-cols-[180px_1fr]"
+                >
+                  <img
+                    src={entry.cover}
+                    alt={`Couverture de ${entry.title}`}
+                    loading="lazy"
+                    class="aspect-[4/5] h-full w-full rounded-[1.5rem] object-cover"
+                  />
+                  <div class="flex flex-col justify-between gap-5">
+                    <div>
+                      <p class="font-sans text-[10px] font-bold tracking-[0.25em] text-[#3a4d45] uppercase">
+                        {entry.series}
+                      </p>
+                      <h3 class="mt-3 font-serif text-3xl text-balance">
+                        {entry.title}
+                      </h3>
+                      <p class="mt-4 font-sans text-sm leading-relaxed text-[#3d3834]">
+                        {entry.description}
+                      </p>
+                    </div>
+                    <span class="inline-flex items-center gap-3 font-sans text-[10px] font-bold tracking-[0.25em] text-[#3d3834] uppercase">
+                      Ouvrir la fiche
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="14"
+                        height="14"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        class="transition-transform duration-300 group-hover:translate-x-1"
+                      >
+                        <path d="M5 12h14" />
+                        <path d="m12 5 7 7-7 7" />
+                      </svg>
+                    </span>
+                  </div>
+                </a>
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
-    )}
+        </section>
+      )
+    }
   </main>
 
-<script>
-  document.querySelectorAll("[data-edition-panel]").forEach((panel) => {
-    if (!(panel instanceof HTMLElement) || panel.dataset.bound === "true") {
-      return;
-    }
-
-    panel.dataset.bound = "true";
-
-    const editions = JSON.parse(panel.dataset.editions ?? "[]");
-    if (!Array.isArray(editions) || editions.length === 0) {
-      return;
-    }
-
-    const heroGrid = panel.parentElement;
-    const gallery = heroGrid?.querySelector("[data-gallery]");
-    const purchaseSection = panel.querySelector("[data-purchase-section]");
-    const linksContainer = panel.querySelector("[data-edition-links]");
-
-    const setText = (selector, value) => {
-      panel.querySelectorAll(selector).forEach((node) => {
-        node.textContent = value ?? "";
-      });
-    };
-
-    const renderLinks = (links) => {
-      if (!(linksContainer instanceof HTMLElement)) {
+  <script>
+    document.querySelectorAll("[data-edition-panel]").forEach((panel) => {
+      if (!(panel instanceof HTMLElement) || panel.dataset.bound === "true") {
         return;
       }
 
-      linksContainer.replaceChildren();
+      panel.dataset.bound = "true";
 
-      if (!(purchaseSection instanceof HTMLElement)) {
+      const editions = JSON.parse(panel.dataset.editions ?? "[]");
+      if (!Array.isArray(editions) || editions.length === 0) {
         return;
       }
 
-      if (!Array.isArray(links) || links.length === 0) {
-        purchaseSection.classList.add("hidden");
-        return;
-      }
+      const chapterOneHref = panel.dataset.chapterOneHref ?? "";
+      const heroGrid = panel.parentElement;
+      const gallery = heroGrid?.querySelector("[data-gallery]");
+      const linksContainer = panel.querySelector("[data-edition-links]");
+      const scorePurchaseLink = (label) =>
+        /sumup|boutique/i.test(label ?? "") ? 2 : 1;
 
-      purchaseSection.classList.remove("hidden");
+      const setText = (selector, value) => {
+        panel.querySelectorAll(selector).forEach((node) => {
+          node.textContent = value ?? "";
+        });
+      };
 
-      links.forEach((link) => {
-        const anchor = document.createElement("a");
-        anchor.href = link.href;
-        anchor.target = "_blank";
-        anchor.rel = "noreferrer";
-        anchor.className =
-          "inline-flex items-center gap-3 rounded-full border border-[#FFFAFA]/12 bg-[#FFFAFA] px-5 py-3.5 font-sans text-[11px] font-bold tracking-[0.22em] text-[#3d3834] uppercase transition-all duration-300 hover:-translate-y-1 hover:border-[#3a4d45]/35 hover:bg-[#3a4d45] hover:text-[#FFFAFA]";
-        anchor.append(document.createTextNode(link.label));
-        anchor.insertAdjacentHTML(
-          "beforeend",
-          `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg>`,
-        );
-        linksContainer.append(anchor);
-      });
-    };
-
-    const applyEdition = (index) => {
-      const edition = editions[index] ?? editions[0];
-      if (!edition) {
-        return;
-      }
-
-      setText("[data-edition-label]", edition.label ?? "");
-      setText("[data-edition-status]", edition.status ?? "");
-      setText("[data-edition-status-copy]", edition.status ?? "");
-      setText("[data-edition-hook]", edition.hook ?? "");
-      setText("[data-edition-description]", edition.description ?? "");
-      setText("[data-edition-format]", edition.format ?? "");
-      setText("[data-edition-price]", edition.price ?? "");
-      setText("[data-edition-price-large]", edition.price ?? "");
-      setText("[data-edition-isbn]", edition.isbn ?? "");
-      setText("[data-edition-release]", edition.releaseDate ?? "");
-      setText("[data-edition-release-large]", edition.releaseDate ?? "");
-      setText("[data-edition-pages-number]", String(edition.pages ?? ""));
-      renderLinks(edition.purchaseLinks ?? []);
-    };
-
-    if (gallery instanceof HTMLElement) {
-      gallery.addEventListener("book-gallery:change", (event) => {
-        if (!(event instanceof CustomEvent)) {
+      const renderLinks = (links) => {
+        if (!(linksContainer instanceof HTMLElement)) {
           return;
         }
 
-        applyEdition(Number(event.detail?.index ?? 0));
-      });
-    }
+        linksContainer.replaceChildren();
 
-    applyEdition(0);
-  });
-</script>
+        const hasChapterOne = chapterOneHref.length > 0;
+        if ((!Array.isArray(links) || links.length === 0) && !hasChapterOne) {
+          linksContainer.classList.add("hidden");
+          return;
+        }
+
+        linksContainer.classList.remove("hidden");
+
+        [...links]
+          .sort(
+            (left, right) =>
+              scorePurchaseLink(right.label) - scorePurchaseLink(left.label),
+          )
+          .forEach((link, linkIndex) => {
+            const anchor = document.createElement("a");
+            anchor.href = link.href;
+            anchor.target = "_blank";
+            anchor.rel = "noreferrer";
+            anchor.className = [
+              "inline-flex items-center justify-center gap-3 rounded-full px-5 py-3.5 font-sans text-[11px] font-bold tracking-[0.22em] uppercase transition-all duration-300",
+              linkIndex === 0
+                ? "bg-[#3a4d45] text-[#FFFAFA] hover:bg-[#2f4039]"
+                : "border border-[#FFFAFA]/18 bg-transparent text-[#FFFAFA] hover:border-[#3a4d45]/35 hover:bg-[#FFFAFA] hover:text-[#3d3834]",
+            ].join(" ");
+            anchor.append(document.createTextNode(link.label));
+            anchor.insertAdjacentHTML(
+              "beforeend",
+              `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg>`,
+            );
+            linksContainer.append(anchor);
+          });
+
+        if (hasChapterOne) {
+          const chapterAnchor = document.createElement("a");
+          chapterAnchor.href = chapterOneHref;
+          chapterAnchor.setAttribute("download", "");
+          chapterAnchor.className = [
+            "inline-flex items-center justify-center gap-3 rounded-full border border-[#FFFAFA]/18 bg-transparent px-5 py-3.5 font-sans text-[11px] font-bold tracking-[0.22em] text-[#FFFAFA] uppercase transition-all duration-300",
+            "hover:border-[#3a4d45]/35 hover:bg-[#FFFAFA] hover:text-[#3d3834]",
+          ].join(" ");
+          chapterAnchor.append(
+            document.createTextNode("Télécharger le 1er chapitre"),
+          );
+          chapterAnchor.insertAdjacentHTML(
+            "beforeend",
+            `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"></path><path d="m7 10 5 5 5-5"></path><path d="M5 21h14"></path></svg>`,
+          );
+          linksContainer.append(chapterAnchor);
+        }
+      };
+
+      const applyEdition = (index) => {
+        const edition = editions[index] ?? editions[0];
+        if (!edition) {
+          return;
+        }
+
+        setText("[data-edition-label]", edition.label ?? "");
+        setText("[data-edition-status]", edition.status ?? "");
+        setText("[data-edition-status-copy]", edition.status ?? "");
+        setText("[data-edition-hook]", edition.hook ?? "");
+        setText("[data-edition-description]", edition.description ?? "");
+        setText("[data-edition-format]", edition.format ?? "");
+        setText("[data-edition-price]", edition.price ?? "");
+        setText("[data-edition-price-large]", edition.price ?? "");
+        setText("[data-edition-isbn]", edition.isbn ?? "");
+        setText("[data-edition-release]", edition.releaseDate ?? "");
+        setText("[data-edition-release-large]", edition.releaseDate ?? "");
+        setText("[data-edition-pages-number]", String(edition.pages ?? ""));
+        renderLinks(edition.purchaseLinks ?? []);
+      };
+
+      if (gallery instanceof HTMLElement) {
+        gallery.addEventListener("book-gallery:change", (event) => {
+          if (!(event instanceof CustomEvent)) {
+            return;
+          }
+
+          applyEdition(Number(event.detail?.index ?? 0));
+        });
+      }
+
+      applyEdition(0);
+    });
+  </script>
 </Layout>
-
-
-

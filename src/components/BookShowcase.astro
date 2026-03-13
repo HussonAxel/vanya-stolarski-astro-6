@@ -9,11 +9,11 @@ import BookCardGallery from "./BookCardGallery.astro";
 >
   <div class="pointer-events-none absolute inset-0">
     <div
-      class="absolute top-0 left-0 h-72 w-72 -translate-x-1/4 -translate-y-1/4 rounded-full bg-[#3a4d45] blur-3xl opacity-80"
+      class="absolute -top-[4.5rem] left-0 h-72 w-72 -translate-x-1/4 rounded-full bg-[#3a4d45] blur-3xl opacity-80"
     >
     </div>
     <div
-      class="absolute right-0 bottom-0 h-96 w-96 translate-x-1/4 translate-y-1/4 rounded-full bg-[#3a4d45] blur-3xl opacity-70"
+      class="absolute right-0 -bottom-24 h-96 w-96 translate-x-1/4 rounded-full bg-[#3a4d45] blur-3xl opacity-70"
     >
     </div>
   </div>
@@ -22,7 +22,7 @@ import BookCardGallery from "./BookCardGallery.astro";
     <div
       class="mb-16 flex flex-col gap-6 md:flex-row md:items-end md:justify-between"
     >
-      <div class="max-w-2xl space-y-5">
+      <div class="max-w-3xl space-y-5">
         <div class="flex items-center gap-3">
           <span class="h-px w-10 bg-[#FFFAFA]"></span>
           <span
@@ -31,7 +31,7 @@ import BookCardGallery from "./BookCardGallery.astro";
             Bibliothèque
           </span>
         </div>
-        <h2 class="font-serif text-4xl leading-none md:text-6xl">
+        <h2 class="font-serif text-4xl leading-none md:text-6xl text-balance">
           Les romans, leurs éditions et leurs univers rassemblés dans une même vitrine.
         </h2>
         <p
@@ -89,7 +89,7 @@ import BookCardGallery from "./BookCardGallery.astro";
 
               <div class="flex flex-1 flex-col p-6 text-center md:text-left">
                 <div class="flex flex-1 flex-col gap-4">
-                  <h3 class="font-serif text-2xl text-[#3d3834]">
+                  <h3 class="font-serif text-2xl text-[#3d3834] text-balance">
                     {book.title}
                   </h3>
                   <p class="font-sans text-xs tracking-widest text-[#3d3834]/78 uppercase">
@@ -137,7 +137,7 @@ import BookCardGallery from "./BookCardGallery.astro";
     <div class="mt-20 text-center">
       <a
         href="/livres"
-        class="section-panel inline-flex items-center gap-3 rounded-full border border-[#3d3834]/15 bg-[#3a4d45] px-8 py-4 font-sans text-[11px] font-bold tracking-[0.25em] text-[#FFFAFA] uppercase transition-all duration-300 hover:-translate-y-1 hover:border-[#3a4d45]/40 hover:bg-[#3a4d45] hover:text-[#FFFAFA]"
+        class="section-panel inline-flex items-center gap-3 rounded-full border border-[#3d3834]/15 bg-[#3a4d45] px-8 py-4 font-sans text-[11px] font-bold tracking-[0.25em] text-[#FFFAFA] uppercase transition-all duration-300 hover:border-[#3a4d45]/40 hover:bg-[#3a4d45] hover:text-[#FFFAFA]"
       >
         Voir toute la bibliotheque
         <svg

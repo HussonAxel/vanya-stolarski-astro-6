@@ -1,6 +1,6 @@
-import { t as typeHandlers, a as types, i as isRemoteAllowed, j as joinPaths, b as isRemotePath, s as spreadAttributes } from './entrypoint_KdGt3AND.mjs';
-import { A as AstroError, ao as NoImageMetadata, ap as FailedToFetchRemoteImageDimensions, aq as RemoteImageNotAllowed, ar as ExpectedImage, as as LocalImageUsedWrongly, at as MissingImageDimension, au as UnsupportedImageFormat, av as IncompatibleDescriptorOptions, aw as UnsupportedImageConversion, ax as InvalidImageService, ay as ExpectedImageOptions, az as ExpectedNotESMImage, aA as ImageMissingAlt, l as maybeRenderHead, Y as addAttribute, D as renderTemplate, aB as FontFamilyNotFound, aC as unescapeHTML } from './transition_aFiTmAOW.mjs';
-import { c as createComponent } from './astro-component_CIy402ez.mjs';
+import { t as typeHandlers, a as types, i as isRemoteAllowed, j as joinPaths, b as isRemotePath, s as spreadAttributes } from './entrypoint_BRtiGiUj.mjs';
+import { A as AstroError, ao as NoImageMetadata, ap as FailedToFetchRemoteImageDimensions, aq as RemoteImageNotAllowed, ar as ExpectedImage, as as LocalImageUsedWrongly, at as MissingImageDimension, au as UnsupportedImageFormat, av as IncompatibleDescriptorOptions, aw as UnsupportedImageConversion, ax as InvalidImageService, ay as ExpectedImageOptions, az as ExpectedNotESMImage, aA as ImageMissingAlt, l as maybeRenderHead, Y as addAttribute, D as renderTemplate, aB as FontFamilyNotFound, aC as unescapeHTML } from './transition_DxZe40lS.mjs';
+import { c as createComponent } from './astro-component_CjVDIu3q.mjs';
 
 function isESMImportedImage(src) {
   return typeof src === "object" || typeof src === "function" && "src" in src;
@@ -274,13 +274,6 @@ function isLocalService(service) {
   }
   return "transform" in service;
 }
-function parseQuality(quality) {
-  let result = Number.parseInt(quality);
-  if (Number.isNaN(result)) {
-    return quality;
-  }
-  return result;
-}
 const sortNumeric = (a, b) => a - b;
 function verifyOptions(options) {
   if (!options.src || !isRemoteImage(options.src) && !isESMImportedImage(options.src)) {
@@ -334,6 +327,7 @@ function verifyOptions(options) {
   }
 }
 const baseService = {
+  propertiesToHash: DEFAULT_HASH_PROPS,
   validateOptions(options) {
     verifyOptions(options);
     if (!options.format) {
@@ -522,7 +516,7 @@ async function getConfiguredImageService() {
   if (!globalThis?.astroAsset?.imageService) {
     const { default: service } = await import(
       // @ts-expect-error
-      './sharp_D7uiVN7H.mjs'
+      './noop_5_61VvEk.mjs'
     ).catch((e) => {
       const error = new AstroError(InvalidImageService);
       error.cause = e;
@@ -1300,7 +1294,7 @@ const $$Font = createComponent(($$result, $$props, $$slots) => {
 }, "D:/Documents/Projects/vanya-stolarski-astro-6/node_modules/.pnpm/astro@6.0.2_@vercel+functio_2c619264a9c81291535d7266d75771dc/node_modules/astro/components/Font.astro", void 0);
 
 const assetQueryParams = undefined;
-					const imageConfig = {"endpoint":{"route":"/_image"},"service":{"entrypoint":"astro/assets/services/sharp","config":{}},"domains":[],"remotePatterns":[],"responsiveStyles":false};
+					const imageConfig = {"endpoint":{"route":"/_image"},"service":{"entrypoint":"astro/assets/services/noop","config":{}},"domains":[],"remotePatterns":[],"responsiveStyles":false};
 					Object.defineProperty(imageConfig, 'assetQueryParams', {
 						value: assetQueryParams,
 						enumerable: false,
@@ -1407,4 +1401,4 @@ const generic___js = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProper
   page
 }, Symbol.toStringTag, { value: 'Module' }));
 
-export { baseService as b, generic___js as g, parseQuality as p };
+export { baseService as b, generic___js as g, isESMImportedImage as i, verifyOptions as v };

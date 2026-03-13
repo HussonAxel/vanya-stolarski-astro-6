@@ -1,4 +1,4 @@
-import { A as AstroError, aF as InvalidComponentArgs } from './transition_aFiTmAOW.mjs';
+import { A as AstroError, aF as InvalidComponentArgs } from './transition_DxZe40lS.mjs';
 
 function validateArgs(args) {
   if (args.length !== 3) return false;

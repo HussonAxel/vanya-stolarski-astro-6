@@ -1,5 +1,5 @@
 const serverIslandMap = new Map([
-	['LatestUluleCampaign', () => import('../chunks/LatestUluleCampaign_Cm2y4-jq.mjs')],
+	['LatestUluleCampaign', () => import('../chunks/LatestUluleCampaign_Dkom-o52.mjs')],
 ]);
 
 const serverIslandNameMap = new Map([

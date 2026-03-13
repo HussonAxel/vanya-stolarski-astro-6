@@ -1,7 +1,7 @@
-import { c as createComponent } from './astro-component_CIy402ez.mjs';
-import { D as renderTemplate, l as maybeRenderHead, Y as addAttribute } from './transition_aFiTmAOW.mjs';
-import { r as renderComponent } from './entrypoint_KdGt3AND.mjs';
-import { $ as $$Layout } from './Layout_DRO1MNFU.mjs';
+import { c as createComponent } from './astro-component_CjVDIu3q.mjs';
+import { D as renderTemplate, l as maybeRenderHead, Y as addAttribute } from './transition_DxZe40lS.mjs';
+import { r as renderComponent } from './entrypoint_BRtiGiUj.mjs';
+import { $ as $$Layout } from './Layout_QqMnxkFE.mjs';
 
 const citations = [
   {

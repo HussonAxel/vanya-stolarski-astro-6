@@ -1,8 +1,8 @@
-import { c as createComponent } from './astro-component_CIy402ez.mjs';
-import { D as renderTemplate, l as maybeRenderHead, Y as addAttribute } from './transition_aFiTmAOW.mjs';
-import { r as renderComponent } from './entrypoint_KdGt3AND.mjs';
-import { b as books, l as latestBook, $ as $$BookCardGallery } from './books_AotEKPOM.mjs';
-import { $ as $$Layout } from './Layout_DRO1MNFU.mjs';
+import { c as createComponent } from './astro-component_CjVDIu3q.mjs';
+import { D as renderTemplate, l as maybeRenderHead, Y as addAttribute } from './transition_DxZe40lS.mjs';
+import { r as renderComponent } from './entrypoint_BRtiGiUj.mjs';
+import { b as books, l as latestBook, $ as $$BookCardGallery } from './books_BWU3du9d.mjs';
+import { $ as $$Layout } from './Layout_QqMnxkFE.mjs';
 
 const $$Index = createComponent(($$result, $$props, $$slots) => {
   return renderTemplate`${renderComponent($$result, "Layout", $$Layout, { "title": "Livres - Vanya Stolarski" }, { "default": ($$result2) => renderTemplate` ${maybeRenderHead()}<main class="bg-[#FFFAFA] text-[#3d3834]"> <section class="relative overflow-hidden bg-[#3d3834] px-6 py-24 text-[#FFFAFA]"> <div class="site-shell relative flex flex-col gap-10"> <div class="grid gap-10 md:grid-cols-[1.3fr_0.7fr] md:items-end mt-20"> <div class="space-y-6"> <span class="inline-flex rounded-full border border-[#FFFAFA]/10 bg-[#FFFAFA] px-4 py-2 font-sans text-[10px] font-bold tracking-[0.25em] text-[#3d3834] uppercase">

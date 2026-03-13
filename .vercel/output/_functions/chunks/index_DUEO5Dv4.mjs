@@ -1,8 +1,8 @@
-import { c as createComponent } from './astro-component_CIy402ez.mjs';
-import { l as maybeRenderHead, D as renderTemplate, Y as addAttribute, F as Fragment } from './transition_aFiTmAOW.mjs';
-import { r as renderComponent } from './entrypoint_KdGt3AND.mjs';
-import { b as books, $ as $$BookCardGallery, l as latestBook } from './books_AotEKPOM.mjs';
-import { r as renderScript, $ as $$Layout } from './Layout_DRO1MNFU.mjs';
+import { c as createComponent } from './astro-component_CjVDIu3q.mjs';
+import { l as maybeRenderHead, D as renderTemplate, Y as addAttribute, F as Fragment } from './transition_DxZe40lS.mjs';
+import { r as renderComponent } from './entrypoint_BRtiGiUj.mjs';
+import { b as books, $ as $$BookCardGallery, l as latestBook } from './books_BWU3du9d.mjs';
+import { r as renderScript, $ as $$Layout } from './Layout_QqMnxkFE.mjs';
 import { r as reviews } from './reviews_CjzulC4a.mjs';
 
 const $$BookShowcase = createComponent(($$result, $$props, $$slots) => {

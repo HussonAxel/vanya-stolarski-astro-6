@@ -335,53 +335,79 @@ const getServiceGalleryCardWidth = (src: string) => {
                 </div>
 
                 {/* ── Galerie ── */}
-                <div class="service-gallery">
-                  <div class="-mx-2 flex gap-5 overflow-x-auto px-2 pb-3 snap-x snap-mandatory [scrollbar-width:thin] [scrollbar-color:rgba(61,56,52,0.18)_transparent]">
-                    {service.gallery.map((img, i) => (
-                      <figure
-                        class="group relative shrink-0 snap-start"
-                        style={getServiceGalleryCardWidth(img.src)}
-                      >
-                        <button
-                          type="button"
-                          class="service-gallery-trigger block w-full text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#3a4d45] focus-visible:ring-offset-4 focus-visible:ring-offset-[#fffdfa]"
-                          data-service-gallery-trigger
-                          data-image={img.src}
-                          data-alt={img.alt}
-                          data-title={img.label}
-                          data-service={service.name}
-                          data-eyebrow={service.eyebrow}
-                          data-price={service.price}
-                          data-description={service.description}
-                          data-format={service.format}
-                          data-universe={service.universe}
-                          data-focus={service.focus}
-                          data-width={serviceImageDimensions[img.src]?.width}
-                          data-height={serviceImageDimensions[img.src]?.height}
-                          aria-label={`Voir ${img.label} en grand`}
+                <div class="service-gallery space-y-4" data-service-gallery-root>
+                  <div class="flex flex-wrap items-center justify-between gap-3">
+                    <div class="flex items-center gap-3">
+                      <span class="inline-flex rounded-full border border-[#3d3834]/8 bg-[#fffaf8] px-3 py-1.5 font-sans text-[9px] font-bold tracking-[0.18em] text-[#3d3834]/66 uppercase">
+                        {service.gallery.length} visuels
+                      </span>
+                    </div>
+                    <span class="inline-flex items-center gap-2 rounded-full border border-[#3d3834]/8 bg-[#fffaf8] px-3 py-1.5 font-sans text-[9px] font-bold tracking-[0.2em] text-[#3d3834]/62 uppercase">
+                      <span aria-hidden="true" class="text-sm leading-none text-[#3a4d45]">←</span>
+                      Faire défiler
+                      <span aria-hidden="true" class="text-sm leading-none text-[#3a4d45]">→</span>
+                    </span>
+                  </div>
+
+                  <div class="relative">
+                    <div
+                      data-service-gallery-scroller
+                      class="-mx-2 flex cursor-grab gap-5 overflow-x-auto px-2 pb-4 snap-x snap-mandatory [scrollbar-width:auto] [scrollbar-color:rgba(58,77,69,0.55)_rgba(61,56,52,0.10)] active:cursor-grabbing"
+                    >
+                      {service.gallery.map((img, i) => (
+                        <figure
+                          class="group relative shrink-0 snap-start"
+                          style={getServiceGalleryCardWidth(img.src)}
                         >
-                          <div
-                            class="relative flex h-[18rem] items-center justify-center overflow-hidden rounded-[1.9rem] border border-[#3d3834]/8 bg-[linear-gradient(180deg,#fffdfa_0%,#f2e9e4_100%)] p-3 shadow-[0_18px_55px_-34px_rgba(61,56,52,0.3)] transition-all duration-500 group-hover:-translate-y-1 group-hover:shadow-[0_26px_80px_-34px_rgba(61,56,52,0.38)] sm:h-[21rem] sm:p-4 md:h-[24rem] lg:h-[27rem]"
+                          <button
+                            type="button"
+                            class="service-gallery-trigger block w-full text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#3a4d45] focus-visible:ring-offset-4 focus-visible:ring-offset-[#fffdfa]"
+                            data-service-gallery-trigger
+                            data-image={img.src}
+                            data-alt={img.alt}
+                            data-title={img.label}
+                            data-service={service.name}
+                            data-eyebrow={service.eyebrow}
+                            data-price={service.price}
+                            data-description={service.description}
+                            data-format={service.format}
+                            data-universe={service.universe}
+                            data-focus={service.focus}
+                            data-width={serviceImageDimensions[img.src]?.width}
+                            data-height={serviceImageDimensions[img.src]?.height}
+                            aria-label={`Voir ${img.label} en grand`}
                           >
-                            <img
-                              src={img.src}
-                              alt={img.alt}
-                              width={serviceImageDimensions[img.src]?.width}
-                              height={serviceImageDimensions[img.src]?.height}
-                              class="h-full w-full rounded-[1.35rem] object-contain transition-transform duration-500 group-hover:scale-[1.02]"
-                              loading={i === 0 ? "eager" : "lazy"}
-                            />
-                            <div class="pointer-events-none absolute inset-x-0 bottom-0 h-24 rounded-b-[1.9rem] bg-gradient-to-t from-[#3d3834]/18 via-transparent to-transparent"></div>
-                            <span class="absolute bottom-4 left-4 inline-flex rounded-full border border-[#FFFAFA]/20 bg-[#3d3834]/78 px-3 py-1.5 font-sans text-[9px] font-bold tracking-[0.22em] text-[#FFFAFA] uppercase backdrop-blur-sm">
-                              {img.label}
-                            </span>
-                            <span class="absolute top-4 right-4 inline-flex rounded-full border border-[#3d3834]/10 bg-[#fffdfa]/92 px-3 py-1.5 font-sans text-[9px] font-bold tracking-[0.18em] text-[#3d3834]/72 uppercase shadow-[0_10px_28px_-22px_rgba(61,56,52,0.45)]">
-                              Agrandir
-                            </span>
-                          </div>
-                        </button>
-                      </figure>
-                    ))}
+                            <div
+                              class="relative flex h-[18rem] items-center justify-center overflow-hidden rounded-[1.9rem] border border-[#3d3834]/8 bg-[linear-gradient(180deg,#fffdfa_0%,#f2e9e4_100%)] p-3 transition-all duration-500 sm:h-[21rem] sm:p-4 md:h-[24rem] lg:h-[27rem]"
+                            >
+                              <img
+                                src={img.src}
+                                alt={img.alt}
+                                width={serviceImageDimensions[img.src]?.width}
+                                height={serviceImageDimensions[img.src]?.height}
+                                class="h-full w-full rounded-[0.8rem] object-contain transition-transform duration-500 group-hover:scale-[1.02]"
+                                loading={i === 0 ? "eager" : "lazy"}
+                              />
+                              <span class="absolute bottom-4 left-4 inline-flex rounded-full border border-[#FFFAFA]/20 bg-[#3d3834]/78 px-3 py-1.5 font-sans text-[9px] font-bold tracking-[0.22em] text-[#FFFAFA] uppercase backdrop-blur-sm">
+                                {img.label}
+                              </span>
+                            </div>
+                          </button>
+                        </figure>
+                      ))}
+                    </div>
+
+                    <div class="pointer-events-none mt-2 flex items-center gap-3 px-2 md:hidden">
+                      <span class="font-sans text-[9px] font-bold tracking-[0.2em] text-[#3d3834]/48 uppercase">
+                        Glisser
+                      </span>
+                      <div class="relative h-px flex-1 overflow-hidden rounded-full bg-[#3d3834]/10">
+                        <span class="absolute inset-y-0 left-0 w-16 rounded-full bg-[#3a4d45]/28"></span>
+                      </div>
+                      <span aria-hidden="true" class="font-serif text-lg leading-none text-[#3a4d45]/72">→</span>
+                    </div>
+
+
                   </div>
                 </div>
 
@@ -446,7 +472,7 @@ const getServiceGalleryCardWidth = (src: string) => {
         <button
           type="button"
           id="service-gallery-modal-close"
-          class="absolute top-4 right-4 z-20 inline-flex h-11 w-11 items-center justify-center rounded-full border border-[#3d3834]/10 bg-[#FFFAFA]/92 font-sans text-xs font-bold tracking-[0.2em] text-[#3d3834] uppercase shadow-[0_10px_30px_-24px_rgba(61,56,52,0.55)] transition-all duration-300 hover:-translate-y-0.5 hover:border-[#3a4d45]/30 hover:bg-[#3a4d45] hover:text-[#FFFAFA]"
+          class="absolute top-4 right-4 z-20 inline-flex h-11 w-11 items-center justify-center rounded-full border border-[#3d3834]/10 bg-[#FFFAFA]/92 font-sans text-xs font-bold tracking-[0.2em] text-[#3d3834] uppercase shadow-[0_10px_30px_-24px_rgba(61,56,52,0.55)] transition-all duration-300 hover:border-[#3a4d45]/30 hover:bg-[#3a4d45] hover:text-[#FFFAFA]"
           aria-label="Fermer la popup"
         >
           X
@@ -459,7 +485,7 @@ const getServiceGalleryCardWidth = (src: string) => {
               <button
                 type="button"
                 id="service-gallery-modal-prev"
-                class="absolute left-0 top-1/2 z-10 inline-flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-[#FFFAFA]/14 bg-[#FFFAFA]/10 font-sans text-lg text-[#FFFAFA] backdrop-blur-sm transition-all duration-300 hover:bg-[#FFFAFA] hover:text-[#3d3834] disabled:pointer-events-none disabled:opacity-30"
+                class="absolute left-0 top-1/2 z-10 inline-flex h-11 w-11 items-center justify-center rounded-full border border-[#FFFAFA]/14 bg-[#FFFAFA]/10 font-sans text-lg text-[#FFFAFA] backdrop-blur-sm transition-all duration-300 hover:bg-[#FFFAFA] hover:text-[#3d3834] disabled:pointer-events-none disabled:opacity-30"
                 aria-label="Image précédente"
               >
                 ‹
@@ -475,7 +501,7 @@ const getServiceGalleryCardWidth = (src: string) => {
               <button
                 type="button"
                 id="service-gallery-modal-next"
-                class="absolute right-0 top-1/2 z-10 inline-flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-[#FFFAFA]/14 bg-[#FFFAFA]/10 font-sans text-lg text-[#FFFAFA] backdrop-blur-sm transition-all duration-300 hover:bg-[#FFFAFA] hover:text-[#3d3834] disabled:pointer-events-none disabled:opacity-30"
+                class="absolute right-0 top-1/2 z-10 inline-flex h-11 w-11  items-center justify-center rounded-full border border-[#FFFAFA]/14 bg-[#FFFAFA]/10 font-sans text-lg text-[#FFFAFA] backdrop-blur-sm transition-all duration-300 hover:bg-[#FFFAFA] hover:text-[#3d3834] disabled:pointer-events-none disabled:opacity-30"
                 aria-label="Image suivante"
               >
                 ›
@@ -625,7 +651,7 @@ const getServiceGalleryCardWidth = (src: string) => {
             <div class="flex flex-wrap gap-3 lg:justify-end">
               <a
                 href={`mailto:${contact.email}`}
-                class="inline-flex items-center gap-3 rounded-full bg-[#3a4d45] px-7 py-4 font-sans text-[11px] font-bold tracking-[0.25em] text-[#FFFAFA] uppercase transition-all duration-300 hover:-translate-y-1 hover:bg-[#FFFAFA] hover:text-[#3d3834]"
+                class="inline-flex items-center gap-3 rounded-full bg-[#3a4d45] px-7 py-4 font-sans text-[11px] font-bold tracking-[0.25em] text-[#FFFAFA] uppercase transition-all duration-300 hover:bg-[#FFFAFA] hover:text-[#3d3834]"
               >
                 Envoyer un mail
               </a>
@@ -644,6 +670,27 @@ const getServiceGalleryCardWidth = (src: string) => {
     </section>
   </main>
 </Layout>
+
+<style>
+  [data-service-gallery-scroller]::-webkit-scrollbar {
+    height: 12px;
+  }
+
+  [data-service-gallery-scroller]::-webkit-scrollbar-track {
+    background: rgba(61, 56, 52, 0.08);
+    border-radius: 999px;
+  }
+
+  [data-service-gallery-scroller]::-webkit-scrollbar-thumb {
+    background: rgba(58, 77, 69, 0.58);
+    border: 2px solid rgba(255, 253, 250, 0.95);
+    border-radius: 999px;
+  }
+
+  [data-service-gallery-scroller]::-webkit-scrollbar-thumb:hover {
+    background: rgba(58, 77, 69, 0.78);
+  }
+</style>
 
 <script>
   const serviceGalleryTriggers = Array.from(
@@ -695,6 +742,12 @@ const getServiceGalleryCardWidth = (src: string) => {
   );
   const serviceGalleryModalCloseTargets = Array.from(
     document.querySelectorAll("[data-service-gallery-close]")
+  );
+  const serviceGalleryRoots = Array.from(
+    document.querySelectorAll("[data-service-gallery-root]")
+  );
+  const serviceGalleryScrollers = Array.from(
+    document.querySelectorAll("[data-service-gallery-scroller]")
   );
 
   let currentServiceGalleryIndex = -1;
@@ -845,5 +898,105 @@ const getServiceGalleryCardWidth = (src: string) => {
     if (event.key === "ArrowRight") {
       moveServiceGallery(1);
     }
+  });
+
+  const syncServiceGalleryScrollbar = (scroller, thumb) => {
+    const maxScroll = scroller.scrollWidth - scroller.clientWidth;
+
+    if (maxScroll <= 0) {
+      thumb.style.width = "100%";
+      thumb.style.transform = "translateX(0)";
+      return;
+    }
+
+    const visibleRatio = scroller.clientWidth / scroller.scrollWidth;
+    const thumbRatio = Math.min(Math.max(visibleRatio, 0.16), 0.72);
+    const maxThumbTravel = 100 - thumbRatio * 100;
+    const progress = scroller.scrollLeft / maxScroll;
+
+    thumb.style.width = `${thumbRatio * 100}%`;
+    thumb.style.transform = `translateX(${maxThumbTravel * progress}%)`;
+  };
+
+  serviceGalleryRoots.forEach((root) => {
+    const scroller = root.querySelector("[data-service-gallery-scroller]");
+    const thumb = root.querySelector("[data-service-gallery-scrollbar-thumb]");
+
+    if (!(scroller instanceof HTMLElement) || !(thumb instanceof HTMLElement)) {
+      return;
+    }
+
+    const updateThumb = () => syncServiceGalleryScrollbar(scroller, thumb);
+
+    updateThumb();
+    scroller.addEventListener("scroll", updateThumb, { passive: true });
+    window.addEventListener("resize", updateThumb);
+  });
+
+  serviceGalleryScrollers.forEach((scroller) => {
+    let isMouseDown = false;
+    let startX = 0;
+    let startScrollLeft = 0;
+    let dragged = false;
+    let suppressClick = false;
+
+    scroller.addEventListener("mousedown", (event) => {
+      if (!(event.target instanceof Element) || event.button !== 0) {
+        return;
+      }
+
+      isMouseDown = true;
+      dragged = false;
+      startX = event.clientX;
+      startScrollLeft = scroller.scrollLeft;
+      scroller.classList.add("cursor-grabbing");
+    });
+
+    scroller.addEventListener("mousemove", (event) => {
+      if (!isMouseDown) {
+        return;
+      }
+
+      const deltaX = event.clientX - startX;
+
+      if (Math.abs(deltaX) > 6) {
+        dragged = true;
+      }
+
+      if (!dragged) {
+        return;
+      }
+
+      event.preventDefault();
+      scroller.scrollLeft = startScrollLeft - deltaX;
+    });
+
+    const endDrag = () => {
+      if (!isMouseDown) {
+        return;
+      }
+
+      isMouseDown = false;
+      suppressClick = dragged;
+      dragged = false;
+      scroller.classList.remove("cursor-grabbing");
+    };
+
+    scroller.addEventListener("mouseleave", endDrag);
+    document.addEventListener("mouseup", endDrag);
+
+    scroller.addEventListener(
+      "click",
+      (event) => {
+        if (!suppressClick) {
+          return;
+        }
+
+        event.preventDefault();
+        event.stopPropagation();
+        suppressClick = false;
+      },
+      true
+    );
   });
 </script>

@@ -24,8 +24,8 @@ export const services: Service[] = [
     price: "Sous devis",
     accent: "#3a4d45",
     format: "Sur mesure",
-    universe: "Fantasy & SF",
-    focus: "Objet-livre premium",
+    universe: "Tous genres",
+    focus: "Dorures possibles",
     gallery: [
       {
         src: "/assets/services/couvertures/cover-1.webp",
@@ -48,18 +48,18 @@ export const services: Service[] = [
         label: "Luxe",
       },
     ],
-    tags: ["Fantasy", "Science-fiction", "Sur mesure"],
+    tags: ["Tous genres", "Objet-livre", "Sur mesure"],
     description:
-      "Je propose des couvertures pour les romans de fantasy et de science-fiction, pensées comme de vrais objets-livres : lisibles, singulières, luxueuses et adaptées à ton univers.",
+      "Je propose des couvertures pensées comme de vrais objets-livres : lisibles, singulières, luxueuses et adaptées au genre, au ton et à l'identité de ton roman.",
   },
   {
     name: "Premades",
     eyebrow: "Collection disponible",
     price: "Disponible",
     accent: "#3a4d45",
-    format: "Formats adaptables",
-    universe: "Fantasy & SF",
-    focus: "Mise en ligne rapide",
+    format: "Base adaptable",
+    universe: "Tous genres",
+    focus: "Ajustements possibles",
     gallery: [
       {
         src: "/assets/services/premades/premade.webp",
@@ -72,7 +72,7 @@ export const services: Service[] = [
         label: "Premade 02",
       },
     ],
-    tags: ["Fantasy", "Science-fiction", "Disponible"],
+    tags: ["Tous genres", "Adaptable", "Disponible"],
     description:
       "Je propose des premades pour aller plus vite tout en gardant un rendu premium, cohérent et adaptable à ton projet.",
   },
@@ -81,8 +81,8 @@ export const services: Service[] = [
     eyebrow: "Finition collector",
     price: "80 € / 120 €",
     accent: "#3d3834",
-    format: "Édition collector",
-    universe: "Fantasy & SF",
+    format: "Sur mesure",
+    universe: "Tous genres",
     focus: "Tranche personnalisée",
     gallery: [
       {
@@ -116,7 +116,7 @@ export const services: Service[] = [
         label: "Luxe",
       },
     ],
-    tags: ["Édition collector", "Fantasy", "Personnalisable"],
+    tags: ["Tranche", "Tous genres", "Personnalisable"],
     description:
       "J’ai créé des jaspages pour donner une impression de luxe et de qualité à un roman, avec des finitions personnalisables selon le projet.",
   },
@@ -126,7 +126,7 @@ export const services: Service[] = [
     price: "Sous devis",
     accent: "#3d3834",
     format: "Double page",
-    universe: "Univers sur mesure",
+    universe: "Tous genres",
     focus: "Ouverture immersive",
     gallery: [
       {
@@ -150,7 +150,7 @@ export const services: Service[] = [
     price: "À partir de 20 €",
     accent: "#3a4d45",
     format: "Chapitrage",
-    universe: "Fantasy & SF",
+    universe: "Saga & one-shot",
     focus: "Rythme de lecture",
     gallery: [
       {
@@ -252,9 +252,9 @@ export const services: Service[] = [
     eyebrow: "Direction visuelle",
     price: "Sous devis",
     accent: "#3d3834",
-    format: "Illustration sur mesure",
-    universe: "Fantasy & SF",
-    focus: "Campagne & contenu",
+    format: "Sur mesure",
+    universe: "Tous genres",
+    focus: "Communication & personnages",
     gallery: [
       {
         src: "/assets/services/illustrations/illustration-five.webp",
@@ -327,7 +327,7 @@ export const services: Service[] = [
         label: "Communication",
       },
     ],
-    tags: ["Illustration", "Fantasy", "Sous devis"],
+    tags: ["Illustration", "Tous genres", "Sous devis"],
     description:
       "Je propose des illustrations sur mesure pour prolonger l’univers du livre, nourrir la communication et donner des images fortes aux personnages ou aux scènes.",
   },

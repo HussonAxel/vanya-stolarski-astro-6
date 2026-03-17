@@ -6,6 +6,7 @@ const contact = {
   email: "vanya.stolarski@gmail.com",
   instagramHandle: "vanyastolar.auteure",
   instagramUrl: "https://www.instagram.com/vanyastolar.auteure/",
+  shopUrl: "https://vanyastolarski.sumupstore.com/",
 };
 
 const commitments = [
@@ -20,8 +21,28 @@ const commitments = [
   {
     title: "Demande sur mesure",
     text: "Pour toute demande personnalisée ou pour un devis, tu peux me contacter directement par mail ou via Instagram afin que l'on cadre le besoin ensemble.",
+    actionLabel: "vanya.stolarski@gmail.com",
+    actionHref: "mailto:vanya.stolarski@gmail.com",
   },
 ];
+
+const highlightedCommitments = commitments.map((item, index) =>
+  index === 0
+    ? {
+        ...item,
+        title: "Genres ouverts",
+        text: "Je peux travailler sur des projets de genres varies, avec une recherche de rendu plus luxueux, plus singulier et plus editorial.",
+      }
+    : item,
+);
+
+const tariffsIntro =
+  "Je propose des visuels et elements editoriaux pour des romans de genres varies, avec une recherche de luxe, de qualite et d'identite forte.";
+
+const genresSnapshot = {
+  value: "Tous",
+  label: "Genres",
+};
 
 const process = [
   {
@@ -192,9 +213,7 @@ const getServiceGalleryCardWidth = (src: string) => {
             <p
               class="max-w-2xl font-sans text-base leading-relaxed text-[#FFFAFA] md:text-lg"
             >
-              Je propose des visuels et éléments éditoriaux pour les romans de
-              fantasy et de science-fiction, avec une recherche de luxe, de
-              qualité et d'identité forte.
+              {tariffsIntro}
             </p>
 
             <div class="flex flex-wrap gap-3 pt-2">
@@ -203,6 +222,14 @@ const getServiceGalleryCardWidth = (src: string) => {
                 class="inline-flex items-center gap-3 rounded-full bg-[#3a4d45] px-7 py-4 font-sans text-[11px] font-bold tracking-[0.25em] text-[#FFFAFA] uppercase transition-all duration-300 hover:bg-[#FFFAFA] hover:text-[#3d3834]"
               >
                 Voir les tarifs
+              </a>
+              <a
+                href={contact.shopUrl}
+                target="_blank"
+                rel="noreferrer"
+                class="inline-flex items-center gap-3 rounded-full border border-[#FFFAFA]/12 bg-transparent px-7 py-4 font-sans text-[11px] font-bold tracking-[0.25em] text-[#FFFAFA] uppercase transition-all duration-300 hover:border-[#FFFAFA] hover:bg-[#FFFAFA] hover:text-[#3d3834]"
+              >
+                Boutique SumUp
               </a>
               <a
                 href={`mailto:${contact.email}`}
@@ -228,11 +255,13 @@ const getServiceGalleryCardWidth = (src: string) => {
                 </p>
               </div>
               <div>
-                <p class="font-serif text-5xl text-[#3a4d45]">SF</p>
+                <p class="font-serif text-5xl text-[#3a4d45]">
+                  {genresSnapshot.value}
+                </p>
                 <p
                   class="mt-2 font-sans text-[10px] font-bold tracking-[0.25em] text-[#3d3834] uppercase"
                 >
-                  Fantasy & SF
+                  {genresSnapshot.label}
                 </p>
               </div>
               <div>
@@ -436,7 +465,7 @@ const getServiceGalleryCardWidth = (src: string) => {
                     </div>
                     <div class="rounded-[1.7rem] border border-[#3d3834]/8 bg-[#fffaf8] px-4 py-4">
                       <p class="font-sans text-[9px] font-bold tracking-[0.2em] text-[#3d3834]/50 uppercase">
-                        Univers
+                        Adapté à
                       </p>
                       <p class="mt-2 font-serif text-[1.35rem] leading-tight text-[#3d3834]">
                         {service.universe}
@@ -533,7 +562,7 @@ const getServiceGalleryCardWidth = (src: string) => {
                     <dd id="service-gallery-modal-format" class="font-serif text-[1.45rem] leading-tight text-[#3d3834] break-words"></dd>
                   </div>
                   <div class="space-y-1">
-                    <dt class="font-sans text-[10px] font-bold tracking-[0.22em] text-[#3d3834]/55 uppercase">Univers</dt>
+                    <dt class="font-sans text-[10px] font-bold tracking-[0.22em] text-[#3d3834]/55 uppercase">Adapté à</dt>
                     <dd id="service-gallery-modal-universe" class="font-serif text-[1.45rem] leading-tight text-[#3d3834] break-words"></dd>
                   </div>
                   <div class="space-y-1">
@@ -561,39 +590,39 @@ const getServiceGalleryCardWidth = (src: string) => {
 
     <!-- ─── PROCESSUS & ENGAGEMENTS ─── -->
     <section class="relative overflow-hidden bg-[#FFFAFA] px-6 py-24">
-      <div class="site-shell relative grid gap-6 lg:grid-cols-[0.95fr_1.05fr]">
+      <div class="site-shell relative grid gap-8 xl:grid-cols-[minmax(0,1.04fr)_minmax(23rem,0.96fr)] xl:items-start">
         <div
-          class="section-panel fade-up rounded-[2.35rem] border border-[#3d3834]/10 bg-[#3d3834] p-8 text-[#FFFAFA] shadow-[0_24px_80px_-48px_rgba(61,56,52,0.42)] md:p-10"
+          class="section-panel fade-up overflow-hidden rounded-[2.55rem] border border-[#3d3834]/10 bg-[linear-gradient(180deg,#4b443f_0%,#3d3834_100%)] p-8 text-[#FFFAFA] shadow-[0_30px_90px_-52px_rgba(61,56,52,0.46)] md:p-10 xl:p-12"
         >
           <p
-            class="font-sans text-[10px] font-bold tracking-[0.35em] text-[#3a4d45] uppercase"
+            class="font-sans text-[10px] font-bold tracking-[0.35em] text-[#6f9184] uppercase"
           >
             Comment ça se passe
           </p>
-          <h2 class="mt-5 font-serif text-4xl leading-none text-balance md:text-5xl">
+          <h2 class="mt-5 max-w-4xl font-serif text-4xl leading-[0.94] text-balance md:text-5xl xl:text-[4.1rem]">
             Une base claire pour discuter du besoin, du rendu et du bon niveau
             de personnalisation.
           </h2>
           <p
-            class="mt-6 max-w-xl font-sans text-base leading-relaxed text-[#FFFAFA]"
+            class="mt-6 max-w-2xl font-sans text-base leading-8 text-[#FFFAFA]/86 md:text-[1.02rem]"
           >
             Certains tarifs sont fixes, d'autres passent par un devis. Dans tous
             les cas, l'idée est de cadrer la demande avec précision pour que le
             visuel final soit cohérent avec ton univers de livre.
           </p>
 
-          <div class="mt-10 space-y-4 border-t border-[#FFFAFA]/10 pt-8">
+          <div class="mt-10 space-y-3 border-t border-[#FFFAFA]/10 pt-8 md:mt-12 md:pt-9">
             {
               process.map((item) => (
-                <div class="flex items-start gap-4">
-                  <span class="font-serif text-3xl text-[#3a4d45]">
+                <div class="grid gap-4 rounded-[1.7rem] border border-[#FFFAFA]/10 bg-[#FFFAFA]/[0.04] px-4 py-4 md:grid-cols-[auto_1fr] md:items-start md:px-5">
+                  <span class="inline-flex h-12 w-12 items-center justify-center rounded-full border border-[#6f9184]/35 bg-[#6f9184]/10 font-serif text-2xl text-[#6f9184]">
                     {item.step}
                   </span>
-                  <div>
-                    <p class="font-sans text-[10px] font-bold tracking-[0.3em] text-[#FFFAFA] uppercase">
+                  <div class="space-y-2">
+                    <p class="font-sans text-[10px] font-bold tracking-[0.3em] text-[#FFFAFA]/82 uppercase">
                       {item.title}
                     </p>
-                    <p class="mt-2 font-sans text-sm leading-relaxed text-[#FFFAFA]">
+                    <p class="font-sans text-sm leading-7 text-[#FFFAFA]/88 md:text-[0.98rem]">
                       {item.text}
                     </p>
                   </div>
@@ -603,19 +632,36 @@ const getServiceGalleryCardWidth = (src: string) => {
           </div>
         </div>
 
-        <div class="grid gap-6 md:grid-cols-3">
+        <div class="grid auto-rows-fr gap-4 md:grid-cols-2">
           {
-            commitments.map((item) => (
-              <article class="section-panel fade-up rounded-[2.1rem] border border-[#3d3834]/10 bg-[#FFFAFA] p-7 shadow-[0_20px_70px_-45px_rgba(61,56,52,0.34)] backdrop-blur-sm">
-                <p class="font-sans text-[10px] font-bold tracking-[0.28em] text-[#3a4d45] uppercase">
+            highlightedCommitments.map((item, index) => (
+              <article
+                class:list={[
+                  "section-panel fade-up flex h-full flex-col rounded-[2rem] border p-7 shadow-[0_20px_70px_-45px_rgba(61,56,52,0.28)] backdrop-blur-sm md:p-8",
+                  index === 2
+                    ? "border-[#3a4d45]/14 bg-[linear-gradient(180deg,#f6efe9_0%,#fffaf8_100%)] md:col-span-2"
+                    : "border-[#3d3834]/10 bg-[#FFFAFA]",
+                ]}
+              >
+                <p class="font-sans text-[10px] font-bold tracking-[0.28em] text-[#3a4d45]/92 uppercase">
                   Repère
                 </p>
-                <h3 class="mt-4 font-serif text-3xl leading-none text-[#3d3834] text-balance">
+                <h3 class="mt-5 max-w-[11ch] font-serif text-[2.35rem] leading-[0.92] text-[#3d3834] text-balance">
                   {item.title}
                 </h3>
-                <p class="mt-4 font-sans text-base leading-relaxed text-[#3d3834]/78">
+                <p class="mt-5 max-w-[26rem] font-sans text-[1rem] leading-8 text-[#3d3834]/84">
                   {item.text}
                 </p>
+                {
+                  item.actionLabel && item.actionHref && (
+                    <a
+                      href={item.actionHref}
+                      class="mt-auto inline-flex w-fit items-center gap-3 rounded-full border border-[#3a4d45]/14 bg-[#FFFAFA] px-5 py-3.5 font-sans text-[11px] font-bold tracking-[0.18em] text-[#3d3834] uppercase shadow-[0_14px_34px_-26px_rgba(61,56,52,0.35)] transition-all duration-300 hover:border-[#3a4d45]/30 hover:bg-[#3a4d45] hover:text-[#FFFAFA]"
+                    >
+                      {item.actionLabel}
+                    </a>
+                  )
+                }
               </article>
             ))
           }

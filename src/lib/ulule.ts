@@ -1,3 +1,5 @@
+import { books } from "../data/books";
+
 const FOUR_HOURS_IN_MS = 4 * 60 * 60 * 1000;
 const ULULE_API_BASE_URL = "https://api.ulule.com/v1";
 const ULULE_API_VERSION = "2022-10-24";
@@ -37,8 +39,8 @@ const fallbackCampaign: UluleCampaignCard = {
     "Un bandeau pense comme une vitrine de campagne: couverture, atmosphere, bonus editoriaux et pieces visuelles creees pour porter le projet.",
   primaryHref: "/galerie",
   primaryLabel: "Voir les visuels",
-  secondaryHref: "/livres/fous-papillons",
-  secondaryLabel: "Decouvrir le roman",
+  secondaryHref: "/livres",
+  secondaryLabel: "Voir les livres",
   coverSrc: "/assets/covers/fous-papillons-cover.webp",
   coverAlt: "Couverture de Fous-Papillons",
   detailSrc: "/assets/gallery/fous-papillons--esther.webp",
@@ -135,6 +137,38 @@ const normalizeTitle = (title: string | undefined, slug: string | undefined) => 
     .filter(Boolean)
     .map((chunk) => chunk.charAt(0).toUpperCase() + chunk.slice(1))
     .join(" ");
+};
+
+const normalizeSearchValue = (value: string | undefined) =>
+  value
+    ?.normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, " ")
+    .trim();
+
+const findBookHref = (title: string | undefined, slug: string | undefined) => {
+  const normalizedTitle = normalizeSearchValue(title);
+  const normalizedSlug = normalizeSearchValue(slug?.replace(/---.*$/, "").replace(/-/g, " "));
+
+  const matchedBook = books.find((book) => {
+    const normalizedBookTitle = normalizeSearchValue(book.title);
+    const normalizedBookSlug = normalizeSearchValue(book.slug.replace(/-/g, " "));
+
+    if (!normalizedBookTitle || !normalizedBookSlug) {
+      return false;
+    }
+
+    return (
+      normalizedTitle === normalizedBookTitle ||
+      normalizedSlug === normalizedBookSlug ||
+      normalizedTitle?.includes(normalizedBookTitle) ||
+      normalizedBookTitle.includes(normalizedTitle ?? "") ||
+      normalizedSlug?.includes(normalizedBookSlug)
+    );
+  });
+
+  return matchedBook ? `/livres/${matchedBook.slug}` : undefined;
 };
 
 const formatRemainingTime = (rawDate: string | undefined) => {
@@ -235,6 +269,7 @@ const buildCampaignFromProject = (project: Record<string, any>): UluleCampaignCa
   const amountRaised = Number(project.amount_raised ?? project.committed ?? 0);
   const currencyDisplay = getFirstString(project.currency_display) ?? "€";
   const endDate = getFirstString(project.date_end, project.end_date);
+  const matchedBookHref = findBookHref(title, slug);
   const remainingStat = formatRemainingTime(
     endDate,
   );
@@ -264,10 +299,11 @@ const buildCampaignFromProject = (project: Record<string, any>): UluleCampaignCa
     primaryLabel: "Voir la campagne",
     secondaryHref:
       getFirstString(import.meta.env.ULULE_SECONDARY_HREF) ??
+      matchedBookHref ??
       fallbackCampaign.secondaryHref,
     secondaryLabel:
       getFirstString(import.meta.env.ULULE_SECONDARY_LABEL) ??
-      fallbackCampaign.secondaryLabel,
+      (matchedBookHref ? "Voir le livre" : fallbackCampaign.secondaryLabel),
     coverSrc: imageSrc,
     coverAlt:
       getFirstLocalizedString(project.share_image?.fr?.alt, project.main_image?.fr?.alt) ??

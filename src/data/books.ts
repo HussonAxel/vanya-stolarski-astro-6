@@ -192,8 +192,8 @@ export const books: Book[] = [
         },
         {
           src: "/assets/covers/fous-papillons-featured.webp",
-          alt: "Visuel collector de Fous-Papillons",
-          label: "Collector",
+          alt: "Visuel editorial de Fous-Papillons",
+          label: "Visuel",
         },
       ],
       stats: [

@@ -3,6 +3,8 @@ import { latestBook } from "../data/books";
 import BookGallery from "./BookGallery.astro";
 
 const featured = latestBook.featured;
+const displayStatus =
+  latestBook.status === "Disponible" ? "Publie" : latestBook.status;
 const galleryItems = featured?.gallery?.length
   ? featured.gallery
   : featured?.mediaSrc
@@ -40,7 +42,7 @@ const galleryItems = featured?.gallery?.length
             <span
               class="rounded-full bg-[#3a4d45] px-4 py-2 font-sans text-[10px] font-bold tracking-[0.28em] text-[#FFFAFA] uppercase"
             >
-              {latestBook.status}
+                {displayStatus}
             </span>
             <span
               class="rounded-full border border-[#3d3834]/10 bg-[#FFFAFA] px-4 py-2 font-sans text-[10px] font-bold tracking-[0.28em] text-[#3d3834]/78 uppercase"

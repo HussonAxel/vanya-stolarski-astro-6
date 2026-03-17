@@ -2,6 +2,8 @@
 import { latestBook } from "../data/books";
 
 const featured = latestBook.featured;
+const displayStatus =
+  latestBook.status === "Disponible" ? "Publie" : latestBook.status;
 ---
 
 <section class="relative overflow-hidden bg-[#FFFAFA] pt-14 pb-12 md:pt-18 md:pb-16">
@@ -54,7 +56,7 @@ const featured = latestBook.featured;
 
           <div class="flex flex-wrap gap-2.5">
             <span class="rounded-full border border-[#3d3834]/10 bg-[#FFFAFA] px-3 py-1.5 font-sans text-[10px] font-bold tracking-[0.22em] text-[#3d3834]/74 uppercase">
-              {latestBook.status}
+              {displayStatus}
             </span>
             <span class="rounded-full border border-[#3d3834]/10 bg-[#FFFAFA] px-3 py-1.5 font-sans text-[10px] font-bold tracking-[0.22em] text-[#3d3834]/74 uppercase">
               {latestBook.releaseDate}

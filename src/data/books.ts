@@ -33,6 +33,7 @@ export interface Book {
   format: string;
   status: string;
   price: string;
+  priceOptions?: Array<{ label: string; value: string }>;
   purchaseLinks?: PurchaseLink[];
   chapterOneHref?: string;
   genres: string[];
@@ -71,6 +72,10 @@ export const books: Book[] = [
     format: "Relié + broché",
     status: "Disponible",
     price: "Selon édition",
+    priceOptions: [
+      { label: "Broché", value: "17,90 €" },
+      { label: "Relié", value: "25,90 €" },
+    ],
     purchaseLinks: [
       {
         label: "Boutique SumUp",
@@ -87,14 +92,14 @@ export const books: Book[] = [
       "Duologie",
     ],
     description:
-      "Il est arnaqueur d'art. Elle va en être victime. Elle va le traquer sans merci. Il va l'aider sous une fausse identité.",
+      "Il est arnaqueur d'art.\nElle va en être victime.\nElle va le traquer sans merci.\nIl va l'aider sous une fausse identité.",
     longDescription:
       "En pleine occupation, Renard tente de survivre en remboursant une dette qui le pousse aux pires vices, notamment en vendant des faux tableaux. Fortune, quant à elle, voit, impuissante, ses parents sombrer dans les idéologies nazies et d'extrême droite. Alors qu'elle tente de leur faire ouvrir les yeux sur les conséquences de leurs décisions, les occupants gagnent en influence sur la banque dont elle doit hériter. Son honneur sera sali si elle échoue à retrouver l'escroc qui souhaite la chute de la banque, mais quel honneur lui restera-t-il si ses parents se vendent aux nazis ?",
     cover: "/assets/covers/cdr-cover.webp",
     gallery: [
       {
         src: "/assets/covers/cdr-cover.webp",
-        alt: "Visuel éditorial de Coeur de Renard",
+        alt: "Couverture de Coeur de Renard - edition reliee",
         label: "Relié",
       },
       {
@@ -115,6 +120,39 @@ export const books: Book[] = [
       { label: "Promesse", value: "Traque, faux tableaux, morale grise" },
       { label: "Edition", value: "Roman relié ou broché" },
     ],
+    isLatest: true,
+    featured: {
+      label: "Dernier roman paru",
+      kicker: "Lecture phare",
+      shortPitch:
+        "En pleine occupation, Renard tente de survivre en remboursant une dette qui le pousse aux pires vices, notamment en vendant des faux tableaux. Fortune, quant à elle, voit, impuissante, ses parents sombrer dans les idéologies nazies et d'extrême droite. Alors qu'elle tente de leur faire ouvrir les yeux sur les conséquences de leurs décisions, les occupants gagnent en influence sur la banque dont elle doit hériter. Son honneur sera sali si elle échoue à retrouver l'escroc qui souhaite la chute de la banque, mais quel honneur lui restera-t-il si ses parents se vendent aux nazis ?",
+      mediaType: "image",
+      mediaSrc: "/assets/covers/cdr-cover.webp",
+      mediaPoster: "/assets/covers/cdr-cover.webp",
+      mediaAlt: "Couverture de Coeur de Renard - edition reliee",
+      gallery: [
+        {
+          src: "/assets/covers/cdr-cover.webp",
+          alt: "Couverture de Coeur de Renard - edition reliee",
+          label: "Relié",
+        },
+        {
+          src: "/assets/covers/cdr-cover-broche.webp",
+          alt: "Format broché de Coeur de Renard",
+          label: "Broché",
+        },
+      ],
+      stats: [
+        { label: "Pagination", value: "371 pages" },
+        { label: "Format", value: "Relié + broché" },
+        { label: "Tonalité", value: "Thriller psychologique" },
+      ],
+      spotlight: [
+        { label: "Héroïne", value: "Fortune" },
+        { label: "Anti-héros", value: "Renard" },
+        { label: "Cadre", value: "Paris, 1943" },
+      ],
+    },
   },
   {
     slug: "fous-papillons",
@@ -174,7 +212,6 @@ export const books: Book[] = [
       { label: "Lieux", value: "Paris, Vosges, Sicile, Saint-Pétersbourg" },
       { label: "Promesse", value: "Âmes soeurs maudites et tragédie" },
     ],
-    isLatest: true,
     featured: {
       label: "Dernier roman paru",
       kicker: "Lecture phare",
@@ -227,9 +264,14 @@ export const books: Book[] = [
     ],
     genres: ["Fantasy", "Guerre", "Magie"],
     description:
-      "Chassé de chez lui, Johen part en quête du coeur d’Ankaa pendant qu'une guerre menace d'engloutir le royaume.",
-    longDescription:
-      "Dans un monde de fantasy où les nymphes et la magie ont été bannis, Johen apprend qu’il n’est en réalité pas le fils légitime de son père. Il l’apprend lorsqu’il doit porter la couronne et qu’il se fait trahir par son oncle. Alycie, elle, ne connaît rien du monde après son île. Tout ce qu’elle sait, c’est qu’elle n’est pas comme les autres nymphes et que sa déesse ne lui parle pas. Entre complots, guerre et magie, ils vont devoir survivre à des révélations qui bouleversent tout.",
+      "Chassé de chez lui, Johen se met en quête du cœur d’Ankaa pour rétablir l’ordre dans son royaume, pendant qu’Alycie voit sa destinée basculer entre complots, guerre et magie.",
+    longDescription: `Chassé de chez lui, Johen se met en quête du cœur d’Ankaa qui, il en est persuadé, va permettre de rétablir l’ordre dans son royaume. Mais alors qu’il en est proche, la guerre s’échoue sur les rives de son continent. Plongé dans la bataille, il va devoir progresser sans regarder derrière lui, au risque de s’effondrer. Tous ne sortiront pas vivants de cette guerre mais Johen est déterminé à en sauver le plus possible.
+
+Alycie est une nymphe. Comme la totalité de son peuple, elle a été exilée vingt ans plus tôt pour des actes basés sur un mensonge. Alors qu'elle cherche encore sa place, une terrible révélation s'abat sur elle. Sa destinée n'est pas celle qu'elle avait imaginée. Entre complots, guerre et magie, elle va devoir faire confiance en son instinct pour survivre. Sa voie est toute tracée : il ne lui reste qu'à la suivre.
+
+Ils sont nés imposteurs.
+
+Ils seront inoubliables.`,
     cover: "/assets/covers/le-coeur-dankaa-cover.webp",
     gallery: [
       {

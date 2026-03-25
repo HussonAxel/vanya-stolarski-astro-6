@@ -5,6 +5,8 @@ const leftColumnReviews = reviews.slice(0, 2);
 const rightColumnReviews = reviews.slice(2, 5);
 const truncate = (text: string, maxLength: number) =>
   text.length <= maxLength ? text : `${text.slice(0, maxLength).trimEnd()}...`;
+const hasExtendedBody = (text: string, excerpt: string) =>
+  excerpt.trim() !== text.trim() && excerpt.trim().length > text.trim().length + 40;
 ---
 
 <section
@@ -92,9 +94,11 @@ const truncate = (text: string, maxLength: number) =>
                   {review.text}
                 </blockquote>
 
-                <p>
-                  {truncate(review.excerpt, 280)}
-                </p>
+                {hasExtendedBody(review.text, review.excerpt) && (
+                  <p>
+                    {truncate(review.excerpt, 280)}
+                  </p>
+                )}
 
                 <div class:list={[
                   "mt-auto flex flex-wrap items-center justify-between gap-4 border-t pt-5",

@@ -81,49 +81,41 @@ const galleryItems = featured?.gallery?.length
             </p>
           </div>
 
-          <div class="mt-auto space-y-4">
-            <div class="grid gap-3 sm:grid-cols-3">
-              <div
-                class="rounded-[1.55rem] border border-[#3d3834]/8 bg-[#FFFAFA] p-4"
-              >
-                <p
-                  class="font-sans text-[9px] font-bold tracking-[0.24em] text-[#3d3834]/52 uppercase"
-                >
+          <div class="mt-auto space-y-3.5">
+            <div class="grid gap-3 sm:grid-cols-[11rem_minmax(0,1fr)]">
+              <div class="rounded-[1.3rem] border border-[#3d3834]/8 bg-[#FFFAFA] px-4 py-3.5">
+                <p class="font-sans text-[8px] font-bold tracking-[0.24em] text-[#3d3834]/46 uppercase">
                   Disponibilite
                 </p>
-                <p
-                  class="mt-2 font-serif text-[1.32rem] leading-tight text-[#3d3834]"
-                >
+                <p class="mt-1.5 font-serif text-[1.08rem] leading-tight text-[#3d3834]">
                   {latestBook.releaseDate}
                 </p>
               </div>
-              <div
-                class="rounded-[1.55rem] border border-[#3d3834]/8 bg-[#FFFAFA] p-4"
-              >
-                <p
-                  class="font-sans text-[9px] font-bold tracking-[0.24em] text-[#3d3834]/52 uppercase"
-                >
+              <div class="rounded-[1.3rem] border border-[#3d3834]/8 bg-[#FFFAFA] px-4 py-3.5">
+                <p class="font-sans text-[8px] font-bold tracking-[0.24em] text-[#3d3834]/46 uppercase">
                   Format
                 </p>
-                <p
-                  class="mt-2 font-serif text-[1.32rem] leading-tight text-[#3d3834]"
-                >
-                  {latestBook.format}
-                </p>
-              </div>
-              <div
-                class="rounded-[1.55rem] border border-[#3d3834]/8 bg-[#3a4d45] p-4 text-[#FFFAFA]"
-              >
-                <p
-                  class="font-sans text-[9px] font-bold tracking-[0.24em] text-[#FFFAFA]/62 uppercase"
-                >
-                  Prix public
-                </p>
-                <p
-                  class="mt-2 font-serif text-[1.32rem] leading-tight text-[#FFFAFA]"
-                >
-                  {latestBook.price}
-                </p>
+                {
+                  latestBook.priceOptions?.length ? (
+                    <div class="mt-1.5 space-y-1">
+                      <p class="font-serif text-[1.08rem] leading-tight text-[#3d3834]">
+                        {latestBook.format}
+                      </p>
+                      <div class="flex flex-wrap items-center gap-x-3 gap-y-1 text-[#3d3834]">
+                        {latestBook.priceOptions.map((option) => (
+                          <p class="font-serif text-[0.98rem] leading-tight">
+                            <span class="text-[#3d3834]/58">{option.label}</span>{" "}
+                            <span>{option.value}</span>
+                          </p>
+                        ))}
+                      </div>
+                    </div>
+                  ) : (
+                    <p class="mt-1.5 font-serif text-[1.08rem] leading-tight text-[#3d3834]">
+                      {latestBook.format} · {latestBook.price}
+                    </p>
+                  )
+                }
               </div>
             </div>
 

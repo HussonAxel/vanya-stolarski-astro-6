@@ -147,11 +147,11 @@ const normalizeSearchValue = (value: string | undefined) =>
     .replace(/[^a-z0-9]+/g, " ")
     .trim();
 
-const findBookHref = (title: string | undefined, slug: string | undefined) => {
+const findMatchingBook = (title: string | undefined, slug: string | undefined) => {
   const normalizedTitle = normalizeSearchValue(title);
   const normalizedSlug = normalizeSearchValue(slug?.replace(/---.*$/, "").replace(/-/g, " "));
 
-  const matchedBook = books.find((book) => {
+  return books.find((book) => {
     const normalizedBookTitle = normalizeSearchValue(book.title);
     const normalizedBookSlug = normalizeSearchValue(book.slug.replace(/-/g, " "));
 
@@ -167,8 +167,6 @@ const findBookHref = (title: string | undefined, slug: string | undefined) => {
       normalizedSlug?.includes(normalizedBookSlug)
     );
   });
-
-  return matchedBook ? `/livres/${matchedBook.slug}` : undefined;
 };
 
 const formatRemainingTime = (rawDate: string | undefined) => {
@@ -269,12 +267,13 @@ const buildCampaignFromProject = (project: Record<string, any>): UluleCampaignCa
   const amountRaised = Number(project.amount_raised ?? project.committed ?? 0);
   const currencyDisplay = getFirstString(project.currency_display) ?? "€";
   const endDate = getFirstString(project.date_end, project.end_date);
-  const matchedBookHref = findBookHref(title, slug);
+  const matchedBook = findMatchingBook(title, slug);
+  const matchedBookHref = matchedBook ? `/livres/${matchedBook.slug}` : undefined;
   const remainingStat = formatRemainingTime(
     endDate,
   );
   const endDateLabel = formatDate(endDate);
-  const imageSrc = readProjectImage(project) ?? fallbackCampaign.coverSrc;
+  const imageSrc = matchedBook?.cover ?? readProjectImage(project) ?? fallbackCampaign.coverSrc;
   const projectUrl = readProjectUrl(project);
   const strippedDescription = descriptionSource ? stripHtml(descriptionSource) : "";
   const description = truncate(
@@ -305,9 +304,10 @@ const buildCampaignFromProject = (project: Record<string, any>): UluleCampaignCa
       getFirstString(import.meta.env.ULULE_SECONDARY_LABEL) ??
       (matchedBookHref ? "Voir le livre" : fallbackCampaign.secondaryLabel),
     coverSrc: imageSrc,
-    coverAlt:
-      getFirstLocalizedString(project.share_image?.fr?.alt, project.main_image?.fr?.alt) ??
-      `Campagne Ulule pour ${title}`,
+    coverAlt: matchedBook
+      ? `Couverture de ${matchedBook.title}`
+      : getFirstLocalizedString(project.share_image?.fr?.alt, project.main_image?.fr?.alt) ??
+        `Campagne Ulule pour ${title}`,
     detailSrc: readDetailImage(project),
     detailAlt:
       getFirstLocalizedString(project.main_image?.fr?.alt, project.share_image?.fr?.alt) ??

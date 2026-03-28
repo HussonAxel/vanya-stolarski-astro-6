@@ -93,7 +93,9 @@ import BookCardGallery from "./BookCardGallery.astro";
                     {book.title}
                   </h3>
                   <p class="font-sans text-xs tracking-widest text-[#3d3834]/78 uppercase">
-                    {book.tome} - {book.pages} pages - ISBN {book.isbn}
+                    {[book.tome, book.pages ? `${book.pages} pages` : null, `ISBN ${book.isbn}`]
+                      .filter(Boolean)
+                      .join(" - ")}
                   </p>
                   <div class="flex flex-wrap justify-center gap-2 md:justify-start">
                     {book.genres.map((genre) => (

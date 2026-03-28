@@ -27,7 +27,7 @@ export interface Book {
   title: string;
   tome: string;
   series: string;
-  pages: number;
+  pages?: number;
   isbn: string;
   releaseDate: string;
   format: string;
@@ -284,6 +284,77 @@ export const books: Book[] = [
         { label: "Cadre", value: "1880-1920" },
       ],
     },
+  },
+  {
+    slug: "coeur-de-renard-tome-2",
+    title: "Coeur de Renard",
+    tome: "Tome 2",
+    series: "Duologie",
+    pages: 525,
+    isbn: "NA",
+    releaseDate: "A venir",
+    format: "Relie + broche",
+    status: "A paraitre",
+    price: "Selon edition",
+    priceOptions: [
+      { label: "Broche", value: "18 €" },
+      { label: "Relie", value: "27 €" },
+    ],
+    genres: [
+      "Thriller",
+      "Psychologique",
+      "Romance sombre",
+      "Historique",
+      "Art",
+      "Duologie",
+      "Vengeance",
+    ],
+    description:
+      "Il l'a trahie\nElle n'a plus qu'une option :\nCambrioler sa propre banque.\nMeme si cela revient,\nA lui offrir une seconde chance.\nEn pleine seconde guerre mondiale\nLa seule issue est de devenir\nUn coeur de renard.",
+    longDescription:
+      "Il l'a trahie\nElle n'a plus qu'une option :\nCambrioler sa propre banque.\nMeme si cela revient,\nA lui offrir une seconde chance.\nEn pleine seconde guerre mondiale\nLa seule issue est de devenir\nUn coeur de renard.",
+    cover: "/assets/covers/coeur-de-renard-tome-2--relie.webp",
+    gallery: [
+      {
+        src: "/assets/covers/coeur-de-renard-tome-2--relie.webp",
+        alt: "Couverture de Coeur de Renard - tome 2 - edition reliee",
+        label: "Relie",
+        edition: {
+          format: "Relie",
+          isbn: "NA",
+          price: "27 €",
+          pages: 525,
+          releaseDate: "A venir",
+          status: "A paraitre",
+        },
+      },
+      {
+        src: "/assets/covers/coeur-de-renard-tome-2--broche.webp",
+        alt: "Couverture de Coeur de Renard - tome 2 - edition brochee",
+        label: "Broche",
+        edition: {
+          format: "Broche",
+          isbn: "NA",
+          price: "18 €",
+          pages: 525,
+          releaseDate: "A venir",
+          status: "A paraitre",
+        },
+      },
+    ],
+    accent: "#3d3834",
+    quote:
+      "Tu es d'une complexite terrifiante, Renard. Tout ce que je croyais sur toi est faux et tout ce que tu pourrais etre, au contraire, m'effraie.",
+    hook:
+      "Elle n'a plus qu'une option : cambrioler sa propre banque, meme si cela revient a lui offrir une seconde chance.",
+    details: [
+      { label: "Personnages", value: "Renard & Fortune" },
+      { label: "Cadre", value: "Seconde Guerre mondiale" },
+      { label: "Promesse", value: "Trahison, cambriolage, seconde chance" },
+      { label: "Edition", value: "Roman relie ou broche" },
+      { label: "ISBN relie", value: "NA" },
+      { label: "ISBN broche", value: "NA" },
+    ],
   },
   {
     slug: "le-coeur-dankaa",

@@ -177,7 +177,7 @@ const getPrimaryStoreLink = (book: (typeof books)[number]) =>
                       <div class="grid grid-cols-3 gap-3 border-y border-[#3d3834]/10 py-5">
                         <div>
                           <p class="font-serif text-[1.7rem] leading-none md:text-[1.85rem]">
-                            {book.pages}
+                            {book.pages ?? "—"}
                           </p>
                           <p class="font-sans text-[10px] font-bold tracking-[0.2em] text-[#3d3834] uppercase">
                             Pages

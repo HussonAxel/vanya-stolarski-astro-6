@@ -10,7 +10,8 @@ const { items, title = "Galerie du livre" } = Astro.props as Props;
 const galleryId = `gallery-${Math.random().toString(36).slice(2, 10)}`;
 const slides = items.length > 0 ? items : [];
 const hasMultiple = slides.length > 1;
-const useContainFit = (src: string) => /Cover_CDR_Ulule\.png$/i.test(src);
+const useContainFit = (src: string) =>
+  /(?:Cover_CDR_Ulule\.png|coeur-de-renard-tome-2--relie\.webp)$/i.test(src);
 ---
 
 <div

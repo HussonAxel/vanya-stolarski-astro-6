@@ -13,6 +13,8 @@ export function getStaticPaths() {
 }
 
 const { book } = Astro.props;
+const useContainFit = (src: string) =>
+  /(?:Cover_CDR_Ulule\.png|coeur-de-renard-tome-2--relie\.webp)$/i.test(src);
 const relatedBooks = books
   .filter((entry) => entry.slug !== book.slug)
   .slice(0, 2);
@@ -121,13 +123,26 @@ const hiddenGenresCount = Math.max(book.genres.length - heroGenres.length, 0);
                   class="flex flex-wrap items-center gap-x-4 gap-y-2 font-sans text-sm text-[#FFFAFA]/68 md:text-[0.95rem]"
                 >
                   <span data-edition-release>{initialEdition.releaseDate}</span>
-                  <span class="h-1 w-1 rounded-full bg-[#FFFAFA]/28"></span>
                   <span
-                    ><span data-edition-pages-number
-                      >{initialEdition.pages}</span
-                    > pages</span
+                    class:list={[
+                      "h-1 w-1 rounded-full bg-[#FFFAFA]/28",
+                      initialEdition.pages ? "" : "hidden",
+                    ]}
+                    data-edition-pages-separator-before
+                  ></span>
+                  <span
+                    class:list={[initialEdition.pages ? "" : "hidden"]}
+                    data-edition-pages-copy
                   >
-                  <span class="h-1 w-1 rounded-full bg-[#FFFAFA]/28"></span>
+                    {initialEdition.pages ? `${initialEdition.pages} pages` : ""}
+                  </span>
+                  <span
+                    class:list={[
+                      "h-1 w-1 rounded-full bg-[#FFFAFA]/28",
+                      initialEdition.pages ? "" : "hidden",
+                    ]}
+                    data-edition-pages-separator-after
+                  ></span>
                   <span data-edition-format>{initialEdition.format}</span>
                 </div>
                 <p
@@ -418,7 +433,12 @@ const hiddenGenresCount = Math.max(book.genres.length - heroGenres.length, 0);
                     src={entry.cover}
                     alt={`Couverture de ${entry.title}`}
                     loading="lazy"
-                    class="aspect-[4/5] h-auto w-full self-start rounded-[1.5rem] object-cover"
+                    class:list={[
+                      "aspect-[4/5] h-auto w-full self-start rounded-[1.5rem]",
+                      useContainFit(entry.cover)
+                        ? "bg-[#f6efec] p-3 object-contain"
+                        : "object-cover",
+                    ]}
                   />
                   <div class="flex flex-col justify-between gap-5">
                     <div>
@@ -561,7 +581,24 @@ const hiddenGenresCount = Math.max(book.genres.length - heroGenres.length, 0);
         setText("[data-edition-isbn]", edition.isbn ?? "");
         setText("[data-edition-release]", edition.releaseDate ?? "");
         setText("[data-edition-release-large]", edition.releaseDate ?? "");
-        setText("[data-edition-pages-number]", String(edition.pages ?? ""));
+        const pagesCopy = panel.querySelector("[data-edition-pages-copy]");
+        const pagesSeparatorBefore = panel.querySelector(
+          "[data-edition-pages-separator-before]",
+        );
+        const pagesSeparatorAfter = panel.querySelector(
+          "[data-edition-pages-separator-after]",
+        );
+        const hasPages = edition.pages !== undefined && edition.pages !== null;
+        if (pagesCopy instanceof HTMLElement) {
+          pagesCopy.textContent = hasPages ? `${edition.pages} pages` : "";
+          pagesCopy.classList.toggle("hidden", !hasPages);
+        }
+        if (pagesSeparatorBefore instanceof HTMLElement) {
+          pagesSeparatorBefore.classList.toggle("hidden", !hasPages);
+        }
+        if (pagesSeparatorAfter instanceof HTMLElement) {
+          pagesSeparatorAfter.classList.toggle("hidden", !hasPages);
+        }
         renderLinks(edition.purchaseLinks ?? []);
       };
 

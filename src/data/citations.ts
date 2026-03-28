@@ -47,4 +47,28 @@ export const citations: Citation[] = [
     authorOfQuote: "Vanya Stolarski",
     bookTitle: "Coeur de Renard",
   },
+  {
+    quoteNumber: 6,
+    createdAt: "28 mars 2026",
+    quote:
+      "Car Renard lui avait fait comprendre qu’il n’y avait pas de générosité gratuite dans leur monde. C’est manipuler ou être manipulée. Pas de pacte avec le diable, sauf si je suis le diable.",
+    authorOfQuote: "Vanya Stolarski",
+    bookTitle: "Coeur de Renard - Tome 2",
+  },
+  {
+    quoteNumber: 7,
+    createdAt: "28 mars 2026",
+    quote:
+      "Sauver ta vie en supprimant celle des autres, résuma-t-elle. Alors c’est à ça que de jeunes hommes comme toi sont réduits pour survivre ?",
+    authorOfQuote: "Vanya Stolarski",
+    bookTitle: "Coeur de Renard - Tome 2",
+  },
+  {
+    quoteNumber: 8,
+    createdAt: "28 mars 2026",
+    quote:
+      "Tu es d’une complexité terrifiante, Renard. Tout ce que je croyais sur toi est faux et tout ce que tu pourrais être, au contraire, m’effraie.",
+    authorOfQuote: "Vanya Stolarski",
+    bookTitle: "Coeur de Renard - Tome 2",
+  },
 ];

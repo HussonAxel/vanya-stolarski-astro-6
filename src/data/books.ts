@@ -95,10 +95,10 @@ export const books: Book[] = [
       "Il est escroc. \nElle va en être victime. \nElle va la traquer sans merci. \nIl va l'aider sous une fausse identité. \n A Paris, en 1943, \n la règle est de ne jamais croire \n Un coeur de Renard.",
     longDescription:
       "En pleine occupation, Renard tente de survivre en remboursant une dette qui le pousse aux pires vices, notamment en vendant des faux tableaux. Fortune, quant à elle, voit, impuissante, ses parents sombrer dans les idéologies nazies et d'extrême droite. Alors qu'elle tente de leur faire ouvrir les yeux sur les conséquences de leurs décisions, les occupants gagnent en influence sur la banque dont elle doit hériter. Son honneur sera sali si elle échoue à retrouver l'escroc qui souhaite la chute de la banque, mais quel honneur lui restera-t-il si ses parents se vendent aux nazis ?",
-    cover: "/assets/covers/cdr-cover.webp",
+    cover: "/assets/covers/cdr-cover.png",
     gallery: [
       {
-        src: "/assets/covers/cdr-cover.webp",
+        src: "/assets/covers/cdr-cover.png",
         alt: "Couverture de Coeur de Renard - edition reliee",
         label: "Relié",
         edition: {
@@ -129,7 +129,7 @@ export const books: Book[] = [
     quote:
       "Fortune était ce genre de femme à trouver un cap en pleine tempête, à remplacer le capitaine si celui-ci venait à tomber.",
     hook:
-      "En pleine Seconde Guerre mondiale, la règle est de ne jamais croire un coeur de renard.",
+      "",
     details: [
       { label: "Personnages", value: "Renard & Fortune" },
       { label: "Cadre", value: "Paris, 1943" },
@@ -178,11 +178,15 @@ export const books: Book[] = [
     tome: "One-shot",
     series: "Roman historique fantastique",
     pages: 412,
-    isbn: "979-8287581428",
+    isbn: "9782957655137",
     releaseDate: "2025",
     format: "Relié + broché",
     status: "Disponible",
     price: "Selon édition",
+    priceOptions: [
+      { label: "Broché", value: "18 €" },
+      { label: "Relié", value: "27 €" },
+    ],
     purchaseLinks: [
       {
         label: "Amazon",
@@ -212,11 +216,27 @@ export const books: Book[] = [
         src: "/assets/covers/fous-papillons-cover.webp",
         alt: "Format relié de Fous-Papillons",
         label: "Relié",
+        edition: {
+          format: "Relié",
+          isbn: "9782957655137",
+          price: "27 €",
+          pages: 412,
+          releaseDate: "2025",
+          status: "Disponible",
+        },
       },
       {
         src: "/assets/covers/fous-papillons-featured.webp",
         alt: "Format broché de Fous-Papillons",
-        label: "Visuel",
+        label: "Broché",
+        edition: {
+          format: "Broché",
+          isbn: "9798325070020",
+          price: "18 €",
+          pages: 412,
+          releaseDate: "2025",
+          status: "Disponible",
+        },
       },
     ],
     accent: "#3a4d45",
@@ -225,9 +245,11 @@ export const books: Book[] = [
     hook:
       "Entre Frantz, son mystérieux mari, et Ethan, cet amoureux d'enfance qu'elle veut à tout prix protéger, Esther ne sait plus qui aimer.",
     details: [
-      { label: "Personnages", value: "Esther, Ethan, Frantz" },
+      { label: "Personnages", value: "Esther, Ethan, Frantz, Chiara" },
       { label: "Période", value: "1880 à 1920" },
       { label: "Lieux", value: "Paris, Vosges, Sicile, Saint-Pétersbourg" },
+      { label: "ISBN relié", value: "9782957655137" },
+      { label: "ISBN broché", value: "9798325070020" },
       { label: "Promesse", value: "Âmes soeurs maudites et tragédie" },
     ],
     featured: {

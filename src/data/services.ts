@@ -30,12 +30,12 @@ export const services: Service[] = [
       {
         src: "/assets/services/couvertures/cover-1.webp",
         alt: "Exemple de couverture fantasy",
-        label: "Fantasy",
+        label: "Collector",
       },
       {
         src: "/assets/services/couvertures/cover-2.webp",
         alt: "Exemple de couverture collector",
-        label: "Collector",
+        label: "Thriller",
       },
       {
         src: "/assets/services/couvertures/cover-3.webp",
@@ -45,12 +45,12 @@ export const services: Service[] = [
       {
         src: "/assets/services/couvertures/cover-5.webp",
         alt: "Exemple de couverture premium",
-        label: "Luxe",
+        label: "Fantasy",
       },
     ],
     tags: ["Tous genres", "Objet-livre", "Sur mesure"],
     description:
-      "Je propose des couvertures pensées comme de vrais objets-livres : lisibles, singulières, luxueuses et adaptées au genre, au ton et à l'identité de ton roman.",
+      "Je propose des couvertures pensées comme de vrais objets-livres : lisibles, singulières, luxueuses et adaptées au genre, au ton et à l'identité de ton roman. Il est possible d'également créer des dorures pour s'adapter à ton roman",
   },
   {
     name: "Premades",
@@ -88,32 +88,32 @@ export const services: Service[] = [
       {
         src: "/assets/services/jaspages/jaspage-four.webp",
         alt: "Exemple de jaspage collector",
-        label: "Collector",
+        label: "A quatre on refait le monde",
       },
       {
         src: "/assets/services/jaspages/jaspage-five.webp",
         alt: "Exemple de jaspage ornemental",
-        label: "Ornement",
+        label: "A quatre on refait le monde",
       },
       {
         src: "/assets/services/jaspages/jaspage-six.webp",
         alt: "Exemple de jaspage décoratif",
-        label: "Motif",
+        label: "A quatre on refait le monde",
       },
       {
         src: "/assets/services/jaspages/jaspage-seven.webp",
         alt: "Exemple de jaspage personnalisé",
-        label: "Personnalisé",
+        label: "Fous Papillons",
       },
       {
         src: "/assets/services/jaspages/jaspage-eight.webp",
         alt: "Exemple de jaspage premium",
-        label: "Premium",
+        label: "Fous Papillons",
       },
       {
         src: "/assets/services/jaspages/jaspage-nine.webp",
         alt: "Exemple de jaspage luxe",
-        label: "Luxe",
+        label: "Coeur De Renard",
       },
     ],
     tags: ["Tranche", "Tous genres", "Personnalisable"],

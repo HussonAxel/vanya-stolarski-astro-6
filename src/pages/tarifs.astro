@@ -346,16 +346,16 @@ const getServiceGalleryCardWidth = (src: string) => {
                       {service.name}
                     </h3>
                   </div>
-                  <div class="flex flex-wrap items-center gap-3 pt-1">
+                  <div class="flex items-center gap-3 pt-1">
                     <span
-                      class="rounded-full px-4 py-2 font-sans text-[10px] font-bold tracking-[0.22em] uppercase"
+                      class="whitespace-nowrap rounded-full px-5 py-2.5 font-sans text-[11px] font-extrabold tracking-[0.16em] uppercase shadow-[0_10px_24px_rgba(61,56,52,0.18)] ring-1 ring-[#FFFAFA]/18 md:text-xs"
                       style={`background:${service.accent}; color:#FFFAFA;`}
                     >
                       {service.price}
                     </span>
                     <a
                       href={`mailto:${contact.email}`}
-                      class="inline-flex items-center gap-2 rounded-full border border-[#3d3834]/10 bg-[#FFFAFA] px-4 py-2 font-sans text-[10px] font-bold tracking-[0.2em] text-[#3d3834] uppercase transition-all duration-300 hover:border-[#3a4d45]/35 hover:bg-[#3a4d45] hover:text-[#FFFAFA]"
+                      class="inline-flex w-full items-center gap-2 rounded-full border border-[#3d3834]/10 bg-[#FFFAFA] px-4 py-2 font-sans text-[10px] font-bold tracking-[0.2em] text-[#3d3834] uppercase transition-all duration-300 hover:border-[#3a4d45]/35 hover:bg-[#3a4d45] hover:text-[#FFFAFA]"
                     >
                       Demander un devis
                     </a>

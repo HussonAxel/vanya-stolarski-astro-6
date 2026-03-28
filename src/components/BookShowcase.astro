@@ -1,6 +1,22 @@
 ---
 import { books } from "../data/books";
 import BookCardGallery from "./BookCardGallery.astro";
+
+const bookOrder = [
+  "coeur-de-renard-tome-2",
+  "coeur-de-renard",
+  "fous-papillons",
+];
+
+const orderedBooks = [...books].sort((left, right) => {
+  const leftIndex = bookOrder.indexOf(left.slug);
+  const rightIndex = bookOrder.indexOf(right.slug);
+  const safeLeftIndex = leftIndex === -1 ? Number.MAX_SAFE_INTEGER : leftIndex;
+  const safeRightIndex =
+    rightIndex === -1 ? Number.MAX_SAFE_INTEGER : rightIndex;
+
+  return safeLeftIndex - safeRightIndex;
+});
 ---
 
 <section
@@ -65,7 +81,7 @@ import BookCardGallery from "./BookCardGallery.astro";
 
     <div class="grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-3">
       {
-        books.map((book) => {
+        orderedBooks.map((book) => {
           const galleryItems = book.gallery?.length
             ? book.gallery
             : book.featured?.gallery?.length

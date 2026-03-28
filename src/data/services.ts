@@ -301,6 +301,31 @@ export const services: Service[] = [
         alt: "Exemple d'illustration fantasy ambiance",
         label: "Ambiance",
       },
+      {
+        src: "/assets/gallery/coeur-de-renard--fortune-cigarette.webp",
+        alt: "Illustration de Fortune pour Coeur De Renard",
+        label: "CDR",
+      },
+      {
+        src: "/assets/gallery/coeur-de-renard--renard-monstre.webp",
+        alt: "Illustration de Renard pour Coeur De Renard",
+        label: "CDR",
+      },
+      {
+        src: "/assets/gallery/notre-sang-dans-lhumus-de-la-foret--scene.webp",
+        alt: "Illustration Notre sang danas l'humus de la Forêt",
+        label: "Forêt",
+      },
+      {
+        src: "/assets/gallery/trouver-la-lune--portrait-lune.webp",
+        alt: "Illustration Trouver la lune",
+        label: "Lune",
+      },
+      {
+        src: "/assets/gallery/trouver-la-lune--portrait-neige.webp",
+        alt: "Illustration Trouver la lune",
+        label: "Lune",
+      },
       // {
       //   src: "/assets/services/illustrations/illustration-eight.webp",
       //   alt: "Exemple d'illustration fantasy campagne",

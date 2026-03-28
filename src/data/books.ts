@@ -73,8 +73,8 @@ export const books: Book[] = [
     status: "Disponible",
     price: "Selon édition",
     priceOptions: [
-      { label: "Broché", value: "17,90 €" },
-      { label: "Relié", value: "25,90 €" },
+      { label: "Broché", value: "18 €" },
+      { label: "Relié", value: "27 €" },
     ],
     purchaseLinks: [
       {
@@ -104,7 +104,7 @@ export const books: Book[] = [
         edition: {
           format: "Relié",
           isbn: "9791097846909",
-          price: "25,90 €",
+          price: "27€",
           pages: 371,
           releaseDate: "2025",
           status: "Disponible",
@@ -117,7 +117,7 @@ export const books: Book[] = [
         edition: {
           format: "Broché",
           isbn: "9791097846916",
-          price: "17,90 €",
+          price: "18€",
           pages: 371,
           releaseDate: "2025",
           status: "Disponible",

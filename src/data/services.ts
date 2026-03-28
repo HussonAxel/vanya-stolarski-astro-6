@@ -257,29 +257,19 @@ export const services: Service[] = [
     focus: "Communication & personnages",
     gallery: [
       {
-        src: "/assets/services/illustrations/illustration-five.webp",
-        alt: "Exemple d'illustration fantasy portrait",
-        label: "Portrait",
+        src: "/assets/services/illustrations/illustration-seventeen.webp",
+        alt: "Exemple d'illustration fantasy affiche",
+        label: "Affiche",
       },
       {
-        src: "/assets/services/illustrations/illustration-six.webp",
-        alt: "Exemple d'illustration fantasy scène",
-        label: "Scène",
+        src: "/assets/services/illustrations/illustration-eighteen.webp",
+        alt: "Exemple d'illustration fantasy couverture de campagne",
+        label: "Communication",
       },
       {
-        src: "/assets/services/illustrations/illustration-seven.webp",
-        alt: "Exemple d'illustration fantasy ambiance",
-        label: "Ambiance",
-      },
-      {
-        src: "/assets/services/illustrations/illustration-eight.webp",
-        alt: "Exemple d'illustration fantasy campagne",
-        label: "Campagne",
-      },
-      {
-        src: "/assets/services/illustrations/illustration-nine.webp",
-        alt: "Exemple d'illustration fantasy personnage",
-        label: "Personnage",
+        src: "/assets/services/illustrations/illustration-fourteen.webp",
+        alt: "Exemple d'illustration fantasy ronde",
+        label: "Icône",
       },
       {
         src: "/assets/services/illustrations/illustration-ten.webp",
@@ -297,35 +287,48 @@ export const services: Service[] = [
         label: "Dramatique",
       },
       {
-        src: "/assets/services/illustrations/illustration-thirteen.webp",
-        alt: "Exemple d'illustration fantasy colorée",
-        label: "Colorée",
+        src: "/assets/services/illustrations/illustration-five.webp",
+        alt: "Exemple d'illustration fantasy portrait",
+        label: "Portrait",
       },
       {
-        src: "/assets/services/illustrations/illustration-fourteen.webp",
-        alt: "Exemple d'illustration fantasy ronde",
-        label: "Icône",
+        src: "/assets/services/illustrations/illustration-six.webp",
+        alt: "Exemple d'illustration fantasy scène",
+        label: "Scène",
       },
       {
-        src: "/assets/services/illustrations/illustration-fifteen.webp",
-        alt: "Exemple d'illustration fantasy campagne",
-        label: "Narrative",
+        src: "/assets/services/illustrations/illustration-seven.webp",
+        alt: "Exemple d'illustration fantasy ambiance",
+        label: "Ambiance",
       },
-      {
-        src: "/assets/services/illustrations/illustration-sixteen.webp",
-        alt: "Exemple d'illustration fantasy concept",
-        label: "Concept",
-      },
-      {
-        src: "/assets/services/illustrations/illustration-seventeen.webp",
-        alt: "Exemple d'illustration fantasy affiche",
-        label: "Affiche",
-      },
-      {
-        src: "/assets/services/illustrations/illustration-eighteen.webp",
-        alt: "Exemple d'illustration fantasy couverture de campagne",
-        label: "Communication",
-      },
+      // {
+      //   src: "/assets/services/illustrations/illustration-eight.webp",
+      //   alt: "Exemple d'illustration fantasy campagne",
+      //   label: "Campagne",
+      // },
+      // {
+      //   src: "/assets/services/illustrations/illustration-nine.webp",
+      //   alt: "Exemple d'illustration fantasy personnage",
+      //   label: "Personnage",
+      // },
+
+      // {
+      //   src: "/assets/services/illustrations/illustration-thirteen.webp",
+      //   alt: "Exemple d'illustration fantasy colorée",
+      //   label: "Colorée",
+      // },
+
+      // {
+      //   src: "/assets/services/illustrations/illustration-fifteen.webp",
+      //   alt: "Exemple d'illustration fantasy campagne",
+      //   label: "Narrative",
+      // },
+      // {
+      //   src: "/assets/services/illustrations/illustration-sixteen.webp",
+      //   alt: "Exemple d'illustration fantasy concept",
+      //   label: "Concept",
+      // },
+
     ],
     tags: ["Illustration", "Tous genres", "Sous devis"],
     description:

@@ -92,7 +92,7 @@ export const books: Book[] = [
       "Duologie",
     ],
     description:
-      "Il est arnaqueur d'art.\nElle va en être victime.\nElle va le traquer sans merci.\nIl va l'aider sous une fausse identité.",
+      "Il est escroc. \nElle va en être victime. \nElle va la traquer sans merci. \nIl va l'aider sous une fausse identité. \n A Paris, en 1943, \n la règle est de ne jamais croire \n Un coeur de Renard.",
     longDescription:
       "En pleine occupation, Renard tente de survivre en remboursant une dette qui le pousse aux pires vices, notamment en vendant des faux tableaux. Fortune, quant à elle, voit, impuissante, ses parents sombrer dans les idéologies nazies et d'extrême droite. Alors qu'elle tente de leur faire ouvrir les yeux sur les conséquences de leurs décisions, les occupants gagnent en influence sur la banque dont elle doit hériter. Son honneur sera sali si elle échoue à retrouver l'escroc qui souhaite la chute de la banque, mais quel honneur lui restera-t-il si ses parents se vendent aux nazis ?",
     cover: "/assets/covers/cdr-cover.webp",
@@ -101,11 +101,27 @@ export const books: Book[] = [
         src: "/assets/covers/cdr-cover.webp",
         alt: "Couverture de Coeur de Renard - edition reliee",
         label: "Relié",
+        edition: {
+          format: "Relié",
+          isbn: "9791097846909",
+          price: "25,90 €",
+          pages: 371,
+          releaseDate: "2025",
+          status: "Disponible",
+        },
       },
       {
         src: "/assets/covers/cdr-cover-broche.webp",
         alt: "Format broché de Coeur de Renard",
         label: "Broché",
+        edition: {
+          format: "Broché",
+          isbn: "9791097846916",
+          price: "17,90 €",
+          pages: 371,
+          releaseDate: "2025",
+          status: "Disponible",
+        },
       },
 
     ],
@@ -119,6 +135,8 @@ export const books: Book[] = [
       { label: "Cadre", value: "Paris, 1943" },
       { label: "Promesse", value: "Traque, faux tableaux, morale grise" },
       { label: "Edition", value: "Roman relié ou broché" },
+      { label: "ISBN relié", value: "9791097846909" },
+      { label: "ISBN broché", value: "9791097846916" },
     ],
     isLatest: true,
     featured: {
@@ -185,9 +203,9 @@ export const books: Book[] = [
       "One-shot",
     ],
     description:
-      "Fous-Papillons est une romance aux airs de tragédie, où s'aimer frôle la haine, voire s'y confond lorsqu'il ne reste plus d'autre solution pour rester dans le cœur de l'autre. Vous suivrez les aventures de Ethan et Esther de 1880 à 1920, dans de nombreux pays différents à l’époque où les conflits de la première guerre mondiale font des ravages. Paris, les Vosges, la Sicile, et Saint-Pétersbourg, vous voyagerez autant dans la neige que sous le soleil de la méditerranée",
+      "Mariée de force au général de l'Etat major, Esther se retrouve embourbée dans les conflits politiques d'une France de 1890. Son cœur est pourtant ailleurs, loin de Paris, dans une forêt où l'attend un garçon ayant vendu son âme au diable pour elle. Entre Frantz, son mystérieux mari aussi froid que manipulateur et Ethan, cet amoureux d'enfance qu'elle veut à tout prix protéger, Esther ne sait plus qui aimer. Malheureusement, à cette époque où les tensions sont aussi vives que les conflits sont destructeurs, ils devront parvenir à survivre sans que le monde n'apprenne leurs machinations sans quoi... ils risquent tous l'exécution.",
     longDescription:
-      "Fous-Papillons est une romance aux airs de tragédie, où s'aimer frôle la haine, voire s'y confond lorsqu'il ne reste plus d'autre solution pour rester dans le cœur de l'autre. Vous suivrez les aventures d'Ethan et Esther de 1880 à 1920, dans de nombreux pays différents à l’époque où les conflits de la Première Guerre mondiale font des ravages. Paris, les Vosges, la Sicile et Saint-Pétersbourg : vous voyagerez autant dans la neige que sous le soleil de la Méditerranée.",
+      "Mariée de force au général de l'Etat major, Esther se retrouve embourbée dans les conflits politiques d'une France de 1890. Son cœur est pourtant ailleurs, loin de Paris, dans une forêt où l'attend un garçon ayant vendu son âme au diable pour elle. Entre Frantz, son mystérieux mari aussi froid que manipulateur et Ethan, cet amoureux d'enfance qu'elle veut à tout prix protéger, Esther ne sait plus qui aimer. Malheureusement, à cette époque où les tensions sont aussi vives que les conflits sont destructeurs, ils devront parvenir à survivre sans que le monde n'apprenne leurs machinations sans quoi... ils risquent tous l'exécution.",
     cover: "/assets/covers/fous-papillons-cover.webp",
     gallery: [
       {
@@ -263,15 +281,8 @@ export const books: Book[] = [
       },
     ],
     genres: ["Fantasy", "Guerre", "Magie"],
-    description:
-      "Chassé de chez lui, Johen se met en quête du cœur d’Ankaa pour rétablir l’ordre dans son royaume, pendant qu’Alycie voit sa destinée basculer entre complots, guerre et magie.",
-    longDescription: `Chassé de chez lui, Johen se met en quête du cœur d’Ankaa qui, il en est persuadé, va permettre de rétablir l’ordre dans son royaume. Mais alors qu’il en est proche, la guerre s’échoue sur les rives de son continent. Plongé dans la bataille, il va devoir progresser sans regarder derrière lui, au risque de s’effondrer. Tous ne sortiront pas vivants de cette guerre mais Johen est déterminé à en sauver le plus possible.
-
-Alycie est une nymphe. Comme la totalité de son peuple, elle a été exilée vingt ans plus tôt pour des actes basés sur un mensonge. Alors qu'elle cherche encore sa place, une terrible révélation s'abat sur elle. Sa destinée n'est pas celle qu'elle avait imaginée. Entre complots, guerre et magie, elle va devoir faire confiance en son instinct pour survivre. Sa voie est toute tracée : il ne lui reste qu'à la suivre.
-
-Ils sont nés imposteurs.
-
-Ils seront inoubliables.`,
+    description: "Chassé de chez lui, Johen se met en quête du cœur d’Ankaa qui, il en est persuadé, va permettre de rétablir l’ordre dans son royaume. Mais alors qu’il en est proche, la guerre s’échoue sur les rives de son continent. Plongé dans la bataille, Johen va devoir progresser sans regarder derrière lui, au risque de s’effondrer. Tous ne sortiront pas vivants de cette guerre mais Johen est déterminé à en sauver le plus possible. Alycie est une nymphe.Comme la totalité de son peuple, elle a été exilée vingt ans plus tôt pour des actes basés sur un mensonge.Alors qu'elle cherche encore sa place, une terrible révélation s'abat sur elle.Sa destinée n'est pas celle qu'elle avait imaginée.Entre complots, guerre et magie, elle va devoir faire confiance en son instinct pour survivre.Sa voie est toute tracée: il ne lui reste qu'à la suivre. \n Ils sont nés imposteurs. \n Ils seront inoubliables.",
+    longDescription: "Chassé de chez lui, Johen se met en quête du cœur d’Ankaa qui, il en est persuadé, va permettre de rétablir l’ordre dans son royaume. Mais alors qu’il en est proche, la guerre s’échoue sur les rives de son continent. Plongé dans la bataille, Johen va devoir progresser sans regarder derrière lui, au risque de s’effondrer. Tous ne sortiront pas vivants de cette guerre mais Johen est déterminé à en sauver le plus possible. Alycie est une nymphe.Comme la totalité de son peuple, elle a été exilée vingt ans plus tôt pour des actes basés sur un mensonge.Alors qu'elle cherche encore sa place, une terrible révélation s'abat sur elle.Sa destinée n'est pas celle qu'elle avait imaginée.Entre complots, guerre et magie, elle va devoir faire confiance en son instinct pour survivre.Sa voie est toute tracée: il ne lui reste qu'à la suivre. \n Ils sont nés imposteurs. \n Ils seront inoubliables.",
     cover: "/assets/covers/le-coeur-dankaa-cover.webp",
     gallery: [
       {

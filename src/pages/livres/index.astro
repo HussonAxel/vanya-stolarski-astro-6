@@ -18,6 +18,22 @@ const getBookStatusLabel = (status: string) => {
 const getPrimaryStoreLink = (book: (typeof books)[number]) =>
   book.purchaseLinks?.find((link) => /sumup|boutique/i.test(link.label)) ??
   book.purchaseLinks?.[0];
+
+const bookOrder = [
+  "coeur-de-renard-tome-2",
+  "coeur-de-renard",
+  "fous-papillons",
+];
+
+const orderedBooks = [...books].sort((left, right) => {
+  const leftIndex = bookOrder.indexOf(left.slug);
+  const rightIndex = bookOrder.indexOf(right.slug);
+  const safeLeftIndex = leftIndex === -1 ? Number.MAX_SAFE_INTEGER : leftIndex;
+  const safeRightIndex =
+    rightIndex === -1 ? Number.MAX_SAFE_INTEGER : rightIndex;
+
+  return safeLeftIndex - safeRightIndex;
+});
 ---
 
 <Layout title="Livres - Vanya Stolarski">
@@ -104,7 +120,7 @@ const getPrimaryStoreLink = (book: (typeof books)[number]) =>
       <div class="site-shell">
         <div class="grid gap-10 lg:grid-cols-3">
           {
-            books.map((book, index) => {
+            orderedBooks.map((book, index) => {
               const galleryItems = book.gallery?.length
                 ? book.gallery
                 : [

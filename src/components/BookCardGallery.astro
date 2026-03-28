@@ -10,6 +10,7 @@ const { items, title = "Galerie du livre" } = Astro.props as Props;
 const galleryId = `card-gallery-${Math.random().toString(36).slice(2, 10)}`;
 const slides = items.length > 0 ? items : [];
 const hasMultiple = slides.length > 1;
+const useContainFit = (src: string) => /Cover_CDR_Ulule\.png$/i.test(src);
 ---
 
 <div
@@ -31,7 +32,12 @@ const hasMultiple = slides.length > 1;
         >
           <img
             alt={item.alt}
-            class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+            class:list={[
+              "h-full w-full transition-transform duration-700 group-hover:scale-[1.03]",
+              useContainFit(item.src)
+                ? "bg-[#f6efec] p-3 object-contain"
+                : "object-cover",
+            ]}
             src={item.src}
             loading={index === 0 ? "eager" : "lazy"}
           />

@@ -95,10 +95,10 @@ export const books: Book[] = [
       "Il est escroc. \nElle va en être victime. \nElle va la traquer sans merci. \nIl va l'aider sous une fausse identité. \n A Paris, en 1943, \n la règle est de ne jamais croire \n Un coeur de Renard.",
     longDescription:
       "En pleine occupation, Renard tente de survivre en remboursant une dette qui le pousse aux pires vices, notamment en vendant des faux tableaux. Fortune, quant à elle, voit, impuissante, ses parents sombrer dans les idéologies nazies et d'extrême droite. Alors qu'elle tente de leur faire ouvrir les yeux sur les conséquences de leurs décisions, les occupants gagnent en influence sur la banque dont elle doit hériter. Son honneur sera sali si elle échoue à retrouver l'escroc qui souhaite la chute de la banque, mais quel honneur lui restera-t-il si ses parents se vendent aux nazis ?",
-    cover: "/assets/covers/cdr-cover.png",
+    cover: "/assets/covers/Cover_CDR_Ulule.png",
     gallery: [
       {
-        src: "/assets/covers/cdr-cover.png",
+        src: "/assets/covers/Cover_CDR_Ulule.png",
         alt: "Couverture de Coeur de Renard - edition reliee",
         label: "Relié",
         edition: {
@@ -145,12 +145,12 @@ export const books: Book[] = [
       shortPitch:
         "En pleine occupation, Renard tente de survivre en remboursant une dette qui le pousse aux pires vices, notamment en vendant des faux tableaux. Fortune, quant à elle, voit, impuissante, ses parents sombrer dans les idéologies nazies et d'extrême droite. Alors qu'elle tente de leur faire ouvrir les yeux sur les conséquences de leurs décisions, les occupants gagnent en influence sur la banque dont elle doit hériter. Son honneur sera sali si elle échoue à retrouver l'escroc qui souhaite la chute de la banque, mais quel honneur lui restera-t-il si ses parents se vendent aux nazis ?",
       mediaType: "image",
-      mediaSrc: "/assets/covers/cdr-cover.webp",
-      mediaPoster: "/assets/covers/cdr-cover.webp",
+      mediaSrc: "/assets/covers/Cover_CDR_Ulule.png",
+      mediaPoster: "/assets/covers/Cover_CDR_Ulule.png",
       mediaAlt: "Couverture de Coeur de Renard - edition reliee",
       gallery: [
         {
-          src: "/assets/covers/cdr-cover.webp",
+          src: "/assets/covers/Cover_CDR_Ulule.png",
           alt: "Couverture de Coeur de Renard - edition reliee",
           label: "Relié",
         },

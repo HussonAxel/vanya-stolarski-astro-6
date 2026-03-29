@@ -174,7 +174,9 @@ const orderedBooks = [...books].sort((left, right) => {
                       ))}
                     </div>
 
-                    {book.slug === "coeur-de-renard" ? (
+                    {["coeur-de-renard", "coeur-de-renard-tome-2"].includes(
+                      book.slug,
+                    ) ? (
                       <div class="font-sans text-md text-center leading-relaxed text-[#3d3834]/78">
                         {book.description
                           .split("\n")

@@ -313,7 +313,7 @@ export const services: Service[] = [
       },
       {
         src: "/assets/gallery/notre-sang-dans-lhumus-de-la-foret--scene.webp",
-        alt: "Illustration Notre sang danas l'humus de la Forêt",
+        alt: "Illustration Notre sang dans l'humus de la Forêt",
         label: "Forêt",
       },
       {

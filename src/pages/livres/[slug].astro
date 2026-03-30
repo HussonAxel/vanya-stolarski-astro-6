@@ -356,52 +356,6 @@ const hiddenGenresCount = Math.max(book.genres.length - heroGenres.length, 0);
       </div>
     </section>
 
-    <section class="px-6 py-24" id="newsletter">
-      <div
-        class="site-shell rounded-[2.5rem] border border-[#3d3834]/10 bg-[#FFFAFA] p-10 shadow-[0_24px_80px_-40px_rgba(61,56,52,0.45)] md:p-14"
-      >
-        <div class="grid gap-10 lg:grid-cols-[1fr_0.8fr] lg:items-center">
-          <div>
-            <p
-              class="font-sans text-[10px] font-bold tracking-[0.3em] text-[#3a4d45] uppercase"
-            >
-              Appel a l'action
-            </p>
-            <h2
-              class="mt-4 font-serif text-4xl text-[#3d3834] text-balance md:text-5xl"
-            >
-              Gardez une section newsletter directement sur chaque page livre.
-            </h2>
-            <p
-              class="mt-5 max-w-2xl font-sans text-base leading-relaxed text-[#3d3834]/72"
-            >
-              Cette zone peut servir à annoncer les prochaines parutions, les
-              bonus lecteurs ou les nouveautés autour de l'univers du livre.
-            </p>
-          </div>
-
-          <form class="grid gap-3 rounded-lg bg-[#FFFAFA] p-6">
-            <input
-              type="email"
-              required
-              placeholder="Votre adresse email"
-              class="rounded-2xl border border-[#3d3834]/15 bg-transparent px-4 py-4 font-sans text-sm text-[#3d3834] outline-none transition-colors placeholder:text-[#3d3834]/35 focus:border-[#3a4d45]"
-            />
-            <button
-              type="submit"
-              class="rounded-2xl bg-[#3d3834] px-5 py-4 font-sans text-[11px] font-bold tracking-[0.25em] text-[#FFFAFA] uppercase transition-all duration-300 hover:bg-[#3a4d45] hover:text-[#3d3834]"
-            >
-              M'avertir des nouvelles
-            </button>
-            <p class="font-sans text-[11px] leading-relaxed text-[#3d3834]/78">
-              Promesse d'envoi, fréquence et informations de consentement
-              pourront être précisées ici quand la newsletter sera branchée.
-            </p>
-          </form>
-        </div>
-      </div>
-    </section>
-
     {
       relatedBooks.length > 0 && (
         <section class="bg-[#3d3834] px-6 py-24 text-[#FFFAFA]">

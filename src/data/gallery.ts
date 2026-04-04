@@ -17,9 +17,9 @@ export const galleryItems: GalleryItem[] = [
     alt: "Illustration de Fortune pour Coeur De Renard",
     bookSlug: "coeur-de-renard",
     artist: "pumpkinspace.latte",
-    date: "Fevrier 2025",
+    date: "Février 2025",
     description:
-      "Un portrait frontal de Fortune, pense comme une entree immediate dans l'aura du personnage.",
+      "Un portrait frontal de Fortune, pensé comme une entrée immédiate dans l'aura du personnage.",
   },
   {
     id: "gal-2",
@@ -28,9 +28,9 @@ export const galleryItems: GalleryItem[] = [
     alt: "Illustration de Renard pour Coeur De Renard",
     bookSlug: "coeur-de-renard",
     artist: "pumpkinspace.latte",
-    date: "Fevrier 2025",
+    date: "Février 2025",
     description:
-      "Une lecture plus ombreuse de Renard, avec une presence plus coupee et plus nerveuse.",
+      "Une lecture plus ombreuse de Renard, avec une présence plus coupée et plus nerveuse.",
   },
   {
     id: "gal-3",
@@ -39,7 +39,7 @@ export const galleryItems: GalleryItem[] = [
     alt: "Illustration de Renard et Fortune pour Coeur De Renard",
     bookSlug: "coeur-de-renard",
     artist: "pumpkinspace.latte",
-    date: "Fevrier 2025",
+    date: "Février 2025",
     description:
       "Une composition de duo qui fait monter la tension entre Renard et Fortune sans surcharger le cadre.",
   },
@@ -52,18 +52,18 @@ export const galleryItems: GalleryItem[] = [
     artist: "purplishartz",
     date: "Novembre 2025",
     description:
-      "Une variation plus ample de Renard et Fortune, pensee comme un visuel de campagne plus dramatique.",
+      "Une variation plus ample de Renard et Fortune, pensée comme un visuel de campagne plus dramatique.",
   },
   {
     id: "gal-5",
-    title: "Marque page Coeur De Renard",
+    title: "Marque-page Coeur De Renard",
     image: "/assets/gallery/coeur-de-renard--marque-page.webp",
-    alt: "Marque page illustre pour Coeur De Renard",
+    alt: "Marque-page illustré pour Coeur De Renard",
     bookSlug: "coeur-de-renard",
     artist: "pumpkinspace.latte",
-    date: "Decembre 2025",
+    date: "Décembre 2025",
     description:
-      "Un marque-page exclusif a la campagne Ulule, traite comme une vraie piece de collection.",
+      "Un marque-page exclusif à la campagne Ulule, traité comme une vraie pièce de collection.",
   },
   {
     id: "gal-6",
@@ -80,12 +80,12 @@ export const galleryItems: GalleryItem[] = [
     id: "gal-7",
     title: "Planche BD Coeur De Renard",
     image: "/assets/gallery/coeur-de-renard--planche-bd.webp",
-    alt: "Planche BD illustree pour Coeur De Renard",
+    alt: "Planche BD illustrée pour Coeur De Renard",
     bookSlug: "coeur-de-renard",
     artist: "purplishartz",
-    date: "Decembre 2025",
+    date: "Décembre 2025",
     description:
-      "Une planche BD exclusive a la campagne Ulule, utile pour montrer comment l'univers bascule vers le narratif dessine.",
+      "Une planche BD exclusive à la campagne Ulule, utile pour montrer comment l'univers bascule vers le narratif dessiné.",
   },
   {
     id: "gal-8",
@@ -96,7 +96,7 @@ export const galleryItems: GalleryItem[] = [
     artist: "Artsymoon",
     date: "Mars 2024",
     description:
-      "Un portrait de Chiara plus editorial, presque magazine, pense pour installer une attitude nette.",
+      "Un portrait de Chiara plus éditorial, presque magazine, pensé pour installer une attitude nette.",
   },
   {
     id: "gal-9",
@@ -107,7 +107,7 @@ export const galleryItems: GalleryItem[] = [
     artist: "blackrose_drawings",
     date: "Mars 2024",
     description:
-      "Une premiere apparition d'Aspen, plus douce et plus contemplative, ancree dans un imaginaire de character design.",
+      "Une première apparition d'Aspen, plus douce et plus contemplative, ancrée dans un imaginaire de character design.",
   },
   {
     id: "gal-10",
@@ -118,7 +118,7 @@ export const galleryItems: GalleryItem[] = [
     artist: "Artsymoon",
     date: "Mars 2024",
     description:
-      "Une etude de Frantz qui donne du poids au personnage sans quitter une lecture tres sensible.",
+      "Une étude de Frantz qui donne du poids au personnage sans quitter une lecture très sensible.",
   },
   {
     id: "gal-11",
@@ -129,7 +129,7 @@ export const galleryItems: GalleryItem[] = [
     artist: "Artsymoon",
     date: "Mars 2024",
     description:
-      "Un portrait d'Esther plus dramatique, porte par une lumiere tenue et une vraie densite emotionnelle.",
+      "Un portrait d'Esther plus dramatique, porté par une lumière tenue et une vraie densité émotionnelle.",
   },
   {
     id: "gal-12",
@@ -140,7 +140,7 @@ export const galleryItems: GalleryItem[] = [
     artist: "Artsymoon",
     date: "Mars 2024",
     description:
-      "Une interpretation d'Agape plus lumineuse, pensee comme une respiration visuelle dans la serie.",
+      "Une interprétation d'Agape plus lumineuse, pensée comme une respiration visuelle dans la série.",
   },
   {
     id: "gal-13",
@@ -149,9 +149,9 @@ export const galleryItems: GalleryItem[] = [
     alt: "Illustration Brille Papillons",
     bookSlug: "brille-papillons",
     artist: "Bianca Lahr",
-    date: "Decembre 2025",
+    date: "Décembre 2025",
     description:
-      "Un visuel de Brille Papillons plus graphique, concu comme une image-signature a part entiere.",
+      "Un visuel de Brille Papillons plus graphique, conçu comme une image-signature à part entière.",
   },
   {
     id: "gal-14",
@@ -162,7 +162,7 @@ export const galleryItems: GalleryItem[] = [
     artist: "Vanya",
     date: "Mars 2024",
     description:
-      "Un dessin d'Aspen plus brut, a la frontiere entre croquis fini et piece de galerie.",
+      "Un dessin d'Aspen plus brut, à la frontière entre croquis fini et pièce de galerie.",
   },
   {
     id: "gal-15",
@@ -173,7 +173,7 @@ export const galleryItems: GalleryItem[] = [
     artist: "8kloweey",
     date: "Mars 2024",
     description:
-      "Une variation d'Aspen plus expressive, qui conserve un esprit fanart tout en restant editoriale.",
+      "Une variation d'Aspen plus expressive, qui conserve un esprit fanart tout en restant éditoriale.",
   },
   {
     id: "gal-16",
@@ -184,7 +184,7 @@ export const galleryItems: GalleryItem[] = [
     artist: "Vanya",
     date: "Mars 2026",
     description:
-      "Un portrait plus nocturne de Fortune, construit autour d'une posture calme et d'une tension tres contenue.",
+      "Un portrait plus nocturne de Fortune, construit autour d'une posture calme et d'une tension très contenue.",
   },
   {
     id: "gal-17",
@@ -195,18 +195,18 @@ export const galleryItems: GalleryItem[] = [
     artist: "Vanya",
     date: "Mars 2026",
     description:
-      "Une interpretation plus brute de Renard, pensee comme une image de confrontation avec sa part la plus sombre.",
+      "Une interprétation plus brute de Renard, pensée comme une image de confrontation avec sa part la plus sombre.",
   },
   {
     id: "gal-18",
-    title: "Notre sang dans l'humus de la Foret",
+    title: "Notre sang dans l'humus de la Forêt",
     image: "/assets/gallery/notre-sang-dans-lhumus-de-la-foret--scene.webp",
-    alt: "Illustration Notre sang dans l'humus de la Foret",
+    alt: "Illustration Notre sang dans l'humus de la Forêt",
     bookSlug: "notre-sang-dans-lhumus-de-la-foret",
     artist: "Vanya",
     date: "Mars 2026",
     description:
-      "Une scene plus allegorique, tiree vers le conte sombre et la rencontre avec une presence presque rituelle.",
+      "Une scène plus allégorique, tirée vers le conte sombre et la rencontre avec une présence presque rituelle.",
   },
   {
     id: "gal-19",
@@ -217,7 +217,7 @@ export const galleryItems: GalleryItem[] = [
     artist: "Vanya",
     date: "Mars 2026",
     description:
-      "Un portrait de dos articule autour des croissants de lune, avec une lecture plus symbolique et hivernale.",
+      "Un portrait de dos articulé autour des croissants de lune, avec une lecture plus symbolique et hivernale.",
   },
   {
     id: "gal-20",
@@ -228,7 +228,7 @@ export const galleryItems: GalleryItem[] = [
     artist: "Vanya",
     date: "Mars 2026",
     description:
-      "Une variation plus contemplative de Trouver la lune, portee par un cadre froid et un portrait resserre.",
+      "Une variation plus contemplative de Trouver la lune, portée par un cadre froid et un portrait resserré.",
   },
 ];
 

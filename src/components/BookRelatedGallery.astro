@@ -1,0 +1,177 @@
+---
+import type { GalleryItemViewModel } from "../lib/books";
+
+interface Props {
+  items: GalleryItemViewModel[];
+  title: string;
+}
+
+const { items, title } = Astro.props as Props;
+const galleryId = `book-related-gallery-${Math.random().toString(36).slice(2, 10)}`;
+---
+
+<section class="bg-[#FFFAFA] px-6 py-24">
+  <div class="site-shell relative space-y-8">
+    <div class="fade-up flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+      <div class="space-y-3">
+        <p class="font-sans text-[10px] font-bold tracking-[0.28em] text-[#3a4d45] uppercase">
+          Galerie du livre
+        </p>
+        <h2 class="font-serif text-4xl text-balance text-[#3d3834] md:text-5xl">
+          Images associees a {title}
+        </h2>
+        <p class="max-w-2xl font-sans text-sm leading-relaxed text-[#3d3834]/68 md:text-base">
+          Illustrations, portraits et visuels lies directement a cet univers.
+        </p>
+      </div>
+      <p class="rounded-full border border-[#3d3834]/10 bg-[#FFFAFA] px-4 py-2 font-sans text-[10px] font-bold tracking-[0.22em] text-[#3d3834]/72 uppercase">
+        {items.length} visuel{items.length > 1 ? "s" : ""}
+      </p>
+    </div>
+
+    <div
+      id={galleryId}
+      class="book-related-gallery gallery-columns columns-1 gap-4 sm:columns-2 xl:columns-3"
+      data-book-related-gallery
+    >
+      {
+        items.map((item) => (
+          <button
+            type="button"
+            class="gallery-card fade-up group relative mb-4 block w-full break-inside-avoid overflow-hidden rounded-[1.35rem] border border-[#3d3834]/8 bg-[#FFFAFA] shadow-[0_24px_80px_-52px_rgba(61,56,52,0.45)] transition-all duration-300 hover:shadow-[0_30px_90px_-52px_rgba(61,56,52,0.5)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#3a4d45]"
+            data-gallery-trigger
+            data-title={item.title}
+            data-image={item.image}
+            data-alt={item.alt}
+            data-book-label={item.bookLabel}
+            data-book-href={item.bookHref}
+            data-artist-label={item.artist}
+            data-date={item.date}
+            data-description={item.description}
+            aria-label={`Ouvrir la fiche de ${item.title}`}
+          >
+            <div class="relative overflow-hidden bg-[#FFFAFA]">
+              <img
+                src={item.image}
+                alt={item.alt}
+                loading="lazy"
+                class="w-full rounded-[1.35rem] object-cover transition-transform duration-700 group-hover:scale-[1.025]"
+              />
+            </div>
+          </button>
+        ))
+      }
+    </div>
+  </div>
+
+  <div
+    class="pointer-events-none fixed inset-0 z-50 flex items-start justify-center overflow-y-auto bg-[#3d3834]/72 px-4 py-4 opacity-0 transition-all duration-300 md:items-center md:py-8"
+    data-gallery-modal
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby={`${galleryId}-modal-title`}
+    aria-hidden="true"
+  >
+    <div data-gallery-close class="absolute inset-0"></div>
+    <div class="relative z-10 my-auto w-full max-w-[min(96vw,1380px)] overflow-hidden rounded-[2.2rem] border border-[#FFFAFA]/10 bg-[#FFFAFA] shadow-[0_35px_120px_-50px_rgba(61,56,52,0.6)] lg:max-h-[92vh]">
+      <button
+        type="button"
+        class="absolute top-4 right-4 z-20 inline-flex h-11 w-11 items-center justify-center rounded-full border border-[#3d3834]/10 bg-[#FFFAFA]/92 font-sans text-xs font-bold tracking-[0.2em] text-[#3d3834] uppercase shadow-[0_10px_30px_-24px_rgba(61,56,52,0.55)] transition-all duration-300 hover:border-[#3a4d45]/30 hover:bg-[#3a4d45] hover:text-[#FFFAFA]"
+        data-gallery-close-button
+        aria-label="Fermer la popup"
+      >
+        X
+      </button>
+
+      <div class="grid lg:grid-cols-[minmax(0,1fr)_400px] lg:items-stretch">
+        <div class="relative flex min-h-[38vh] items-center justify-center overflow-hidden bg-[#3d3834] p-3 md:min-h-[48vh] md:p-4 lg:min-h-0 lg:p-5">
+          <div class="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,250,248,0.08),transparent_56%)]"></div>
+          <div class="relative inline-flex h-full w-full max-w-full items-center justify-center overflow-hidden rounded-[1.55rem] border border-[#FFFAFA]/8 bg-[#312d2a] p-3 shadow-[0_24px_60px_-45px_rgba(61,56,52,0.45)] md:p-4">
+            <img
+              src=""
+              alt=""
+              class="block max-h-[58vh] max-w-full rounded-[1rem] object-contain md:max-h-[72vh] lg:max-h-[calc(92vh-5.5rem)]"
+              data-gallery-modal-image
+            />
+          </div>
+        </div>
+
+        <div class="min-h-0 overflow-y-auto p-6 md:p-8 lg:max-h-[92vh] lg:p-9">
+          <div class="space-y-6">
+            <div class="space-y-4">
+              <div class="flex flex-wrap items-center gap-2.5">
+                <p class="font-sans text-[10px] font-bold tracking-[0.3em] text-[#3d3834] uppercase" data-gallery-modal-artist></p>
+                <span class="inline-flex rounded-full border border-[#3d3834]/10 bg-[#fffaf8] px-3 py-1.5 font-sans text-[9px] font-bold tracking-[0.22em] text-[#3d3834]/70 uppercase">
+                  Illustration
+                </span>
+              </div>
+              <div>
+                <h3 class="font-serif text-3xl leading-none text-balance md:text-4xl" id={`${galleryId}-modal-title`} data-gallery-modal-title></h3>
+                <p class="mt-4 font-sans text-sm leading-relaxed text-[#3d3834]/78 md:text-base" data-gallery-modal-description></p>
+              </div>
+            </div>
+
+            <div class="rounded-[1.7rem] border border-[#3d3834]/10 bg-[#fffaf8] p-5">
+              <p class="font-sans text-[10px] font-bold tracking-[0.22em] text-[#3d3834]/58 uppercase">
+                Contexte
+              </p>
+              <dl class="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-1">
+                <div class="space-y-1">
+                  <dt class="font-sans text-[10px] font-bold tracking-[0.22em] text-[#3d3834]/55 uppercase">
+                    Roman
+                  </dt>
+                  <dd class="font-serif text-[1.55rem] leading-tight text-[#3d3834] break-words" data-gallery-modal-book></dd>
+                </div>
+                <div class="space-y-1">
+                  <dt class="font-sans text-[10px] font-bold tracking-[0.22em] text-[#3d3834]/55 uppercase">
+                    Artiste
+                  </dt>
+                  <dd class="font-serif text-[1.45rem] leading-tight text-[#3d3834] break-words" data-gallery-modal-artist-detail></dd>
+                </div>
+                <div class="space-y-1 sm:col-span-2 lg:col-span-1">
+                  <dt class="font-sans text-[10px] font-bold tracking-[0.22em] text-[#3d3834]/55 uppercase">
+                    Date
+                  </dt>
+                  <dd class="font-serif text-[1.45rem] leading-tight text-[#3d3834]" data-gallery-modal-date></dd>
+                </div>
+              </dl>
+            </div>
+
+            <div class="rounded-[1.7rem] border border-[#3d3834]/10 bg-[#FFFAFA] p-5">
+              <p class="font-sans text-[10px] font-bold tracking-[0.22em] text-[#3d3834]/58 uppercase">
+                Note visuelle
+              </p>
+              <p class="mt-3 font-sans text-sm leading-relaxed text-[#3d3834]/78 md:text-[0.95rem]" data-gallery-modal-alt></p>
+            </div>
+
+            <div class="flex flex-wrap gap-3 pt-1">
+              <a
+                href="#"
+                class="inline-flex items-center gap-3 rounded-full bg-[#3d3834] px-6 py-4 font-sans text-[11px] font-bold tracking-[0.24em] text-[#FFFAFA] uppercase transition-all duration-300 hover:bg-[#3a4d45]"
+                data-gallery-modal-link
+              >
+                Voir le roman
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script type="module">
+  import { bindBookRelatedGalleries } from "../lib/book-page-ui.ts";
+
+  bindBookRelatedGalleries();
+</script>
+
+<style>
+  .gallery-columns {
+    column-fill: balance;
+  }
+
+  .gallery-card {
+    transform-origin: center top;
+  }
+</style>

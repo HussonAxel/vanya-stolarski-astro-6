@@ -1,5 +1,14 @@
 ---
 import { books } from "../data/books";
+import {
+  getBookCoverGalleryItems,
+  getBookGenres,
+  getBookIsbn,
+  getBookPages,
+  getBookShortDescription,
+  getBookTitle,
+  getBookTome,
+} from "../lib/books";
 import BookCardGallery from "./BookCardGallery.astro";
 
 const bookOrder = [
@@ -49,7 +58,7 @@ const orderedBooks = [...books].sort((left, right) => {
           <span
             class="font-sans text-[10px] font-bold tracking-[0.25em] text-[#FFFAFA]/62 uppercase"
           >
-            Editions et formats
+            Éditions et formats
           </span>
         </div>
       </div>
@@ -79,46 +88,40 @@ const orderedBooks = [...books].sort((left, right) => {
     <div class="grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-3">
       {
         orderedBooks.map((book) => {
-          const galleryItems = book.gallery?.length
-            ? book.gallery
-            : book.featured?.gallery?.length
-              ? book.featured.gallery
-              : [
-                  {
-                    src: book.cover,
-                    alt: `Couverture de ${book.title}`,
-                    label: "Couverture",
-                  },
-                ];
+          const title = getBookTitle(book);
+          const pages = getBookPages(book);
+          const isbn = getBookIsbn(book);
 
           return (
             <article class="section-panel fade-up group flex h-full flex-col overflow-hidden rounded-[2.2rem] border border-[#FFFAFA]/10 bg-[#FFFAFA] text-[#3d3834] shadow-[0_30px_90px_-54px_rgba(0,0,0,0.45)] backdrop-blur-sm transition-transform duration-500">
               <div class="relative overflow-hidden rounded-b-[1.5rem]">
                 <BookCardGallery
-                  items={galleryItems}
-                  title={`Galerie ${book.title}`}
+                  items={getBookCoverGalleryItems(book)}
+                  title={`Galerie ${title}`}
+                  href={`/livres/${book.slug}`}
+                  linkLabel={`Ouvrir la fiche de ${title}`}
                 />
               </div>
 
               <div class="flex flex-1 flex-col p-6 text-center md:text-left">
                 <div class="flex flex-1 flex-col gap-4">
                   <h3 class="font-serif text-2xl text-[#3d3834] text-balance">
-                    {book.title}
+                    {title}
                   </h3>
                   <p class="font-sans text-xs tracking-widest text-[#3d3834]/78 uppercase">
-                    {[book.tome, book.pages ? `${book.pages} pages` : null, `ISBN ${book.isbn}`]
+                    {[getBookTome(book), pages ? `${pages} pages` : null, isbn ? `ISBN ${isbn}` : null]
                       .filter(Boolean)
                       .join(" - ")}
                   </p>
                   <div class="flex flex-wrap justify-center gap-2 md:justify-start">
-                    {book.genres.map((genre) => (
+                    {getBookGenres(book).map((genre) => (
                       <span class="border border-[#3d3834]/10 bg-[#FFFAFA] px-2 py-1 text-[10px] tracking-wide text-[#3d3834] uppercase">
                         {genre}
                       </span>
                     ))}
                   </div>
                   <p class="line-clamp-3 text-sm leading-relaxed font-light whitespace-pre-line text-[#3d3834]/80">
-                    {book.description}
+                    {getBookShortDescription(book)}
                   </p>
                   <a
                     href={`/livres/${book.slug}`}
@@ -154,7 +157,7 @@ const orderedBooks = [...books].sort((left, right) => {
         href="/livres"
         class="section-panel inline-flex items-center gap-3 rounded-full border border-[#3d3834]/15 bg-[#3a4d45] px-8 py-4 font-sans text-[11px] font-bold tracking-[0.25em] text-[#FFFAFA] uppercase transition-all duration-300 hover:border-[#3a4d45]/40 hover:bg-[#3a4d45] hover:text-[#FFFAFA]"
       >
-        Voir toute la bibliotheque
+        Voir toute la bibliothèque
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="14"

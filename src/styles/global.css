@@ -10,6 +10,13 @@
   --color-muted-foreground: #3d3834aa;
   --color-border: #3d383420;
   --site-shell-width: 82rem;
+  --site-gutter: 1rem;
+}
+
+@media (min-width: 640px) {
+  :root {
+    --site-gutter: 1.5rem;
+  }
 }
 
 @font-face {
@@ -34,7 +41,7 @@ body {
 }
 
 .site-shell {
-  width: min(100%, var(--site-shell-width));
+  width: min(calc(100% - (var(--site-gutter) * 2)), var(--site-shell-width));
   max-width: var(--site-shell-width);
   margin-inline: auto;
 }

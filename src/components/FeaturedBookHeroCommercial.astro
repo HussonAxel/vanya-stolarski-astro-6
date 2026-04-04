@@ -1,21 +1,27 @@
 ---
 import { latestBook } from "../data/books";
 import BookGallery from "./BookGallery.astro";
+import {
+  getBookFormat,
+  getBookGenres,
+  getBookHook,
+  getBookPages,
+  getBookPrice,
+  getBookPriceOptions,
+  getBookReleaseDate,
+  getBookSeries,
+  getBookStatus,
+  getBookTitle,
+  getBookTome,
+  getFeaturedBlock,
+  getFeaturedGalleryItems,
+} from "../lib/books";
 
-const featured = latestBook.featured;
+const featured = getFeaturedBlock(latestBook);
 const displayStatus =
-  latestBook.status === "Disponible" ? "Publie" : latestBook.status;
-const galleryItems = featured?.gallery?.length
-  ? featured.gallery
-  : featured?.mediaSrc
-    ? [
-        {
-          src: featured.mediaSrc,
-          alt: featured.mediaAlt,
-          label: "Edition principale",
-        },
-      ]
-    : [];
+  getBookStatus(latestBook) === "Disponible" ? "Publié" : getBookStatus(latestBook);
+const galleryItems = getFeaturedGalleryItems(latestBook);
+const priceOptions = getBookPriceOptions(latestBook);
 ---
 
 <section class="relative overflow-hidden bg-[#fff7f3] py-14 md:py-16">
@@ -32,7 +38,7 @@ const galleryItems = featured?.gallery?.length
 
   <div class="site-shell relative z-10 px-6">
     <article
-      class="fade-up overflow-hidden rounded-[2.5rem] border border-[#3d3834]/10 bg-[#fffaf8] p-6 shadow-[0_34px_110px_-70px_rgba(61,56,52,0.34)] md:p-8 xl:p-9 mt-20"
+      class="fade-up mt-20 overflow-hidden rounded-[2.5rem] border border-[#3d3834]/10 bg-[#fffaf8] p-6 shadow-[0_34px_110px_-70px_rgba(61,56,52,0.34)] md:p-8 xl:p-9"
     >
       <div
         class="grid gap-7 xl:grid-cols-[minmax(0,1.06fr)_24rem] xl:items-stretch"
@@ -42,7 +48,7 @@ const galleryItems = featured?.gallery?.length
             <span
               class="rounded-full bg-[#3a4d45] px-4 py-2 font-sans text-[10px] font-bold tracking-[0.28em] text-[#FFFAFA] uppercase"
             >
-                {displayStatus}
+              {displayStatus}
             </span>
             <span
               class="rounded-full border border-[#3d3834]/10 bg-[#FFFAFA] px-4 py-2 font-sans text-[10px] font-bold tracking-[0.28em] text-[#3d3834]/78 uppercase"
@@ -50,7 +56,7 @@ const galleryItems = featured?.gallery?.length
               {featured?.label}
             </span>
             {
-              latestBook.genres.map((genre) => (
+              getBookGenres(latestBook).map((genre) => (
                 <span class="rounded-full border border-[#3d3834]/10 bg-[#FFFAFA] px-3 py-1.5 font-sans text-[10px] font-bold tracking-[0.2em] text-[#3d3834]/70 uppercase">
                   {genre}
                 </span>
@@ -62,17 +68,17 @@ const galleryItems = featured?.gallery?.length
             <p
               class="font-sans text-[10px] font-bold tracking-[0.34em] text-[#3d3834]/60 uppercase"
             >
-              {latestBook.series} - {latestBook.tome}
+              {getBookSeries(latestBook)} - {getBookTome(latestBook)}
             </p>
             <h2
               class="max-w-3xl font-serif text-4xl leading-[0.94] text-[#3d3834] text-balance md:text-5xl xl:text-[4.2rem]"
             >
-              {latestBook.title}
+              {getBookTitle(latestBook)}
             </h2>
             <p
               class="max-w-2xl font-sans text-base leading-relaxed text-[#3d3834]/82 md:text-lg italic"
             >
-              {latestBook.hook}
+              {getBookHook(latestBook)}
             </p>
             <p
               class="max-w-2xl font-sans text-sm leading-relaxed text-[#3d3834]/68 md:text-[0.98rem]"
@@ -88,7 +94,7 @@ const galleryItems = featured?.gallery?.length
                   Disponibilite
                 </p>
                 <p class="mt-1.5 font-serif text-[1.08rem] leading-tight text-[#3d3834]">
-                  {latestBook.releaseDate}
+                  {getBookReleaseDate(latestBook)}
                 </p>
               </div>
               <div class="rounded-[1.3rem] border border-[#3d3834]/8 bg-[#FFFAFA] px-4 py-3.5">
@@ -96,13 +102,13 @@ const galleryItems = featured?.gallery?.length
                   Format
                 </p>
                 {
-                  latestBook.priceOptions?.length ? (
+                  priceOptions.length ? (
                     <div class="mt-1.5 space-y-1">
                       <p class="font-serif text-[1.08rem] leading-tight text-[#3d3834]">
-                        {latestBook.format}
+                        {getBookFormat(latestBook)}
                       </p>
                       <div class="flex flex-wrap items-center gap-x-3 gap-y-1 text-[#3d3834]">
-                        {latestBook.priceOptions.map((option) => (
+                        {priceOptions.map((option) => (
                           <p class="font-serif text-[0.98rem] leading-tight">
                             <span class="text-[#3d3834]/58">{option.label}</span>{" "}
                             <span>{option.value}</span>
@@ -112,7 +118,7 @@ const galleryItems = featured?.gallery?.length
                     </div>
                   ) : (
                     <p class="mt-1.5 font-serif text-[1.08rem] leading-tight text-[#3d3834]">
-                      {latestBook.format} · {latestBook.price}
+                      {getBookFormat(latestBook)} · {getBookPrice(latestBook)}
                     </p>
                   )
                 }
@@ -139,7 +145,7 @@ const galleryItems = featured?.gallery?.length
         <div class="flex h-full flex-col space-y-4 xl:pl-3">
           <BookGallery
             items={galleryItems}
-            title={`Galerie ${latestBook.title}`}
+            title={`Galerie ${getBookTitle(latestBook)}`}
           />
         </div>
       </div>

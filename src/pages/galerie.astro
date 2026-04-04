@@ -1,11 +1,22 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import {
-    galleryItems,
-    galleryArtistFilters,
-    galleryBookFilters,
-    galleryBookFilterLabels,
+  galleryItems,
+  getGalleryArtistFilters,
+  getGalleryBookFilters,
 } from "../data/gallery";
+import { getBookBySlug, getBookTitle } from "../lib/books";
+
+const galleryArtistFilters = getGalleryArtistFilters(galleryItems);
+const galleryBookFilters = getGalleryBookFilters(galleryItems);
+const galleryBookFilterLabels = Object.fromEntries(
+  galleryBookFilters
+    .filter((filter) => filter !== "all")
+    .map((filter) => {
+      const book = getBookBySlug(filter);
+      return [filter, book ? getBookTitle(book) : filter];
+    }),
+);
 ---
 
 <Layout title="Galerie - Vanya Stolarski">
@@ -237,14 +248,14 @@ import {
                                 <button
                                     type="button"
                                     class="gallery-item gallery-card fade-up group relative mb-4 block w-full break-inside-avoid overflow-hidden rounded-[1.35rem] border border-[#3d3834]/8 bg-[#FFFAFA] shadow-[0_24px_80px_-52px_rgba(61,56,52,0.45)] transition-all duration-300 hover:shadow-[0_30px_90px_-52px_rgba(61,56,52,0.5)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#3a4d45]"
-                                    data-book={item.bookKey}
+                                    data-book={item.bookSlug}
                                     data-artist={item.artist}
                                     data-gallery-trigger
                                     data-title={item.title}
                                     data-image={item.image}
                                     data-alt={item.alt}
-                                    data-book-label={item.book}
-                                    data-book-href={item.bookHref ?? ""}
+                                    data-book-label={galleryBookFilterLabels[item.bookSlug] ?? item.bookSlug}
+                                    data-book-href={`/livres/${item.bookSlug}`}
                                     data-artist-label={item.artist}
                                     data-date={item.date}
                                     data-description={item.description}

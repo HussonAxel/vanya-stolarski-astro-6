@@ -1,4 +1,5 @@
 import { books } from "../data/books";
+import { getBookTitle } from "./books";
 
 const FOUR_HOURS_IN_MS = 4 * 60 * 60 * 1000;
 const ULULE_API_BASE_URL = "https://api.ulule.com/v1";
@@ -152,7 +153,7 @@ const findMatchingBook = (title: string | undefined, slug: string | undefined) =
   const normalizedSlug = normalizeSearchValue(slug?.replace(/---.*$/, "").replace(/-/g, " "));
 
   return books.find((book) => {
-    const normalizedBookTitle = normalizeSearchValue(book.title);
+    const normalizedBookTitle = normalizeSearchValue(getBookTitle(book));
     const normalizedBookSlug = normalizeSearchValue(book.slug.replace(/-/g, " "));
 
     if (!normalizedBookTitle || !normalizedBookSlug) {
@@ -273,7 +274,8 @@ const buildCampaignFromProject = (project: Record<string, any>): UluleCampaignCa
     endDate,
   );
   const endDateLabel = formatDate(endDate);
-  const imageSrc = matchedBook?.cover ?? readProjectImage(project) ?? fallbackCampaign.coverSrc;
+  const imageSrc =
+    matchedBook?.media.cover.src ?? readProjectImage(project) ?? fallbackCampaign.coverSrc;
   const projectUrl = readProjectUrl(project);
   const strippedDescription = descriptionSource ? stripHtml(descriptionSource) : "";
   const description = truncate(
@@ -305,7 +307,7 @@ const buildCampaignFromProject = (project: Record<string, any>): UluleCampaignCa
       (matchedBookHref ? "Voir le livre" : fallbackCampaign.secondaryLabel),
     coverSrc: imageSrc,
     coverAlt: matchedBook
-      ? `Couverture de ${matchedBook.title}`
+      ? `Couverture de ${getBookTitle(matchedBook)}`
       : getFirstLocalizedString(project.share_image?.fr?.alt, project.main_image?.fr?.alt) ??
         `Campagne Ulule pour ${title}`,
     detailSrc: readDetailImage(project),

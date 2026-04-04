@@ -1,23 +1,21 @@
 ---
 import BookCardGallery from "../../components/BookCardGallery.astro";
 import { books, latestBook } from "../../data/books";
+import {
+  getBookAccent,
+  getBookChapterOneHref,
+  getBookCoverGalleryItems,
+  getBookGenres,
+  getBookPages,
+  getBookReleaseDate,
+  getBookShortDescription,
+  getBookStatus,
+  getBookStatusLabel,
+  getBookTitle,
+  getBookTome,
+  getPrimaryStoreLink,
+} from "../../lib/books";
 import Layout from "../../layouts/Layout.astro";
-
-const getBookStatusLabel = (status: string) => {
-  if (status === "En ecriture") {
-    return "En cours";
-  }
-
-  if (status === "Disponible") {
-    return "Publie";
-  }
-
-  return status;
-};
-
-const getPrimaryStoreLink = (book: (typeof books)[number]) =>
-  book.purchaseLinks?.find((link) => /sumup|boutique/i.test(link.label)) ??
-  book.purchaseLinks?.[0];
 
 const bookOrder = [
   "coeur-de-renard-tome-2",
@@ -47,7 +45,7 @@ const orderedBooks = [...books].sort((left, right) => {
             <span
               class="inline-flex rounded-full border border-[#FFFAFA]/10 bg-[#FFFAFA] px-4 py-2 font-sans text-[10px] font-bold tracking-[0.25em] text-[#3d3834] uppercase"
             >
-              Bibliotheque
+              Bibliothèque
             </span>
             <h1
               class="max-w-4xl font-serif text-5xl leading-none text-balance md:text-7xl"
@@ -81,21 +79,21 @@ const orderedBooks = [...books].sort((left, right) => {
               </div>
               <div>
                 <p class="font-serif text-5xl text-[#3a4d45]">
-                  {latestBook.releaseDate}
+                  {getBookReleaseDate(latestBook)}
                 </p>
                 <p
                   class="mt-2 font-sans text-[10px] font-bold tracking-[0.25em] text-[#3d3834] uppercase"
                 >
-                  Derniere parution
+                  Dernière parution
                 </p>
               </div>
             </div>
             <a
               href={`/livres/${latestBook.slug}`}
               class="mt-8 inline-flex w-full items-center justify-between gap-3 rounded-lg border border-[#3d3834]/10 px-4 py-3 font-sans text-[11px] font-bold tracking-[0.2em] text-[#3d3834] uppercase transition-all duration-300 hover:border-[#3a4d45]/30 hover:text-[#3a4d45]"
-              aria-label={`Ouvrir la fiche de ${latestBook.title}`}
+              aria-label={`Ouvrir la fiche de ${getBookTitle(latestBook)}`}
             >
-              Voir {latestBook.title}
+              Voir {getBookTitle(latestBook)}
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="14"
@@ -121,26 +119,24 @@ const orderedBooks = [...books].sort((left, right) => {
         <div class="grid gap-10 lg:grid-cols-3">
           {
             orderedBooks.map((book, index) => {
-              const galleryItems = book.gallery?.length
-                ? book.gallery
-                : [
-                    {
-                      src: book.cover,
-                      alt: `Couverture de ${book.title}`,
-                      label: "Couverture",
-                    },
-                  ];
+              const title = getBookTitle(book);
+              const description = getBookShortDescription(book);
+              const pages = getBookPages(book);
+              const status = getBookStatus(book);
+              const chapterOneHref = getBookChapterOneHref(book);
               const storeLink = getPrimaryStoreLink(book);
 
               return (
                 <article class="fade-up group flex h-full flex-col overflow-hidden rounded-lg border border-[#3d3834]/10 bg-[#FFFAFA] shadow-[0_24px_80px_-40px_rgba(61,56,52,0.45)]">
                   <div
                     class="relative overflow-hidden"
-                    style={`background:${book.accent};`}
+                    style={`background:${getBookAccent(book)};`}
                   >
                     <BookCardGallery
-                      items={galleryItems}
-                      title={`Galerie ${book.title}`}
+                      items={getBookCoverGalleryItems(book)}
+                      title={`Galerie ${title}`}
+                      href={`/livres/${book.slug}`}
+                      linkLabel={`Ouvrir la fiche de ${title}`}
                     >
                       <div
                         slot="overlay"
@@ -152,10 +148,10 @@ const orderedBooks = [...books].sort((left, right) => {
                       >
                         <div>
                           <p class="font-sans text-[10px] font-bold tracking-[0.3em] text-[#FFFAFA] uppercase">
-                            {book.series}
+                            {book.identity.series}
                           </p>
                           <h2 class="mt-2 font-serif text-3xl text-[#FFFAFA] text-balance">
-                            {book.title}
+                            {title}
                           </h2>
                         </div>
                         <span class="rounded-full border border-[#FFFAFA]/20 bg-[#FFFAFA] px-3 py-1 font-sans text-[10px] font-bold tracking-[0.25em] text-[#3d3834] uppercase">
@@ -167,7 +163,7 @@ const orderedBooks = [...books].sort((left, right) => {
 
                   <div class="flex flex-1 flex-col gap-6 p-8">
                     <div class="flex flex-wrap gap-2">
-                      {book.genres.map((genre) => (
+                      {getBookGenres(book).map((genre) => (
                         <span class="rounded-full border border-[#3d3834]/10 bg-[#FFFAFA] px-3 py-1 font-sans text-[10px] font-bold tracking-[0.12em] text-[#3d3834] uppercase">
                           {genre}
                         </span>
@@ -178,7 +174,7 @@ const orderedBooks = [...books].sort((left, right) => {
                       book.slug,
                     ) ? (
                       <div class="font-sans text-md text-center leading-relaxed text-[#3d3834]/78">
-                        {book.description
+                        {description
                           .split("\n")
                           .filter(Boolean)
                           .map((line) => (
@@ -187,7 +183,7 @@ const orderedBooks = [...books].sort((left, right) => {
                       </div>
                     ) : (
                       <p class="font-sans text-md text-center leading-relaxed whitespace-pre-line text-[#3d3834]/78">
-                        {book.description}
+                        {description}
                       </p>
                     )}
 
@@ -195,7 +191,7 @@ const orderedBooks = [...books].sort((left, right) => {
                       <div class="grid grid-cols-3 gap-3 border-y border-[#3d3834]/10 py-5">
                         <div>
                           <p class="font-serif text-[1.7rem] leading-none md:text-[1.85rem]">
-                            {book.pages ?? "—"}
+                            {pages ?? "—"}
                           </p>
                           <p class="font-sans text-[10px] font-bold tracking-[0.2em] text-[#3d3834] uppercase">
                             Pages
@@ -204,7 +200,7 @@ const orderedBooks = [...books].sort((left, right) => {
 
                         <div>
                           <p class="font-serif text-[1.55rem] leading-none md:text-[1.7rem]">
-                            {getBookStatusLabel(book.status)}
+                            {getBookStatusLabel(status)}
                           </p>
                           <p class="font-sans text-[10px] font-bold tracking-[0.2em] text-[#3d3834] uppercase">
                             Statut
@@ -212,7 +208,7 @@ const orderedBooks = [...books].sort((left, right) => {
                         </div>
                         <div>
                           <p class="font-serif text-[1.55rem] leading-none md:text-[1.7rem]">
-                            {book.tome.replace("Tome ", "T")}
+                            {getBookTome(book).replace("Tome ", "T")}
                           </p>
                           <p class="font-sans text-[10px] font-bold tracking-[0.2em] text-[#3d3834] uppercase">
                             Format
@@ -267,13 +263,13 @@ const orderedBooks = [...books].sort((left, right) => {
                           </a>
                         )}
 
-                        {book.chapterOneHref && (
+                        {chapterOneHref && (
                           <a
-                            href={book.chapterOneHref}
+                            href={chapterOneHref}
                             download
                             class="inline-flex w-full items-center justify-between gap-3 rounded-lg border border-[#3d3834]/10 bg-[#FFFAFA] px-6 py-3 font-sans text-[11px] font-bold tracking-[0.25em] text-[#3d3834] uppercase transition-all duration-300 hover:border-[#3a4d45]/30 hover:bg-[#3a4d45] hover:text-[#FFFAFA]"
                           >
-                            Telecharger le 1er chapitre
+                            Télécharger le 1er chapitre
                             <svg
                               xmlns="http://www.w3.org/2000/svg"
                               width="14"

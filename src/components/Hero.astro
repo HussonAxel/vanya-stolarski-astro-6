@@ -60,16 +60,16 @@ const isActive = (href: string) =>
 ---
 
 <section
-  class="relative flex min-h-screen items-center bg-[#1c1917] pt-28 pb-8 md:h-[100svh] md:min-h-0 md:items-stretch md:pt-28 md:pb-8 lg:pt-32 lg:pb-10"
+  class="relative flex min-h-screen items-center bg-[#1c1917] pt-28 pb-8 lg:pt-32 lg:pb-10 xl:h-[100svh] xl:min-h-0 xl:items-stretch xl:pt-28 xl:pb-8"
   data-menu-close
 >
   <div class="site-shell relative z-10 w-full">
     <div
-      class="grid auto-rows-min grid-cols-1 gap-4 md:h-[calc(100svh-8.5rem)] md:auto-rows-fr md:grid-cols-12 md:items-stretch lg:gap-5"
+      class="grid auto-rows-min grid-cols-1 gap-4 md:grid-cols-2 lg:gap-5 xl:h-[calc(100svh-8.5rem)] xl:auto-rows-fr xl:grid-cols-12 xl:items-stretch"
     >
       <!-- LEFT PANEL — Navigation -->
       <div
-        class="hero-card group/hero-left relative flex min-h-[560px] flex-col justify-between overflow-hidden rounded-3xl bg-[#faf8f6] p-7 md:col-span-4 md:h-full md:min-h-0 md:p-8 lg:rounded-[2rem] lg:p-9"
+        class="hero-card group/hero-left relative flex min-h-[560px] flex-col justify-between overflow-hidden rounded-3xl bg-[#faf8f6] p-7 md:col-span-2 md:p-8 lg:rounded-[2rem] lg:p-9 xl:col-span-4 xl:h-full xl:min-h-0"
       >
         <div class="relative z-10 flex h-full flex-col">
           <div class="flex h-full flex-col">
@@ -333,7 +333,7 @@ const isActive = (href: string) =>
 
       <!-- RIGHT PANELS -->
       <div
-        class="relative z-10 grid grid-cols-1 gap-4 md:col-span-8 md:h-full md:min-h-0 md:grid-cols-2 md:grid-rows-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-5"
+        class="relative z-10 grid grid-cols-1 gap-4 md:col-span-2 md:grid-cols-2 lg:gap-5 xl:col-span-8 xl:h-full xl:min-h-0 xl:grid-rows-[minmax(0,0.9fr)_minmax(0,1.1fr)]"
       >
         <!-- Services card -->
         <div
@@ -585,11 +585,11 @@ const isActive = (href: string) =>
         </div>
 
         <!-- Ulule campaign -->
-        <div class="md:col-span-2 md:h-full md:min-h-0">
+        <div class="md:col-span-2 xl:h-full xl:min-h-0">
           <LatestUluleCampaign server:defer>
             <div
               slot="fallback"
-              class="hero-card group relative h-full min-h-[22rem] overflow-hidden rounded-3xl bg-[#292524] p-7 md:min-h-0 md:p-8 lg:rounded-[2rem] lg:p-9"
+              class="hero-card group relative h-full min-h-[22rem] overflow-hidden rounded-3xl bg-[#292524] p-7 md:p-8 lg:rounded-[2rem] lg:p-9 xl:min-h-0"
             >
               <div
                 class="relative z-10 grid h-full gap-7 lg:grid-cols-[minmax(0,1fr)_minmax(240px,300px)] lg:items-end"

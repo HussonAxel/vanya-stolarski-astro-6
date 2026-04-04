@@ -1,6 +1,15 @@
 ---
 import BookGallery from "../../components/BookGallery.astro";
+import BookRelatedGallery from "../../components/BookRelatedGallery.astro";
 import { books } from "../../data/books";
+import { galleryItems as allGalleryItems } from "../../data/gallery";
+import {
+  buildBookPageModel,
+  getBookCoverGalleryItems,
+  getBookTitle,
+  getBookSeries,
+  getBookShortDescription,
+} from "../../lib/books";
 import Layout from "../../layouts/Layout.astro";
 
 export const prerender = true;
@@ -13,62 +22,13 @@ export function getStaticPaths() {
 }
 
 const { book } = Astro.props;
+const pageModel = buildBookPageModel(book, books, allGalleryItems);
+const galleryItems = getBookCoverGalleryItems(book);
 const useContainFit = (src: string) =>
   /(?:Cover_CDR_Ulule\.png|coeur-de-renard-tome-2--relie\.webp)$/i.test(src);
-const relatedBooks = books
-  .filter((entry) => entry.slug !== book.slug)
-  .slice(0, 2);
-const galleryItems = book.gallery?.length
-  ? book.gallery
-  : [
-      {
-        src: book.cover,
-        alt: `Couverture de ${book.title}`,
-        label: "Couverture",
-      },
-    ];
-const scorePurchaseLink = (label = "") =>
-  /sumup|boutique/i.test(label) ? 2 : 1;
-const sortPurchaseLinks = (links = []) =>
-  [...links].sort(
-    (left, right) =>
-      scorePurchaseLink(right.label) - scorePurchaseLink(left.label),
-  );
-const editionViews = galleryItems.map((item, index) => ({
-  label: item.label ?? `Vue ${index + 1}`,
-  format: item.edition?.format ?? book.format,
-  price: item.edition?.price ?? book.price,
-  pages: item.edition?.pages ?? book.pages,
-  isbn: item.edition?.isbn ?? book.isbn,
-  releaseDate: item.edition?.releaseDate ?? book.releaseDate,
-  status: item.edition?.status ?? book.status,
-  hook: item.edition?.hook ?? book.hook,
-  description: item.edition?.description ?? book.description,
-  purchaseLinks: sortPurchaseLinks(
-    item.edition?.purchaseLinks ?? book.purchaseLinks ?? [],
-  ),
-}));
-const initialEdition = editionViews[0] ?? {
-  label: "Couverture",
-  format: book.format,
-  price: book.price,
-  pages: book.pages,
-  isbn: book.isbn,
-  releaseDate: book.releaseDate,
-  status: book.status,
-  hook: book.hook,
-  description: book.description,
-  purchaseLinks: sortPurchaseLinks(book.purchaseLinks ?? []),
-};
-const hasAnyPurchaseLinks = editionViews.some(
-  (edition) => edition.purchaseLinks?.length,
-);
-const hasChapterOne = Boolean(book.chapterOneHref);
-const heroGenres = book.genres.slice(0, 4);
-const hiddenGenresCount = Math.max(book.genres.length - heroGenres.length, 0);
 ---
 
-<Layout title={`${book.title} - Vanya Stolarski`}>
+<Layout title={`${pageModel.hero.title} - Vanya Stolarski`}>
   <main class="bg-[#FFFAFA] text-[#3d3834]">
     <section
       class="relative overflow-hidden bg-[#3d3834] px-6 py-20 text-[#FFFAFA] md:py-24"
@@ -76,38 +36,37 @@ const hiddenGenresCount = Math.max(book.genres.length - heroGenres.length, 0);
       <div class="site-shell relative mt-20">
         <div class="grid gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:items-center">
           <div class="fade-up relative mx-auto w-full max-w-md">
-            <BookGallery items={galleryItems} title={`Galerie ${book.title}`} />
+            <BookGallery items={galleryItems} title={`Galerie ${pageModel.hero.title}`} />
           </div>
 
           <div
             class="space-y-8 lg:space-y-10"
             data-edition-panel
-            data-editions={JSON.stringify(editionViews)}
-            data-chapter-one-href={book.chapterOneHref ?? ""}
+            data-editions={JSON.stringify(pageModel.hero.editions)}
           >
             <div class="space-y-6">
               <div class="flex flex-wrap gap-2">
                 <span
                   class="inline-flex rounded-full border border-[#FFFAFA]/12 bg-[#FFFAFA] px-4 py-2 font-sans text-[10px] font-bold tracking-[0.25em] text-[#3d3834] uppercase"
                 >
-                  {book.tome}
+                  {pageModel.hero.tome}
                 </span>
                 <span
                   class="inline-flex rounded-full border border-[#FFFAFA]/10 bg-[#FFFAFA]/5 px-3 py-1.5 font-sans text-[10px] font-bold tracking-[0.16em] text-[#FFFAFA]/76 uppercase backdrop-blur-sm"
                 >
-                  {book.series}
+                  {pageModel.hero.series}
                 </span>
                 {
-                  heroGenres.map((genre) => (
+                  pageModel.hero.genres.map((genre) => (
                     <span class="inline-flex rounded-full border border-[#FFFAFA]/10 bg-[#FFFAFA]/5 px-3 py-1.5 font-sans text-[10px] font-bold tracking-[0.16em] text-[#FFFAFA]/76 uppercase backdrop-blur-sm">
                       {genre}
                     </span>
                   ))
                 }
                 {
-                  hiddenGenresCount > 0 && (
+                  pageModel.hero.hiddenGenresCount > 0 && (
                     <span class="inline-flex rounded-full border border-[#FFFAFA]/10 bg-transparent px-3 py-1.5 font-sans text-[10px] font-bold tracking-[0.16em] text-[#FFFAFA]/56 uppercase">
-                      +{hiddenGenresCount}
+                      +{pageModel.hero.hiddenGenresCount}
                     </span>
                   )
                 }
@@ -117,129 +76,60 @@ const hiddenGenresCount = Math.max(book.genres.length - heroGenres.length, 0);
                 <h1
                   class="max-w-4xl font-serif text-4xl leading-[0.94] text-balance md:text-6xl xl:text-[5.15rem]"
                 >
-                  {book.title}
+                  {pageModel.hero.title}
                 </h1>
                 <div
                   class="flex flex-wrap items-center gap-x-4 gap-y-2 font-sans text-sm text-[#FFFAFA]/68 md:text-[0.95rem]"
                 >
-                  <span data-edition-release>{initialEdition.releaseDate}</span>
+                  <span data-edition-release>{pageModel.hero.initialEdition.meta.releaseDate}</span>
                   <span
                     class:list={[
                       "h-1 w-1 rounded-full bg-[#FFFAFA]/28",
-                      initialEdition.pages ? "" : "hidden",
+                      pageModel.hero.initialEdition.meta.pages ? "" : "hidden",
                     ]}
                     data-edition-pages-separator-before
                   ></span>
                   <span
-                    class:list={[initialEdition.pages ? "" : "hidden"]}
+                    class:list={[
+                      pageModel.hero.initialEdition.meta.pages ? "" : "hidden",
+                    ]}
                     data-edition-pages-copy
                   >
-                    {initialEdition.pages ? `${initialEdition.pages} pages` : ""}
+                    {pageModel.hero.initialEdition.meta.pages
+                      ? `${pageModel.hero.initialEdition.meta.pages} pages`
+                      : ""}
                   </span>
                   <span
                     class:list={[
                       "h-1 w-1 rounded-full bg-[#FFFAFA]/28",
-                      initialEdition.pages ? "" : "hidden",
+                      pageModel.hero.initialEdition.meta.pages ? "" : "hidden",
                     ]}
                     data-edition-pages-separator-after
                   ></span>
-                  <span data-edition-format>{initialEdition.format}</span>
+                  <span data-edition-format>{pageModel.hero.initialEdition.meta.format}</span>
                 </div>
                 <p
                   class="max-w-2xl font-sans text-lg leading-relaxed text-[#FFFAFA]/92 md:text-[1.15rem]"
                   data-edition-hook
                 >
-                  {initialEdition.hook}
+                  {pageModel.hero.initialEdition.content.hook}
                 </p>
                 <p
                   class="max-w-2xl font-sans text-base leading-relaxed whitespace-pre-line text-[#FFFAFA]/78 md:text-lg"
                   data-edition-description
                 >
-                  {initialEdition.description}
+                  {pageModel.hero.initialEdition.content.description}
                 </p>
               </div>
-              {
-                (hasAnyPurchaseLinks || hasChapterOne) && (
-                  <div
-                    class:list={[
-                      "flex flex-col gap-3 sm:flex-row sm:flex-wrap",
-                      initialEdition.purchaseLinks?.length || hasChapterOne
-                        ? ""
-                        : "hidden",
-                    ]}
-                    data-edition-links
-                  >
-                    {initialEdition.purchaseLinks?.map((link, linkIndex) => (
-                      <a
-                        href={link.href}
-                        target="_blank"
-                        rel="noreferrer"
-                        class:list={[
-                          "inline-flex items-center justify-center gap-3 rounded-full px-5 py-3.5 font-sans text-[11px] font-bold tracking-[0.22em] uppercase transition-all duration-300",
-                          linkIndex === 0
-                            ? "bg-[#3a4d45] text-[#FFFAFA] hover:bg-[#2f4039]"
-                            : "border border-[#FFFAFA]/18 bg-transparent text-[#FFFAFA] hover:border-[#3a4d45]/35 hover:bg-[#FFFAFA] hover:text-[#3d3834]",
-                        ]}
-                      >
-                        {link.label}
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="14"
-                          height="14"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          stroke-width="2"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                        >
-                          <path d="M7 7h10v10" />
-                          <path d="M7 17 17 7" />
-                        </svg>
-                      </a>
-                    ))}
-                    {hasChapterOne && (
-                      <a
-                        href={book.chapterOneHref}
-                        download
-                        class="inline-flex items-center justify-center gap-3 rounded-full border border-[#FFFAFA]/18 bg-transparent px-5 py-3.5 font-sans text-[11px] font-bold tracking-[0.22em] text-[#FFFAFA] uppercase transition-all duration-300 hover:border-[#3a4d45]/35 hover:bg-[#FFFAFA] hover:text-[#3d3834]"
-                      >
-                        Télécharger le 1er chapitre
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="14"
-                          height="14"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          stroke-width="2"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                        >
-                          <path d="M12 3v12" />
-                          <path d="m7 10 5 5 5-5" />
-                          <path d="M5 21h14" />
-                        </svg>
-                      </a>
-                    )}
-                  </div>
-                )
-              }
+
+              <div
+                class:list={[
+                  "flex flex-col gap-3 sm:flex-row sm:flex-wrap",
+                  pageModel.hero.ctas.length > 0 ? "" : "hidden",
+                ]}
+                data-edition-links
+              ></div>
             </div>
-            <!-- <div class="flex flex-wrap gap-3"> 
-              <a
-                href="#newsletter"
-                class="inline-flex items-center gap-3 rounded-full bg-[#3a4d45] px-7 py-4 font-sans text-[11px] font-bold tracking-[0.24em] text-[#3d3834] uppercase transition-all duration-300"
-              >
-                Recevoir les nouvelles
-              </a>
-              <a
-                href="/livres"
-                class="inline-flex items-center gap-3 rounded-full border border-[#FFFAFA]/15 bg-[#FFFAFA] px-7 py-4 font-sans text-[11px] font-bold tracking-[0.24em] text-[#FFFAFA] uppercase transition-all duration-300"
-              >
-                Retour aux livres
-              </a>
-            </div> -->
           </div>
         </div>
       </div>
@@ -263,7 +153,7 @@ const hiddenGenresCount = Math.max(book.genres.length - heroGenres.length, 0);
               Entrer dans l'univers du roman.
             </h2>
             <p class="whitespace-pre-line font-sans text-base leading-relaxed text-[#3d3834]/72">
-              {book.longDescription}
+              {pageModel.content.synopsis}
             </p>
           </div>
         </article>
@@ -282,11 +172,17 @@ const hiddenGenresCount = Math.max(book.genres.length - heroGenres.length, 0);
           <blockquote
             class="font-serif text-3xl leading-relaxed italic text-balance"
           >
-            "{book.quote}"
+            "{pageModel.content.quote}"
           </blockquote>
         </aside>
       </div>
     </section>
+
+    {
+      pageModel.relatedGallery.length > 0 && (
+        <BookRelatedGallery items={pageModel.relatedGallery} title={pageModel.hero.title} />
+      )
+    }
 
     <section class="bg-[#FFFAFA] px-6 py-24">
       <div class="site-shell">
@@ -300,17 +196,17 @@ const hiddenGenresCount = Math.max(book.genres.length - heroGenres.length, 0);
               Infos rapides
             </p>
             <h2 class="mt-4 font-serif text-4xl text-balance">
-              Les repères essentiels du livre.
+              Les reperes essentiels du livre.
             </h2>
             <p class="mt-4 font-sans text-sm leading-relaxed text-[#FFFAFA]">
               ISBN, formats, statut, personnages et promesse de lecture sont
-              regroupés ici pour garder une lecture rapide et claire.
+              regroupes ici pour garder une lecture rapide et claire.
             </p>
           </div>
 
           <div class="grid gap-4 sm:grid-cols-2">
             {
-              book.details.map((detail) => (
+              pageModel.content.details.map((detail) => (
                 <div class="fade-up rounded-md border border-[#3d3834]/10 bg-[#FFFAFA] p-6 shadow-[0_24px_60px_-45px_rgba(61,56,52,0.45)]">
                   <p class="font-sans text-[10px] font-bold tracking-[0.25em] text-[#3a4d45] uppercase">
                     {detail.label}
@@ -330,7 +226,7 @@ const hiddenGenresCount = Math.max(book.genres.length - heroGenres.length, 0);
                 Format
               </p>
               <p class="mt-4 font-serif text-3xl leading-tight text-[#3d3834]">
-                {book.format}
+                {pageModel.content.format}
               </p>
             </div>
             <div
@@ -343,7 +239,7 @@ const hiddenGenresCount = Math.max(book.genres.length - heroGenres.length, 0);
               </p>
               <div class="mt-4 flex flex-wrap gap-2">
                 {
-                  book.genres.map((genre) => (
+                  pageModel.content.genres.map((genre) => (
                     <span class="rounded-full border border-[#3d3834]/10 bg-[#FFFAFA] px-3 py-1 font-sans text-[10px] font-bold tracking-[0.12em] text-[#3d3834] uppercase">
                       {genre}
                     </span>
@@ -357,7 +253,7 @@ const hiddenGenresCount = Math.max(book.genres.length - heroGenres.length, 0);
     </section>
 
     {
-      relatedBooks.length > 0 && (
+      pageModel.relatedBooks.length > 0 && (
         <section class="bg-[#3d3834] px-6 py-24 text-[#FFFAFA]">
           <div class="site-shell">
             <div class="mb-12 flex items-end justify-between gap-6">
@@ -378,18 +274,18 @@ const hiddenGenresCount = Math.max(book.genres.length - heroGenres.length, 0);
             </div>
 
             <div class="grid gap-6 md:grid-cols-2">
-              {relatedBooks.map((entry) => (
+              {pageModel.relatedBooks.map((entry) => (
                 <a
                   href={`/livres/${entry.slug}`}
                   class="fade-up group grid gap-6 overflow-hidden rounded-lg border border-[#FFFAFA]/10 bg-[#FFFAFA] p-6 backdrop-blur-sm transition-all duration-300 md:grid-cols-[180px_1fr]"
                 >
                   <img
-                    src={entry.cover}
-                    alt={`Couverture de ${entry.title}`}
+                    src={entry.media.cover.src}
+                    alt={`Couverture de ${getBookTitle(entry)}`}
                     loading="lazy"
                     class:list={[
                       "aspect-[4/5] h-auto w-full self-start rounded-[1.5rem]",
-                      useContainFit(entry.cover)
+                      useContainFit(entry.media.cover.src)
                         ? "bg-[#f6efec] p-3 object-contain"
                         : "object-cover",
                     ]}
@@ -397,13 +293,13 @@ const hiddenGenresCount = Math.max(book.genres.length - heroGenres.length, 0);
                   <div class="flex flex-col justify-between gap-5">
                     <div>
                       <p class="font-sans text-[10px] font-bold tracking-[0.25em] text-[#3a4d45] uppercase">
-                        {entry.series}
+                        {getBookSeries(entry)}
                       </p>
                       <h3 class="mt-3 font-serif text-3xl text-balance">
-                        {entry.title}
+                        {getBookTitle(entry)}
                       </h3>
                       <p class="mt-4 line-clamp-6 font-sans text-sm leading-relaxed whitespace-pre-line text-[#3d3834]">
-                        {entry.description}
+                        {getBookShortDescription(entry)}
                       </p>
                     </div>
                     <span class="inline-flex items-center gap-3 font-sans text-[10px] font-bold tracking-[0.25em] text-[#3d3834] uppercase">
@@ -434,139 +330,9 @@ const hiddenGenresCount = Math.max(book.genres.length - heroGenres.length, 0);
     }
   </main>
 
-  <script>
-    document.querySelectorAll("[data-edition-panel]").forEach((panel) => {
-      if (!(panel instanceof HTMLElement) || panel.dataset.bound === "true") {
-        return;
-      }
+  <script type="module">
+    import { bindEditionPanels } from "../../lib/book-page-ui.ts";
 
-      panel.dataset.bound = "true";
-
-      const editions = JSON.parse(panel.dataset.editions ?? "[]");
-      if (!Array.isArray(editions) || editions.length === 0) {
-        return;
-      }
-
-      const chapterOneHref = panel.dataset.chapterOneHref ?? "";
-      const heroGrid = panel.parentElement;
-      const gallery = heroGrid?.querySelector("[data-gallery]");
-      const linksContainer = panel.querySelector("[data-edition-links]");
-      const scorePurchaseLink = (label) =>
-        /sumup|boutique/i.test(label ?? "") ? 2 : 1;
-
-      const setText = (selector, value) => {
-        panel.querySelectorAll(selector).forEach((node) => {
-          node.textContent = value ?? "";
-        });
-      };
-
-      const renderLinks = (links) => {
-        if (!(linksContainer instanceof HTMLElement)) {
-          return;
-        }
-
-        linksContainer.replaceChildren();
-
-        const hasChapterOne = chapterOneHref.length > 0;
-        if ((!Array.isArray(links) || links.length === 0) && !hasChapterOne) {
-          linksContainer.classList.add("hidden");
-          return;
-        }
-
-        linksContainer.classList.remove("hidden");
-
-        [...links]
-          .sort(
-            (left, right) =>
-              scorePurchaseLink(right.label) - scorePurchaseLink(left.label),
-          )
-          .forEach((link, linkIndex) => {
-            const anchor = document.createElement("a");
-            anchor.href = link.href;
-            anchor.target = "_blank";
-            anchor.rel = "noreferrer";
-            anchor.className = [
-              "inline-flex items-center justify-center gap-3 rounded-full px-5 py-3.5 font-sans text-[11px] font-bold tracking-[0.22em] uppercase transition-all duration-300",
-              linkIndex === 0
-                ? "bg-[#3a4d45] text-[#FFFAFA] hover:bg-[#2f4039]"
-                : "border border-[#FFFAFA]/18 bg-transparent text-[#FFFAFA] hover:border-[#3a4d45]/35 hover:bg-[#FFFAFA] hover:text-[#3d3834]",
-            ].join(" ");
-            anchor.append(document.createTextNode(link.label));
-            anchor.insertAdjacentHTML(
-              "beforeend",
-              `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg>`,
-            );
-            linksContainer.append(anchor);
-          });
-
-        if (hasChapterOne) {
-          const chapterAnchor = document.createElement("a");
-          chapterAnchor.href = chapterOneHref;
-          chapterAnchor.setAttribute("download", "");
-          chapterAnchor.className = [
-            "inline-flex items-center justify-center gap-3 rounded-full border border-[#FFFAFA]/18 bg-transparent px-5 py-3.5 font-sans text-[11px] font-bold tracking-[0.22em] text-[#FFFAFA] uppercase transition-all duration-300",
-            "hover:border-[#3a4d45]/35 hover:bg-[#FFFAFA] hover:text-[#3d3834]",
-          ].join(" ");
-          chapterAnchor.append(
-            document.createTextNode("Télécharger le 1er chapitre"),
-          );
-          chapterAnchor.insertAdjacentHTML(
-            "beforeend",
-            `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"></path><path d="m7 10 5 5 5-5"></path><path d="M5 21h14"></path></svg>`,
-          );
-          linksContainer.append(chapterAnchor);
-        }
-      };
-
-      const applyEdition = (index) => {
-        const edition = editions[index] ?? editions[0];
-        if (!edition) {
-          return;
-        }
-
-        setText("[data-edition-label]", edition.label ?? "");
-        setText("[data-edition-status]", edition.status ?? "");
-        setText("[data-edition-status-copy]", edition.status ?? "");
-        setText("[data-edition-hook]", edition.hook ?? "");
-        setText("[data-edition-description]", edition.description ?? "");
-        setText("[data-edition-format]", edition.format ?? "");
-        setText("[data-edition-price]", edition.price ?? "");
-        setText("[data-edition-price-large]", edition.price ?? "");
-        setText("[data-edition-isbn]", edition.isbn ?? "");
-        setText("[data-edition-release]", edition.releaseDate ?? "");
-        setText("[data-edition-release-large]", edition.releaseDate ?? "");
-        const pagesCopy = panel.querySelector("[data-edition-pages-copy]");
-        const pagesSeparatorBefore = panel.querySelector(
-          "[data-edition-pages-separator-before]",
-        );
-        const pagesSeparatorAfter = panel.querySelector(
-          "[data-edition-pages-separator-after]",
-        );
-        const hasPages = edition.pages !== undefined && edition.pages !== null;
-        if (pagesCopy instanceof HTMLElement) {
-          pagesCopy.textContent = hasPages ? `${edition.pages} pages` : "";
-          pagesCopy.classList.toggle("hidden", !hasPages);
-        }
-        if (pagesSeparatorBefore instanceof HTMLElement) {
-          pagesSeparatorBefore.classList.toggle("hidden", !hasPages);
-        }
-        if (pagesSeparatorAfter instanceof HTMLElement) {
-          pagesSeparatorAfter.classList.toggle("hidden", !hasPages);
-        }
-        renderLinks(edition.purchaseLinks ?? []);
-      };
-
-      if (gallery instanceof HTMLElement) {
-        gallery.addEventListener("book-gallery:change", (event) => {
-          if (!(event instanceof CustomEvent)) {
-            return;
-          }
-
-          applyEdition(Number(event.detail?.index ?? 0));
-        });
-      }
-
-      applyEdition(0);
-    });
+    bindEditionPanels();
   </script>
 </Layout>

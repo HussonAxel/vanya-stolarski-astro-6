@@ -149,6 +149,7 @@ export const books: Book[] = [
         src: "/assets/covers/Cover_CDR_Ulule.png",
         alt: "Couverture de Coeur de Renard - édition reliée",
       },
+      relatedGalleryIds: ["coeur-de-renard-tome-2"],
       editions: [
         {
           id: "relie",
@@ -203,7 +204,6 @@ export const books: Book[] = [
         "/assets/chapteronebooks/chapteronebooks-coeur-de-renard.pdf",
     },
     marketing: {
-      isLatest: true,
       featured: {
         label: "Dernier roman paru",
         kicker: "Lecture phare",
@@ -433,6 +433,7 @@ export const books: Book[] = [
       ],
     },
     media: {
+      relatedGalleryIds: ["coeur-de-renard"],
       cover: {
         src: "/assets/covers/coeur-de-renard-tome-2--relie.webp",
         alt: "Couverture de Coeur de Renard - tome 2 - édition reliée",
@@ -475,6 +476,43 @@ export const books: Book[] = [
       ],
     },
     links: {},
+    marketing: {
+      isLatest: true,
+      featured: {
+        label: "Nouveau roman",
+        kicker: "Tome 2",
+        shortPitch:
+          "Apres la trahison, Fortune n'a plus qu'une option : cambrioler sa propre banque. Meme si cela revient a offrir une seconde chance a Renard, en pleine Seconde Guerre mondiale.",
+        media: {
+          type: "image",
+          src: "/assets/covers/coeur-de-renard-tome-2--relie.webp",
+          poster: "/assets/covers/coeur-de-renard-tome-2--relie.webp",
+          alt: "Couverture de Coeur de Renard - tome 2 - edition reliee",
+          gallery: [
+            {
+              src: "/assets/covers/coeur-de-renard-tome-2--relie.webp",
+              alt: "Couverture de Coeur de Renard - tome 2 - edition reliee",
+              label: "Relie",
+            },
+            {
+              src: "/assets/covers/coeur-de-renard-tome-2--broche.webp",
+              alt: "Couverture de Coeur de Renard - tome 2 - edition brochee",
+              label: "Broche",
+            },
+          ],
+        },
+        stats: [
+          { label: "Pagination", value: "525 pages" },
+          { label: "Format", value: "Relie + broche" },
+          { label: "Tonalite", value: "Trahison & vengeance" },
+        ],
+        spotlight: [
+          { label: "Heroine", value: "Fortune" },
+          { label: "Anti-heros", value: "Renard" },
+          { label: "Cadre", value: "Seconde Guerre mondiale" },
+        ],
+      },
+    },
   },
   {
     slug: "le-coeur-dankaa",

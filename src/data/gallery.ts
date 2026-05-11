@@ -230,6 +230,50 @@ export const galleryItems: GalleryItem[] = [
     description:
       "Une variation plus contemplative de Trouver la lune, portée par un cadre froid et un portrait resserré.",
   },
+  {
+    id: "gal-21",
+    title: "Geina",
+    image: "/assets/gallery/trouver-la-lune--geina-obfs.png",
+    alt: "Illustration de Geina pour Trouver la lune",
+    bookSlug: "trouver-la-lune",
+    artist: "Vanya",
+    date: "Mai 2026",
+    description:
+      "Un portrait de Geina rattache a l'univers de Trouver la lune.",
+  },
+  {
+    id: "gal-22",
+    title: "Locke",
+    image: "/assets/gallery/trouver-la-lune--locke.png",
+    alt: "Illustration de Locke pour Trouver la lune",
+    bookSlug: "trouver-la-lune",
+    artist: "Vanya",
+    date: "Mai 2026",
+    description:
+      "Un portrait de Locke rattache a l'univers de Trouver la lune.",
+  },
+  {
+    id: "gal-23",
+    title: "Locke & Valor",
+    image: "/assets/gallery/trouver-la-lune--locke-valor.png",
+    alt: "Illustration de Locke et Valor pour Trouver la lune",
+    bookSlug: "trouver-la-lune",
+    artist: "Vanya",
+    date: "Mai 2026",
+    description:
+      "Une composition de duo autour de Locke et Valor dans l'univers de Trouver la lune.",
+  },
+  {
+    id: "gal-24",
+    title: "Valor",
+    image: "/assets/gallery/trouver-la-lune--valor.png",
+    alt: "Illustration de Valor pour Trouver la lune",
+    bookSlug: "trouver-la-lune",
+    artist: "Vanya",
+    date: "Mai 2026",
+    description:
+      "Un portrait de Valor rattache a l'univers de Trouver la lune.",
+  },
 ];
 
 export const getGalleryItemsByBookSlug = (slug: string) =>

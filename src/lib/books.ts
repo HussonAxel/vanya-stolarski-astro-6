@@ -255,9 +255,14 @@ export const getPrimaryStoreLink = (book: Book) =>
 export const getBookRelatedGalleryItems = (
   book: Book,
   allGalleryItems: GalleryItem[],
-): GalleryItemViewModel[] =>
-  allGalleryItems
-    .filter((item) => item.bookSlug === book.slug)
+): GalleryItemViewModel[] => {
+  const relatedGallerySlugs = new Set([
+    book.slug,
+    ...(book.media.relatedGalleryIds ?? []),
+  ]);
+
+  return allGalleryItems
+    .filter((item) => relatedGallerySlugs.has(item.bookSlug))
     .map((item) => ({
       id: item.id,
       title: item.title,
@@ -269,6 +274,7 @@ export const getBookRelatedGalleryItems = (
       date: item.date,
       description: item.description,
     }));
+};
 
 export const buildBookPageModel = (
   book: Book,

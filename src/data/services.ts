@@ -257,6 +257,11 @@ export const services: Service[] = [
     focus: "Communication & personnages",
     gallery: [
       {
+        src: "/assets/gallery/trouver-la-lune--valor.png",
+        alt: "Illustration de Valor pour Trouver la lune",
+        label: "Valor",
+      },
+      {
         src: "/assets/services/illustrations/illustration-seventeen.webp",
         alt: "Exemple d'illustration fantasy affiche",
         label: "Affiche",

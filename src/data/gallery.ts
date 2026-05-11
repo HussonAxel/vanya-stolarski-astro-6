@@ -233,13 +233,13 @@ export const galleryItems: GalleryItem[] = [
   {
     id: "gal-21",
     title: "Geina",
-    image: "/assets/gallery/trouver-la-lune--geina-obfs.png",
-    alt: "Illustration de Geina pour Trouver la lune",
-    bookSlug: "trouver-la-lune",
+    image: "/assets/gallery/notre-sang-dans-lhumus-de-la-foret--geina.png",
+    alt: "Illustration de Geina pour Notre sang dans l'humus de la Foret",
+    bookSlug: "notre-sang-dans-lhumus-de-la-foret",
     artist: "Vanya",
     date: "Mai 2026",
     description:
-      "Un portrait de Geina rattache a l'univers de Trouver la lune.",
+      "Un portrait de Geina rattache a l'univers de Notre sang dans l'humus de la Foret.",
   },
   {
     id: "gal-22",

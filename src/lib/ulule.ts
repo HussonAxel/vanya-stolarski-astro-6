@@ -33,7 +33,7 @@ type CacheEntry = {
 };
 
 const fallbackCampaign: UluleCampaignCard = {
-  label: "Dernière campagne Ulule",
+  label: "Dernière campagne",
   title: "Fous-Papillons",
   subtitle: "Edition collector, visuels exclusifs et contenus de campagne.",
   description:

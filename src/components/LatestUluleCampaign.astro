@@ -5,7 +5,7 @@ const campaign = await getUluleCampaignCard();
 ---
 
 <div
-    class="hero-card group relative h-full min-h-[22rem] overflow-hidden rounded-3xl bg-[#3a4d45] p-7 md:p-8 lg:rounded-[2rem] lg:p-9 xl:min-h-0"
+    class="campaign-card hero-card group relative h-full min-h-[22rem] overflow-hidden rounded-3xl bg-[#3a4d45] p-6 sm:p-7 md:p-8 lg:rounded-[2rem] lg:p-9 xl:min-h-0"
 >
     <div
         class="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.12),transparent_34%),radial-gradient(circle_at_bottom_left,rgba(255,255,255,0.07),transparent_30%)]"
@@ -19,46 +19,33 @@ const campaign = await getUluleCampaignCard();
     </div>
 
     <div
-        class="relative z-10 grid h-full gap-7 lg:grid-cols-[minmax(0,1fr)_minmax(240px,300px)] lg:items-end"
+        class="campaign-layout relative z-10 grid h-full gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(220px,280px)] lg:items-center"
     >
-        <div class="space-y-5">
-            <div class="space-y-4">
-                <div class="flex items-center justify-between gap-4">
-                    <div
-                        class="flex h-11 w-11 items-center justify-center rounded-xl bg-white/10 transition-colors duration-300 group-hover:bg-white/15"
+        <div class="campaign-content flex flex-col gap-5">
+            <div class="campaign-head flex flex-col gap-4">
+                <div class="campaign-brand flex flex-wrap items-center justify-between gap-3">
+                    <a
+                        href={campaign.primaryHref}
+                        target={campaign.primaryHref.startsWith("http")
+                            ? "_blank"
+                            : undefined}
+                        rel={campaign.primaryHref.startsWith("http")
+                            ? "noreferrer"
+                            : undefined}
+                        aria-label="Voir la campagne sur Ulule"
+                        class="hero-chip-link inline-flex h-11 items-center rounded-xl border border-white/10 bg-white/10 px-2.5 hover:bg-white/15"
                     >
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="20"
-                            height="20"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="1.75"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            class="text-white/80"
-                            aria-hidden="true"
-                        >
-                            <path d="M7 7v6a5 5 0 0 0 10 0V7"></path>
-                            <path d="M7 17h10"></path>
-                        </svg>
-                    </div>
-                    <div class="flex flex-wrap justify-end gap-2">
-                        <span
-                            class="inline-flex rounded-full border border-white/10 bg-white/10 px-3 py-1.5 font-sans text-[9px] font-semibold tracking-[0.2em] text-white/70 uppercase"
-                        >
-                            {campaign.label}
-                        </span>
-                        <span
-                            class="inline-flex rounded-full border border-white/10 bg-[#31433c] px-3 py-1.5 font-sans text-[9px] font-semibold tracking-[0.2em] text-white/70 uppercase"
-                        >
-                            Ulule
-                        </span>
-                    </div>
+                        <img
+                            src="/assets/logo/ulule-horizontal-white.svg"
+                            alt="Ulule"
+                            width="100"
+                            height="31"
+                            class="h-auto w-[6.25rem]"
+                        />
+                    </a>
                 </div>
 
-                <div class="space-y-3">
+                <div class="campaign-copy flex flex-col gap-3">
                     <h3
                         class="max-w-xl font-serif text-4xl leading-none text-white text-balance md:text-[3rem] lg:text-[3.35rem]"
                     >
@@ -70,18 +57,18 @@ const campaign = await getUluleCampaignCard();
                         {campaign.subtitle}
                     </p>
                     <p
-                        class="max-w-2xl font-sans text-sm leading-relaxed text-white/45"
+                        class="campaign-description max-w-2xl font-sans text-sm leading-relaxed text-white/45"
                     >
                         {campaign.description}
                     </p>
                 </div>
             </div>
 
-            <div class="grid gap-3 sm:grid-cols-3">
+            <div class="campaign-stats grid grid-cols-3 gap-2 sm:gap-3">
                 {
                     campaign.stats.map((stat) => (
-                        <div class="rounded-2xl border border-white/10 bg-white/[0.07] px-4 py-4 transition-colors duration-300 group-hover:bg-white/[0.1]">
-                            <p class="font-serif text-[1.55rem] leading-none text-white">
+                        <div class="campaign-stat rounded-2xl border border-white/10 bg-white/[0.07] px-3 py-3.5 transition-colors duration-300 group-hover:bg-white/[0.1] sm:px-4 sm:py-4">
+                            <p class="font-serif text-xl leading-none text-white sm:text-[1.55rem]">
                                 {stat.value}
                             </p>
                             <p class="mt-2 font-sans text-[8px] font-semibold tracking-[0.18em] text-white/55 uppercase">
@@ -92,7 +79,7 @@ const campaign = await getUluleCampaignCard();
                 }
             </div>
 
-            <div class="flex flex-wrap gap-2.5">
+            <div class="campaign-actions flex flex-wrap gap-2">
                 <a
                     href={campaign.primaryHref}
                     target={campaign.primaryHref.startsWith("http")
@@ -101,7 +88,7 @@ const campaign = await getUluleCampaignCard();
                     rel={campaign.primaryHref.startsWith("http")
                         ? "noreferrer"
                         : undefined}
-                    class="hero-chip-link inline-flex h-10 items-center rounded-full bg-white px-5 font-sans text-[9px] font-semibold tracking-[0.22em] text-[#31433c] uppercase hover:bg-[#edf4f0]"
+                    class="hero-chip-link inline-flex h-10 items-center rounded-full bg-white px-4 font-sans text-[8px] font-semibold tracking-[0.18em] text-[#31433c] uppercase hover:bg-[#edf4f0] sm:px-5 sm:text-[9px] sm:tracking-[0.22em]"
                 >
                     {campaign.primaryLabel}
                 </a>
@@ -109,7 +96,7 @@ const campaign = await getUluleCampaignCard();
                     campaign.secondaryHref && campaign.secondaryLabel && (
                         <a
                             href={campaign.secondaryHref}
-                            class="hero-chip-link inline-flex h-10 items-center rounded-full border border-white/16 bg-transparent px-5 font-sans text-[9px] font-semibold tracking-[0.22em] text-white uppercase hover:border-white/30 hover:bg-white hover:text-[#31433c]"
+                            class="hero-chip-link inline-flex h-10 items-center rounded-full border border-white/16 bg-transparent px-4 font-sans text-[8px] font-semibold tracking-[0.18em] text-white uppercase hover:border-white/30 hover:bg-white hover:text-[#31433c] sm:px-5 sm:text-[9px] sm:tracking-[0.22em]"
                         >
                             {campaign.secondaryLabel}
                         </a>
@@ -118,27 +105,22 @@ const campaign = await getUluleCampaignCard();
             </div>
         </div>
 
-        <div class="relative min-h-[15rem] lg:min-h-[17rem]">
+        <div class="campaign-media relative flex flex-col items-center gap-3 lg:gap-4">
             <div
-                class="pointer-events-none absolute inset-x-[14%] bottom-4 h-8 rounded-full bg-[#18201d]/30 blur-2xl"
+                class="pointer-events-none absolute inset-x-[14%] bottom-2 h-8 rounded-full bg-[#18201d]/30 blur-2xl"
             >
             </div>
             <div
-                class="pointer-events-none absolute left-1/2 top-3 h-40 w-40 -translate-x-1/2 rounded-full bg-white/10 blur-3xl"
+                class="pointer-events-none absolute left-1/2 top-8 h-40 w-40 -translate-x-1/2 rounded-full bg-white/10 blur-3xl"
             >
-            </div>
-            <div
-                class="absolute top-3 left-1/2 -translate-x-1/2 rounded-full bg-white/10 px-3 py-1.5 font-sans text-[8px] font-semibold tracking-[0.18em] text-white/60 uppercase"
-            >
-                En direct
             </div>
 
-            <div class="absolute inset-x-0 bottom-0 flex justify-center">
+            <div class="relative z-10 flex w-full justify-center">
                 <div
-                    class="w-full max-w-[17rem] rounded-2xl border border-white/10 bg-white/[0.06] p-4"
+                    class="campaign-frame w-full max-w-[14rem] rounded-2xl border border-white/10 bg-white/[0.06] p-3.5 sm:p-4 lg:max-w-[16rem] xl:max-w-[14rem] 2xl:max-w-[17rem]"
                 >
                     <div
-                        class="flex aspect-[4/5] items-center justify-center rounded-xl bg-[linear-gradient(180deg,#f7f1ec_0%,#ebe2dc_100%)] p-4 shadow-[0_34px_100px_-46px_rgba(0,0,0,0.58)] transition-all duration-700 group-hover:shadow-[0_42px_120px_-50px_rgba(0,0,0,0.62)]"
+                        class="campaign-cover-stage flex aspect-[4/5] items-center justify-center rounded-xl bg-[linear-gradient(180deg,#f7f1ec_0%,#ebe2dc_100%)] p-4 shadow-[0_34px_100px_-46px_rgba(0,0,0,0.58)] transition-all duration-700 group-hover:shadow-[0_42px_120px_-50px_rgba(0,0,0,0.62)]"
                     >
                         <img
                             src={campaign.coverSrc}
@@ -166,6 +148,104 @@ const campaign = await getUluleCampaignCard();
             color 300ms cubic-bezier(0.16, 1, 0.3, 1),
             border-color 300ms cubic-bezier(0.16, 1, 0.3, 1),
             transform 300ms cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    @media (min-width: 1280px) and (max-height: 1000px) {
+        .campaign-card {
+            padding: 1.5rem;
+        }
+
+        .campaign-layout {
+            grid-template-columns: minmax(0, 1fr) minmax(180px, 220px);
+            gap: 1.25rem;
+        }
+
+        .campaign-content {
+            gap: 0.75rem;
+        }
+
+        .campaign-head,
+        .campaign-copy {
+            gap: 0.5rem;
+        }
+
+        .campaign-copy h3 {
+            font-size: 2.35rem;
+        }
+
+        .campaign-description {
+            display: none;
+        }
+
+        .campaign-stats {
+            gap: 0.5rem;
+        }
+
+        .campaign-stat {
+            border-radius: 0.875rem;
+            padding: 0.625rem 0.75rem;
+        }
+
+        .campaign-stat p:first-child {
+            font-size: 1.125rem;
+        }
+
+        .campaign-stat p:last-child {
+            margin-top: 0.375rem;
+            font-size: 0.4375rem;
+        }
+
+        .campaign-actions a {
+            height: 2.25rem;
+        }
+
+        .campaign-media {
+            gap: 0.5rem;
+        }
+
+        .campaign-frame {
+            max-width: 12rem;
+            padding: 0.625rem;
+        }
+
+        .campaign-cover-stage {
+            padding: 0.75rem;
+        }
+    }
+
+    @media (min-width: 1280px) and (max-height: 760px) {
+        .campaign-brand a {
+            height: 2.25rem;
+        }
+
+        .campaign-brand img {
+            width: 5.625rem;
+        }
+
+        .campaign-copy p {
+            display: none;
+        }
+
+        .campaign-stats {
+            min-height: 3rem;
+        }
+
+        .campaign-stat {
+            padding: 0.5rem 0.625rem;
+        }
+
+        .campaign-actions a {
+            height: 2rem;
+        }
+
+        .campaign-frame {
+            max-width: 8.75rem;
+            padding: 0.5rem;
+        }
+
+        .campaign-cover-stage {
+            padding: 0.5rem;
+        }
     }
 
     @media (hover: hover) {

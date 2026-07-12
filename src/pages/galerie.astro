@@ -439,13 +439,13 @@ const galleryBookFilterLabels = Object.fromEntries(
             const state = { book: "all", artist: "all" };
 
             const itemEls = Array.from(
-                document.querySelectorAll(".gallery-item"),
+                document.querySelectorAll<HTMLElement>(".gallery-item"),
             );
             const bookButtons = Array.from(
-                document.querySelectorAll("[data-book-filter]"),
+                document.querySelectorAll<HTMLButtonElement>("[data-book-filter]"),
             );
             const artistButtons = Array.from(
-                document.querySelectorAll("[data-artist-filter]"),
+                document.querySelectorAll<HTMLButtonElement>("[data-artist-filter]"),
             );
             const resultSummary = document.querySelector(
                 "[data-gallery-results]",
@@ -472,9 +472,9 @@ const galleryBookFilterLabels = Object.fromEntries(
             const modalCloseButton = document.getElementById(
                 "gallery-modal-close",
             );
-            let lastTrigger = null;
+            let lastTrigger: HTMLElement | null = null;
 
-            const getItemMatches = (bookValue, artistValue) =>
+            const getItemMatches = (bookValue: string, artistValue: string) =>
                 itemEls.filter((item) => {
                     const matchesBook =
                         bookValue === "all" || item.dataset.book === bookValue;
@@ -485,7 +485,7 @@ const galleryBookFilterLabels = Object.fromEntries(
                     return matchesBook && matchesArtist;
                 });
 
-            const getBookLabel = (value) => {
+            const getBookLabel = (value: string) => {
                 const button = document.querySelector(
                     `[data-book-filter="${value}"]`,
                 );
@@ -493,7 +493,7 @@ const galleryBookFilterLabels = Object.fromEntries(
                 return text?.textContent?.trim() ?? "Tous les romans";
             };
 
-            const getArtistLabel = (value) => {
+            const getArtistLabel = (value: string) => {
                 const button = document.querySelector(
                     `[data-artist-filter="${value}"]`,
                 );
@@ -501,7 +501,12 @@ const galleryBookFilterLabels = Object.fromEntries(
                 return text?.textContent?.trim() ?? "Tous les artistes";
             };
 
-            const updateButtonState = (buttons, activeValue, attr, counts) => {
+            const updateButtonState = (
+                buttons: HTMLButtonElement[],
+                activeValue: string,
+                attr: string,
+                counts: Map<string, number>,
+            ) => {
                 buttons.forEach((button) => {
                     const value = button.getAttribute(attr);
                     const count = value ? (counts.get(value) ?? 0) : 0;
@@ -520,7 +525,7 @@ const galleryBookFilterLabels = Object.fromEntries(
                 });
             };
 
-            const updateSummary = (visibleCount) => {
+            const updateSummary = (visibleCount: number) => {
                 if (!resultSummary) {
                     return;
                 }
@@ -543,8 +548,8 @@ const galleryBookFilterLabels = Object.fromEntries(
             const applyFilters = () => {
                 const visibleItems = getItemMatches(state.book, state.artist);
                 const visibleSet = new Set(visibleItems);
-                const bookCounts = new Map();
-                const artistCounts = new Map();
+                const bookCounts = new Map<string, number>();
+                const artistCounts = new Map<string, number>();
 
                 bookButtons.forEach((button) => {
                     const value =
@@ -591,7 +596,7 @@ const galleryBookFilterLabels = Object.fromEntries(
                 }
             };
 
-            const openModal = (trigger) => {
+            const openModal = (trigger: HTMLElement) => {
                 if (
                     !modal ||
                     !modalImage ||

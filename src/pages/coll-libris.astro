@@ -1,0 +1,319 @@
+﻿---
+import Layout from "../layouts/Layout.astro";
+import collLibris from "../data/coll-libris.json";
+
+const { cards, featuredCardId, previewWarning } = collLibris;
+const featuredCard = cards.find((card) => card.id === featuredCardId) ?? cards[0];
+const viewerUrl = featuredCard.viewerUrl;
+const metadata = featuredCard.metadata;
+const iframeDisplayAttributes = { scrolling: "no" };
+const metadataCellClasses = [
+  "border-b border-r border-white/12 py-5 pr-5",
+  "border-b border-white/12 py-5 pl-5",
+  "border-r border-white/12 py-5 pr-5",
+  "py-5 pl-5",
+];
+const collectionMetadataCellClasses = [
+  "border-b border-r border-[#3d3834]/12 py-3 pr-3",
+  "border-b border-[#3d3834]/12 py-3 pl-3",
+  "border-r border-[#3d3834]/12 py-3 pr-3",
+  "py-3 pl-3",
+];
+---
+
+<Layout title="Coll'Libris - Cartes collector | Vanya Stolarski">
+  <main class="overflow-hidden bg-[#fffafa] text-[#3d3834]">
+    <section class="coll-libris-hero relative min-h-screen px-6 pb-16 pt-32 lg:flex lg:items-center lg:pb-20 lg:pt-32">
+      <div class="coll-libris-ambient pointer-events-none absolute inset-0 opacity-80"></div>
+
+      <div class="coll-libris-layout site-shell relative grid w-full gap-12 lg:items-center xl:gap-20">
+        <div class="max-w-2xl space-y-7">
+          <div class="flex items-center gap-3">
+            <span class="h-px w-10 bg-white/30"></span>
+            <span class="font-sans text-[10px] font-bold tracking-[0.32em] text-white/55 uppercase">Collection interactive</span>
+          </div>
+
+          <div class="space-y-3">
+            <h1 class="font-serif text-6xl font-bold leading-none tracking-tight text-balance sm:text-7xl lg:text-[4.5rem] xl:text-[4.75rem]">
+              Coll'Libris
+            </h1>
+            <p class="font-serif text-3xl leading-tight text-white/72 sm:text-4xl">Cartes collector</p>
+          </div>
+
+          <dl class="grid max-w-xl grid-cols-2 border-y border-white/12">
+            {metadata.map((item, index) => (
+              <div class={metadataCellClasses[index]}>
+                <dt class="font-sans text-[9px] font-bold tracking-[0.22em] text-white/45 uppercase">{item.label}</dt>
+                <dd class="mt-2 font-serif text-xl leading-tight text-white sm:text-2xl">
+                  {item.url ? (
+                    <a
+                      href={item.url}
+                      target={item.url.startsWith("http") ? "_blank" : undefined}
+                      rel={item.url.startsWith("http") ? "noreferrer" : undefined}
+                      class="metadata-link relative inline-block pb-1 transition-colors duration-300 hover:text-white/68 focus-visible:text-white/68 focus-visible:outline-none"
+                    >
+                      {item.value}
+                    </a>
+                  ) : item.value}
+                </dd>
+              </div>
+            ))}
+          </dl>
+
+          <aside class="max-w-xl border-l border-white/28 pl-4" aria-label="Avertissement sur la prévisualisation">
+            <p class="font-sans text-[9px] font-bold tracking-[0.2em] text-white/55 uppercase">Prévisualisation</p>
+            <p class="mt-1.5 max-w-lg font-sans text-xs leading-relaxed text-white/48 sm:text-sm">
+              {previewWarning}
+            </p>
+          </aside>
+
+          <a href={viewerUrl} target="_blank" rel="noreferrer" class="group inline-flex w-fit items-center gap-2 font-sans text-[9px] font-bold tracking-[0.2em] text-white/45 uppercase transition-colors duration-300 hover:text-white/80">
+            Ouvrir en plein écran
+            <span class="transition-transform duration-300 group-hover:translate-x-0.5" aria-hidden="true">↗</span>
+          </a>
+
+        </div>
+
+        <div class="viewer-shell relative mx-auto w-full">
+          <div class="absolute inset-x-[12%] bottom-0 h-16 rounded-full bg-black/60 blur-3xl"></div>
+          <div class="viewer-frame relative overflow-hidden rounded-[2rem] border border-white/12 bg-[#15151d] shadow-[0_45px_120px_-45px_rgba(0,0,0,0.88)]">
+            <iframe
+              src={viewerUrl}
+              title="Carte interactive Printicards - Coll'Libris"
+              class="coll-libris-viewer block w-full border-0"
+              loading="eager"
+              allow="fullscreen; autoplay"
+              {...iframeDisplayAttributes}
+            ></iframe>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="carte-fortune" class="bg-[#fffafa] px-6 py-20 sm:py-28">
+      <div class="site-shell">
+        <div class="max-w-2xl">
+          <p class="font-sans text-[10px] font-bold tracking-[0.28em] text-[#3a4d45] uppercase">La collection</p>
+          <h2 class="mt-4 font-serif text-5xl leading-none text-balance sm:text-6xl">Les cartes Coll'Libris</h2>
+        </div>
+
+        <div class="mt-14 grid gap-x-10 gap-y-14 sm:mt-20 xl:gap-x-12 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 2xl:gap-x-16">
+          {cards.map((card) => (
+            <article id={card.id} class="min-w-0">
+              <div class="collection-viewer-shell relative w-full">
+                <div class="absolute inset-x-[14%] bottom-0 h-10 rounded-full bg-[#3d3834]/18 blur-2xl"></div>
+                <div class="viewer-frame collection-viewer-frame relative overflow-hidden rounded-[1.5rem] border border-[#3d3834]/12 bg-[#15151d] shadow-[0_24px_70px_-38px_rgba(61,56,52,0.48)]">
+                  <iframe
+                    src={card.viewerUrl}
+                    title={"Carte interactive " + card.title}
+                    class="coll-libris-viewer collection-card-viewer block w-full border-0"
+                    loading="lazy"
+                    allow="fullscreen; autoplay"
+                    {...iframeDisplayAttributes}
+                  ></iframe>
+                </div>
+              </div>
+
+              <div class="mt-6">
+                <div class="flex flex-wrap items-center gap-x-3 gap-y-1">
+                  <p class="font-sans text-[9px] font-bold tracking-[0.24em] text-[#3a4d45] uppercase">Carte n° {card.number}</p>
+                  {card.id === featuredCardId && (
+                    <span class="border-l border-[#3d3834]/20 pl-3 font-sans text-[8px] font-bold tracking-[0.18em] text-[#7d343b] uppercase">Dernière sortie</span>
+                  )}
+                </div>
+
+                <h3 class="mt-3 font-serif text-3xl leading-none text-balance">{card.title}</h3>
+
+                <dl class="mt-5 grid grid-cols-2 border-y border-[#3d3834]/12">
+                  {card.metadata.map((item, index) => (
+                    <div class={collectionMetadataCellClasses[index]}>
+                      <dt class="font-sans text-[7px] font-bold tracking-[0.18em] text-[#3d3834]/42 uppercase">{item.label}</dt>
+                      <dd class="mt-1.5 font-serif text-base leading-tight text-[#3d3834]">
+                        {item.url ? (
+                          <a
+                            href={item.url}
+                            target={item.url.startsWith("http") ? "_blank" : undefined}
+                            rel={item.url.startsWith("http") ? "noreferrer" : undefined}
+                            class="metadata-link relative inline-block pb-1 transition-colors duration-300 hover:text-[#7d343b] focus-visible:text-[#7d343b] focus-visible:outline-none"
+                          >
+                            {item.value}
+                          </a>
+                        ) : item.value}
+                      </dd>
+                    </div>
+                  ))}
+                </dl>
+
+                <p class="mt-4 border-l border-[#7d343b]/35 pl-3 font-sans text-[10px] leading-relaxed text-[#3d3834]/48">
+                  {previewWarning}
+                </p>
+
+                <a href={card.viewerUrl} target="_blank" rel="noreferrer" class="group mt-4 inline-flex w-fit items-center gap-2 font-sans text-[8px] font-bold tracking-[0.18em] text-[#3d3834]/50 uppercase transition-colors duration-300 hover:text-[#3d3834]">
+                  Plein écran
+                  <span class="transition-transform duration-300 group-hover:translate-x-0.5" aria-hidden="true">↗</span>
+                </a>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  </main>
+</Layout>
+
+<style>
+  .coll-libris-hero {
+    position: relative;
+    color: #fffafa;
+    background-color: #18181f;
+    min-height: 100vh;
+    padding-top: 8rem;
+    padding-bottom: 4rem;
+  }
+
+  .coll-libris-ambient {
+    background:
+      radial-gradient(circle at 78% 24%, rgb(116 92 145 / 0.22), transparent 30%),
+      radial-gradient(circle at 8% 88%, rgb(125 52 59 / 0.24), transparent 32%);
+  }
+
+  .metadata-link::after {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: 1px;
+    content: "";
+    background: currentColor;
+    transform: scaleX(0.28);
+    transform-origin: left;
+    opacity: 0.45;
+    transition: transform 300ms ease, opacity 300ms ease;
+  }
+
+  .metadata-link:hover::after,
+  .metadata-link:focus-visible::after {
+    transform: scaleX(1);
+    opacity: 0.8;
+  }
+
+
+  @media (min-width: 1024px) {
+    .coll-libris-hero {
+      display: flex;
+      align-items: center;
+      padding-bottom: 5rem;
+    }
+
+    .coll-libris-layout {
+      grid-template-columns: minmax(0, 0.68fr) minmax(0, 1.32fr);
+      align-items: center;
+      column-gap: clamp(2.5rem, 3.5vw, 3rem);
+    }
+  }
+
+  .viewer-shell {
+    width: 100%;
+    max-width: 56rem;
+  }
+
+  .collection-viewer-shell {
+    max-width: 28rem;
+  }
+
+  .viewer-frame.collection-viewer-frame {
+    height: 20rem;
+  }
+
+  .coll-libris-viewer.collection-card-viewer {
+    height: 36rem;
+  }
+
+  .coll-libris-viewer {
+    height: calc(clamp(34rem, 72vh, 48rem) + 10rem);
+    color-scheme: dark;
+    overflow: hidden;
+    scrollbar-width: none;
+  }
+
+  .viewer-frame {
+    isolation: isolate;
+    height: clamp(34rem, 72vh, 48rem);
+    overflow: hidden;
+  }
+
+  .viewer-frame::after {
+    position: absolute;
+    z-index: 3;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 14px;
+    content: "";
+    background: #15151d;
+    pointer-events: none;
+  }
+
+
+  @media (max-width: 639px) {
+    .viewer-frame {
+      height: 34rem;
+    }
+
+    .coll-libris-viewer {
+      height: 44rem;
+    }
+
+    .viewer-frame.collection-viewer-frame {
+      height: 28rem;
+    }
+
+    .coll-libris-viewer.collection-card-viewer {
+      height: 40rem;
+    }
+  }
+
+  @media (min-width: 1024px) and (max-height: 820px) {
+    .viewer-shell {
+      max-width: 46rem;
+    }
+
+    .viewer-frame {
+      height: 34rem;
+    }
+
+    .coll-libris-viewer {
+      height: 44rem;
+    }
+
+    .collection-viewer-frame {
+      height: 30rem;
+    }
+
+    .collection-card-viewer {
+      height: 40rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    a {
+      transition-duration: 0.01ms !important;
+    }
+  }
+</style>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

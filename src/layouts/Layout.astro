@@ -241,9 +241,9 @@ const { title } = Astro.props;
       const menuOpenIcon = document.getElementById("site-menu-icon-open");
       const menuCloseIcon = document.getElementById("site-menu-icon-close");
       const menuLinks = Array.from(document.querySelectorAll("#site-menu-panel a"));
-      let lastTrigger = null;
+      let lastTrigger: HTMLElement | null = null;
       let headerDockInitialized = false;
-      let headerDockTimeout = null;
+      let headerDockTimeout: number | null = null;
       let headerScrollTicking = false;
 
       const syncHeaderDock = () => {
@@ -292,7 +292,7 @@ const { title } = Astro.props;
         });
       };
 
-      const setMenuState = (isOpen) => {
+      const setMenuState = (isOpen: boolean) => {
         if (
           !(menuToggle instanceof HTMLButtonElement) ||
           !(menuPanel instanceof HTMLElement) ||

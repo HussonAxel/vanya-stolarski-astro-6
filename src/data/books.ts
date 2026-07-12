@@ -410,7 +410,7 @@ export const books: Book[] = [
       defaultIsbn: "NA",
       pages: 525,
       priceOptions: [
-        { label: "Broché", value: "18 €" },
+        { label: "Broché", value: "20 €" },
         { label: "Relié", value: "27 €" },
       ],
     },

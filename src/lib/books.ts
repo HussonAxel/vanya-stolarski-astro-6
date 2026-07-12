@@ -161,7 +161,7 @@ const getEditionValue = <T,>(
   fallback: T,
 ) => (edition.publishing?.[field] as T | undefined) ?? fallback;
 
-const buildEditionCtas = (book: Book, edition: BookEdition, active = false): CTAViewModel[] => {
+const buildEditionCtas = (book: Book, edition: BookEdition): CTAViewModel[] => {
   const purchaseLinks = sortExternalLinks(
     edition.links?.purchase ?? getBookPurchaseLinks(book),
   );

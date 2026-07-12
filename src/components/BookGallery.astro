@@ -147,7 +147,7 @@ const useContainFit = (src: string) =>
 
     let currentIndex = 0;
 
-    const update = (nextIndex) => {
+    const update = (nextIndex: number) => {
       currentIndex = (nextIndex + slides.length) % slides.length;
 
       slides.forEach((slide, slideIndex) => {

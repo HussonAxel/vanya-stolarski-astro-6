@@ -11,6 +11,12 @@ const navLinks = [
     href: "/livres",
   },
   {
+    label: "Coll'Libris",
+    subtitle: "Cartes collector",
+    icon: "cards",
+    href: "/coll-libris",
+  },
+  {
     label: "Boutique",
     subtitle: "SumUp",
     icon: "bag",
@@ -69,7 +75,7 @@ const isActive = (href: string) =>
     >
       <!-- LEFT PANEL — Navigation -->
       <div
-        class="hero-card group/hero-left relative flex min-h-[560px] flex-col justify-between overflow-hidden rounded-3xl bg-[#faf8f6] p-7 md:col-span-2 md:p-8 lg:rounded-[2rem] lg:p-9 xl:col-span-4 xl:h-full xl:min-h-0"
+        class="hero-left-card hero-card group/hero-left relative flex min-h-[560px] flex-col justify-between overflow-hidden rounded-3xl bg-[#faf8f6] p-7 md:col-span-2 md:p-8 lg:rounded-[2rem] lg:p-9 xl:col-span-4 xl:h-full xl:min-h-0"
       >
         <div class="relative z-10 flex h-full flex-col">
           <div class="flex h-full flex-col">
@@ -130,6 +136,25 @@ const isActive = (href: string) =>
                                 stroke-linejoin="round"
                               >
                                 <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H19a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1H6.5a1 1 0 0 1 0-5H20" />
+                              </svg>
+                            )}
+                            {link.icon === "cards" && (
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="19"
+                                height="19"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="1.75"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                aria-hidden="true"
+                              >
+                                <rect x="5" y="3" width="14" height="18" rx="2" />
+                                <path d="M9 7h6" />
+                                <path d="M9 17h6" />
+                                <path d="M3 7v10a2 2 0 0 0 2 2" />
                               </svg>
                             )}
                             {link.icon === "bag" && (
@@ -304,18 +329,18 @@ const isActive = (href: string) =>
                         {platform.icon === "ulule" && (
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
-                            width="14"
-                            height="14"
-                            viewBox="0 0 24 24"
+                            width="16"
+                            height="16"
+                            viewBox="0 0 170 159"
                             fill="none"
-                            stroke="currentColor"
-                            stroke-width="1.75"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
                             aria-hidden="true"
                           >
-                            <path d="M7 7v6a5 5 0 0 0 10 0V7" />
-                            <path d="M7 17h10" />
+                            <path fill="currentColor" d="M164.333 11.509c-3.632-1.846-8.259-.828-10.718 2.472a304.917 304.917 0 0 0-7.052 9.879c-.815 1.175-1.285 1.096-2.313.201-2.794-2.472-5.655-4.911-8.65-7.126C122.804 7.537 108.834 1.06 92.696.075c-5.722-.358-11.332.649-16.987 1.22C60.421 2.816 46.496 7.772 34.571 17.74c-2.067 1.734-3.755 3.67-4.303 6.41-.458 2.361 1.14 3.67 2.76 4.688 1.443.884 2.996.582 4.236-.805 8.349-9.32 18.865-14.97 30.89-17.833 13.053-3.1 26.096-3.603 38.914 1.23 10.137 3.827 19.245 9.745 28.923 14.51.514.258.928.75 1.375 1.13 3.364 2.842 6.403 6.02 9.689 9.264 1.934-5.37 5.756-9.275 8.74-13.716.994-1.5 2.078-2.931 3.151-4.385.425-.582 1.039-.84 1.777-.705.693.134.671.637.659 1.208-.201 6.064.615 12.082.95 18.113.559 9.554.414 19.141.906 28.684.637 12.262-.459 24.266-4.828 35.823-11.947 31.593-42.848 51.675-76.632 49.885-39.462-2.07-70.732-34.077-71.727-73.58-.402-16.144-.525-32.288-.782-48.834 3.308 2.853 6.191 5.594 9.578 7.652 1.352.828 3.017 2.104 4.515.772 1.509-1.342.38-3.087-.28-4.553-2.123-4.766-6.023-8.167-9.454-11.892-2.772-2.999-5.834-3.804-9.064-2.484-3.04 1.253-4.66 4.072-4.56 8.044.37 15.092.95 30.195 1.073 45.31.134 14.655 2.548 28.662 9.51 41.628.291.168.57.414.739.828 3.129 7.854 9.085 13.805 14.54 20.048 27.503 27.779 71.457 33.059 104.459 11.68 26.006-16.849 39.428-41.271 39.652-72.294.111-16.065-.135-32.153-1.677-48.162-.257-2.663-.067-5.393-.134-8.078-.078-2.752-1.497-4.62-3.889-5.84l.056.023Z" />
+                            <path fill="currentColor" d="M136.561 71.698c-.435-4.631-2.156-8.67-5.867-11.702-1.307-.985-2.57-2.07-3.956-2.92a18.177 18.177 0 0 0-5.443-2.237c.425.28.827.604 1.23.917 1.274 1.04 1.866 2.428 2.011 4.016.291 3.1-.894 5.527-3.531 7.116-1.453.883-3.107 1.23-4.772.324-.503-.325-1.218-.414-1.252-1.208-.011-.202-.235-.168-.358-.246-3.565-2.271-4.034-7.474-.916-10.326.425-.38.883-.683 1.375-.93a17.862 17.862 0 0 0-10.036 4.588c-9.086 8.312-7.734 23.449 2.66 30.072.357.212.994.134 1.028.716.1 2.327 2.168 2.584 3.632 3.468v.045c4.817 2.64 9.633 1.61 13.88-.951 7.678-4.654 11.131-11.725 10.293-20.73l.022-.012Z" />
+                            <path fill="#E40C4D" d="M112.388 93.346c7.488 2.025 13.88.068 18.798-5.817 5.174-6.187 6.258-13.269 3.554-20.876-.872-2.506-2.481-4.587-4.046-6.69 6.56 4.251 9.097 10.516 8.717 18.045-.525 10.796-9.823 19.366-19.882 18.426-2.637-.246-5.386-.638-7.141-3.088Z" />
+                            <path fill="#45AFDE" d="M45.937 91.77c4.772 1.588 9.522 1.957 14.115-.538 6.09-3.3 9.197-8.558 9.812-15.36.022-.291-.246-.705-.112-.85 3.398-4.062.615-7.407-1.207-10.875-.38-.727-.916-1.342-1.397-2.003 4.806 2.775 7.086 7.071 7.466 12.486.022.447.067 1.107-.179 1.297-1.665 1.265-1.207 3.167-1.531 4.811-2.47 12.508-15.892 18.672-26.028 11.937-.37-.235-.649-.593-.973-.906l.045-.022-.011.022Z" />
+                            <path fill="currentColor" d="M149.715 62.077c-9.186-12.944-21.558-19.544-37.696-18.135-9.7.828-18.73 3.502-25.838 10.673-1.118 1.119-1.442-.056-1.878-.481-5.878-5.717-12.919-9.487-20.664-11.87-9.712-2.965-18.797-.895-27.47 3.96C16.712 57.11 14.03 74.898 19.093 90.292c7.633 23.181 33.683 30.732 51.23 21.67H70.3c4.303-1.924 8.293-4.285 11.02-8.256.558-.817 1.564-1.857.681-2.786-.693-.716-1.676.246-2.414.638-5.007 2.73-10.393 4.352-15.937 5.415-18.104 3.434-39.93-9.185-37.572-33.73 1.318-13.795 16.406-23.35 26.24-24.177 10.695-.917 19.234 3.994 27.124 10.471 1.352 1.108 1.643 1.925.603 3.625-5.599 9.185-4.291 18.616 3.409 25.9 1.833 1.733 3.71 1.946 5.387.413 5.163-4.754 7.577-10.505 6.08-17.575-.738-3.502-2.348-6.635-4.147-9.666-1.855-3.1-2.09-3.278.872-5.482 11.544-8.592 24.285-10.472 37.561-5.09 8.103 3.277 14.63 8.972 17.613 17.564 2.739 7.887 1.364 15.853-1.709 23.292-5.957 14.488-22.352 21.223-37.495 15.976-5.063-1.756-9.242-4.855-13.534-7.887-.827-.593-1.944-1.723-2.961-.683-.839.884-.135 2.171.413 3.133 1.453 2.551 3.341 4.766 5.61 6.668 13.657 11.433 35.472 9.476 47.754-4.319 7.242-8.133 9.131-18.023 9.187-28.45.022-5.347-1.252-10.471-4.381-14.857l.011-.022Zm-62.64 19.735c-.637 1.03-1.04.94-1.744.09-3.118-3.648-3.598-10.718-1.017-14.78.57-.883.917-.85 1.386-.022.525.918 1.006 1.824 1.263 2.305h-.022c2.056 4.441 2.626 8.413.145 12.407h-.011Z" />
+                            <path fill="currentColor" d="M71.775 70.983c-.2-3.625-1.665-6.612-4.604-8.838a68.987 68.987 0 0 0-1.386-1.153 18.43 18.43 0 0 0-7.03-3.49c.123.09.235.19.358.28 1.274 1.04 1.867 2.427 2.012 4.016.29 3.088-.894 5.526-3.532 7.115-1.453.884-3.107 1.23-4.76.325-.503-.325-1.219-.403-1.252-1.209-.011-.201-.235-.179-.358-.246-3.576-2.27-4.034-7.473-.916-10.326.056-.045.111-.078.156-.123-6.873 1.432-12.874 6.668-14.495 14.454-1.408 6.769 1.162 15.506 9.947 19.981 5.163 3.48 14.003 2.014 19.412-3.692 4.247-4.497 4.56-10.415 6.448-15.752.146-.403 0-.895-.022-1.342h.022Z" />
                           </svg>
                         )}
                       </span>
@@ -589,18 +614,34 @@ const isActive = (href: string) =>
           <LatestUluleCampaign server:defer>
             <div
               slot="fallback"
-              class="hero-card group relative h-full min-h-[22rem] overflow-hidden rounded-3xl bg-[#292524] p-7 md:p-8 lg:rounded-[2rem] lg:p-9 xl:min-h-0"
+              class="hero-card group relative h-full min-h-[22rem] overflow-hidden rounded-3xl bg-[#292524] p-6 sm:p-7 md:p-8 lg:rounded-[2rem] lg:p-9 xl:min-h-0"
             >
               <div
-                class="relative z-10 grid h-full gap-7 lg:grid-cols-[minmax(0,1fr)_minmax(240px,300px)] lg:items-end"
+                class="relative z-10 grid h-full gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(220px,280px)] lg:items-center"
               >
                 <div class="space-y-5">
                   <div class="space-y-4">
-                    <span
-                      class="inline-flex rounded-full bg-white/10 px-4 py-2 font-sans text-[10px] font-semibold tracking-[0.25em] text-white/70 uppercase"
-                    >
-                      Dernière campagne Ulule
-                    </span>
+                    <div class="flex flex-wrap items-center justify-between gap-3">
+                      <a
+                        href="/galerie"
+                        aria-label="Voir la campagne sur Ulule"
+                        class="inline-flex h-11 items-center rounded-xl border border-white/10 bg-white/10 px-2.5"
+                      >
+                        <img
+                          src="/assets/logo/ulule-horizontal-white.svg"
+                          alt="Ulule"
+                          width="100"
+                          height="31"
+                          class="h-auto w-[6.25rem]"
+                        />
+                      </a>
+                      <span
+                        class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/10 px-3 py-1.5 font-sans text-[9px] font-semibold tracking-[0.18em] text-white/70 uppercase"
+                      >
+                        <span class="h-1.5 w-1.5 rounded-full bg-[#45afde]"></span>
+                        Chargement
+                      </span>
+                    </div>
                     <div class="space-y-3">
                       <h3
                         class="max-w-xl font-serif text-4xl leading-none text-white text-balance md:text-[3rem] lg:text-[3.35rem]"
@@ -614,7 +655,7 @@ const isActive = (href: string) =>
                       </p>
                     </div>
                   </div>
-                  <div class="grid gap-3 sm:grid-cols-3">
+                  <div class="grid grid-cols-3 gap-2 sm:gap-3">
                     <div
                       class="h-[5.5rem] animate-pulse rounded-2xl bg-white/[0.06]"
                     >
@@ -631,21 +672,21 @@ const isActive = (href: string) =>
                     </div>
                   </div>
                 </div>
-                <div class="relative min-h-[15rem] lg:min-h-[17rem]">
-                  <div class="absolute inset-x-0 bottom-0 flex justify-center">
+                <div class="relative flex flex-col items-center gap-3 lg:gap-4">
+                  <div
+                    class="relative z-10 rounded-full bg-white/10 px-3 py-1.5 font-sans text-[8px] font-semibold tracking-[0.18em] text-white/60 uppercase"
+                  >
+                    Chargement
+                  </div>
+                  <div class="relative z-10 flex w-full justify-center">
                     <div
-                      class="w-full max-w-[17rem] rounded-2xl bg-white/[0.06] p-4"
+                      class="w-full max-w-[14rem] rounded-2xl bg-white/[0.06] p-3.5 sm:p-4 lg:max-w-[16rem] xl:max-w-[14rem] 2xl:max-w-[17rem]"
                     >
                       <div
                         class="aspect-[4/5] w-full animate-pulse rounded-xl bg-white/[0.06]"
                       >
                       </div>
                     </div>
-                  </div>
-                  <div
-                    class="absolute top-3 left-1/2 -translate-x-1/2 rounded-full bg-white/10 px-3 py-1.5 font-sans text-[8px] font-semibold tracking-[0.18em] text-white/60 uppercase"
-                  >
-                    Chargement
                   </div>
                 </div>
               </div>
@@ -702,6 +743,43 @@ const isActive = (href: string) =>
       background-color 300ms cubic-bezier(0.16, 1, 0.3, 1),
       color 300ms cubic-bezier(0.16, 1, 0.3, 1),
       transform 300ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  @media (min-width: 1280px) and (max-height: 800px) {
+    .hero-left-card {
+      padding: 1.5rem;
+    }
+
+    .hero-left-card > div > div > div:first-child {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .hero-left-card h1 {
+      font-size: 2.5rem;
+    }
+
+    .hero-nav {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    .hero-nav-link {
+      border-radius: 0.75rem;
+      padding: 0.5rem;
+    }
+
+    .hero-nav-link > div > div:first-child {
+      width: 2.25rem;
+      height: 2.25rem;
+      border-radius: 0.625rem;
+    }
+
+    .hero-left-card > div > div > div:last-child {
+      padding-top: 0.75rem;
+    }
   }
 
   @media (hover: hover) {

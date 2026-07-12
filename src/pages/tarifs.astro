@@ -763,7 +763,7 @@ const getServiceGalleryCardWidth = (src: string) => {
 
 <script>
   const serviceGalleryTriggers = Array.from(
-    document.querySelectorAll("[data-service-gallery-trigger]")
+    document.querySelectorAll<HTMLElement>("[data-service-gallery-trigger]")
   );
 
   const serviceGalleryModal = document.getElementById("service-gallery-modal");
@@ -813,14 +813,14 @@ const getServiceGalleryCardWidth = (src: string) => {
     document.querySelectorAll("[data-service-gallery-close]")
   );
   const serviceGalleryRoots = Array.from(
-    document.querySelectorAll("[data-service-gallery-root]")
+    document.querySelectorAll<HTMLElement>("[data-service-gallery-root]")
   );
   const serviceGalleryScrollers = Array.from(
-    document.querySelectorAll("[data-service-gallery-scroller]")
+    document.querySelectorAll<HTMLElement>("[data-service-gallery-scroller]")
   );
 
   let currentServiceGalleryIndex = -1;
-  let lastServiceGalleryTrigger = null;
+  let lastServiceGalleryTrigger: HTMLElement | null = null;
 
   const updateServiceGalleryNavigation = () => {
     const hasItems = serviceGalleryTriggers.length > 1;
@@ -834,7 +834,7 @@ const getServiceGalleryCardWidth = (src: string) => {
     }
   };
 
-  const renderServiceGalleryModal = (index) => {
+  const renderServiceGalleryModal = (index: number) => {
     const trigger = serviceGalleryTriggers[index];
 
     if (
@@ -880,7 +880,7 @@ const getServiceGalleryCardWidth = (src: string) => {
     updateServiceGalleryNavigation();
   };
 
-  const openServiceGalleryModal = (index) => {
+  const openServiceGalleryModal = (index: number) => {
     if (!serviceGalleryModal || index < 0 || index >= serviceGalleryTriggers.length) {
       return;
     }
@@ -919,7 +919,7 @@ const getServiceGalleryCardWidth = (src: string) => {
     }
   };
 
-  const moveServiceGallery = (direction) => {
+  const moveServiceGallery = (direction: number) => {
     if (!serviceGalleryTriggers.length) {
       return;
     }
@@ -969,7 +969,10 @@ const getServiceGalleryCardWidth = (src: string) => {
     }
   });
 
-  const syncServiceGalleryScrollbar = (scroller, thumb) => {
+  const syncServiceGalleryScrollbar = (
+    scroller: HTMLElement,
+    thumb: HTMLElement
+  ) => {
     const maxScroll = scroller.scrollWidth - scroller.clientWidth;
 
     if (maxScroll <= 0) {

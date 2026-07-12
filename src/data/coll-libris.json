@@ -1,0 +1,18 @@
+﻿{
+  "featuredCardId": "carte-02",
+  "previewWarning": "L’effet présenté sur la carte est une prévisualisation et ne correspond pas exactement à l’effet final proposé.",
+  "cards": [
+    {
+      "id": "carte-fortune",
+      "number": "01",
+      "title": "Renard & Fortune",
+      "viewerUrl": "https://app.printicards.fr/viewer/69203w28wba65l1",
+      "metadata": [
+        { "label": "Nom du livre", "value": "Cœur de Renard 2", "url": "/livres/coeur-de-renard-tome-2" },
+        { "label": "Autrice", "value": "Vanya Stolarski", "url": "/" },
+        { "label": "Effets holo", "value": "Painted brush", "url": null },
+        { "label": "Illustratrice", "value": "purplishartz", "url": "https://www.instagram.com/purplishartz/" }
+      ]
+    }
+  ]
+}

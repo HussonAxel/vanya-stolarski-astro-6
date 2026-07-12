@@ -13,6 +13,18 @@
         { "label": "Effets holo", "value": "Painted brush", "url": null },
         { "label": "Illustratrice", "value": "purplishartz", "url": "https://www.instagram.com/purplishartz/" }
       ]
+    },
+    {
+      "id": "carte-02",
+      "number": "02",
+      "title": "Rêve & Elfur",
+      "viewerUrl": "https://app.printicards.fr/viewer/38k1cuyn01s975u",
+      "metadata": [
+        { "label": "Nom du livre", "value": "La dévoration des légendes", "url": "https://fr.ulule.com/la-ferveur-des-legendes---cosy-romantasy-x-harem-inverse-/coming-soon/" },
+        { "label": "Autrice", "value": "Aylin Silver", "url": "https://www.instagram.com/aylin.silver/?hl=fr" },
+        { "label": "Effets holo", "value": "Etoilés", "url": null },
+        { "label": "Sortie", "value": "NA", "url": null }
+      ]
     }
   ]
 }

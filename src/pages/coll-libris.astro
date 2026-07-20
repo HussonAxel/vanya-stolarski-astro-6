@@ -76,11 +76,11 @@ const collectionMetadataCellClasses = [
 
         <div class="viewer-shell relative mx-auto w-full">
           <div class="absolute inset-x-[12%] bottom-0 h-16 rounded-full bg-black/60 blur-3xl"></div>
-          <div class="viewer-frame relative overflow-hidden rounded-[2rem] border border-white/12 bg-[#15151d] shadow-[0_45px_120px_-45px_rgba(0,0,0,0.88)]">
+          <div class="viewer-frame relative overflow-hidden rounded-[2rem] border border-white/12 bg-[#15151d] shadow-[0_45px_120px_-45px_rgba(0,0,0,0.88)]" data-viewer-kind="featured">
             <iframe
               src={viewerUrl}
               title="Carte interactive Printicards - Coll'Libris"
-              class="coll-libris-viewer block w-full border-0"
+              class="coll-libris-viewer block border-0"
               loading="eager"
               allow="fullscreen; autoplay"
               {...iframeDisplayAttributes}
@@ -102,11 +102,11 @@ const collectionMetadataCellClasses = [
             <article id={card.id} class="min-w-0">
               <div class="collection-viewer-shell relative w-full">
                 <div class="absolute inset-x-[14%] bottom-0 h-10 rounded-full bg-[#3d3834]/18 blur-2xl"></div>
-                <div class="viewer-frame collection-viewer-frame relative overflow-hidden rounded-[1.5rem] border border-[#3d3834]/12 bg-[#15151d] shadow-[0_24px_70px_-38px_rgba(61,56,52,0.48)]">
+                <div class="viewer-frame collection-viewer-frame relative overflow-hidden rounded-[1.5rem] border border-[#3d3834]/12 bg-[#15151d] shadow-[0_24px_70px_-38px_rgba(61,56,52,0.48)]" data-viewer-kind="collection">
                   <iframe
                     src={card.viewerUrl}
                     title={"Carte interactive " + card.title}
-                    class="coll-libris-viewer collection-card-viewer block w-full border-0"
+                    class="coll-libris-viewer collection-card-viewer block border-0"
                     loading="lazy"
                     allow="fullscreen; autoplay"
                     {...iframeDisplayAttributes}
@@ -160,6 +160,45 @@ const collectionMetadataCellClasses = [
     </section>
   </main>
 </Layout>
+
+<script>
+  const PRINTICARDS_VIEWPORT = {
+    width: 1023,
+    cropTop: 80,
+    visibleHeight: 800,
+  };
+
+  const initialisePrinticardsViewers = () => {
+    document.querySelectorAll<HTMLElement>(".viewer-frame").forEach((frame) => {
+      const viewer = frame.querySelector<HTMLIFrameElement>(".coll-libris-viewer");
+      if (!viewer) return;
+
+      const frameWidth = frame.parentElement?.clientWidth ?? frame.clientWidth;
+      const isCollectionCard = frame.dataset.viewerKind === "collection";
+      const cropWidth = isCollectionCard ? 650 : 760;
+      const widthScale = frameWidth / cropWidth;
+      const viewerScale = isCollectionCard
+        ? widthScale
+        : Math.min(widthScale, (window.innerHeight * 0.72) / PRINTICARDS_VIEWPORT.visibleHeight);
+      const renderedWidth = PRINTICARDS_VIEWPORT.width * viewerScale;
+
+      frame.style.height = `${PRINTICARDS_VIEWPORT.visibleHeight * viewerScale}px`;
+      viewer.style.top = `-${PRINTICARDS_VIEWPORT.cropTop * viewerScale}px`;
+      viewer.style.left = `${(frameWidth - renderedWidth) / 2}px`;
+      viewer.style.transform = `scale(${viewerScale})`;
+    });
+  };
+
+  let resizeRequest = 0;
+  const scheduleViewerResize = () => {
+    cancelAnimationFrame(resizeRequest);
+    resizeRequest = requestAnimationFrame(initialisePrinticardsViewers);
+  };
+
+  scheduleViewerResize();
+  window.addEventListener("resize", scheduleViewerResize, { passive: true });
+  document.addEventListener("astro:page-load", scheduleViewerResize);
+</script>
 
 <style>
   .coll-libris-hero {
@@ -221,16 +260,13 @@ const collectionMetadataCellClasses = [
     max-width: 28rem;
   }
 
-  .viewer-frame.collection-viewer-frame {
-    height: 20rem;
-  }
-
-  .coll-libris-viewer.collection-card-viewer {
-    height: 36rem;
-  }
-
   .coll-libris-viewer {
-    height: calc(clamp(34rem, 72vh, 48rem) + 10rem);
+    position: absolute;
+    top: 0;
+    width: 1023px;
+    height: 1120px;
+    max-width: none;
+    transform-origin: top left;
     color-scheme: dark;
     overflow: hidden;
     scrollbar-width: none;
@@ -238,38 +274,19 @@ const collectionMetadataCellClasses = [
 
   .viewer-frame {
     isolation: isolate;
-    height: clamp(34rem, 72vh, 48rem);
+    height: min(72vh, 48rem);
     overflow: hidden;
   }
 
-  .viewer-frame::after {
-    position: absolute;
-    z-index: 3;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    width: 14px;
-    content: "";
-    background: #15151d;
-    pointer-events: none;
+  .viewer-frame.collection-viewer-frame {
+    aspect-ratio: 650 / 800;
+    height: auto;
   }
 
 
   @media (max-width: 639px) {
-    .viewer-frame {
-      height: 34rem;
-    }
-
-    .coll-libris-viewer {
-      height: 44rem;
-    }
-
-    .viewer-frame.collection-viewer-frame {
-      height: 28rem;
-    }
-
-    .coll-libris-viewer.collection-card-viewer {
-      height: 40rem;
+    .collection-viewer-shell {
+      max-width: 24rem;
     }
   }
 
@@ -278,21 +295,6 @@ const collectionMetadataCellClasses = [
       max-width: 46rem;
     }
 
-    .viewer-frame {
-      height: 34rem;
-    }
-
-    .coll-libris-viewer {
-      height: 44rem;
-    }
-
-    .collection-viewer-frame {
-      height: 30rem;
-    }
-
-    .collection-card-viewer {
-      height: 40rem;
-    }
   }
 
   @media (prefers-reduced-motion: reduce) {

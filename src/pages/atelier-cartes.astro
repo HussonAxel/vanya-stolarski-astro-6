@@ -1,0 +1,1880 @@
+---
+import "../styles/global.css";
+
+type Cover = {
+  id: string;
+  title: string;
+  edition: string;
+  src: string;
+  profile?: string;
+  effect?: string;
+};
+
+const covers: Cover[] = [
+  
+  {
+    id: "aube-musique",
+    title: "Aube · Variation musicale",
+    edition: "Filtre Holographique",
+    src: "/assets/card-tests/collibris/aube-musique.png",
+    effect: "holo",
+  },
+  {
+    id: "aube-couverture",
+    title: "Aube · Première couverture",
+    edition: "Filtre Satin",
+    src: "/assets/card-tests/collibris/aube-premiere-couverture.png",
+    effect: "satin",
+  },
+  {
+    id: "pumpkin-space",
+    title: "Pumpkin Space",
+    edition: "Filtre Prismatique",
+    src: "/assets/card-tests/collibris/pumpkin-space.png",
+    effect: "prism",
+  },
+  {
+    id: "phenix-003",
+    title: "Le Phénix d’espoir",
+    edition: "Filtre Projecteur",
+    src: "/assets/card-tests/collibris/phenix-003.png",
+    effect: "spot",
+  },
+  {
+    id: "coeur-renard-mockup",
+    title: "Cœur de Renard · Renard et Fortune",
+    edition: "Filtre Holographique",
+    src: "/assets/card-tests/collibris/coeur-de-renard-mockup-2.png",
+    effect: "holo",
+  },
+  {
+    id: "pokebox-199",
+    title: "Charizard ex #199",
+    edition: "Référence Pokebox · SIR",
+    src: "/assets/card-tests/pokebox-sv3-5-199/front.webp",
+    profile: "pokebox-sir",
+  },
+];
+
+const effects = [
+  { id: "satin", label: "Satin", description: "Lumière douce" },
+  { id: "holo", label: "Holographique", description: "Foil irisé" },
+  { id: "prism", label: "Prismatique", description: "Spectre net" },
+  { id: "spot", label: "Projecteur", description: "Reflet ciblé" },
+  { id: "beui-mesh", label: "Mesh", description: "beUI · Gradient fluide" },
+  { id: "beui-mesh-aurora", label: "Mesh — Aurora", description: "beUI · Vert & ultraviolet" },
+  { id: "beui-warp", label: "Warp", description: "beUI · Rubans fluides" },
+  { id: "beui-voronoi", label: "Voronoï", description: "beUI · Cristaux mobiles" },
+  { id: "beui-orbit", label: "Dot Orbit", description: "beUI · Micro-reflets orbitaux" },
+  { id: "beui-rays", label: "God Rays", description: "beUI · Rayons polaires" },
+  { id: "pokebox-sir", label: "Pokebox SIR", description: "Effet SIR original" },
+];
+
+const positions: Array<[string, string, number, number]> = [
+  ["top-left", "Haut gauche", 0.2, 0.8],
+  ["top", "Haut", 0.5, 0.8],
+  ["top-right", "Haut droite", 0.8, 0.8],
+  ["left", "Gauche", 0.2, 0.5],
+  ["center", "Centre", 0.5, 0.5],
+  ["right", "Droite", 0.8, 0.5],
+  ["bottom-left", "Bas gauche", 0.2, 0.2],
+  ["bottom", "Bas", 0.5, 0.2],
+  ["bottom-right", "Bas droite", 0.8, 0.2],
+];
+---
+
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content={Astro.generator} />
+    <meta
+      name="description"
+      content="Atelier interactif Three.js pour tester les matières et effets des cartes de Vanya Stolarski."
+    />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png?v=lune-3" />
+    <title>Atelier cartes 3D - Vanya Stolarski</title>
+  </head>
+  <body class="card-lab-body">
+    <main class="card-lab-shell">
+      <header class="lab-header">
+        <a class="brand-link" href="/livres" aria-label="Retour aux livres">
+          <span class="brand-monogram">VS</span>
+          <span>
+            <strong>Vanya Stolarski</strong>
+            <small>Atelier de cartes 3D</small>
+          </span>
+        </a>
+        <a class="exit-link" href="/livres">
+          <span aria-hidden="true">←</span>
+          Retour aux livres
+        </a>
+      </header>
+
+      <section class="lab-intro" aria-labelledby="lab-title">
+        <p class="eyebrow">Laboratoire de matière</p>
+        <h1 id="lab-title">Composez la lumière.<br />Révélez la couverture.</h1>
+        <p class="intro-copy">
+          Déplacez la carte, choisissez un effet et placez son point de lumière.
+          Chaque réglage agit directement sur la scène Three.js.
+        </p>
+      </section>
+
+      <section class="lab-workspace" aria-label="Configurateur de carte 3D">
+        <div class="stage-column">
+          <div class="stage" id="card-stage">
+            <canvas id="card-canvas" aria-label="Aperçu interactif de la carte en trois dimensions"></canvas>
+
+            <div class="stage-topline" aria-live="polite">
+              <span>
+                <strong id="stage-book-title">{covers[0].title}</strong>
+                <small id="stage-book-edition">{covers[0].edition}</small>
+              </span>
+              <span class="render-state" id="render-state">Préparation de la matière</span>
+            </div>
+
+            <div class="stage-help">
+              <span>Pointez pour incliner</span>
+              <span id="stage-effect-label">Holographique</span>
+            </div>
+
+            <div class="stage-error" id="stage-error" role="alert" hidden>
+              WebGL n’a pas pu démarrer. Essayez un navigateur récent ou désactivez le mode économie d’énergie.
+            </div>
+          </div>
+
+          <div class="cover-switcher" aria-label="Choisir une couverture">
+            {
+              covers.map((cover, index) => (
+                <button
+                  type="button"
+                  class="cover-option"
+                  data-cover-src={cover.src}
+                  data-cover-profile={cover.profile ?? "book"}
+                  data-cover-effect={cover.effect}
+                  data-cover-title={cover.title}
+                  data-cover-edition={cover.edition}
+                  aria-pressed={index === 0 ? "true" : "false"}
+                >
+                  <img src={cover.src} alt="" loading={index === 0 ? "eager" : "lazy"} />
+                  <span>
+                    <strong>{cover.title}</strong>
+                    <small>{cover.edition}</small>
+                  </span>
+                </button>
+              ))
+            }
+          </div>
+        </div>
+
+        <aside class="control-panel" aria-label="Réglages des effets">
+          <div class="panel-heading">
+            <div>
+              <p>Réglages</p>
+              <h2>Matière active</h2>
+            </div>
+            <button type="button" class="reset-button" id="reset-controls">Réinitialiser</button>
+          </div>
+
+          <fieldset class="control-group">
+            <legend>Effet</legend>
+            <div class="effect-grid">
+              {
+                effects.map((effect) => (
+                  <button
+                    type="button"
+                    class="effect-option"
+                    data-effect={effect.id}
+                    aria-pressed={effect.id === "holo" ? "true" : "false"}
+                  >
+                    <span class={`effect-swatch effect-swatch--${effect.id}`} aria-hidden="true"></span>
+                    <span>
+                      <strong>{effect.label}</strong>
+                      <small>{effect.description}</small>
+                    </span>
+                  </button>
+                ))
+              }
+            </div>
+          </fieldset>
+
+          <fieldset class="control-group">
+            <legend>Position du reflet</legend>
+            <div class="position-control">
+              <div class="position-grid" aria-label="Placer le point de lumière">
+                {
+                  positions.map(([id, label, x, y]) => (
+                    <button
+                      type="button"
+                      class="position-option"
+                      data-position={id}
+                      data-x={x}
+                      data-y={y}
+                      aria-label={label}
+                      aria-pressed={id === "center" ? "true" : "false"}
+                    >
+                      <span></span>
+                    </button>
+                  ))
+                }
+              </div>
+              <p>
+                Sélectionnez une zone fixe, ou activez le suivi pour déplacer le reflet avec le pointeur.
+              </p>
+            </div>
+          </fieldset>
+
+          <fieldset class="control-group slider-group">
+            <legend>Propriétés</legend>
+
+            <label class="range-control">
+              <span>Intensité <output id="intensity-output">72%</output></span>
+              <input id="intensity" type="range" min="0" max="100" value="72" />
+            </label>
+
+            <label class="range-control">
+              <span>Inclinaison <output id="tilt-output">14°</output></span>
+              <input id="tilt" type="range" min="0" max="24" value="14" />
+            </label>
+
+            <label class="range-control">
+              <span>Épaisseur <output id="depth-output">18%</output></span>
+              <input id="depth" type="range" min="4" max="36" value="18" />
+            </label>
+
+            <label class="range-control">
+              <span>Diffusion <output id="softness-output">46%</output></span>
+              <input id="softness" type="range" min="0" max="100" value="46" />
+            </label>
+          </fieldset>
+
+          <fieldset class="control-group">
+            <legend>Mouvement</legend>
+            <div class="toggle-list">
+              <label class="toggle-row">
+                <span><strong>Suivi du pointeur</strong><small>Le reflet suit la surface</small></span>
+                <input id="pointer-follow" type="checkbox" checked />
+                <i aria-hidden="true"></i>
+              </label>
+              <label class="toggle-row">
+                <span><strong>Flottement</strong><small>Respiration lente de la carte</small></span>
+                <input id="float-motion" type="checkbox" checked />
+                <i aria-hidden="true"></i>
+              </label>
+              <label class="toggle-row">
+                <span><strong>Rotation lente</strong><small>Inspection automatique du volume</small></span>
+                <input id="auto-rotate" type="checkbox" />
+                <i aria-hidden="true"></i>
+              </label>
+              <label class="toggle-row">
+                <span><strong>Ombre portée</strong><small>Ancre la carte dans la scène</small></span>
+                <input id="cast-shadow" type="checkbox" checked />
+                <i aria-hidden="true"></i>
+              </label>
+            </div>
+          </fieldset>
+
+          <div class="preset-row" aria-label="Préréglages">
+            <span>Préréglages</span>
+            <div>
+              <button type="button" data-preset="velvet">Velours</button>
+              <button type="button" data-preset="chrome">Chrome</button>
+              <button type="button" data-preset="spectrum">Spectre</button>
+            </div>
+          </div>
+        </aside>
+      </section>
+    </main>
+
+    <script>
+      import * as THREE from "three";
+      import { RoomEnvironment } from "three/examples/jsm/environments/RoomEnvironment.js";
+      import { createBookFoilMaterial, setBookFoilPointer } from "../lib/card-effects/bookFoilMaterial";
+      import { createAutoFoilMask, createProceduralEffectTextures } from "../lib/card-effects/effectTextures";
+      import {
+        createPokeboxSpecialIllustrationMaterial,
+        setPokeboxSpecialIllustrationPointer,
+      } from "../lib/card-effects/pokeboxSpecialIllustrationMaterial";
+
+      const canvas = document.querySelector("#card-canvas");
+      const stage = document.querySelector("#card-stage");
+      const renderState = document.querySelector("#render-state");
+      const errorState = document.querySelector("#stage-error");
+
+      if (!(canvas instanceof HTMLCanvasElement) || !(stage instanceof HTMLElement)) {
+        throw new Error("La scène 3D est introuvable.");
+      }
+
+      const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      let renderer: THREE.WebGLRenderer;
+
+      try {
+        renderer = new THREE.WebGLRenderer({
+          canvas,
+          antialias: true,
+          alpha: true,
+          powerPreference: "high-performance",
+        });
+      } catch (error) {
+        if (errorState instanceof HTMLElement) errorState.hidden = false;
+        if (renderState instanceof HTMLElement) renderState.textContent = "WebGL indisponible";
+        throw error;
+      }
+
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      renderer.outputColorSpace = THREE.SRGBColorSpace;
+      renderer.toneMapping = THREE.ACESFilmicToneMapping;
+      renderer.toneMappingExposure = 1.08;
+      renderer.shadowMap.enabled = true;
+      renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+
+      const scene = new THREE.Scene();
+      const pmremGenerator = new THREE.PMREMGenerator(renderer);
+      const roomEnvironment = new RoomEnvironment();
+      const environmentRenderTarget = pmremGenerator.fromScene(roomEnvironment, 0.04);
+      scene.environment = environmentRenderTarget.texture;
+      roomEnvironment.dispose();
+      pmremGenerator.dispose();
+      const camera = new THREE.PerspectiveCamera(31, 1, 0.1, 100);
+      camera.position.set(0, 0.1, 9.3);
+
+      const cardRoot = new THREE.Group();
+      const cardFloat = new THREE.Group();
+      cardRoot.add(cardFloat);
+      scene.add(cardRoot);
+
+      const roundedRectShape = (width: number, height: number, radius: number) => {
+        const x = -width / 2;
+        const y = -height / 2;
+        const shape = new THREE.Shape();
+        shape.moveTo(x + radius, y);
+        shape.lineTo(x + width - radius, y);
+        shape.quadraticCurveTo(x + width, y, x + width, y + radius);
+        shape.lineTo(x + width, y + height - radius);
+        shape.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
+        shape.lineTo(x + radius, y + height);
+        shape.quadraticCurveTo(x, y + height, x, y + height - radius);
+        shape.lineTo(x, y + radius);
+        shape.quadraticCurveTo(x, y, x + radius, y);
+        return shape;
+      };
+
+      const cardShape = roundedRectShape(3.04, 4.58, 0.13);
+      const volumeGeometry = new THREE.ExtrudeGeometry(cardShape, {
+        depth: 0.18,
+        steps: 1,
+        bevelEnabled: true,
+        bevelThickness: 0.045,
+        bevelSize: 0.045,
+        bevelSegments: 5,
+        curveSegments: 14,
+      });
+      volumeGeometry.center();
+
+      const edgeMaterial = new THREE.MeshPhysicalMaterial({
+        color: 0x191b19,
+        metalness: 0.18,
+        roughness: 0.34,
+        clearcoat: 0.85,
+        clearcoatRoughness: 0.2,
+      });
+      const volume = new THREE.Mesh(volumeGeometry, edgeMaterial);
+      volume.castShadow = true;
+      volume.receiveShadow = true;
+      cardFloat.add(volume);
+
+      const effectTextures = createProceduralEffectTextures();
+      const { material: coverMaterial, uniforms: coverUniforms } = createBookFoilMaterial({
+        mask: effectTextures.neutralMask,
+        foil: effectTextures.foil,
+        glitter: effectTextures.glitter,
+      });
+
+      const coverGeometry = new THREE.PlaneGeometry(3.03, 4.57, 1, 1);
+      const coverMesh = new THREE.Mesh(coverGeometry, coverMaterial);
+      coverMesh.position.z = 0.137;
+      coverMesh.castShadow = true;
+      cardFloat.add(coverMesh);
+
+      const backMaterial = new THREE.MeshPhysicalMaterial({
+        color: 0x20231f,
+        roughness: 0.58,
+        metalness: 0.04,
+        clearcoat: 0.38,
+      });
+      const backMesh = new THREE.Mesh(coverGeometry, backMaterial);
+      backMesh.position.z = -0.137;
+      backMesh.rotation.y = Math.PI;
+      cardFloat.add(backMesh);
+
+      const floorMaterial = new THREE.ShadowMaterial({ color: 0x07100c, opacity: 0.27 });
+      const floor = new THREE.Mesh(new THREE.PlaneGeometry(16, 12), floorMaterial);
+      floor.position.set(0, -2.57, -0.5);
+      floor.rotation.x = -Math.PI / 2;
+      floor.receiveShadow = true;
+      scene.add(floor);
+
+      scene.add(new THREE.HemisphereLight(0xdce8df, 0x151714, 1.7));
+      const keyLight = new THREE.SpotLight(0xfff5dc, 55, 20, Math.PI / 5, 0.65, 1.6);
+      keyLight.position.set(3.8, 4.7, 6.5);
+      keyLight.castShadow = true;
+      keyLight.shadow.mapSize.set(1024, 1024);
+      keyLight.shadow.bias = -0.0006;
+      scene.add(keyLight);
+      scene.add(keyLight.target);
+
+      const rimLight = new THREE.DirectionalLight(0x759486, 2.4);
+      rimLight.position.set(-4, 1, 2);
+      scene.add(rimLight);
+
+      const textureLoader = new THREE.TextureLoader();
+      const loadedTextures = new Map<string, THREE.Texture>();
+      const loadedMasks = new Map<string, THREE.Texture>();
+
+      const loadCover = async (src: string): Promise<THREE.Texture> => {
+        const cachedTexture = loadedTextures.get(src);
+        if (cachedTexture) return cachedTexture;
+        const texture = await textureLoader.loadAsync(src);
+        texture.colorSpace = THREE.SRGBColorSpace;
+        texture.anisotropy = Math.min(renderer.capabilities.getMaxAnisotropy(), 8);
+        texture.minFilter = THREE.LinearMipmapLinearFilter;
+        texture.magFilter = THREE.LinearFilter;
+        loadedTextures.set(src, texture);
+        return texture;
+      };
+
+      const pokeboxReferencePaths = {
+        front: "/assets/card-tests/pokebox-sv3-5-199/front.webp",
+        mask: "/assets/card-tests/pokebox-sv3-5-199/mask.webp",
+        foil: "/assets/card-tests/pokebox-sv3-5-199/etch.webp",
+        iri1: "/assets/card-tests/pokebox-sv3-5-199/iri-1.webp",
+        iri2: "/assets/card-tests/pokebox-sv3-5-199/iri-2.webp",
+        iri7: "/assets/card-tests/pokebox-sv3-5-199/iri-7.webp",
+        iri8: "/assets/card-tests/pokebox-sv3-5-199/iri-8.webp",
+        iri9: "/assets/card-tests/pokebox-sv3-5-199/iri-9.webp",
+      } as const;
+      const pokeboxReferenceTextures = new Map<string, THREE.Texture>();
+      let pokeboxSirMaterial: THREE.ShaderMaterial | null = null;
+      let pokeboxSirUniforms: ReturnType<typeof createPokeboxSpecialIllustrationMaterial>["uniforms"] | null = null;
+      let currentCoverProfile = "book";
+      let currentEffect = "holo";
+      let currentCardTexture: THREE.Texture | null = null;
+      let currentCardMask: THREE.Texture | null = null;
+
+      const loadPokeboxReferenceTexture = async (src: string, colorSpace: THREE.ColorSpace = THREE.NoColorSpace) => {
+        const cachedTexture = pokeboxReferenceTextures.get(src);
+        if (cachedTexture) return cachedTexture;
+        const texture = await textureLoader.loadAsync(src);
+        texture.colorSpace = colorSpace;
+        texture.minFilter = THREE.LinearMipmapLinearFilter;
+        texture.magFilter = THREE.LinearFilter;
+        texture.anisotropy = renderer.capabilities.getMaxAnisotropy();
+        pokeboxReferenceTextures.set(src, texture);
+        return texture;
+      };
+
+      const loadPokeboxReference = async () => {
+        const [front, mask, foil, iri1, iri2, iri7, iri8, iri9] = await Promise.all([
+          loadPokeboxReferenceTexture(pokeboxReferencePaths.front, THREE.SRGBColorSpace),
+          loadPokeboxReferenceTexture(pokeboxReferencePaths.mask),
+          loadPokeboxReferenceTexture(pokeboxReferencePaths.foil),
+          loadPokeboxReferenceTexture(pokeboxReferencePaths.iri1),
+          loadPokeboxReferenceTexture(pokeboxReferencePaths.iri2),
+          loadPokeboxReferenceTexture(pokeboxReferencePaths.iri7),
+          loadPokeboxReferenceTexture(pokeboxReferencePaths.iri8),
+          loadPokeboxReferenceTexture(pokeboxReferencePaths.iri9),
+        ]);
+
+        if (!pokeboxSirMaterial || !pokeboxSirUniforms) {
+          const referenceMaterial = createPokeboxSpecialIllustrationMaterial({
+            mask,
+            foil,
+            iri1,
+            iri2,
+            iri7,
+            iri8,
+            iri9,
+          });
+          pokeboxSirMaterial = referenceMaterial.material;
+          pokeboxSirUniforms = referenceMaterial.uniforms;
+        }
+
+        return { front, mask };
+      };
+
+      const applyPokeboxEffectToCurrentCard = async () => {
+        await loadPokeboxReference();
+        if (!pokeboxSirMaterial || !pokeboxSirUniforms || !currentCardTexture || !currentCardMask) {
+          throw new Error("La matière Pokebox ou la carte active ne sont pas prêtes.");
+        }
+
+        pokeboxSirUniforms.uCardTex.value = currentCardTexture;
+        pokeboxSirUniforms.uCardBackTex.value = currentCardTexture;
+        pokeboxSirUniforms.uMaskTex.value = currentCardMask;
+        pokeboxSirUniforms.uHasFoil.value = currentCoverProfile === "pokebox-sir" ? 1 : 0;
+        coverMesh.material = pokeboxSirMaterial;
+      };
+
+      const setCover = async (src: string, profile = "book") => {
+        if (renderState instanceof HTMLElement) renderState.textContent = "Chargement de la matière";
+        stage.classList.add("is-loading");
+        currentCoverProfile = profile;
+        try {
+          if (profile === "pokebox-sir") {
+            const reference = await loadPokeboxReference();
+            currentCardTexture = reference.front;
+            currentCardMask = reference.mask;
+            coverUniforms.uMap.value = reference.front;
+            coverUniforms.uMask.value = reference.mask;
+            await applyPokeboxEffectToCurrentCard();
+          } else {
+            const texture = await loadCover(src);
+            let mask = loadedMasks.get(src);
+            if (!mask) {
+              mask = await createAutoFoilMask(texture);
+              mask.anisotropy = Math.min(renderer.capabilities.getMaxAnisotropy(), 4);
+              loadedMasks.set(src, mask);
+            }
+            currentCardTexture = texture;
+            currentCardMask = mask;
+            coverUniforms.uMap.value = texture;
+            coverUniforms.uMask.value = mask;
+            coverMesh.material = coverMaterial;
+          }
+          coverMaterial.needsUpdate = true;
+          if (renderState instanceof HTMLElement) {
+            renderState.textContent = profile === "pokebox-sir" ? "Référence Pokebox active" : "Rendu en temps réel";
+          }
+          stage.classList.remove("is-loading");
+        } catch (error) {
+          if (renderState instanceof HTMLElement) renderState.textContent = "Texture indisponible";
+          if (errorState instanceof HTMLElement) {
+            errorState.textContent = "La couverture n’a pas pu être chargée. Choisissez une autre carte.";
+            errorState.hidden = false;
+          }
+          console.error(error);
+        }
+      };
+      const state = {
+        tilt: 14,
+        depth: 18,
+        intensity: 72,
+        softness: 46,
+        pointerFollow: true,
+        floatMotion: true,
+        autoRotate: false,
+        castShadow: true,
+        targetRotationX: 0,
+        targetRotationY: 0,
+        pointerInside: false,
+      };
+
+      const modeMap: Record<string, number> = {
+        satin: 0,
+        holo: 1,
+        prism: 2,
+        spot: 3,
+        "beui-warp": 4,
+        "beui-voronoi": 5,
+        "beui-orbit": 6,
+        "beui-rays": 7,
+        "beui-mesh": 8,
+        "beui-mesh-aurora": 9,
+      };
+      const modeLabels: Record<string, string> = {
+        satin: "Satin",
+        holo: "Holographique",
+        prism: "Prismatique",
+        spot: "Projecteur",
+        "beui-mesh": "beUI · Mesh",
+        "beui-mesh-aurora": "beUI · Mesh — Aurora",
+        "beui-warp": "beUI · Warp",
+        "beui-voronoi": "beUI · Voronoï",
+        "beui-orbit": "beUI · Dot Orbit",
+        "beui-rays": "beUI · God Rays",
+        "pokebox-sir": "Pokebox · Special Illustration Rare",
+      };
+      const raycaster = new THREE.Raycaster();
+      const pointer = new THREE.Vector2();
+      const animationStartedAt = performance.now();
+      let previousFrameAt = animationStartedAt;
+      let animationFrame = 0;
+      let isDisposed = false;
+
+      const resize = () => {
+        const rect = stage.getBoundingClientRect();
+        const width = Math.max(1, rect.width);
+        const height = Math.max(1, rect.height);
+        renderer.setSize(width, height, false);
+        camera.aspect = width / height;
+        camera.updateProjectionMatrix();
+      };
+
+      const resizeObserver = new ResizeObserver(resize);
+      resizeObserver.observe(stage);
+      resize();
+
+      const updatePointer = (event: PointerEvent) => {
+        const rect = canvas.getBoundingClientRect();
+        const localX = (event.clientX - rect.left) / rect.width;
+        const localY = (event.clientY - rect.top) / rect.height;
+        pointer.x = localX * 2 - 1;
+        pointer.y = -(localY * 2 - 1);
+        state.pointerInside = true;
+
+        if (!reduceMotion) {
+          const maxTilt = THREE.MathUtils.degToRad(state.tilt);
+          state.targetRotationY = (localX - 0.5) * maxTilt * 1.6;
+          state.targetRotationX = (0.5 - localY) * maxTilt;
+        }
+
+        raycaster.setFromCamera(pointer, camera);
+        const hit = raycaster.intersectObject(coverMesh, false)[0];
+        if (hit?.uv && state.pointerFollow) {
+          coverUniforms.uPointer.value.lerp(hit.uv, 0.42);
+          setBookFoilPointer(coverUniforms, coverUniforms.uPointer.value);
+          if (pokeboxSirUniforms) {
+            pokeboxSirUniforms.uPointer.value.lerp(hit.uv, 0.42);
+            setPokeboxSpecialIllustrationPointer(pokeboxSirUniforms, pokeboxSirUniforms.uPointer.value);
+          }
+          keyLight.position.x = THREE.MathUtils.lerp(-4.2, 4.2, hit.uv.x);
+          keyLight.position.y = THREE.MathUtils.lerp(-3.5, 5.2, hit.uv.y);
+        }
+      };
+
+      const leavePointer = () => {
+        state.pointerInside = false;
+        state.targetRotationX = 0;
+        state.targetRotationY = 0;
+      };
+
+      canvas.addEventListener("pointermove", updatePointer);
+      canvas.addEventListener("pointerleave", leavePointer);
+      canvas.addEventListener("pointercancel", leavePointer);
+
+      const setPressed = (selector: string, current: HTMLButtonElement) => {
+        document.querySelectorAll(selector).forEach((element) => {
+          if (element instanceof HTMLButtonElement) element.setAttribute("aria-pressed", String(element === current));
+        });
+      };
+
+      document.querySelectorAll(".cover-option").forEach((button) => {
+        button.addEventListener("click", async () => {
+          if (!(button instanceof HTMLButtonElement)) return;
+          setPressed(".cover-option", button);
+          const src = button.dataset.coverSrc;
+          const profile = button.dataset.coverProfile ?? "book";
+          const defaultEffect = button.dataset.coverEffect;
+          if (src) await setCover(src, profile);
+          if (profile === "pokebox-sir") {
+            setRangeValue("intensity", 82);
+            chooseEffect("pokebox-sir");
+          } else if (defaultEffect) {
+            chooseEffect(defaultEffect);
+          } else if (currentEffect === "pokebox-sir") {
+            chooseEffect("holo");
+          }
+          const title = document.querySelector("#stage-book-title");
+          const edition = document.querySelector("#stage-book-edition");
+          if (title instanceof HTMLElement) title.textContent = button.dataset.coverTitle ?? "";
+          if (edition instanceof HTMLElement) edition.textContent = button.dataset.coverEdition ?? "";
+        });
+      });
+
+      document.querySelectorAll(".effect-option").forEach((button) => {
+        button.addEventListener("click", async () => {
+          if (!(button instanceof HTMLButtonElement)) return;
+          const effect = button.dataset.effect ?? "holo";
+
+          setPressed(".effect-option", button);
+          currentEffect = effect;
+          if (effect === "pokebox-sir") {
+            try {
+              if (renderState instanceof HTMLElement) renderState.textContent = "Chargement de l’effet Pokebox";
+              await applyPokeboxEffectToCurrentCard();
+              if (renderState instanceof HTMLElement) {
+                renderState.textContent = currentCoverProfile === "pokebox-sir"
+                  ? "Référence Pokebox active"
+                  : "Effet Pokebox appliqué à la carte";
+              }
+            } catch (error) {
+              currentEffect = "holo";
+              coverMesh.material = coverMaterial;
+              coverUniforms.uMode.value = modeMap.holo ?? 1;
+              const holoButton = document.querySelector('[data-effect="holo"]');
+              if (holoButton instanceof HTMLButtonElement) setPressed(".effect-option", holoButton);
+              if (renderState instanceof HTMLElement) renderState.textContent = "Effet Pokebox indisponible";
+              console.error(error);
+            }
+          } else {
+            coverMesh.material = coverMaterial;
+            coverUniforms.uMode.value = modeMap[effect] ?? 1;
+            if (renderState instanceof HTMLElement) renderState.textContent = "Rendu en temps réel";
+          }
+          const label = document.querySelector("#stage-effect-label");
+          if (label instanceof HTMLElement) label.textContent = modeLabels[currentEffect] ?? "Holographique";
+        });
+      });
+      document.querySelectorAll(".position-option").forEach((button) => {
+        button.addEventListener("click", () => {
+          if (!(button instanceof HTMLButtonElement)) return;
+          setPressed(".position-option", button);
+          const x = Number(button.dataset.x ?? 0.5);
+          const y = Number(button.dataset.y ?? 0.5);
+          coverUniforms.uPointer.value.set(x, y);
+          setBookFoilPointer(coverUniforms, coverUniforms.uPointer.value);
+          if (pokeboxSirUniforms) {
+            pokeboxSirUniforms.uPointer.value.set(x, y);
+            setPokeboxSpecialIllustrationPointer(pokeboxSirUniforms, pokeboxSirUniforms.uPointer.value);
+          }
+          keyLight.position.x = THREE.MathUtils.lerp(-4.2, 4.2, x);
+          keyLight.position.y = THREE.MathUtils.lerp(-3.5, 5.2, y);
+        });
+      });
+
+      type NumericStateKey = "tilt" | "depth" | "intensity" | "softness";
+      type BooleanStateKey = "pointerFollow" | "floatMotion" | "autoRotate" | "castShadow";
+
+      const bindRange = (
+        id: string,
+        stateKey: NumericStateKey,
+        outputId: string,
+        suffix: string,
+        update?: (value: number) => void,
+      ) => {
+        const input = document.querySelector(`#${id}`);
+        const output = document.querySelector(`#${outputId}`);
+        if (!(input instanceof HTMLInputElement)) return;
+        const sync = () => {
+          const value = Number(input.value);
+          state[stateKey] = value;
+          if (output instanceof HTMLOutputElement) output.textContent = `${value}${suffix}`;
+          update?.(value);
+        };
+        input.addEventListener("input", sync);
+        sync();
+      };
+
+      bindRange("intensity", "intensity", "intensity-output", "%", (value) => {
+        coverUniforms.uIntensity.value = value / 100;
+        if (pokeboxSirUniforms) pokeboxSirUniforms.uCardOpacity.value = value / 100;
+      });
+      bindRange("tilt", "tilt", "tilt-output", "°");
+      bindRange("depth", "depth", "depth-output", "%", (value) => {
+        cardFloat.scale.z = THREE.MathUtils.lerp(0.4, 2.1, value / 36);
+      });
+      bindRange("softness", "softness", "softness-output", "%", (value) => {
+        coverUniforms.uSoftness.value = value / 100;
+      });
+
+      const bindToggle = (
+        id: string,
+        stateKey: BooleanStateKey,
+        update?: (enabled: boolean) => void,
+      ) => {
+        const input = document.querySelector(`#${id}`);
+        if (!(input instanceof HTMLInputElement)) return;
+        const sync = () => {
+          state[stateKey] = input.checked;
+          update?.(input.checked);
+        };
+        input.addEventListener("change", sync);
+        sync();
+      };
+
+      bindToggle("pointer-follow", "pointerFollow");
+      bindToggle("float-motion", "floatMotion");
+      bindToggle("auto-rotate", "autoRotate");
+      bindToggle("cast-shadow", "castShadow", (enabled) => {
+        volume.castShadow = enabled;
+        coverMesh.castShadow = enabled;
+        floor.visible = enabled;
+      });
+
+      const setRangeValue = (id: string, value: number) => {
+        const input = document.querySelector(`#${id}`);
+        if (input instanceof HTMLInputElement) {
+          input.value = String(value);
+          input.dispatchEvent(new Event("input"));
+        }
+      };
+
+      const chooseEffect = (effect: string) => {
+        const button = document.querySelector(`[data-effect="${effect}"]`);
+        if (button instanceof HTMLButtonElement) button.click();
+      };
+
+      const applyPreset = (preset: string) => {
+        if (preset === "velvet") {
+          chooseEffect("satin");
+          setRangeValue("intensity", 38);
+          setRangeValue("softness", 78);
+          setRangeValue("tilt", 9);
+          setRangeValue("depth", 24);
+        }
+        if (preset === "chrome") {
+          chooseEffect("spot");
+          setRangeValue("intensity", 86);
+          setRangeValue("softness", 24);
+          setRangeValue("tilt", 17);
+          setRangeValue("depth", 30);
+        }
+        if (preset === "spectrum") {
+          chooseEffect("prism");
+          setRangeValue("intensity", 88);
+          setRangeValue("softness", 34);
+          setRangeValue("tilt", 15);
+          setRangeValue("depth", 18);
+        }
+      };
+
+      document.querySelectorAll("[data-preset]").forEach((button) => {
+        button.addEventListener("click", () => {
+          if (button instanceof HTMLButtonElement && button.dataset.preset) applyPreset(button.dataset.preset);
+        });
+      });
+
+      const reset = () => {
+        chooseEffect("holo");
+        setRangeValue("intensity", 72);
+        setRangeValue("tilt", 14);
+        setRangeValue("depth", 18);
+        setRangeValue("softness", 46);
+        const toggleDefaults: Array<[string, boolean]> = [
+          ["pointer-follow", true],
+          ["float-motion", true],
+          ["auto-rotate", false],
+          ["cast-shadow", true],
+        ];
+        toggleDefaults.forEach(([id, checked]) => {
+          const input = document.querySelector(`#${id}`);
+          if (input instanceof HTMLInputElement) {
+            input.checked = checked;
+            input.dispatchEvent(new Event("change"));
+          }
+        });
+        const center = document.querySelector('[data-position="center"]');
+        if (center instanceof HTMLButtonElement) center.click();
+      };
+
+      document.querySelector("#reset-controls")?.addEventListener("click", reset);
+
+      const animate = (now = performance.now()) => {
+        if (isDisposed) return;
+        animationFrame = window.requestAnimationFrame(animate);
+        const delta = Math.min((now - previousFrameAt) / 1000, 0.05);
+        previousFrameAt = now;
+        const elapsed = (now - animationStartedAt) / 1000;
+        coverUniforms.uTime.value = reduceMotion ? 0 : elapsed;
+
+        const autoY = !reduceMotion && state.autoRotate ? Math.sin(elapsed * 0.42) * 0.16 : 0;
+        const targetX = reduceMotion ? 0 : state.targetRotationX;
+        const targetY = reduceMotion ? 0 : state.targetRotationY + autoY;
+        cardRoot.rotation.x = THREE.MathUtils.damp(cardRoot.rotation.x, targetX, 8.5, delta);
+        cardRoot.rotation.y = THREE.MathUtils.damp(cardRoot.rotation.y, targetY, 8.5, delta);
+        cardRoot.quaternion.normalize();
+
+        cardFloat.position.y = !reduceMotion && state.floatMotion ? Math.sin(elapsed * 0.85) * 0.075 : 0;
+        cardFloat.rotation.z = !reduceMotion && state.floatMotion ? Math.sin(elapsed * 0.46) * 0.012 : 0;
+
+        renderer.render(scene, camera);
+      };
+
+      const dispose = () => {
+        if (isDisposed) return;
+        isDisposed = true;
+        window.cancelAnimationFrame(animationFrame);
+        resizeObserver.disconnect();
+        canvas.removeEventListener("pointermove", updatePointer);
+        canvas.removeEventListener("pointerleave", leavePointer);
+        canvas.removeEventListener("pointercancel", leavePointer);
+        loadedTextures.forEach((texture) => texture.dispose());
+        loadedMasks.forEach((texture) => texture.dispose());
+        pokeboxReferenceTextures.forEach((texture) => texture.dispose());
+        effectTextures.neutralMask.dispose();
+        effectTextures.foil.dispose();
+        effectTextures.glitter.dispose();
+        environmentRenderTarget.dispose();
+        volumeGeometry.dispose();
+        coverGeometry.dispose();
+        floor.geometry.dispose();
+        edgeMaterial.dispose();
+        coverMaterial.dispose();
+        pokeboxSirMaterial?.dispose();
+        backMaterial.dispose();
+        floorMaterial.dispose();
+        renderer.dispose();
+      };
+
+      window.addEventListener("pagehide", dispose, { once: true });
+      document.addEventListener("astro:before-swap", dispose, { once: true });
+
+      const query = new URLSearchParams(window.location.search);
+      const requestedPokeboxReference = query.get("set") === "sv3-5_en" && query.get("card") === "199";
+      if (requestedPokeboxReference) {
+        const referenceCover = document.querySelector('[data-cover-profile="pokebox-sir"]');
+        if (referenceCover instanceof HTMLButtonElement) referenceCover.click();
+      } else {
+        setCover("/assets/card-tests/collibris/aube-musique.png");
+      }
+      animate();
+    </script>
+  </body>
+</html>
+
+<style>
+  :global(*) {
+    box-sizing: border-box;
+  }
+
+  :global(:root) {
+    --lab-bg: #e8ebe8;
+    --lab-surface: #f6f7f4;
+    --lab-surface-strong: #dde2de;
+    --lab-stage: #d3d9d5;
+    --lab-ink: #1e2420;
+    --lab-muted: #5e6861;
+    --lab-line: rgb(30 36 32 / 0.14);
+    --lab-accent: #526f61;
+    --lab-accent-ink: #f5f8f5;
+    --lab-shadow: rgb(28 42 34 / 0.2);
+    --lab-radius: 14px;
+    color-scheme: light;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :global(:root) {
+      --lab-bg: #111512;
+      --lab-surface: #191e1a;
+      --lab-surface-strong: #222923;
+      --lab-stage: #171c18;
+      --lab-ink: #edf1ed;
+      --lab-muted: #9ca69f;
+      --lab-line: rgb(237 241 237 / 0.12);
+      --lab-accent: #7f9d8e;
+      --lab-accent-ink: #101511;
+      --lab-shadow: rgb(0 0 0 / 0.38);
+      color-scheme: dark;
+    }
+  }
+
+  :global(body.card-lab-body) {
+    min-width: 320px;
+    min-height: 100dvh;
+    margin: 0;
+    overflow-x: hidden;
+    background: var(--lab-bg);
+    color: var(--lab-ink);
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  }
+
+  button,
+  a,
+  input {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  button,
+  a {
+    font: inherit;
+  }
+
+  button:focus-visible,
+  a:focus-visible,
+  input:focus-visible {
+    outline: 2px solid var(--lab-accent);
+    outline-offset: 3px;
+  }
+
+  .card-lab-shell {
+    width: min(calc(100% - 32px), 1500px);
+    margin-inline: auto;
+    padding-bottom: 28px;
+  }
+
+  .lab-header {
+    display: flex;
+    min-height: 74px;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    border-bottom: 1px solid var(--lab-line);
+  }
+
+  .brand-link,
+  .exit-link {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .brand-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .brand-monogram {
+    display: grid;
+    width: 40px;
+    height: 40px;
+    place-items: center;
+    border-radius: var(--lab-radius);
+    background: var(--lab-ink);
+    color: var(--lab-bg);
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 15px;
+  }
+
+  .brand-link strong,
+  .brand-link small {
+    display: block;
+  }
+
+  .brand-link strong {
+    font-size: 12px;
+    letter-spacing: 0.08em;
+  }
+
+  .brand-link small {
+    margin-top: 2px;
+    color: var(--lab-muted);
+    font-size: 11px;
+  }
+
+  .exit-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    border-radius: var(--lab-radius);
+    padding: 10px 12px;
+    color: var(--lab-muted);
+    font-size: 12px;
+    font-weight: 650;
+    transition: color 180ms ease, background-color 180ms ease, transform 180ms ease;
+  }
+
+  .exit-link:hover {
+    background: var(--lab-surface-strong);
+    color: var(--lab-ink);
+  }
+
+  .exit-link:active,
+  button:active {
+    transform: translateY(1px);
+  }
+
+  .lab-intro {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(240px, 410px);
+    align-items: end;
+    gap: 40px;
+    padding: 46px 0 34px;
+  }
+
+  .eyebrow {
+    grid-column: 1 / -1;
+    margin: 0 0 -23px;
+    color: var(--lab-accent);
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+
+  .lab-intro h1 {
+    max-width: 900px;
+    margin: 0;
+    font-size: clamp(2.65rem, 5.4vw, 5.8rem);
+    font-weight: 560;
+    letter-spacing: -0.065em;
+    line-height: 0.93;
+  }
+
+  .intro-copy {
+    max-width: 42ch;
+    margin: 0;
+    color: var(--lab-muted);
+    font-size: 14px;
+    line-height: 1.65;
+  }
+
+  .lab-workspace {
+    display: grid;
+    grid-template-columns: minmax(0, 1.55fr) minmax(350px, 0.78fr);
+    gap: 14px;
+    min-height: 760px;
+  }
+
+  .stage-column,
+  .control-panel {
+    min-width: 0;
+  }
+
+  .stage-column {
+    display: grid;
+    grid-template-rows: minmax(580px, 1fr) auto;
+    gap: 14px;
+  }
+
+  .stage,
+  .control-panel,
+  .cover-switcher {
+    border: 1px solid var(--lab-line);
+    border-radius: var(--lab-radius);
+    background: var(--lab-surface);
+    box-shadow: 0 24px 80px -55px var(--lab-shadow);
+  }
+
+  .stage {
+    position: relative;
+    min-height: 580px;
+    overflow: hidden;
+    background:
+      radial-gradient(circle at 50% 43%, color-mix(in srgb, var(--lab-accent) 12%, transparent), transparent 42%),
+      var(--lab-stage);
+    isolation: isolate;
+  }
+
+  .stage::after {
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(circle, color-mix(in srgb, var(--lab-ink) 12%, transparent) 0.7px, transparent 0.8px);
+    background-size: 9px 9px;
+    content: "";
+    opacity: 0.17;
+    pointer-events: none;
+    z-index: -1;
+  }
+
+  #card-canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+    min-height: 580px;
+    cursor: grab;
+    opacity: 1;
+    touch-action: none;
+    transition: opacity 240ms ease;
+  }
+
+  #card-canvas:active {
+    cursor: grabbing;
+  }
+
+  .stage.is-loading #card-canvas {
+    opacity: 0.3;
+  }
+
+  .stage-topline,
+  .stage-help {
+    position: absolute;
+    right: 18px;
+    left: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    pointer-events: none;
+  }
+
+  .stage-topline {
+    top: 18px;
+  }
+
+  .stage-help {
+    bottom: 18px;
+    color: var(--lab-muted);
+    font-size: 10px;
+    font-weight: 750;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .stage-topline strong,
+  .stage-topline small {
+    display: block;
+  }
+
+  .stage-topline strong {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 17px;
+    font-weight: 500;
+  }
+
+  .stage-topline small {
+    margin-top: 3px;
+    color: var(--lab-muted);
+    font-size: 10px;
+  }
+
+  .render-state {
+    border: 1px solid var(--lab-line);
+    border-radius: var(--lab-radius);
+    background: color-mix(in srgb, var(--lab-surface) 82%, transparent);
+    padding: 8px 10px;
+    color: var(--lab-muted);
+    font-size: 10px;
+    font-weight: 700;
+    backdrop-filter: blur(14px);
+  }
+
+  .stage-error {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: min(86%, 420px);
+    transform: translate(-50%, -50%);
+    border: 1px solid var(--lab-line);
+    border-radius: var(--lab-radius);
+    background: var(--lab-surface);
+    padding: 20px;
+    color: var(--lab-ink);
+    font-size: 13px;
+    line-height: 1.5;
+    text-align: center;
+  }
+
+  .cover-switcher {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    padding: 8px;
+  }
+
+  .cover-option {
+    display: grid;
+    grid-template-columns: 42px minmax(0, 1fr);
+    align-items: center;
+    gap: 11px;
+    min-width: 0;
+    border: 1px solid transparent;
+    border-radius: var(--lab-radius);
+    background: transparent;
+    padding: 8px;
+    color: var(--lab-muted);
+    text-align: left;
+    cursor: pointer;
+    transition: border-color 180ms ease, background-color 180ms ease, color 180ms ease;
+  }
+
+  .cover-option:hover {
+    color: var(--lab-ink);
+  }
+
+  .cover-option[aria-pressed="true"] {
+    border-color: var(--lab-line);
+    background: var(--lab-surface-strong);
+    color: var(--lab-ink);
+  }
+
+  .cover-option img {
+    width: 42px;
+    height: 55px;
+    border-radius: 5px;
+    object-fit: cover;
+    box-shadow: 0 8px 20px -12px var(--lab-shadow);
+  }
+
+  .cover-option strong,
+  .cover-option small {
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .cover-option strong {
+    font-size: 11px;
+  }
+
+  .cover-option small {
+    margin-top: 4px;
+    font-size: 9px;
+  }
+
+  .control-panel {
+    overflow: hidden;
+  }
+
+  .panel-heading,
+  .control-group,
+  .preset-row {
+    margin: 0;
+    border: 0;
+    border-bottom: 1px solid var(--lab-line);
+    padding: 20px;
+  }
+
+  .panel-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+  }
+
+  .panel-heading p,
+  .panel-heading h2 {
+    margin: 0;
+  }
+
+  .panel-heading p,
+  .control-group legend,
+  .preset-row > span {
+    color: var(--lab-muted);
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  .panel-heading h2 {
+    margin-top: 4px;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 24px;
+    font-weight: 500;
+  }
+
+  .reset-button {
+    flex: none;
+    border: 1px solid var(--lab-line);
+    border-radius: var(--lab-radius);
+    background: transparent;
+    padding: 9px 11px;
+    color: var(--lab-muted);
+    font-size: 10px;
+    font-weight: 700;
+    cursor: pointer;
+  }
+
+  .reset-button:hover {
+    background: var(--lab-surface-strong);
+    color: var(--lab-ink);
+  }
+
+  .control-group legend {
+    float: left;
+    width: 100%;
+    margin-bottom: 14px;
+  }
+
+  .control-group legend + * {
+    clear: both;
+  }
+
+  .effect-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  .effect-option {
+    display: grid;
+    grid-template-columns: 30px 1fr;
+    align-items: center;
+    gap: 10px;
+    min-width: 0;
+    border: 1px solid var(--lab-line);
+    border-radius: var(--lab-radius);
+    background: transparent;
+    padding: 10px;
+    color: var(--lab-muted);
+    text-align: left;
+    cursor: pointer;
+  }
+
+  .effect-option:hover,
+  .effect-option[aria-pressed="true"] {
+    background: var(--lab-surface-strong);
+    color: var(--lab-ink);
+  }
+
+  .effect-option[aria-pressed="true"] {
+    border-color: color-mix(in srgb, var(--lab-accent) 65%, var(--lab-line));
+    box-shadow: inset 3px 0 0 var(--lab-accent);
+  }
+
+  .effect-option strong,
+  .effect-option small {
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .effect-option strong {
+    font-size: 10px;
+  }
+
+  .effect-option small {
+    margin-top: 3px;
+    font-size: 8px;
+  }
+
+  .effect-swatch {
+    width: 30px;
+    height: 30px;
+    border: 1px solid rgb(255 255 255 / 0.18);
+    border-radius: 9px;
+    background: #5a635e;
+  }
+
+  .effect-swatch--satin {
+    background: linear-gradient(135deg, #303632, #aebbb4 52%, #414b45);
+  }
+
+  .effect-swatch--holo {
+    background: linear-gradient(135deg, #8b9d93, #d9a9af 35%, #9bb9c0 67%, #9ba77c);
+  }
+
+  .effect-swatch--prism {
+    background: linear-gradient(135deg, #ac7f79, #c4b47d 26%, #71a08b 52%, #7893ad 76%, #987f9f);
+  }
+
+  .effect-swatch--spot {
+    background: radial-gradient(circle at 35% 28%, #f2ead4, #3b423e 48%, #171a18 75%);
+  }
+
+  .effect-swatch--beui-mesh {
+    background:
+      radial-gradient(circle at 24% 28%, #e0eaff 0 12%, transparent 34%),
+      radial-gradient(circle at 70% 30%, #f75092 0 10%, transparent 38%),
+      radial-gradient(circle at 34% 82%, #241d9a 0 12%, transparent 42%),
+      #9f50d3;
+  }
+
+
+  .effect-swatch--beui-mesh-aurora {
+    background:
+      radial-gradient(circle at 28% 28%, #00ffb2 0 10%, transparent 36%),
+      radial-gradient(circle at 78% 48%, #0072ff 0 12%, transparent 42%),
+      radial-gradient(circle at 35% 88%, #a200ff 0 10%, transparent 40%),
+      #001a2c;
+  }
+  .effect-swatch--beui-warp {
+    background: conic-gradient(from 225deg at 38% 58%, #596c87, #d092a0, #d3bf79, #6d9b8d, #596c87);
+  }
+
+
+  .effect-swatch--beui-voronoi {
+    background:
+      linear-gradient(30deg, transparent 24%, rgb(255 255 255 / 0.7) 25% 27%, transparent 28% 74%, rgb(255 255 255 / 0.55) 75% 77%, transparent 78%),
+      linear-gradient(150deg, #695c84, #6c9a95 48%, #d1a989);
+  }
+
+  .effect-swatch--beui-orbit {
+    background-color: #33403d;
+    background-image:
+      radial-gradient(circle, #e9c9d0 0 2px, transparent 3px),
+      radial-gradient(circle, #88b0b4 0 2px, transparent 3px);
+    background-position: 0 0, 7px 9px;
+    background-size: 13px 13px;
+  }
+
+  .effect-swatch--beui-rays {
+    background: conic-gradient(from 22deg at 38% 62%, #222927, #dbad80 5%, #35443f 11%, #8daab0 17%, #242b29 24%, #d7a9b2 31%, #222927 40%);
+  }
+  .effect-swatch--pokebox-sir {
+    background:
+      radial-gradient(circle at 68% 28%, rgb(255 255 255 / 0.9), transparent 22%),
+      linear-gradient(135deg, #ad3630, #e5c283 33%, #5f8d83 58%, #714e85 82%);
+  }
+
+  .position-control {
+    display: grid;
+    grid-template-columns: 112px 1fr;
+    align-items: center;
+    gap: 18px;
+  }
+
+  .position-control p {
+    margin: 0;
+    color: var(--lab-muted);
+    font-size: 10px;
+    line-height: 1.55;
+  }
+
+  .position-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    width: 112px;
+    height: 86px;
+    overflow: hidden;
+    border: 1px solid var(--lab-line);
+    border-radius: var(--lab-radius);
+  }
+
+  .position-option {
+    position: relative;
+    display: grid;
+    place-items: center;
+    border: 0;
+    border-right: 1px solid var(--lab-line);
+    border-bottom: 1px solid var(--lab-line);
+    background: transparent;
+    cursor: pointer;
+  }
+
+  .position-option:nth-child(3n) {
+    border-right: 0;
+  }
+
+  .position-option:nth-child(n + 7) {
+    border-bottom: 0;
+  }
+
+  .position-option span {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--lab-muted);
+    opacity: 0.42;
+    transition: opacity 180ms ease, transform 180ms ease, background-color 180ms ease;
+  }
+
+  .position-option:hover span,
+  .position-option[aria-pressed="true"] span {
+    background: var(--lab-accent);
+    opacity: 1;
+    transform: scale(1.55);
+  }
+
+  .slider-group {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px 22px;
+  }
+
+  .slider-group legend {
+    grid-column: 1 / -1;
+  }
+
+  .range-control > span {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 9px;
+    color: var(--lab-muted);
+    font-size: 9px;
+    font-weight: 700;
+  }
+
+  .range-control output {
+    color: var(--lab-ink);
+    font-variant-numeric: tabular-nums;
+  }
+
+  input[type="range"] {
+    width: 100%;
+    height: 18px;
+    margin: 0;
+    appearance: none;
+    background: transparent;
+    cursor: pointer;
+  }
+
+  input[type="range"]::-webkit-slider-runnable-track {
+    height: 2px;
+    border-radius: 2px;
+    background: var(--lab-line);
+  }
+
+  input[type="range"]::-webkit-slider-thumb {
+    width: 14px;
+    height: 14px;
+    margin-top: -6px;
+    appearance: none;
+    border: 3px solid var(--lab-surface);
+    border-radius: 50%;
+    background: var(--lab-accent);
+    box-shadow: 0 0 0 1px var(--lab-line);
+  }
+
+  input[type="range"]::-moz-range-track {
+    height: 2px;
+    border-radius: 2px;
+    background: var(--lab-line);
+  }
+
+  input[type="range"]::-moz-range-thumb {
+    width: 10px;
+    height: 10px;
+    border: 3px solid var(--lab-surface);
+    border-radius: 50%;
+    background: var(--lab-accent);
+    box-shadow: 0 0 0 1px var(--lab-line);
+  }
+
+  .toggle-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  .toggle-row {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 34px;
+    align-items: center;
+    gap: 8px;
+    border: 1px solid var(--lab-line);
+    border-radius: var(--lab-radius);
+    padding: 10px;
+    cursor: pointer;
+  }
+
+  .toggle-row strong,
+  .toggle-row small {
+    display: block;
+  }
+
+  .toggle-row strong {
+    font-size: 9px;
+  }
+
+  .toggle-row small {
+    margin-top: 3px;
+    color: var(--lab-muted);
+    font-size: 8px;
+  }
+
+  .toggle-row input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .toggle-row i {
+    position: relative;
+    width: 34px;
+    height: 20px;
+    border-radius: var(--lab-radius);
+    background: var(--lab-surface-strong);
+    box-shadow: inset 0 0 0 1px var(--lab-line);
+    transition: background-color 180ms ease;
+  }
+
+  .toggle-row i::after {
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--lab-muted);
+    content: "";
+    transition: transform 180ms ease, background-color 180ms ease;
+  }
+
+  .toggle-row input:checked + i {
+    background: var(--lab-accent);
+  }
+
+  .toggle-row input:checked + i::after {
+    background: var(--lab-accent-ink);
+    transform: translateX(14px);
+  }
+
+  .toggle-row:has(input:focus-visible) {
+    outline: 2px solid var(--lab-accent);
+    outline-offset: 3px;
+  }
+
+  .preset-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    border-bottom: 0;
+  }
+
+  .preset-row > div {
+    display: flex;
+    gap: 6px;
+  }
+
+  .preset-row button {
+    border: 1px solid var(--lab-line);
+    border-radius: var(--lab-radius);
+    background: transparent;
+    padding: 8px 10px;
+    color: var(--lab-muted);
+    font-size: 9px;
+    font-weight: 700;
+    cursor: pointer;
+  }
+
+  .preset-row button:hover {
+    background: var(--lab-accent);
+    color: var(--lab-accent-ink);
+  }
+
+  @media (max-width: 1080px) {
+    .lab-workspace {
+      grid-template-columns: 1fr;
+    }
+
+    .stage-column {
+      grid-template-rows: minmax(600px, 72dvh) auto;
+    }
+
+    .control-panel {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .panel-heading,
+    .preset-row {
+      grid-column: 1 / -1;
+    }
+
+    .control-group:nth-of-type(odd) {
+      border-right: 1px solid var(--lab-line);
+    }
+  }
+
+  @media (max-width: 720px) {
+    .card-lab-shell {
+      width: min(calc(100% - 20px), 1500px);
+      padding-bottom: 10px;
+    }
+
+    .lab-header {
+      min-height: 64px;
+    }
+
+    .brand-link small,
+    .exit-link span {
+      display: none;
+    }
+
+    .exit-link {
+      border: 1px solid var(--lab-line);
+    }
+
+    .lab-intro {
+      grid-template-columns: 1fr;
+      gap: 16px;
+      padding: 34px 0 24px;
+    }
+
+    .eyebrow {
+      grid-column: auto;
+      margin: 0;
+    }
+
+    .lab-intro h1 {
+      font-size: clamp(2.5rem, 13vw, 4.4rem);
+    }
+
+    .intro-copy {
+      font-size: 13px;
+    }
+
+    .stage-column {
+      grid-template-rows: minmax(480px, 68dvh) auto;
+    }
+
+    .stage,
+    #card-canvas {
+      min-height: 480px;
+    }
+
+    .render-state {
+      max-width: 126px;
+      text-align: right;
+    }
+
+    .stage-help span:first-child {
+      display: none;
+    }
+
+    .stage-help {
+      justify-content: flex-end;
+    }
+
+    .cover-switcher {
+      grid-template-columns: 1fr;
+    }
+
+    .cover-option {
+      grid-template-columns: 36px 1fr;
+    }
+
+    .cover-option img {
+      width: 36px;
+      height: 46px;
+    }
+
+    .control-panel {
+      display: block;
+    }
+
+    .control-group:nth-of-type(odd) {
+      border-right: 0;
+    }
+
+    .effect-grid,
+    .toggle-list,
+    .slider-group {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .position-control {
+      grid-template-columns: 104px 1fr;
+    }
+
+    .position-grid {
+      width: 104px;
+    }
+
+    .preset-row {
+      align-items: flex-start;
+      flex-direction: column;
+    }
+
+    .preset-row > div {
+      width: 100%;
+    }
+
+    .preset-row button {
+      flex: 1;
+    }
+  }
+
+  @media (max-width: 440px) {
+    .effect-grid,
+    .toggle-list {
+      grid-template-columns: 1fr;
+    }
+
+    .panel-heading,
+    .control-group,
+    .preset-row {
+      padding: 17px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      scroll-behavior: auto !important;
+      transition-duration: 0.01ms !important;
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+    }
+
+    #card-canvas {
+      cursor: default;
+    }
+  }
+
+  @media (prefers-reduced-transparency: reduce) {
+    .render-state {
+      background: var(--lab-surface);
+      backdrop-filter: none;
+    }
+  }
+</style>

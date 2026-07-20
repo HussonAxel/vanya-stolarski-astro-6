@@ -1,0 +1,3 @@
+[submodule "vendor/pokebox-upstream"]
+	path = vendor/pokebox-upstream
+	url = https://github.com/selop/pokebox.git

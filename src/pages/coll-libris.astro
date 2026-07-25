@@ -101,7 +101,7 @@ const collectionMetadataCellClasses = [
           {cards.map((card) => (
             <article id={card.id} class="min-w-0">
               <div class="collection-viewer-shell relative w-full">
-                <div class="absolute inset-x-[14%] bottom-0 h-10 rounded-full bg-[#3d3834]/18 blur-2xl"></div>
+                <div class="pointer-events-none absolute inset-x-[14%] bottom-0 h-10 rounded-full bg-[#3d3834]/18 blur-2xl"></div>
                 <div class="viewer-frame collection-viewer-frame relative overflow-hidden rounded-[1.5rem] border border-[#3d3834]/12 bg-[#15151d] shadow-[0_24px_70px_-38px_rgba(61,56,52,0.48)]" data-viewer-kind="collection">
                   <iframe
                     src={card.viewerUrl}
@@ -111,6 +111,13 @@ const collectionMetadataCellClasses = [
                     allow="fullscreen; autoplay"
                     {...iframeDisplayAttributes}
                   ></iframe>
+                  <a
+                    href={card.sumUpStore}
+                    target="_blank"
+                    rel="noreferrer"
+                    aria-label={`Ouvrir la carte ${card.title} dans un nouvel onglet`}
+                    class="absolute inset-0 z-10 cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-[-4px] focus-visible:outline-white"
+                  ></a>
                 </div>
               </div>
 
@@ -303,19 +310,3 @@ const collectionMetadataCellClasses = [
     }
   }
 </style>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

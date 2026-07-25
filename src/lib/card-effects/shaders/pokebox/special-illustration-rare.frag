@@ -30,6 +30,15 @@ uniform float uSirWashContrast;
 uniform float uSirWashOpacity;
 uniform float uSirBaseBrightness;
 uniform float uSirBaseContrast;
+// Material Builder layer weights and tint
+uniform float uLayerSilver;
+uniform float uLayerShine;
+uniform float uLayerWash;
+uniform float uLayerGlitter;
+uniform float uLayerGlare;
+uniform float uLayerEtch;
+uniform vec3 uMaterialTint;
+uniform float uTintStrength;
 // Tilt sparkle parameters
 uniform float uSirTiltSparkleScale;
 uniform float uSirTiltSparkleIntensity;
@@ -156,35 +165,35 @@ void main() {
     if (mask > 0.01) {
         // Add bright silvery base first
         vec3 silverBase = vec3(0.85);
-        result = mix(result, blendOverlay(result, silverBase), mask * uCardOpacity * 0.3);
+        result = mix(result, blendOverlay(result, silverBase), mask * uCardOpacity * 0.3 * uLayerSilver);
 
         // Apply diagonal rainbow shine with overlay blend
-        result = mix(result, blendOverlay(result, shineBefore), mask * uCardOpacity * 0.2);
+        result = mix(result, blendOverlay(result, shineBefore), mask * uCardOpacity * 0.2 * uLayerShine);
 
         // Apply tilt-responsive rainbow color wash with soft-light blend
-        result = mix(result, blendSoftLight(result, iridescence), mask * uCardOpacity * uSirWashOpacity);
+        result = mix(result, blendSoftLight(result, iridescence), mask * uCardOpacity * uSirWashOpacity * uLayerWash);
 
         // Apply main glitter with plus-lighter blend
-        result = mix(result, blendPlusLighter(result, glitter), mask * glitterOpacity * 0.8);
+        result = mix(result, blendPlusLighter(result, glitter), mask * glitterOpacity * 0.8 * uLayerGlitter);
 
         // Apply glitter :before with overlay blend
-        result = mix(result, blendOverlay(result, glitterBefore), mask * uCardOpacity * ptrFromTop * 0.9);
+        result = mix(result, blendOverlay(result, glitterBefore), mask * uCardOpacity * ptrFromTop * 0.9 * uLayerGlitter);
 
         // Apply glitter :after with overlay blend
-        result = mix(result, blendOverlay(result, glitterAfter), mask * uCardOpacity * (1.0 - ptrFromTop) * 1.0);
+        result = mix(result, blendOverlay(result, glitterAfter), mask * uCardOpacity * (1.0 - ptrFromTop) * uLayerGlitter);
 
         // Preserve the artwork luminance while adding a restrained glare
-        result = mix(result, blendSoftLight(result, glare), mask * uCardOpacity * 0.08);
+        result = mix(result, blendSoftLight(result, glare), mask * uCardOpacity * 0.08 * uLayerGlare);
 
         // Apply glare2 (foil overlay) if foil texture present
         if (foil > 0.01) {
-            result = mix(result, blendOverlay(result, vec3(1.0)), foil * uCardOpacity * 0.4);
+            result = mix(result, blendOverlay(result, vec3(1.0)), foil * uCardOpacity * 0.4 * uLayerEtch);
         }
 
         
     }
 
-    if (foil > 0.01) {
+    if (foil > 0.01 && uLayerEtch > 0.001) {
         // ── TILT SPARKLE — contour-following sweep on etch relief ──────
         // Use the foil texture gradient (dFdx/dFdy) as a pseudo surface
         // normal so the sparkle band follows embossed contours (the bubble,
@@ -227,7 +236,7 @@ void main() {
 
         float rainbowT1 = foil * 3.0 + uv.y * 1.5 + (0.5 - bgY) * 3.0;
         vec3 sparkleRgb1 = sunpillarGradient(rainbowT1) * sparkle1;
-        result += sparkleRgb1 * band1 * etchMask * uSirTiltSparkleIntensity * uCardOpacity;
+        result += sparkleRgb1 * band1 * etchMask * uSirTiltSparkleIntensity * uCardOpacity * uLayerEtch;
 
         // Layer 2: opposite-facing contours (catch light from the other side)
         // Negated catchAngle so this layer lights up contours facing away from tilt
@@ -243,8 +252,12 @@ void main() {
 
         float rainbowT2 = foil * 3.0 + uv.x * 1.5 + (0.5 - bgX) * 3.0;
         vec3 sparkleRgb2 = sunpillarGradient(rainbowT2) * sparkle2;
-        result += sparkleRgb2 * band2 * etchMask * uSirTiltSparkle2Intensity * uCardOpacity;
+        result += sparkleRgb2 * band2 * etchMask * uSirTiltSparkle2Intensity * uCardOpacity * uLayerEtch;
     }
+
+    // Optional material tint, kept separate from the original artwork.
+    vec3 tintedMaterial = blendSoftLight(result, uMaterialTint);
+    result = mix(result, tintedMaterial, clamp(mask * uTintStrength * uCardOpacity, 0.0, 1.0));
 
     // Overall brighter filter for silvery holographic effect
     result = adjustBrightness(result, uSirBaseBrightness + uCardOpacity * 0.06);

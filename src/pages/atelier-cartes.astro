@@ -67,9 +67,41 @@ const effects = [
   { id: "beui-voronoi", label: "Voronoï", description: "beUI · Cristaux mobiles" },
   { id: "beui-orbit", label: "Dot Orbit", description: "beUI · Micro-reflets orbitaux" },
   { id: "beui-rays", label: "God Rays", description: "beUI · Rayons polaires" },
+  { id: "pokebox-ir", label: "Pokebox IR", description: "Illustration Rare · carte #168" },
   { id: "pokebox-sir", label: "Pokebox SIR", description: "Effet SIR original" },
 ];
 
+const materialLayers = [
+  { id: "silver", label: "Base argentée", description: "Éclaircit les zones du masque", uniform: "uLayerSilver", value: 100 },
+  { id: "shine", label: "Reflet spectral", description: "Bandes irisées diagonales", uniform: "uLayerShine", value: 100 },
+  { id: "wash", label: "Voile irisé", description: "Couleur douce liée à l’inclinaison", uniform: "uLayerWash", value: 100 },
+  { id: "glitter", label: "Paillettes", description: "Trois textures réactives au regard", uniform: "uLayerGlitter", value: 100 },
+  { id: "glare", label: "Halo", description: "Point lumineux qui suit le pointeur", uniform: "uLayerGlare", value: 100 },
+  { id: "etch", label: "Relief gravé", description: "Éclats guidés par les contours", uniform: "uLayerEtch", value: 100 },
+];
+
+const materialControls = [
+  { group: "Image", label: "Luminosité de base", uniform: "uSirBaseBrightness", min: 0.7, max: 1.3, step: 0.01, value: 1 },
+  { group: "Image", label: "Contraste de base", uniform: "uSirBaseContrast", min: 0.65, max: 1.5, step: 0.01, value: 1 },
+  { group: "Reflet", label: "Angle", uniform: "uSirShineAngle", min: 0, max: 360, step: 1, value: 90, suffix: "°" },
+  { group: "Reflet", label: "Fréquence", uniform: "uSirShineFrequency", min: 0.25, max: 6, step: 0.05, value: 1 },
+  { group: "Reflet", label: "Luminosité", uniform: "uSirShineBrightness", min: -0.3, max: 0.3, step: 0.01, value: 0 },
+  { group: "Reflet", label: "Contraste", uniform: "uSirShineContrast", min: 0.5, max: 2.5, step: 0.05, value: 1 },
+  { group: "Reflet", label: "Saturation", uniform: "uSirShineSaturation", min: 0, max: 5, step: 0.05, value: 3.25 },
+  { group: "Voile", label: "Échelle", uniform: "uSirWashScale", min: 0.2, max: 4, step: 0.05, value: 1.1 },
+  { group: "Voile", label: "Réponse à l’inclinaison", uniform: "uSirWashTiltSensitivity", min: 0, max: 6, step: 0.05, value: 2.3 },
+  { group: "Voile", label: "Saturation", uniform: "uSirWashSaturation", min: 0, max: 3, step: 0.05, value: 0.8 },
+  { group: "Voile", label: "Contraste", uniform: "uSirWashContrast", min: 0.4, max: 1.8, step: 0.05, value: 0.95 },
+  { group: "Voile", label: "Opacité", uniform: "uSirWashOpacity", min: 0, max: 1.5, step: 0.05, value: 0.75 },
+  { group: "Paillettes", label: "Contraste", uniform: "uSirGlitterContrast", min: 0.5, max: 5, step: 0.05, value: 2.3 },
+  { group: "Paillettes", label: "Saturation", uniform: "uSirGlitterSaturation", min: 0, max: 4, step: 0.05, value: 0 },
+  { group: "Relief A", label: "Échelle", uniform: "uSirTiltSparkleScale", min: 1, max: 14, step: 0.1, value: 4.5 },
+  { group: "Relief A", label: "Intensité", uniform: "uSirTiltSparkleIntensity", min: 0, max: 1.5, step: 0.05, value: 0.4 },
+  { group: "Relief A", label: "Sensibilité", uniform: "uSirTiltSparkleTiltSensitivity", min: 0, max: 1, step: 0.01, value: 0.1 },
+  { group: "Relief B", label: "Échelle", uniform: "uSirTiltSparkle2Scale", min: 1, max: 14, step: 0.1, value: 6 },
+  { group: "Relief B", label: "Intensité", uniform: "uSirTiltSparkle2Intensity", min: 0, max: 1.5, step: 0.05, value: 0.4 },
+  { group: "Relief B", label: "Sensibilité", uniform: "uSirTiltSparkle2TiltSensitivity", min: 0, max: 1, step: 0.01, value: 0.05 },
+];
 const positions: Array<[string, string, number, number]> = [
   ["top-left", "Haut gauche", 0.2, 0.8],
   ["top", "Haut", 0.5, 0.8],
@@ -285,6 +317,183 @@ const positions: Array<[string, string, number, number]> = [
           </div>
         </aside>
       </section>
+
+      <section class="material-builder" id="material-builder" aria-labelledby="builder-title">
+        <header class="builder-header">
+          <div>
+            <p class="eyebrow">Pokebox Material Builder</p>
+            <h2 id="builder-title">Construisez une matière, couche par couche.</h2>
+            <p>Les réglages s’appliquent à la carte sélectionnée. L’image originale reste intacte.</p>
+          </div>
+          <button type="button" class="builder-primary" id="activate-builder">Activer Pokebox</button>
+        </header>
+
+        <div class="builder-grid">
+          <section class="builder-pane" aria-labelledby="builder-sources-title">
+            <div class="builder-pane-heading">
+              <span>01</span>
+              <div><h3 id="builder-sources-title">Surfaces</h3><p>Définissez où agit la matière.</p></div>
+            </div>
+
+            <label class="builder-field">
+              <span>Masque holographique</span>
+              <select id="material-mask-mode">
+                <option value="auto">Automatique · adapté à la carte</option>
+                <option value="full">Pleine surface</option>
+                <option value="reference">Masque SIR de référence</option>
+                <option value="uploaded">Image personnalisée</option>
+                <option value="none">Aucun effet</option>
+              </select>
+            </label>
+            <label class="file-field">
+              <span>Importer un masque</span>
+              <input id="material-mask-file" type="file" accept="image/png,image/jpeg,image/webp" />
+              <small>PNG ou WebP en niveaux de gris, même format que la carte.</small>
+            </label>
+
+            <label class="builder-field">
+              <span>Texture de gravure</span>
+              <select id="material-etch-mode">
+                <option value="auto">Relief automatique de la carte</option>
+                <option value="reference">Gravure SIR de référence</option>
+                <option value="uploaded">Image personnalisée</option>
+                <option value="none">Sans relief</option>
+              </select>
+            </label>
+            <label class="file-field">
+              <span>Importer une gravure</span>
+              <input id="material-etch-file" type="file" accept="image/png,image/jpeg,image/webp" />
+              <small>Les contours clairs deviennent les zones en relief.</small>
+            </label>
+
+            <div class="tint-field">
+              <label for="material-tint">Teinte de matière</label>
+              <div>
+                <input id="material-tint" type="color" value="#fff1d2" />
+                <label class="range-control builder-range">
+                  <span>Présence <output id="material-tint-strength-output">0%</output></span>
+                  <input id="material-tint-strength" type="range" min="0" max="100" value="0" />
+                </label>
+              </div>
+            </div>
+          </section>
+
+          <section class="builder-pane" aria-labelledby="builder-layers-title">
+            <div class="builder-pane-heading">
+              <span>02</span>
+              <div><h3 id="builder-layers-title">Couches</h3><p>Activez et dosez chaque famille.</p></div>
+            </div>
+            <div class="layer-stack">
+              {
+                materialLayers.map((layer) => (
+                  <article class="layer-control" data-layer={layer.id}>
+                    <label class="layer-toggle">
+                      <input type="checkbox" checked data-layer-enabled={layer.uniform} />
+                      <i aria-hidden="true"></i>
+                      <span><strong>{layer.label}</strong><small>{layer.description}</small></span>
+                    </label>
+                    <label class="range-control builder-range">
+                      <span>Intensité <output data-layer-output={layer.uniform}>{layer.value}%</output></span>
+                      <input type="range" min="0" max="100" value={layer.value} data-layer-uniform={layer.uniform} />
+                    </label>
+                  </article>
+                ))
+              }
+            </div>
+          </section>
+
+          <section class="builder-pane builder-pane--parameters" aria-labelledby="builder-parameters-title">
+            <div class="builder-pane-heading">
+              <span>03</span>
+              <div><h3 id="builder-parameters-title">Paramètres fins</h3><p>Les réglages du shader SIR, sans abstraction.</p></div>
+            </div>
+            <div class="parameter-folds">
+              {
+                ["Image", "Reflet", "Voile", "Paillettes", "Relief A", "Relief B"].map((group, index) => (
+                  <details class="parameter-fold" open={index === 0}>
+                    <summary>{group}<span>{materialControls.filter((control) => control.group === group).length}</span></summary>
+                    <div>
+                      {materialControls.filter((control) => control.group === group).map((control) => (
+                        <label class="range-control builder-range">
+                          <span>{control.label}<output data-material-output={control.uniform}>{control.value}{control.suffix ?? ""}</output></span>
+                          <input
+                            type="range"
+                            min={control.min}
+                            max={control.max}
+                            step={control.step}
+                            value={control.value}
+                            data-material-uniform={control.uniform}
+                            data-suffix={control.suffix ?? ""}
+                          />
+                        </label>
+                      ))}
+                    </div>
+                  </details>
+                ))
+              }
+            </div>
+          </section>
+
+          <section class="builder-pane builder-pane--presets" aria-labelledby="builder-presets-title">
+            <div class="builder-pane-heading">
+              <span>04</span>
+              <div><h3 id="builder-presets-title">Presets JSON</h3><p>Conservez, partagez et rechargez une matière.</p></div>
+            </div>
+            <div class="material-presets" aria-label="Presets de départ">
+              <button type="button" data-material-preset="nacre">Nacre</button>
+              <button type="button" data-material-preset="argent">Argent gravé</button>
+              <button type="button" data-material-preset="dore">Dorure</button>
+              <button type="button" data-material-preset="cosmique">Cosmique</button>
+            </div>
+            <label class="builder-field">
+              <span>Preset enregistré</span>
+              <select id="saved-material-presets"><option value="">Choisir un preset local</option></select>
+            </label>
+            <label class="builder-field">
+              <span>Nom du preset</span>
+              <input id="material-preset-name" type="text" value="Ma matière" maxlength="64" />
+            </label>
+            <div class="builder-actions">
+              <button type="button" id="save-material-preset">Enregistrer</button>
+              <button type="button" id="download-material-preset">Télécharger JSON</button>
+              <label class="button-file">Importer JSON<input id="import-material-preset" type="file" accept="application/json,.json" /></label>
+            </div>
+            <label class="builder-field builder-json-field">
+              <span>Configuration JSON</span>
+              <textarea id="material-preset-json" rows="9" spellcheck="false" aria-label="Configuration JSON du matériau"></textarea>
+            </label>
+            <button type="button" class="builder-secondary" id="apply-material-json">Appliquer ce JSON</button>
+            <p class="builder-status" id="builder-status" aria-live="polite">Le builder est prêt.</p>
+          </section>
+        </div>
+      </section>
+
+      <section class="comparison-panel" aria-labelledby="comparison-title">
+        <header class="comparison-header">
+          <div>
+            <p class="eyebrow">Comparateur</p>
+            <h2 id="comparison-title">Deux variantes, un même cadrage.</h2>
+            <p>Réglez une matière, capturez-la dans A ou B, puis modifiez les paramètres.</p>
+          </div>
+          <div class="comparison-actions">
+            <button type="button" data-capture-slot="a">Capturer A</button>
+            <button type="button" data-capture-slot="b">Capturer B</button>
+            <button type="button" id="clear-comparison">Effacer</button>
+          </div>
+        </header>
+        <div class="comparison-grid">
+          <figure class="comparison-card" data-comparison="a">
+            <div class="comparison-placeholder"><span>A</span><p>Capturez votre première variante</p></div>
+            <img alt="Variante A de la matière" hidden />
+            <figcaption><strong>Variante A</strong><small>Aucune capture</small></figcaption>
+          </figure>
+          <figure class="comparison-card" data-comparison="b">
+            <div class="comparison-placeholder"><span>B</span><p>Capturez votre seconde variante</p></div>
+            <img alt="Variante B de la matière" hidden />
+            <figcaption><strong>Variante B</strong><small>Aucune capture</small></figcaption>
+          </figure>
+        </div>
+      </section>
     </main>
 
     <script>
@@ -292,6 +501,10 @@ const positions: Array<[string, string, number, number]> = [
       import { RoomEnvironment } from "three/examples/jsm/environments/RoomEnvironment.js";
       import { createBookFoilMaterial, setBookFoilPointer } from "../lib/card-effects/bookFoilMaterial";
       import { createAutoFoilMask, createProceduralEffectTextures } from "../lib/card-effects/effectTextures";
+      import {
+        createPokeboxIllustrationRareMaterial,
+        setPokeboxIllustrationRarePointer,
+      } from "../lib/card-effects/pokeboxIllustrationRareMaterial";
       import {
         createPokeboxSpecialIllustrationMaterial,
         setPokeboxSpecialIllustrationPointer,
@@ -455,12 +668,21 @@ const positions: Array<[string, string, number, number]> = [
         iri9: "/assets/card-tests/pokebox-sv3-5-199/iri-9.webp",
       } as const;
       const pokeboxReferenceTextures = new Map<string, THREE.Texture>();
+      const pokeboxGlitterPath = "/assets/card-tests/pokebox-common/glitter.png";
+      let pokeboxIrMaterial: THREE.ShaderMaterial | null = null;
+      let pokeboxIrUniforms: ReturnType<typeof createPokeboxIllustrationRareMaterial>["uniforms"] | null = null;
       let pokeboxSirMaterial: THREE.ShaderMaterial | null = null;
       let pokeboxSirUniforms: ReturnType<typeof createPokeboxSpecialIllustrationMaterial>["uniforms"] | null = null;
       let currentCoverProfile = "book";
       let currentEffect = "holo";
       let currentCardTexture: THREE.Texture | null = null;
       let currentCardMask: THREE.Texture | null = null;
+      let currentCardSrc = "/assets/card-tests/collibris/aube-musique.png";
+      let currentCardTitle = "Aube · Variation musicale";
+      let uploadedMaskTexture: THREE.Texture | null = null;
+      let uploadedEtchTexture: THREE.Texture | null = null;
+      const emptyMask = new THREE.DataTexture(new Uint8Array([0]), 1, 1, THREE.RedFormat);
+      emptyMask.needsUpdate = true;
 
       const loadPokeboxReferenceTexture = async (src: string, colorSpace: THREE.ColorSpace = THREE.NoColorSpace) => {
         const cachedTexture = pokeboxReferenceTextures.get(src);
@@ -500,19 +722,66 @@ const positions: Array<[string, string, number, number]> = [
           pokeboxSirUniforms = referenceMaterial.uniforms;
         }
 
-        return { front, mask };
+        return { front, mask, foil };
+      };
+
+      const applyPokeboxIllustrationRareToCurrentCard = async () => {
+        if (!currentCardTexture || !currentCardMask) {
+          throw new Error("La carte active n’est pas prête.");
+        }
+        const glitter = await loadPokeboxReferenceTexture(pokeboxGlitterPath);
+        if (!pokeboxIrMaterial || !pokeboxIrUniforms) {
+          const illustrationMaterial = createPokeboxIllustrationRareMaterial({
+            mask: currentCardMask,
+            foil: emptyMask,
+            glitter,
+          });
+          pokeboxIrMaterial = illustrationMaterial.material;
+          pokeboxIrUniforms = illustrationMaterial.uniforms;
+        }
+        pokeboxIrUniforms.uCardTex.value = currentCardTexture;
+        pokeboxIrUniforms.uCardBackTex.value = currentCardTexture;
+        pokeboxIrUniforms.uMaskTex.value = currentCardMask;
+        pokeboxIrUniforms.uFoilTex.value = emptyMask;
+        pokeboxIrUniforms.uHasFoil.value = 0;
+        pokeboxIrUniforms.uHasGlitter.value = 1;
+        pokeboxIrUniforms.uCardOpacity.value = state.intensity / 100;
+        coverMesh.material = pokeboxIrMaterial;
       };
 
       const applyPokeboxEffectToCurrentCard = async () => {
-        await loadPokeboxReference();
+        const reference = await loadPokeboxReference();
         if (!pokeboxSirMaterial || !pokeboxSirUniforms || !currentCardTexture || !currentCardMask) {
           throw new Error("La matière Pokebox ou la carte active ne sont pas prêtes.");
         }
 
+        const maskMode = (document.querySelector("#material-mask-mode") as HTMLSelectElement | null)?.value ?? "auto";
+        const etchMode = (document.querySelector("#material-etch-mode") as HTMLSelectElement | null)?.value ?? "auto";
+        const activeMask = maskMode === "full"
+          ? effectTextures.neutralMask
+          : maskMode === "reference"
+            ? reference.mask
+            : maskMode === "uploaded" && uploadedMaskTexture
+              ? uploadedMaskTexture
+              : maskMode === "none"
+                ? emptyMask
+                : currentCardMask;
+        const activeEtch = etchMode === "reference"
+          ? reference.foil
+          : etchMode === "uploaded" && uploadedEtchTexture
+            ? uploadedEtchTexture
+            : etchMode === "none"
+              ? emptyMask
+              : currentCoverProfile === "pokebox-sir"
+                ? reference.foil
+                : currentCardMask;
+
         pokeboxSirUniforms.uCardTex.value = currentCardTexture;
         pokeboxSirUniforms.uCardBackTex.value = currentCardTexture;
-        pokeboxSirUniforms.uMaskTex.value = currentCardMask;
-        pokeboxSirUniforms.uHasFoil.value = currentCoverProfile === "pokebox-sir" ? 1 : 0;
+        pokeboxSirUniforms.uMaskTex.value = activeMask;
+        pokeboxSirUniforms.uFoilTex.value = activeEtch;
+        pokeboxSirUniforms.uHasFoil.value = etchMode === "none" ? 0 : 1;
+        syncMaterialBuilderUniforms();
         coverMesh.material = pokeboxSirMaterial;
       };
 
@@ -520,6 +789,7 @@ const positions: Array<[string, string, number, number]> = [
         if (renderState instanceof HTMLElement) renderState.textContent = "Chargement de la matière";
         stage.classList.add("is-loading");
         currentCoverProfile = profile;
+        currentCardSrc = src;
         try {
           if (profile === "pokebox-sir") {
             const reference = await loadPokeboxReference();
@@ -593,6 +863,7 @@ const positions: Array<[string, string, number, number]> = [
         "beui-voronoi": "beUI · Voronoï",
         "beui-orbit": "beUI · Dot Orbit",
         "beui-rays": "beUI · God Rays",
+        "pokebox-ir": "Pokebox · Illustration Rare (#168)",
         "pokebox-sir": "Pokebox · Special Illustration Rare",
       };
       const raycaster = new THREE.Raycaster();
@@ -638,6 +909,10 @@ const positions: Array<[string, string, number, number]> = [
             pokeboxSirUniforms.uPointer.value.lerp(hit.uv, 0.42);
             setPokeboxSpecialIllustrationPointer(pokeboxSirUniforms, pokeboxSirUniforms.uPointer.value);
           }
+          if (pokeboxIrUniforms) {
+            pokeboxIrUniforms.uPointer.value.lerp(hit.uv, 0.42);
+            setPokeboxIllustrationRarePointer(pokeboxIrUniforms, pokeboxIrUniforms.uPointer.value);
+          }
           keyLight.position.x = THREE.MathUtils.lerp(-4.2, 4.2, hit.uv.x);
           keyLight.position.y = THREE.MathUtils.lerp(-3.5, 5.2, hit.uv.y);
         }
@@ -667,6 +942,7 @@ const positions: Array<[string, string, number, number]> = [
           const profile = button.dataset.coverProfile ?? "book";
           const defaultEffect = button.dataset.coverEffect;
           if (src) await setCover(src, profile);
+          currentCardTitle = button.dataset.coverTitle ?? "Carte sans titre";
           if (profile === "pokebox-sir") {
             setRangeValue("intensity", 82);
             chooseEffect("pokebox-sir");
@@ -707,6 +983,20 @@ const positions: Array<[string, string, number, number]> = [
               if (renderState instanceof HTMLElement) renderState.textContent = "Effet Pokebox indisponible";
               console.error(error);
             }
+          } else if (effect === "pokebox-ir") {
+            try {
+              if (renderState instanceof HTMLElement) renderState.textContent = "Chargement de l’effet Illustration Rare";
+              await applyPokeboxIllustrationRareToCurrentCard();
+              if (renderState instanceof HTMLElement) renderState.textContent = "Pokebox Illustration Rare actif";
+            } catch (error) {
+              currentEffect = "holo";
+              coverMesh.material = coverMaterial;
+              coverUniforms.uMode.value = modeMap.holo ?? 1;
+              const holoButton = document.querySelector('[data-effect="holo"]');
+              if (holoButton instanceof HTMLButtonElement) setPressed(".effect-option", holoButton);
+              if (renderState instanceof HTMLElement) renderState.textContent = "Illustration Rare indisponible";
+              console.error(error);
+            }
           } else {
             coverMesh.material = coverMaterial;
             coverUniforms.uMode.value = modeMap[effect] ?? 1;
@@ -728,11 +1018,412 @@ const positions: Array<[string, string, number, number]> = [
             pokeboxSirUniforms.uPointer.value.set(x, y);
             setPokeboxSpecialIllustrationPointer(pokeboxSirUniforms, pokeboxSirUniforms.uPointer.value);
           }
+          if (pokeboxIrUniforms) {
+            pokeboxIrUniforms.uPointer.value.set(x, y);
+            setPokeboxIllustrationRarePointer(pokeboxIrUniforms, pokeboxIrUniforms.uPointer.value);
+          }
           keyLight.position.x = THREE.MathUtils.lerp(-4.2, 4.2, x);
           keyLight.position.y = THREE.MathUtils.lerp(-3.5, 5.2, y);
         });
       });
 
+      type MaterialPresetConfig = {
+        schema: "vanya-pokebox-material";
+        version: 1;
+        name: string;
+        card?: { title: string; src: string };
+        maskMode?: string;
+        etchMode?: string;
+        tint?: string;
+        tintStrength?: number;
+        layers?: Record<string, { enabled: boolean; intensity: number }>;
+        uniforms?: Record<string, number>;
+        view?: { intensity: number; tilt: number; depth: number; softness: number };
+      };
+
+      const builderStatus = document.querySelector("#builder-status");
+      const setBuilderStatus = (message: string) => {
+        if (builderStatus instanceof HTMLElement) builderStatus.textContent = message;
+      };
+
+      const readSelectValue = (selector: string, fallback: string) => {
+        const select = document.querySelector(selector);
+        return select instanceof HTMLSelectElement ? select.value : fallback;
+      };
+
+      function refreshBuilderOutputs() {
+        document.querySelectorAll<HTMLInputElement>("[data-layer-uniform]").forEach((input) => {
+          const output = document.querySelector(`[data-layer-output="${input.dataset.layerUniform}"]`);
+          if (output instanceof HTMLOutputElement) output.textContent = `${Math.round(Number(input.value))}%`;
+        });
+        document.querySelectorAll<HTMLInputElement>("[data-material-uniform]").forEach((input) => {
+          const output = document.querySelector(`[data-material-output="${input.dataset.materialUniform}"]`);
+          if (output instanceof HTMLOutputElement) output.textContent = `${input.value}${input.dataset.suffix ?? ""}`;
+        });
+        const tintStrength = document.querySelector("#material-tint-strength");
+        const tintOutput = document.querySelector("#material-tint-strength-output");
+        if (tintStrength instanceof HTMLInputElement && tintOutput instanceof HTMLOutputElement) {
+          tintOutput.textContent = `${tintStrength.value}%`;
+        }
+      }
+
+      function serializeMaterialPreset(name?: string): MaterialPresetConfig {
+        const layers: MaterialPresetConfig["layers"] = {};
+        document.querySelectorAll<HTMLInputElement>("[data-layer-uniform]").forEach((input) => {
+          const uniform = input.dataset.layerUniform;
+          if (!uniform) return;
+          const enabled = document.querySelector(`[data-layer-enabled="${uniform}"]`);
+          layers[uniform] = {
+            enabled: enabled instanceof HTMLInputElement ? enabled.checked : true,
+            intensity: Number(input.value),
+          };
+        });
+        const uniforms: Record<string, number> = {};
+        document.querySelectorAll<HTMLInputElement>("[data-material-uniform]").forEach((input) => {
+          if (input.dataset.materialUniform) uniforms[input.dataset.materialUniform] = Number(input.value);
+        });
+        const tint = document.querySelector("#material-tint");
+        const tintStrength = document.querySelector("#material-tint-strength");
+        const nameInput = document.querySelector("#material-preset-name");
+        return {
+          schema: "vanya-pokebox-material",
+          version: 1,
+          name: name ?? ((nameInput instanceof HTMLInputElement ? nameInput.value.trim() : "Ma matière") || "Ma matière"),
+          card: { title: currentCardTitle, src: currentCardSrc },
+          maskMode: readSelectValue("#material-mask-mode", "auto"),
+          etchMode: readSelectValue("#material-etch-mode", "auto"),
+          tint: tint instanceof HTMLInputElement ? tint.value : "#fff1d2",
+          tintStrength: tintStrength instanceof HTMLInputElement ? Number(tintStrength.value) : 0,
+          layers,
+          uniforms,
+          view: {
+            intensity: state.intensity,
+            tilt: state.tilt,
+            depth: state.depth,
+            softness: state.softness,
+          },
+        };
+      }
+
+      function updateMaterialJsonPreview() {
+        const textarea = document.querySelector("#material-preset-json");
+        if (textarea instanceof HTMLTextAreaElement) {
+          textarea.value = JSON.stringify(serializeMaterialPreset(), null, 2);
+        }
+      }
+
+      function syncMaterialBuilderUniforms() {
+        if (!pokeboxSirUniforms) return;
+        document.querySelectorAll<HTMLInputElement>("[data-layer-uniform]").forEach((input) => {
+          const uniformName = input.dataset.layerUniform;
+          if (!uniformName || !pokeboxSirUniforms?.[uniformName]) return;
+          const enabled = document.querySelector(`[data-layer-enabled="${uniformName}"]`);
+          const isEnabled = !(enabled instanceof HTMLInputElement) || enabled.checked;
+          pokeboxSirUniforms[uniformName].value = isEnabled ? Number(input.value) / 100 : 0;
+        });
+        document.querySelectorAll<HTMLInputElement>("[data-material-uniform]").forEach((input) => {
+          const uniformName = input.dataset.materialUniform;
+          if (uniformName && pokeboxSirUniforms?.[uniformName]) {
+            pokeboxSirUniforms[uniformName].value = Number(input.value);
+          }
+        });
+        const tint = document.querySelector("#material-tint");
+        const tintStrength = document.querySelector("#material-tint-strength");
+        if (tint instanceof HTMLInputElement) {
+          const tintUniform = pokeboxSirUniforms.uMaterialTint.value;
+          if (tintUniform instanceof THREE.Color) tintUniform.set(tint.value);
+        }
+        if (tintStrength instanceof HTMLInputElement) {
+          pokeboxSirUniforms.uTintStrength.value = Number(tintStrength.value) / 100;
+        }
+        pokeboxSirUniforms.uCardOpacity.value = state.intensity / 100;
+        refreshBuilderOutputs();
+        updateMaterialJsonPreview();
+      }
+
+      const activateMaterialBuilder = async () => {
+        const button = document.querySelector('[data-effect="pokebox-sir"]');
+        if (button instanceof HTMLButtonElement) setPressed(".effect-option", button);
+        currentEffect = "pokebox-sir";
+        try {
+          setBuilderStatus("Application de la matière…");
+          await applyPokeboxEffectToCurrentCard();
+          const label = document.querySelector("#stage-effect-label");
+          if (label instanceof HTMLElement) label.textContent = modeLabels["pokebox-sir"];
+          if (renderState instanceof HTMLElement) renderState.textContent = "Material Builder actif";
+          setBuilderStatus("Matière Pokebox appliquée à la carte sélectionnée.");
+        } catch (error) {
+          setBuilderStatus("La matière n’a pas pu être appliquée.");
+          console.error(error);
+        }
+      };
+
+      const requestMaterialUpdate = () => {
+        refreshBuilderOutputs();
+        if (currentEffect === "pokebox-sir" && pokeboxSirUniforms) {
+          syncMaterialBuilderUniforms();
+        } else {
+          void activateMaterialBuilder();
+        }
+      };
+
+      const loadUploadedMaterialTexture = async (file: File) => {
+        const objectUrl = URL.createObjectURL(file);
+        try {
+          const texture = await textureLoader.loadAsync(objectUrl);
+          texture.colorSpace = THREE.NoColorSpace;
+          texture.minFilter = THREE.LinearMipmapLinearFilter;
+          texture.magFilter = THREE.LinearFilter;
+          texture.anisotropy = Math.min(renderer.capabilities.getMaxAnisotropy(), 8);
+          return texture;
+        } finally {
+          URL.revokeObjectURL(objectUrl);
+        }
+      };
+
+      document.querySelector("#activate-builder")?.addEventListener("click", () => void activateMaterialBuilder());
+      ["#material-mask-mode", "#material-etch-mode"].forEach((selector) => {
+        document.querySelector(selector)?.addEventListener("change", () => void activateMaterialBuilder());
+      });
+
+      const maskFileInput = document.querySelector("#material-mask-file");
+      maskFileInput?.addEventListener("change", async () => {
+        if (!(maskFileInput instanceof HTMLInputElement) || !maskFileInput.files?.[0]) return;
+        try {
+          const texture = await loadUploadedMaterialTexture(maskFileInput.files[0]);
+          uploadedMaskTexture?.dispose();
+          uploadedMaskTexture = texture;
+          const select = document.querySelector("#material-mask-mode");
+          if (select instanceof HTMLSelectElement) select.value = "uploaded";
+          setBuilderStatus(`Masque « ${maskFileInput.files[0].name} » chargé.`);
+          await activateMaterialBuilder();
+        } catch (error) {
+          setBuilderStatus("Impossible de lire ce masque.");
+          console.error(error);
+        }
+      });
+
+      const etchFileInput = document.querySelector("#material-etch-file");
+      etchFileInput?.addEventListener("change", async () => {
+        if (!(etchFileInput instanceof HTMLInputElement) || !etchFileInput.files?.[0]) return;
+        try {
+          const texture = await loadUploadedMaterialTexture(etchFileInput.files[0]);
+          uploadedEtchTexture?.dispose();
+          uploadedEtchTexture = texture;
+          const select = document.querySelector("#material-etch-mode");
+          if (select instanceof HTMLSelectElement) select.value = "uploaded";
+          setBuilderStatus(`Gravure « ${etchFileInput.files[0].name} » chargée.`);
+          await activateMaterialBuilder();
+        } catch (error) {
+          setBuilderStatus("Impossible de lire cette gravure.");
+          console.error(error);
+        }
+      });
+
+      document.querySelectorAll<HTMLInputElement>("[data-layer-uniform], [data-material-uniform], #material-tint-strength").forEach((input) => {
+        input.addEventListener("input", requestMaterialUpdate);
+      });
+      document.querySelectorAll<HTMLInputElement>("[data-layer-enabled]").forEach((input) => {
+        input.addEventListener("change", requestMaterialUpdate);
+      });
+      document.querySelector("#material-tint")?.addEventListener("input", requestMaterialUpdate);
+
+      const applyMaterialPresetConfig = async (preset: Partial<MaterialPresetConfig>) => {
+        const maskSelect = document.querySelector("#material-mask-mode");
+        const etchSelect = document.querySelector("#material-etch-mode");
+        if (maskSelect instanceof HTMLSelectElement && preset.maskMode) {
+          maskSelect.value = preset.maskMode === "uploaded" && !uploadedMaskTexture ? "auto" : preset.maskMode;
+        }
+        if (etchSelect instanceof HTMLSelectElement && preset.etchMode) {
+          etchSelect.value = preset.etchMode === "uploaded" && !uploadedEtchTexture ? "auto" : preset.etchMode;
+        }
+        if (preset.tint) {
+          const tint = document.querySelector("#material-tint");
+          if (tint instanceof HTMLInputElement) tint.value = preset.tint;
+        }
+        if (typeof preset.tintStrength === "number") {
+          const strength = document.querySelector("#material-tint-strength");
+          if (strength instanceof HTMLInputElement) strength.value = String(preset.tintStrength);
+        }
+        Object.entries(preset.layers ?? {}).forEach(([uniform, layer]) => {
+          const range = document.querySelector(`[data-layer-uniform="${uniform}"]`);
+          const enabled = document.querySelector(`[data-layer-enabled="${uniform}"]`);
+          if (range instanceof HTMLInputElement) range.value = String(layer.intensity);
+          if (enabled instanceof HTMLInputElement) enabled.checked = layer.enabled;
+        });
+        Object.entries(preset.uniforms ?? {}).forEach(([uniform, value]) => {
+          const input = document.querySelector(`[data-material-uniform="${uniform}"]`);
+          if (input instanceof HTMLInputElement && Number.isFinite(value)) input.value = String(value);
+        });
+        if (preset.view) {
+          setRangeValue("intensity", preset.view.intensity);
+          setRangeValue("tilt", preset.view.tilt);
+          setRangeValue("depth", preset.view.depth);
+          setRangeValue("softness", preset.view.softness);
+        }
+        const name = document.querySelector("#material-preset-name");
+        if (name instanceof HTMLInputElement && preset.name) name.value = preset.name;
+        refreshBuilderOutputs();
+        await activateMaterialBuilder();
+        updateMaterialJsonPreview();
+      };
+
+      const starterPresets: Record<string, Partial<MaterialPresetConfig>> = {
+        nacre: {
+          name: "Nacre douce", tint: "#ffe8df", tintStrength: 18, maskMode: "auto", etchMode: "auto",
+          layers: {
+            uLayerSilver: { enabled: true, intensity: 68 }, uLayerShine: { enabled: true, intensity: 52 },
+            uLayerWash: { enabled: true, intensity: 45 }, uLayerGlitter: { enabled: true, intensity: 24 },
+            uLayerGlare: { enabled: true, intensity: 34 }, uLayerEtch: { enabled: true, intensity: 40 },
+          },
+          uniforms: { uSirShineSaturation: 1.3, uSirWashSaturation: 0.55, uSirGlitterContrast: 1.45, uSirBaseBrightness: 1.04 },
+        },
+        argent: {
+          name: "Argent gravé", tint: "#e5eef2", tintStrength: 16, maskMode: "auto", etchMode: "auto",
+          layers: {
+            uLayerSilver: { enabled: true, intensity: 100 }, uLayerShine: { enabled: true, intensity: 34 },
+            uLayerWash: { enabled: true, intensity: 22 }, uLayerGlitter: { enabled: true, intensity: 28 },
+            uLayerGlare: { enabled: true, intensity: 50 }, uLayerEtch: { enabled: true, intensity: 100 },
+          },
+          uniforms: { uSirShineSaturation: 0.4, uSirWashSaturation: 0.25, uSirGlitterSaturation: 0.15, uSirBaseContrast: 1.08, uSirTiltSparkleIntensity: 0.62 },
+        },
+        dore: {
+          name: "Dorure chaude", tint: "#e4a744", tintStrength: 68, maskMode: "auto", etchMode: "auto",
+          layers: {
+            uLayerSilver: { enabled: true, intensity: 42 }, uLayerShine: { enabled: true, intensity: 42 },
+            uLayerWash: { enabled: true, intensity: 36 }, uLayerGlitter: { enabled: true, intensity: 34 },
+            uLayerGlare: { enabled: true, intensity: 38 }, uLayerEtch: { enabled: true, intensity: 78 },
+          },
+          uniforms: { uSirShineSaturation: 0.75, uSirWashSaturation: 0.5, uSirGlitterContrast: 2.7, uSirBaseBrightness: 0.98 },
+        },
+        cosmique: {
+          name: "Cosmique", tint: "#8b7cff", tintStrength: 42, maskMode: "auto", etchMode: "auto",
+          layers: {
+            uLayerSilver: { enabled: true, intensity: 62 }, uLayerShine: { enabled: true, intensity: 100 },
+            uLayerWash: { enabled: true, intensity: 92 }, uLayerGlitter: { enabled: true, intensity: 90 },
+            uLayerGlare: { enabled: true, intensity: 58 }, uLayerEtch: { enabled: true, intensity: 72 },
+          },
+          uniforms: { uSirShineFrequency: 2.4, uSirShineSaturation: 4.2, uSirWashScale: 1.8, uSirWashSaturation: 1.55, uSirGlitterSaturation: 2.2 },
+        },
+      };
+
+      document.querySelectorAll<HTMLButtonElement>("[data-material-preset]").forEach((button) => {
+        button.addEventListener("click", () => {
+          const preset = button.dataset.materialPreset ? starterPresets[button.dataset.materialPreset] : null;
+          if (preset) void applyMaterialPresetConfig(preset);
+        });
+      });
+
+      const presetStorageKey = "vanya-pokebox-material-presets-v1";
+      const readStoredPresets = (): Record<string, MaterialPresetConfig> => {
+        try {
+          const value = localStorage.getItem(presetStorageKey);
+          return value ? JSON.parse(value) : {};
+        } catch {
+          return {};
+        }
+      };
+      const renderStoredPresets = () => {
+        const select = document.querySelector("#saved-material-presets");
+        if (!(select instanceof HTMLSelectElement)) return;
+        const selected = select.value;
+        select.replaceChildren(new Option("Choisir un preset local", ""));
+        Object.keys(readStoredPresets()).sort((a, b) => a.localeCompare(b, "fr")).forEach((name) => select.add(new Option(name, name)));
+        select.value = selected;
+      };
+
+      document.querySelector("#save-material-preset")?.addEventListener("click", () => {
+        const preset = serializeMaterialPreset();
+        const presets = readStoredPresets();
+        presets[preset.name] = preset;
+        try {
+          localStorage.setItem(presetStorageKey, JSON.stringify(presets));
+          renderStoredPresets();
+          const select = document.querySelector("#saved-material-presets");
+          if (select instanceof HTMLSelectElement) select.value = preset.name;
+          setBuilderStatus(`Preset « ${preset.name} » enregistré dans ce navigateur.`);
+        } catch {
+          setBuilderStatus("Le navigateur a refusé l’enregistrement local.");
+        }
+      });
+
+      document.querySelector("#saved-material-presets")?.addEventListener("change", (event) => {
+        const select = event.currentTarget;
+        if (!(select instanceof HTMLSelectElement) || !select.value) return;
+        const preset = readStoredPresets()[select.value];
+        if (preset) void applyMaterialPresetConfig(preset);
+      });
+
+      document.querySelector("#download-material-preset")?.addEventListener("click", () => {
+        const preset = serializeMaterialPreset();
+        const blob = new Blob([JSON.stringify(preset, null, 2)], { type: "application/json" });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = `${preset.name.toLowerCase().replace(/[^a-z0-9]+/gi, "-").replace(/^-|-$/g, "") || "matiere-pokebox"}.json`;
+        link.click();
+        URL.revokeObjectURL(url);
+        setBuilderStatus("Preset JSON téléchargé.");
+      });
+
+      const applyJsonTextarea = async () => {
+        const textarea = document.querySelector("#material-preset-json");
+        if (!(textarea instanceof HTMLTextAreaElement)) return;
+        try {
+          const preset = JSON.parse(textarea.value) as MaterialPresetConfig;
+          if (preset.schema !== "vanya-pokebox-material" || preset.version !== 1) throw new Error("Format inconnu");
+          await applyMaterialPresetConfig(preset);
+          setBuilderStatus(`Preset « ${preset.name || "sans nom"} » appliqué.`);
+        } catch (error) {
+          setBuilderStatus("JSON invalide ou format de preset incompatible.");
+          console.error(error);
+        }
+      };
+      document.querySelector("#apply-material-json")?.addEventListener("click", () => void applyJsonTextarea());
+
+      const importPresetInput = document.querySelector("#import-material-preset");
+      importPresetInput?.addEventListener("change", async () => {
+        if (!(importPresetInput instanceof HTMLInputElement) || !importPresetInput.files?.[0]) return;
+        const textarea = document.querySelector("#material-preset-json");
+        if (textarea instanceof HTMLTextAreaElement) textarea.value = await importPresetInput.files[0].text();
+        await applyJsonTextarea();
+      });
+
+      document.querySelectorAll<HTMLButtonElement>("[data-capture-slot]").forEach((button) => {
+        button.addEventListener("click", () => {
+          const slot = button.dataset.captureSlot;
+          const figure = slot ? document.querySelector(`[data-comparison="${slot}"]`) : null;
+          if (!(figure instanceof HTMLElement)) return;
+          renderer.render(scene, camera);
+          const image = figure.querySelector("img");
+          const placeholder = figure.querySelector(".comparison-placeholder");
+          const caption = figure.querySelector("figcaption small");
+          if (image instanceof HTMLImageElement) {
+            image.src = renderer.domElement.toDataURL("image/png");
+            image.hidden = false;
+          }
+          if (placeholder instanceof HTMLElement) placeholder.hidden = true;
+          if (caption instanceof HTMLElement) {
+            caption.textContent = `${currentCardTitle} · ${readSelectValue("#material-mask-mode", "auto")} / ${readSelectValue("#material-etch-mode", "auto")}`;
+          }
+          setBuilderStatus(`Variante ${slot?.toUpperCase()} capturée.`);
+        });
+      });
+
+      document.querySelector("#clear-comparison")?.addEventListener("click", () => {
+        document.querySelectorAll<HTMLElement>("[data-comparison]").forEach((figure) => {
+          const image = figure.querySelector("img");
+          const placeholder = figure.querySelector(".comparison-placeholder");
+          const caption = figure.querySelector("figcaption small");
+          if (image instanceof HTMLImageElement) { image.src = ""; image.hidden = true; }
+          if (placeholder instanceof HTMLElement) placeholder.hidden = false;
+          if (caption instanceof HTMLElement) caption.textContent = "Aucune capture";
+        });
+      });
+
+      refreshBuilderOutputs();
+      renderStoredPresets();
+      updateMaterialJsonPreview();
       type NumericStateKey = "tilt" | "depth" | "intensity" | "softness";
       type BooleanStateKey = "pointerFollow" | "floatMotion" | "autoRotate" | "castShadow";
 
@@ -759,6 +1450,7 @@ const positions: Array<[string, string, number, number]> = [
       bindRange("intensity", "intensity", "intensity-output", "%", (value) => {
         coverUniforms.uIntensity.value = value / 100;
         if (pokeboxSirUniforms) pokeboxSirUniforms.uCardOpacity.value = value / 100;
+        if (pokeboxIrUniforms) pokeboxIrUniforms.uCardOpacity.value = value / 100;
       });
       bindRange("tilt", "tilt", "tilt-output", "°");
       bindRange("depth", "depth", "depth-output", "%", (value) => {
@@ -867,6 +1559,7 @@ const positions: Array<[string, string, number, number]> = [
         previousFrameAt = now;
         const elapsed = (now - animationStartedAt) / 1000;
         coverUniforms.uTime.value = reduceMotion ? 0 : elapsed;
+        if (pokeboxIrUniforms) pokeboxIrUniforms.uTime.value = reduceMotion ? 0 : elapsed;
 
         const autoY = !reduceMotion && state.autoRotate ? Math.sin(elapsed * 0.42) * 0.16 : 0;
         const targetX = reduceMotion ? 0 : state.targetRotationX;
@@ -892,6 +1585,9 @@ const positions: Array<[string, string, number, number]> = [
         loadedTextures.forEach((texture) => texture.dispose());
         loadedMasks.forEach((texture) => texture.dispose());
         pokeboxReferenceTextures.forEach((texture) => texture.dispose());
+        uploadedMaskTexture?.dispose();
+        uploadedEtchTexture?.dispose();
+        emptyMask.dispose();
         effectTextures.neutralMask.dispose();
         effectTextures.foil.dispose();
         effectTextures.glitter.dispose();
@@ -901,6 +1597,7 @@ const positions: Array<[string, string, number, number]> = [
         floor.geometry.dispose();
         edgeMaterial.dispose();
         coverMaterial.dispose();
+        pokeboxIrMaterial?.dispose();
         pokeboxSirMaterial?.dispose();
         backMaterial.dispose();
         floorMaterial.dispose();
@@ -1474,6 +2171,11 @@ const positions: Array<[string, string, number, number]> = [
   .effect-swatch--beui-rays {
     background: conic-gradient(from 22deg at 38% 62%, #222927, #dbad80 5%, #35443f 11%, #8daab0 17%, #242b29 24%, #d7a9b2 31%, #222927 40%);
   }
+  .effect-swatch--pokebox-ir {
+    background:
+      radial-gradient(circle at 28% 72%, rgb(255 255 255 / 0.88), transparent 20%),
+      repeating-linear-gradient(132deg, #657fca 0 4px, #d7c8ee 5px 8px, #9bc7bd 9px 12px, #665f9f 13px 16px);
+  }
   .effect-swatch--pokebox-sir {
     background:
       radial-gradient(circle at 68% 28%, rgb(255 255 255 / 0.9), transparent 22%),
@@ -1710,7 +2412,493 @@ const positions: Array<[string, string, number, number]> = [
     color: var(--lab-accent-ink);
   }
 
+  .material-builder,
+  .comparison-panel {
+    margin-top: 10px;
+    border: 1px solid var(--lab-line);
+    border-radius: calc(var(--lab-radius) + 4px);
+    background: var(--lab-surface);
+    box-shadow: 0 28px 80px -68px var(--lab-shadow);
+  }
+
+  .builder-header,
+  .comparison-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 28px;
+    padding: 28px;
+    border-bottom: 1px solid var(--lab-line);
+  }
+
+  .builder-header .eyebrow,
+  .comparison-header .eyebrow {
+    margin: 0 0 9px;
+  }
+
+  .builder-header h2,
+  .comparison-header h2 {
+    margin: 0;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(1.65rem, 3vw, 2.7rem);
+    font-weight: 500;
+    letter-spacing: -0.035em;
+  }
+
+  .builder-header p:last-child,
+  .comparison-header p:last-child {
+    max-width: 650px;
+    margin: 9px 0 0;
+    color: var(--lab-muted);
+    font-size: 12px;
+    line-height: 1.55;
+  }
+
+  .builder-primary,
+  .builder-secondary,
+  .builder-actions button,
+  .button-file,
+  .material-presets button,
+  .comparison-actions button {
+    border: 1px solid var(--lab-line);
+    border-radius: var(--lab-radius);
+    background: transparent;
+    padding: 10px 12px;
+    color: var(--lab-ink);
+    font: inherit;
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    cursor: pointer;
+    transition: background-color 160ms ease, color 160ms ease, border-color 160ms ease;
+  }
+
+  .builder-primary {
+    flex: none;
+    border-color: var(--lab-accent);
+    background: var(--lab-accent);
+    padding: 12px 16px;
+    color: var(--lab-accent-ink);
+  }
+
+  .builder-primary:hover,
+  .builder-secondary:hover,
+  .builder-actions button:hover,
+  .button-file:hover,
+  .material-presets button:hover,
+  .comparison-actions button:hover {
+    border-color: var(--lab-accent);
+    background: var(--lab-accent);
+    color: var(--lab-accent-ink);
+  }
+
+  .builder-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 0.92fr) minmax(0, 1fr) minmax(0, 1.08fr) minmax(0, 0.98fr);
+  }
+
+  .builder-pane {
+    min-width: 0;
+    padding: 24px;
+    border-right: 1px solid var(--lab-line);
+  }
+
+  .builder-pane:last-child {
+    border-right: 0;
+  }
+
+  .builder-pane-heading {
+    display: grid;
+    grid-template-columns: 28px 1fr;
+    gap: 10px;
+    align-items: start;
+    margin-bottom: 22px;
+  }
+
+  .builder-pane-heading > span {
+    display: grid;
+    place-items: center;
+    width: 28px;
+    height: 28px;
+    border: 1px solid var(--lab-line);
+    border-radius: 50%;
+    color: var(--lab-accent);
+    font-size: 9px;
+    font-weight: 850;
+  }
+
+  .builder-pane-heading h3,
+  .builder-pane-heading p {
+    margin: 0;
+  }
+
+  .builder-pane-heading h3 {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 19px;
+    font-weight: 500;
+  }
+
+  .builder-pane-heading p {
+    margin-top: 4px;
+    color: var(--lab-muted);
+    font-size: 9px;
+    line-height: 1.45;
+  }
+
+  .builder-field,
+  .file-field,
+  .tint-field {
+    display: block;
+    margin-bottom: 17px;
+  }
+
+  .builder-field > span,
+  .file-field > span,
+  .tint-field > label {
+    display: block;
+    margin-bottom: 7px;
+    color: var(--lab-muted);
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .builder-field select,
+  .builder-field input,
+  .builder-field textarea,
+  .file-field input[type="file"] {
+    width: 100%;
+    border: 1px solid var(--lab-line);
+    border-radius: var(--lab-radius);
+    background: var(--lab-bg);
+    padding: 10px;
+    color: var(--lab-ink);
+    font: inherit;
+    font-size: 10px;
+  }
+
+  .builder-field select,
+  .builder-field input {
+    min-height: 39px;
+  }
+
+  .file-field input[type="file"] {
+    padding: 7px;
+  }
+
+  .file-field input[type="file"]::file-selector-button {
+    margin-right: 8px;
+    border: 0;
+    border-radius: calc(var(--lab-radius) - 2px);
+    background: var(--lab-surface-strong);
+    padding: 7px 9px;
+    color: var(--lab-ink);
+    font: inherit;
+    font-size: 9px;
+    font-weight: 750;
+    cursor: pointer;
+  }
+
+  .file-field small {
+    display: block;
+    margin-top: 6px;
+    color: var(--lab-muted);
+    font-size: 8px;
+    line-height: 1.4;
+  }
+
+  .tint-field > div {
+    display: grid;
+    grid-template-columns: 44px 1fr;
+    align-items: center;
+    gap: 12px;
+  }
+
+  #material-tint {
+    width: 44px;
+    height: 42px;
+    border: 1px solid var(--lab-line);
+    border-radius: var(--lab-radius);
+    background: var(--lab-bg);
+    padding: 4px;
+    cursor: pointer;
+  }
+
+  .layer-stack {
+    display: grid;
+    gap: 9px;
+  }
+
+  .layer-control {
+    border: 1px solid var(--lab-line);
+    border-radius: var(--lab-radius);
+    background: color-mix(in srgb, var(--lab-bg) 68%, transparent);
+    padding: 11px;
+  }
+
+  .layer-toggle {
+    display: grid;
+    grid-template-columns: 30px 1fr;
+    align-items: center;
+    gap: 9px;
+    cursor: pointer;
+  }
+
+  .layer-toggle input {
+    position: absolute;
+    opacity: 0;
+  }
+
+  .layer-toggle i {
+    position: relative;
+    width: 30px;
+    height: 18px;
+    border-radius: 999px;
+    background: var(--lab-surface-strong);
+    box-shadow: inset 0 0 0 1px var(--lab-line);
+  }
+
+  .layer-toggle i::after {
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--lab-muted);
+    content: "";
+    transition: transform 160ms ease, background-color 160ms ease;
+  }
+
+  .layer-toggle input:checked + i {
+    background: var(--lab-accent);
+  }
+
+  .layer-toggle input:checked + i::after {
+    background: var(--lab-accent-ink);
+    transform: translateX(12px);
+  }
+
+  .layer-toggle strong,
+  .layer-toggle small {
+    display: block;
+  }
+
+  .layer-toggle strong {
+    font-size: 10px;
+  }
+
+  .layer-toggle small {
+    margin-top: 2px;
+    color: var(--lab-muted);
+    font-size: 8px;
+  }
+
+  .builder-range {
+    display: block;
+    margin-top: 10px;
+  }
+
+  .builder-range > span {
+    margin-bottom: 4px;
+  }
+
+  .parameter-fold {
+    border-top: 1px solid var(--lab-line);
+  }
+
+  .parameter-fold:last-child {
+    border-bottom: 1px solid var(--lab-line);
+  }
+
+  .parameter-fold summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 11px 2px;
+    font-size: 9px;
+    font-weight: 850;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    cursor: pointer;
+    list-style: none;
+  }
+
+  .parameter-fold summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .parameter-fold summary span {
+    display: grid;
+    place-items: center;
+    min-width: 22px;
+    height: 18px;
+    border-radius: 999px;
+    background: var(--lab-surface-strong);
+    color: var(--lab-muted);
+    font-size: 8px;
+  }
+
+  .parameter-fold > div {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5px 15px;
+    padding: 2px 2px 13px;
+  }
+
+  .material-presets {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 7px;
+    margin-bottom: 18px;
+  }
+
+  .material-presets button {
+    min-height: 38px;
+  }
+
+  .builder-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 7px;
+    margin-bottom: 16px;
+  }
+
+  .button-file {
+    position: relative;
+    display: grid;
+    grid-column: 1 / -1;
+    place-items: center;
+    overflow: hidden;
+  }
+
+  .button-file input {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    cursor: pointer;
+  }
+
+  .builder-json-field textarea {
+    resize: vertical;
+    min-height: 172px;
+    font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+    font-size: 8px;
+    line-height: 1.5;
+  }
+
+  .builder-secondary {
+    width: 100%;
+  }
+
+  .builder-status {
+    min-height: 32px;
+    margin: 12px 0 0;
+    border-left: 2px solid var(--lab-accent);
+    padding: 2px 0 2px 10px;
+    color: var(--lab-muted);
+    font-size: 9px;
+    line-height: 1.45;
+  }
+
+  .comparison-panel {
+    margin-bottom: 18px;
+  }
+
+  .comparison-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 7px;
+  }
+
+  .comparison-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--lab-line);
+  }
+
+  .comparison-card {
+    margin: 0;
+    background: var(--lab-stage);
+  }
+
+  .comparison-card > img,
+  .comparison-placeholder {
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+  }
+
+  .comparison-card > img[hidden],
+  .comparison-placeholder[hidden] {
+    display: none;
+  }
+
+  .comparison-placeholder {
+    display: grid;
+    place-content: center;
+    justify-items: center;
+    color: var(--lab-muted);
+    background:
+      linear-gradient(135deg, transparent 49.7%, var(--lab-line) 50%, transparent 50.3%),
+      var(--lab-stage);
+  }
+
+  .comparison-placeholder span {
+    display: grid;
+    place-items: center;
+    width: 52px;
+    height: 52px;
+    border: 1px solid var(--lab-line);
+    border-radius: 50%;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 24px;
+  }
+
+  .comparison-placeholder p {
+    margin: 10px 0 0;
+    font-size: 9px;
+  }
+
+  .comparison-card figcaption {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    min-height: 52px;
+    border-top: 1px solid var(--lab-line);
+    background: var(--lab-surface);
+    padding: 12px 16px;
+  }
+
+  .comparison-card figcaption strong {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 15px;
+    font-weight: 500;
+  }
+
+  .comparison-card figcaption small {
+    color: var(--lab-muted);
+    font-size: 8px;
+    text-align: right;
+  }
   @media (max-width: 1080px) {
+    .builder-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .builder-pane:nth-child(2) {
+      border-right: 0;
+    }
+
+    .builder-pane:nth-child(-n + 2) {
+      border-bottom: 1px solid var(--lab-line);
+    }
+
     .lab-workspace {
       grid-template-columns: 1fr;
     }
@@ -1735,6 +2923,41 @@ const positions: Array<[string, string, number, number]> = [
   }
 
   @media (max-width: 720px) {
+    .builder-header,
+    .comparison-header {
+      align-items: stretch;
+      flex-direction: column;
+      padding: 22px;
+    }
+
+    .builder-primary {
+      width: 100%;
+    }
+
+    .builder-grid,
+    .comparison-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .builder-pane,
+    .builder-pane:nth-child(2) {
+      border-right: 0;
+      border-bottom: 1px solid var(--lab-line);
+      padding: 20px;
+    }
+
+    .builder-pane:last-child {
+      border-bottom: 0;
+    }
+
+    .comparison-actions {
+      justify-content: stretch;
+    }
+
+    .comparison-actions button {
+      flex: 1;
+    }
+
     .card-lab-shell {
       width: min(calc(100% - 20px), 1500px);
       padding-bottom: 10px;

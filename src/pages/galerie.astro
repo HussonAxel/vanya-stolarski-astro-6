@@ -1,5 +1,7 @@
 ---
+import { Image } from "astro:assets";
 import Layout from "../layouts/Layout.astro";
+import { getImageDimensions } from "../lib/image-dimensions";
 import {
   galleryItems,
   getGalleryArtistFilters,
@@ -17,6 +19,7 @@ const galleryBookFilterLabels = Object.fromEntries(
       return [filter, book ? getBookTitle(book) : filter];
     }),
 );
+const firstGalleryItem = galleryItems[0];
 ---
 
 <Layout title="Galerie - Vanya Stolarski">
@@ -85,7 +88,7 @@ const galleryBookFilterLabels = Object.fromEntries(
         >
             <div class="site-shell relative space-y-8">
                 <div
-                    class="section-panel fade-up rounded-[1.8rem] border border-[#3d3834]/10 p-4 shadow-[0_20px_70px_-45px_rgba(61,56,52,0.3)] backdrop-blur-sm md:p-5"
+                    class="section-panel fade-up rounded-lg border border-[#3d3834]/10 p-4 shadow-[0_20px_70px_-45px_rgba(61,56,52,0.3)] backdrop-blur-sm md:p-5"
                 >
                     <div class="space-y-5">
                         <div
@@ -111,7 +114,7 @@ const galleryBookFilterLabels = Object.fromEntries(
 
                         <div class="grid gap-3 lg:grid-cols-2">
                             <section
-                                class="rounded-[1.35rem] border border-[#3d3834]/10 bg-[#FFFAFA]/80 p-4"
+                                class="rounded-lg border border-[#3d3834]/10 bg-[#FFFAFA]/80 p-4"
                             >
                                 <div
                                     class="mb-3 flex items-center justify-between gap-3"
@@ -174,7 +177,7 @@ const galleryBookFilterLabels = Object.fromEntries(
                             </section>
 
                             <section
-                                class="rounded-[1.35rem] border border-[#3d3834]/10 bg-[#FFFAFA]/80 p-4"
+                                class="rounded-lg border border-[#3d3834]/10 bg-[#FFFAFA]/80 p-4"
                             >
                                 <div
                                     class="mb-3 flex items-center justify-between gap-3"
@@ -244,33 +247,39 @@ const galleryBookFilterLabels = Object.fromEntries(
                         class="gallery-columns columns-1 gap-4 sm:columns-2 xl:columns-4"
                     >
                         {
-                            galleryItems.map((item) => (
-                                <button
-                                    type="button"
-                                    class="gallery-item gallery-card fade-up group relative mb-4 block w-full break-inside-avoid overflow-hidden rounded-[1.35rem] border border-[#3d3834]/8 bg-[#FFFAFA] shadow-[0_24px_80px_-52px_rgba(61,56,52,0.45)] transition-all duration-300 hover:shadow-[0_30px_90px_-52px_rgba(61,56,52,0.5)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#3a4d45]"
-                                    data-book={item.bookSlug}
-                                    data-artist={item.artist}
-                                    data-gallery-trigger
-                                    data-title={item.title}
-                                    data-image={item.image}
-                                    data-alt={item.alt}
-                                    data-book-label={galleryBookFilterLabels[item.bookSlug] ?? item.bookSlug}
-                                    data-book-href={`/livres/${item.bookSlug}`}
-                                    data-artist-label={item.artist}
-                                    data-date={item.date}
-                                    data-description={item.description}
-                                    aria-label={`Ouvrir la fiche de ${item.title}`}
-                                >
-                                    <div class="relative overflow-hidden bg-[#FFFAFA]">
-                                        <img
-                                            src={item.image}
-                                            alt={item.alt}
-                                            loading="lazy"
-                                            class="w-full rounded-[1.35rem] object-cover transition-transform duration-700 group-hover:scale-[1.025]"
-                                        />
-                                    </div>
-                                </button>
-                            ))
+                            galleryItems.map((item) => {
+                                const dimensions = getImageDimensions(item.image);
+
+                                return (
+                                    <button
+                                        type="button"
+                                        class="gallery-item gallery-card fade-up group relative mb-4 block w-full break-inside-avoid overflow-hidden rounded-lg border border-[#3d3834]/8 bg-[#FFFAFA] shadow-[0_24px_80px_-52px_rgba(61,56,52,0.45)] transition-all duration-300 hover:shadow-[0_30px_90px_-52px_rgba(61,56,52,0.5)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#3a4d45]"
+                                        data-book={item.bookSlug}
+                                        data-artist={item.artist}
+                                        data-gallery-trigger
+                                        data-title={item.title}
+                                        data-image={item.image}
+                                        data-alt={item.alt}
+                                        data-book-label={galleryBookFilterLabels[item.bookSlug] ?? item.bookSlug}
+                                        data-book-href={`/livres/${item.bookSlug}`}
+                                        data-artist-label={item.artist}
+                                        data-date={item.date}
+                                        data-description={item.description}
+                                        aria-label={`Ouvrir la fiche de ${item.title}`}
+                                    >
+                                        <div class="relative overflow-hidden bg-[#FFFAFA]">
+                                            <Image
+                                                src={item.image}
+                                                alt={item.alt}
+                                                width={dimensions.width}
+                                                height={dimensions.height}
+                                                loading="lazy"
+                                                class="w-full rounded-lg object-cover transition-transform duration-700 group-hover:scale-[1.025]"
+                                            />
+                                        </div>
+                                    </button>
+                                );
+                            })
                         }
                     </div>
                 </div>
@@ -287,7 +296,7 @@ const galleryBookFilterLabels = Object.fromEntries(
         >
             <div data-gallery-close class="absolute inset-0"></div>
             <div
-                class="relative z-10 my-auto w-full max-w-[min(96vw,1380px)] overflow-hidden rounded-[2.2rem] border border-[#FFFAFA]/10 bg-[#FFFAFA] shadow-[0_35px_120px_-50px_rgba(61,56,52,0.6)] lg:max-h-[92vh]"
+                class="relative z-10 my-auto w-full max-w-[min(96vw,1380px)] overflow-hidden rounded-lg border border-[#FFFAFA]/10 bg-[#FFFAFA] shadow-[0_35px_120px_-50px_rgba(61,56,52,0.6)] lg:max-h-[92vh]"
             >
                 <button
                     type="button"
@@ -309,14 +318,21 @@ const galleryBookFilterLabels = Object.fromEntries(
                         >
                         </div>
                         <div
-                            class="relative inline-flex h-full w-full max-w-full items-center justify-center overflow-hidden rounded-[1.55rem] border border-[#FFFAFA]/8 bg-[#312d2a] p-3 shadow-[0_24px_60px_-45px_rgba(61,56,52,0.45)] md:p-4"
+                            class="relative inline-flex h-full w-full max-w-full items-center justify-center overflow-hidden rounded-lg border border-[#FFFAFA]/8 bg-[#312d2a] p-3 shadow-[0_24px_60px_-45px_rgba(61,56,52,0.45)] md:p-4"
                         >
-                            <img
-                                id="gallery-modal-image"
-                                src=""
-                                alt=""
-                                class="block max-h-[58vh] max-w-full rounded-[1rem] object-contain md:max-h-[72vh] lg:max-h-[calc(92vh-5.5rem)]"
-                            />
+                            {
+                                firstGalleryItem && (
+                                    <Image
+                                        id="gallery-modal-image"
+                                        src={firstGalleryItem.image}
+                                        alt={firstGalleryItem.alt}
+                                        width={getImageDimensions(firstGalleryItem.image).width}
+                                        height={getImageDimensions(firstGalleryItem.image).height}
+                                        loading="lazy"
+                                        class="block max-h-[58vh] max-w-full rounded-lg object-contain md:max-h-[72vh] lg:max-h-[calc(92vh-5.5rem)]"
+                                    />
+                                )
+                            }
                         </div>
                     </div>
 
@@ -354,7 +370,7 @@ const galleryBookFilterLabels = Object.fromEntries(
                             </div>
 
                             <div
-                                class="rounded-[1.7rem] border border-[#3d3834]/10 bg-[#fffaf8] p-5"
+                                class="rounded-lg border border-[#3d3834]/10 bg-[#fffaf8] p-5"
                             >
                                 <p
                                     class="font-sans text-[10px] font-bold tracking-[0.22em] text-[#3d3834]/58 uppercase"
@@ -406,7 +422,7 @@ const galleryBookFilterLabels = Object.fromEntries(
                             </div>
 
                             <div
-                                class="rounded-[1.7rem] border border-[#3d3834]/10 bg-[#FFFAFA] p-5"
+                                class="rounded-lg border border-[#3d3834]/10 bg-[#FFFAFA] p-5"
                             >
                                 <p
                                     class="font-sans text-[10px] font-bold tracking-[0.22em] text-[#3d3834]/58 uppercase"

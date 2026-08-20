@@ -1,195 +1,630 @@
 ---
 import { reviews } from "../data/reviews";
 
-const leftColumnReviews = reviews.slice(0, 2);
-const rightColumnReviews = reviews.slice(2, 5);
-const truncate = (text: string, maxLength: number) =>
-  text.length <= maxLength ? text : `${text.slice(0, maxLength).trimEnd()}...`;
-const hasExtendedBody = (text: string, excerpt: string) =>
-  excerpt.trim() !== text.trim() && excerpt.trim().length > text.trim().length + 40;
+const featuredReviews = reviews.slice(0, 8);
 ---
 
 <section
   id="reviews"
-  class="relative overflow-hidden bg-[#FFFAFA] py-22 text-[#3d3834]"
+  class="reviews-section relative overflow-hidden text-[#3d3834]"
+  aria-label="Avis de lecture"
 >
-  <div class="pointer-events-none absolute inset-x-0 top-0 h-28 opacity-[0.06]">
-    <svg viewBox="0 0 400 150" preserveAspectRatio="none" class="h-full w-full fill-[#3d3834]">
-      <path d="M0,64 C120,112 220,18 400,70 L400,0 L0,0 Z"></path>
-    </svg>
-  </div>
-
   <div class="site-shell relative z-10 px-6">
-    <div class="mb-16 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
-      <div class="max-w-3xl space-y-5">
-        <div class="flex items-center gap-3">
-          <span class="h-px w-10 bg-[#3a4d45]"></span>
-          <h2 class="font-sans text-[16px] font-bold tracking-[0.35em] text-[#3a4d45] uppercase">
-            Avis récents
-          </h2>
-        </div>
-      </div>
-
-      <a
-        href="/reviews"
-        class="section-panel inline-flex items-center gap-3 self-start rounded-full border border-[#3d3834]/12 bg-[#FFFAFA] px-6 py-4 font-sans text-[11px] font-bold tracking-[0.25em] text-[#3d3834] uppercase shadow-[0_18px_60px_-35px_rgba(61,56,52,0.45)] transition-all duration-300 hover:border-[#3a4d45]/35 hover:bg-[#3a4d45] hover:text-[#FFFAFA]"
-      >
+    <div class="reviews-heading">
+      <a href="/reviews" class="reviews-all-link">
         Voir tous les avis
-        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="15"
+          height="15"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.8"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
           <path d="M5 12h14" />
           <path d="m12 5 7 7-7 7" />
         </svg>
       </a>
     </div>
 
-    <div class="grid gap-6 xl:grid-cols-[0.92fr_1.08fr]">
-      <div class="grid gap-5">
-        {
-          leftColumnReviews.map((review, index) => (
-            <article
-              class:list={[
-                "section-panel fade-up group relative flex h-full flex-col overflow-hidden rounded-[2.35rem] p-6 shadow-[0_24px_80px_-50px_rgba(61,56,52,0.45)] transition-all duration-300 md:p-7",
-                index === 0
-                  ? "bg-[#3d3834] text-[#FFFAFA]"
-                  : "border border-[#3d3834]/10 bg-[#FFFAFA] text-[#3d3834]",
-              ]}
-            >
-              <div class="relative z-10 flex h-full flex-1 flex-col gap-5">
-                <div class="flex flex-wrap items-center justify-between gap-3">
-                  <div class="flex items-center gap-3">
-                    <span
-                      class="rounded-full px-3 py-1 font-sans text-[10px] font-bold tracking-[0.2em] uppercase"
-                      style={`background:${index === 0 ? "#3a4d45" : review.accent}; color:#FFFAFA;`}
-                    >
-                      {review.tag}
-                    </span>
-                    <span
-                      class:list={[
-                        "font-sans text-[10px] font-bold tracking-[0.25em] uppercase",
-                        index === 0 ? "text-[#FFFAFA]" : "text-[#3d3834]/72",
-                      ]}
-                    >
-                      {review.source}
-                    </span>
-                  </div>
+    <div
+      class="reviews-carousel"
+      data-reviews-carousel
+      role="region"
+      aria-label="Avis de lecture"
+    >
+      <button
+        type="button"
+        class="reviews-control-button reviews-control-button--prev"
+        data-reviews-prev
+        aria-label="Avis précédent"
+      >
+        <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="m15 18-6-6 6-6" />
+        </svg>
+      </button>
 
-                  <div class="flex gap-1">
-                    {
-                      Array.from({ length: review.rating }).map(() => (
-                        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="0">
-                          <path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z" />
-                        </svg>
-                      ))
-                    }
-                  </div>
-                </div>
+      <aside class="reviews-summary" aria-label="Note globale">
+        <div>
+          <p class="reviews-summary-label">Fous Papillons</p>
+          <p class="reviews-score">5.0</p>
+          <div class="reviews-summary-stars" role="img" aria-label="5 étoiles sur 5">
+            {Array.from({ length: 5 }).map(() => (
+              <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.123 2.123 0 0 0 1.597-1.16z" />
+              </svg>
+            ))}
+          </div>
+          <p class="reviews-summary-count">{reviews.length} avis publiés</p>
+        </div>
 
-                <blockquote>
-                  {review.text}
-                </blockquote>
+        <div class="reviews-summary-footer">
+          <span aria-hidden="true">✦</span>
+          <span>Des lectures partagées</span>
+        </div>
+      </aside>
 
-                {hasExtendedBody(review.text, review.excerpt) && (
-                  <p>
-                    {truncate(review.excerpt, 280)}
-                  </p>
-                )}
-
-                <div class:list={[
-                  "mt-auto flex flex-wrap items-center justify-between gap-4 border-t pt-5",
-                  index === 0 ? "border-[#FFFAFA]/10" : "border-[#3d3834]/8",
-                ]}>
-                  <div>
-                    <p class:list={[
-                      "font-sans text-[10px] font-bold tracking-[0.25em] uppercase",
-                      index === 0 ? "text-[#FFFAFA]" : "text-[#3d3834]/72",
-                    ]}>
-                      {review.book}
-                    </p>
-                    <p class:list={[
-                      "mt-2 font-sans text-sm",
-                      index === 0 ? "text-[#FFFAFA]/72" : "text-[#3d3834]/72",
-                    ]}>
-                      {review.author} - {review.date}
-                    </p>
-                  </div>
-
-                  <a
-                    href="/reviews"
-                    class:list={[
-                      "inline-flex items-center gap-2 font-sans text-[10px] font-bold tracking-[0.24em] uppercase transition-all duration-300 hover:gap-3",
-                      index === 0
-                        ? "rounded-full border border-[#FFFAFA]/12 bg-[#FFFAFA] px-4 py-2 text-[#3d3834]"
-                        : "text-[#3d3834]",
-                    ]}
-                  >
-                    Lire plus
-                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                      <path d="M5 12h14" />
-                      <path d="m12 5 7 7-7 7" />
-                    </svg>
-                  </a>
-                </div>
-              </div>
-            </article>
-          ))
-        }
-      </div>
-
-      <div class="grid gap-4">
-        {
-          rightColumnReviews.map((review) => (
-            <article class="section-panel fade-up group relative flex min-h-[240px] flex-col overflow-hidden rounded-lg border border-[#3d3834]/10 bg-[#FFFAFA] p-5 shadow-[0_20px_65px_-48px_rgba(61,56,52,0.34)] transition-all duration-300 md:min-h-[260px]">
-              <div class="relative z-10 flex h-full flex-1 flex-col gap-4 md:flex-row md:items-stretch md:justify-between">
-                <div class="min-w-0 flex flex-1 flex-col justify-between gap-6 self-stretch">
-                  <div class="space-y-3">
-                    <div class="flex flex-wrap items-center gap-3">
-                      <span class="rounded-full px-3 py-1 font-sans text-[10px] font-bold tracking-[0.2em] uppercase" style={`background:${review.accent}; color:#FFFAFA;`}>
-                        {review.tag}
-                      </span>
-                      <span class="font-sans text-[10px] font-bold tracking-[0.24em] text-[#3d3834]/72 uppercase">
-                        {review.source}
-                      </span>
-                    </div>
-
-                    <blockquote>
-                      {review.text}
-                    </blockquote>
-                  </div>
-
-                  <div class="flex flex-wrap items-center gap-3 text-[11px] text-[#3d3834]/78">
-                    <div class="flex gap-1" style={`color:${review.accent};`}>
-                      {
-                        Array.from({ length: review.rating }).map(() => (
-                          <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="0">
-                            <path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z" />
-                          </svg>
-                        ))
-                      }
-                    </div>
-                    <span class="font-sans text-[10px] font-bold tracking-[0.22em] text-[#3d3834]/72 uppercase">
-                      {review.book}
-                    </span>
-                    <span class="font-sans text-sm text-[#3d3834]/72">
-                      {review.author} - {review.date}
-                    </span>
-                  </div>
-                </div>
-
-                <a
-                  href="/reviews"
-                  class="inline-flex items-center gap-2 self-start font-sans text-[10px] font-bold tracking-[0.24em] uppercase text-[#3d3834] transition-all duration-300 hover:gap-3 md:self-end"
+      <div class="reviews-stage">
+        <div class="reviews-viewport">
+          <div
+            class="reviews-track"
+            data-reviews-track
+            style="--reviews-index: 0; --reviews-step: 0px;"
+          >
+            {
+              featuredReviews.map((review, index) => (
+                <article
+                  class="reviews-card"
+                  data-review-slide={index}
+                  aria-roledescription="diapositive"
+                  aria-label={`Avis ${index + 1} sur ${featuredReviews.length}`}
                 >
-                  Lire
-                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M5 12h14" />
-                    <path d="m12 5 7 7-7 7" />
-                  </svg>
-                </a>
-              </div>
-            </article>
-          ))
-        }
+                  <div class="reviews-card-head">
+                    <div class="reviews-card-source">
+                      <span class="reviews-card-mark" aria-hidden="true">VS</span>
+                      <span>{review.source}</span>
+                    </div>
+                    <span class="reviews-card-position" aria-hidden="true">
+                      {String(index + 1).padStart(2, "0")}
+                    </span>
+                  </div>
+
+                  <blockquote class="reviews-quote">
+                    “{review.text}”
+                  </blockquote>
+
+                  <div class="reviews-card-footer">
+                    <div class="min-w-0">
+                      <p class="reviews-card-book">{review.book}</p>
+                      <p class="reviews-card-meta">
+                        {review.author} · {review.date}
+                      </p>
+                    </div>
+                    <a href="/reviews" class="reviews-read-link">
+                      Lire l’avis
+                      <svg
+                        aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="14"
+                        height="14"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <path d="M5 12h14" />
+                        <path d="m12 5 7 7-7 7" />
+                      </svg>
+                    </a>
+                  </div>
+                </article>
+              ))
+            }
+          </div>
+        </div>
+
+        <div class="reviews-controls">
+          <p class="sr-only" data-reviews-status aria-live="polite"></p>
+          <span class="reviews-page-count" aria-hidden="true">
+            <span data-reviews-current>01</span> / {String(featuredReviews.length).padStart(2, "0")}
+          </span>
+        </div>
       </div>
+
+      <button
+        type="button"
+        class="reviews-control-button reviews-control-button--next"
+        data-reviews-next
+        aria-label="Avis suivant"
+      >
+        <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="m9 18 6-6-6-6" />
+        </svg>
+      </button>
     </div>
   </div>
 </section>
+
+<style>
+  .reviews-section {
+    --reviews-ink: #3d3834;
+    --reviews-forest: #3a4d45;
+    --reviews-paper: #fffdfa;
+    --reviews-line: rgb(61 56 52 / 0.11);
+    padding-block: clamp(4.75rem, 9vw, 8rem);
+    background: #f2ede8;
+  }
+
+  .reviews-heading {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: clamp(2.25rem, 5vw, 4.25rem);
+  }
+
+  .reviews-all-link,
+  .reviews-read-link,
+  .reviews-control-button {
+    font-family: var(--font-sans, system-ui, sans-serif);
+  }
+
+  .reviews-all-link {
+    display: inline-flex;
+    flex: 0 0 auto;
+    align-items: center;
+    gap: 0.75rem;
+    min-height: 2.75rem;
+    padding: 0.7rem 0;
+    color: var(--reviews-ink);
+    font-size: 0.6875rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    transition: color 180ms ease, gap 180ms ease;
+  }
+
+  .reviews-all-link:hover,
+  .reviews-all-link:focus-visible {
+    gap: 1rem;
+    color: var(--reviews-forest);
+  }
+
+  .reviews-carousel {
+    display: grid;
+    grid-template-columns: 2.5rem clamp(10.75rem, 21vw, 16rem) minmax(0, 1fr) 2.5rem;
+    grid-template-areas: "prev summary stage next";
+    gap: clamp(1rem, 2vw, 1.5rem);
+    align-items: start;
+  }
+
+  .reviews-summary,
+  .reviews-card {
+    border: 1px solid var(--reviews-line);
+    background: var(--reviews-paper);
+    box-shadow: 0 24px 65px -48px rgb(61 56 52 / 0.38);
+  }
+
+  .reviews-summary {
+    display: flex;
+    grid-area: summary;
+    align-self: start;
+    min-height: clamp(19rem, 27vw, 23rem);
+    flex-direction: column;
+    justify-content: space-between;
+    border-radius: 1.5rem;
+    padding: clamp(1.1rem, 2.2vw, 1.75rem);
+  }
+
+  .reviews-summary-label,
+  .reviews-card-book {
+    margin: 0;
+    color: var(--reviews-forest);
+    font-size: 0.625rem;
+    font-weight: 700;
+    letter-spacing: 0.19em;
+    text-transform: uppercase;
+  }
+
+  .reviews-score {
+    margin: clamp(2.5rem, 5vw, 4.25rem) 0 0.75rem;
+    color: var(--reviews-ink);
+    font-family: var(--font-sans, system-ui, sans-serif);
+    font-size: clamp(3.25rem, 7vw, 5.8rem);
+    font-weight: 600;
+    letter-spacing: -0.09em;
+    line-height: 0.82;
+  }
+
+  .reviews-summary-stars {
+    display: flex;
+    gap: 0.18rem;
+    color: var(--reviews-forest);
+  }
+
+  .reviews-summary-count {
+    margin: 0.5rem 0 0;
+    color: rgb(61 56 52 / 0.6);
+    font-size: 0.6875rem;
+  }
+
+  .reviews-summary-footer {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--reviews-line);
+    color: rgb(61 56 52 / 0.57);
+    font-size: 0.625rem;
+    letter-spacing: 0.08em;
+  }
+
+  .reviews-summary-footer span:first-child {
+    color: var(--reviews-forest);
+    font-size: 0.8rem;
+  }
+
+  .reviews-stage {
+    grid-area: stage;
+    min-width: 0;
+  }
+
+  .reviews-control-button--prev {
+    grid-area: prev;
+  }
+
+  .reviews-control-button--next {
+    grid-area: next;
+  }
+
+  .reviews-control-button--prev,
+  .reviews-control-button--next {
+    align-self: start;
+    margin-top: calc((clamp(19rem, 27vw, 23rem) - 2.5rem) / 2);
+  }
+
+  .reviews-viewport {
+    overflow: hidden;
+    min-height: clamp(19rem, 27vw, 23rem);
+    border-radius: 1.5rem;
+  }
+
+  .reviews-track {
+    display: flex;
+    gap: 1rem;
+    height: 100%;
+    transform: translate3d(calc(var(--reviews-index) * -1 * var(--reviews-step)), 0, 0);
+    transition: transform 620ms cubic-bezier(0.19, 1, 0.22, 1);
+  }
+
+  .reviews-card {
+    display: flex;
+    min-height: clamp(19rem, 27vw, 23rem);
+    flex: 0 0 min(78%, 42rem);
+    flex-direction: column;
+    justify-content: space-between;
+    border-radius: 1.5rem;
+    padding: clamp(1.25rem, 2.6vw, 2rem);
+  }
+
+  .reviews-card-head,
+  .reviews-card-footer,
+  .reviews-controls,
+  .reviews-card-source {
+    display: flex;
+    align-items: center;
+  }
+
+  .reviews-card-head,
+  .reviews-card-footer,
+  .reviews-controls {
+    justify-content: space-between;
+  }
+
+  .reviews-card-source {
+    gap: 0.65rem;
+    color: rgb(61 56 52 / 0.68);
+    font-size: 0.6875rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+
+  .reviews-card-mark {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.65rem;
+    height: 1.65rem;
+    border-radius: 999px;
+    background: var(--reviews-forest);
+    color: #fffdfa;
+    font-size: 0.5rem;
+    letter-spacing: -0.08em;
+  }
+
+  .reviews-card-position {
+    color: rgb(61 56 52 / 0.3);
+    font-size: 0.625rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+  }
+
+  .reviews-quote {
+    max-width: 42rem;
+    margin: 2rem 0;
+    color: var(--reviews-ink);
+    font-family: var(--font-sans, system-ui, sans-serif);
+    font-size: clamp(1.15rem, 2.15vw, 1.85rem);
+    font-weight: 450;
+    letter-spacing: -0.04em;
+    line-height: 1.13;
+    text-wrap: balance;
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 5;
+  }
+
+  .reviews-card-footer {
+    gap: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--reviews-line);
+  }
+
+  .reviews-card-meta {
+    margin: 0.45rem 0 0;
+    overflow: hidden;
+    color: rgb(61 56 52 / 0.56);
+    font-size: 0.72rem;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .reviews-read-link {
+    display: inline-flex;
+    flex: 0 0 auto;
+    align-items: center;
+    gap: 0.45rem;
+    min-height: 2.5rem;
+    color: var(--reviews-ink);
+    font-size: 0.625rem;
+    font-weight: 700;
+    letter-spacing: 0.17em;
+    text-transform: uppercase;
+    transition: color 160ms ease, gap 160ms ease;
+  }
+
+  .reviews-read-link:hover,
+  .reviews-read-link:focus-visible {
+    gap: 0.7rem;
+    color: var(--reviews-forest);
+  }
+
+  .reviews-controls {
+    justify-content: flex-end;
+    margin-top: 1rem;
+    min-height: 1rem;
+  }
+
+  .reviews-page-count {
+    color: rgb(61 56 52 / 0.56);
+    font-size: 0.625rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+  }
+
+  .reviews-page-count span {
+    color: var(--reviews-forest);
+  }
+
+  .reviews-control-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 2.5rem;
+    border: 1px solid rgb(61 56 52 / 0.14);
+    color: var(--reviews-ink);
+    background: rgb(255 253 250 / 0.76);
+    cursor: pointer;
+    transition: color 160ms ease, background-color 160ms ease, border-color 160ms ease, transform 160ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  .reviews-control-button {
+    width: 2.5rem;
+    border-radius: 999px;
+  }
+
+  .reviews-control-button:hover,
+  .reviews-control-button:focus-visible {
+    border-color: var(--reviews-forest);
+    background: var(--reviews-forest);
+    color: #fffdfa;
+  }
+
+  .reviews-control-button:active {
+    transform: scale(0.96);
+  }
+
+  .reviews-all-link:focus-visible,
+  .reviews-read-link:focus-visible,
+  .reviews-control-button:focus-visible {
+    outline: 2px solid var(--reviews-forest);
+    outline-offset: 3px;
+  }
+
+  @media (max-width: 767px) {
+    .reviews-carousel {
+      grid-template-columns: 2.5rem minmax(0, 1fr) 2.5rem;
+      grid-template-areas:
+        "summary summary summary"
+        "prev stage next";
+      column-gap: 0.5rem;
+      row-gap: 1rem;
+    }
+
+    .reviews-summary {
+      min-height: 0;
+      flex-direction: row;
+      align-items: flex-end;
+      gap: 1rem;
+      border-radius: 1.25rem;
+      padding: 1.25rem;
+    }
+
+    .reviews-score {
+      margin-top: 2rem;
+      font-size: 4rem;
+    }
+
+    .reviews-summary-footer {
+      max-width: 8rem;
+      padding-top: 0;
+      border-top: 0;
+      text-align: right;
+    }
+
+    .reviews-viewport {
+      min-height: 22rem;
+      border-radius: 1.25rem;
+    }
+
+    .reviews-card {
+      min-height: 22rem;
+      flex-basis: 88%;
+      border-radius: 1.25rem;
+      padding: 1.25rem;
+    }
+
+    .reviews-quote {
+      margin-block: 1.5rem;
+      font-size: 1.25rem;
+    }
+
+    .reviews-card-footer {
+      align-items: flex-end;
+    }
+
+    .reviews-card-meta {
+      max-width: 11rem;
+      white-space: normal;
+    }
+
+    .reviews-control-button--prev,
+    .reviews-control-button--next {
+      margin-top: calc((22rem - 2.5rem) / 2);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reviews-track,
+    .reviews-all-link,
+    .reviews-read-link,
+    .reviews-control-button {
+      transition: none;
+    }
+  }
+</style>
+
+<script>
+  const carousel = document.querySelector<HTMLElement>("[data-reviews-carousel]");
+
+  if (carousel) {
+    const track = carousel.querySelector<HTMLElement>("[data-reviews-track]");
+    const slides = Array.from(carousel.querySelectorAll<HTMLElement>("[data-review-slide]"));
+    const previousButton = carousel.querySelector<HTMLButtonElement>("[data-reviews-prev]");
+    const nextButton = carousel.querySelector<HTMLButtonElement>("[data-reviews-next]");
+    const currentPage = carousel.querySelector<HTMLElement>("[data-reviews-current]");
+    const status = carousel.querySelector<HTMLElement>("[data-reviews-status]");
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+    if (track && slides.length && previousButton && nextButton) {
+      let activeIndex = 0;
+      let timer: number | undefined;
+      let isHovering = false;
+      let isFocused = false;
+      let isVisible = false;
+
+      const setStep = () => {
+        const firstSlide = slides[0];
+        const trackStyles = window.getComputedStyle(track);
+        const gap = Number.parseFloat(trackStyles.columnGap || trackStyles.gap) || 0;
+        track.style.setProperty("--reviews-step", `${firstSlide.getBoundingClientRect().width + gap}px`);
+      };
+
+      const stopTimer = () => {
+        if (timer !== undefined) window.clearInterval(timer);
+        timer = undefined;
+      };
+
+      const syncTimer = () => {
+        stopTimer();
+        if (!isVisible || reduceMotion.matches || isHovering || isFocused) return;
+        timer = window.setInterval(() => {
+          activeIndex = (activeIndex + 1) % slides.length;
+          update(false);
+        }, 4400);
+      };
+
+      const update = (announce: boolean) => {
+        track.style.setProperty("--reviews-index", String(activeIndex));
+        if (currentPage) currentPage.textContent = String(activeIndex + 1).padStart(2, "0");
+        slides.forEach((slide, index) => {
+          slide.toggleAttribute("data-active", index === activeIndex);
+        });
+        if (announce && status) {
+          status.textContent = `Avis ${activeIndex + 1} sur ${slides.length}`;
+        }
+      };
+
+      const move = (direction: number) => {
+        activeIndex = (activeIndex + direction + slides.length) % slides.length;
+        update(true);
+        syncTimer();
+      };
+
+      previousButton.addEventListener("click", () => move(-1));
+      nextButton.addEventListener("click", () => move(1));
+
+      carousel.addEventListener("mouseenter", () => {
+        isHovering = true;
+        syncTimer();
+      });
+      carousel.addEventListener("mouseleave", () => {
+        isHovering = false;
+        syncTimer();
+      });
+      carousel.addEventListener("focusin", () => {
+        isFocused = true;
+        syncTimer();
+      });
+      carousel.addEventListener("focusout", (event) => {
+        if (event.relatedTarget instanceof Node && carousel.contains(event.relatedTarget)) return;
+        isFocused = false;
+        syncTimer();
+      });
+
+      const resizeObserver = new ResizeObserver(setStep);
+      resizeObserver.observe(slides[0]);
+      const visibilityObserver = new IntersectionObserver(
+        ([entry]) => {
+          isVisible = entry.isIntersecting;
+          syncTimer();
+        },
+        { threshold: 0.2 },
+      );
+      visibilityObserver.observe(carousel);
+      reduceMotion.addEventListener("change", () => {
+        syncTimer();
+      });
+
+      setStep();
+      update(false);
+      syncTimer();
+    }
+  }
+</script>

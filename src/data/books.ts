@@ -56,6 +56,7 @@ export interface Book {
     title: string;
     subtitle?: string;
     tome: string;
+    saga?: string;
     series: string;
     genres: string[];
     accent: string;
@@ -98,7 +99,7 @@ export type BookGalleryItem = {
   label?: string;
 };
 
-export const books: Book[] = [
+export const books = ([
   {
     slug: "coeur-de-renard",
     identity: {
@@ -205,7 +206,6 @@ export const books: Book[] = [
     },
     marketing: {
       featured: {
-        label: "Dernier roman paru",
         kicker: "Lecture phare",
         shortPitch:
           "En pleine occupation, Renard tente de survivre en remboursant une dette qui le pousse aux pires vices, notamment en vendant des faux tableaux. Fortune, quant à elle, voit, impuissante, ses parents sombrer dans les idéologies nazies et d'extrême droite. Alors qu'elle tente de leur faire ouvrir les yeux sur les conséquences de leurs décisions, les occupants gagnent en influence sur la banque dont elle doit hériter. Son honneur sera sali si elle échoue à retrouver l'escroc qui souhaite la chute de la banque, mais quel honneur lui restera-t-il si ses parents se vendent aux nazis ?",
@@ -350,7 +350,6 @@ export const books: Book[] = [
     },
     marketing: {
       featured: {
-        label: "Dernier roman paru",
         kicker: "Lecture phare",
         shortPitch:
           "Mariée de force au général de l'Etat major, Esther se retrouve embourbée dans les conflits politiques d'une France de 1890. Son cœur est pourtant ailleurs, loin de Paris, dans une forêt où l'attend un garçon ayant vendu son âme au diable pour elle. Entre Frantz, son mystérieux mari aussi froid que manipulateur et Ethan, cet amoureux d'enfance qu'elle veut à tout prix protéger, Esther ne sait plus qui aimer. Malheureusement, à cette époque où les tensions sont aussi vives que les conflits sont destructeurs, ils devront parvenir à survivre sans que le monde n'apprenne leurs machinations sans quoi... ils risquent tous l'exécution.",
@@ -477,7 +476,7 @@ export const books: Book[] = [
     },
     links: {},
     marketing: {
-      isLatest: true,
+      isLatest: false,
       featured: {
         label: "Nouveau roman",
         kicker: "Tome 2",
@@ -572,7 +571,158 @@ export const books: Book[] = [
       ],
     },
   },
-];
+  {
+    slug: "trouver-la-lune",
+      identity: {
+        title: "Trouver la Lune",
+        tome: "Tome 1",
+	saga : "Au nom des Astres",
+        series: "Duologie",
+        genres: [
+          "Fantasy",
+          "Romantasy",
+          "Lune x soleil",
+          "Lovers to enemies",
+          "Sorcière x chevalier",
+          "Duologie",
+        ],
+        accent: "#3d3834",
+      },
+      publishing: {
+        status: "À venir",
+        releaseDate: "2027",
+        defaultFormat: "Relié + broché",
+        defaultPrice: "Selon édition",
+        defaultIsbn: "NA",
+        pages: 566,
+        priceOptions: [
+          { label: "Broché", value: "20€" },
+          { label: "Relié", value: "30€" },
+        ],
+      },
+      narrative: {
+        hook: "",
+        shortDescription:
+          "Une sorcière des astres qui doit veiller sur l’équilibre entre les astres. Un chevalier du soleil déterminé à venger sa famille perdue dans un incendie. Rien n’est censé les lier, sinon une bataille sanglante au sein du conflit. C’était sans compter le passé… et la fille qu’ils ont eu ensembles, lorsqu’ils se sont aimés, dix ans plus tôt. Ainsi que la volonté d’attirer l’autre dans son camp. Pour sauver le monde, ou le détruire.",
+        longDescription: `Quand le Nord atteint le village de Hautfrimas, le détruisant par le feu, Valor perd sa mère, son compagnon, et ne sauve sa fille que de justesse.
+
+Déterminée à empêcher un nouveau drame, elle s’engage dans l’armée du sud en tant qu’espionne-nécromancienne. Quand elle obtient pour mission d’ébranler le Nord en assassinant le Haut-Général des Anathegis, Valor n’hésite pas. Elle s’introduit dans la Commanderie, prête à mettre un terme à un conflit millénaire.
+Mais au moment où son couteau heurte la gorge de sa cible… la vérité la terrasse.
+Le père de sa fille, Locke, a non seulement survécu, mais est devenu le meneur de tout ce qu’elle combat.
+Le Haut-Général Anathegis.
+
+Entre devoir et passé, haine et amour, Valor vacille.
+Peut-elle encore sauver l’homme qu’il était… ou devra-t-elle l’abattre pour mettre fin à la guerre ?`,
+        quote:
+          "Elle se souvenait bien trop de leurs armures dorées, flamboyantes à cause des flammes qui dévoraient les maisons. À ce moment, elle avait compris que le soleil était une malédiction. Son feu ne purifiait pas les maudits. Il était là pour incendier les plus faibles et les plonger dans l’oubli des cendres.",
+        details: [
+          { label: "Personnages", value: "Valor & Locke" },
+          { label: "Cadre", value: "Nord & Sud" },
+          { label: "Promesse", value: "Propagande, démocratie, trahisons, morale grise, famille séparée par la guerre" },
+          { label: "Édition", value: "Roman relié ou broché" },
+          { label: "ISBN relié", value: "NA" },
+          { label: "ISBN broché", value: "NA" },
+        ],
+      },
+      media: {
+        cover: {
+          src: "/assets/covers/Cover_TLL.webp",
+          alt: "Couverture de Trouver La Lune - édition reliée",
+        },
+        relatedGalleryIds: ["trouver-la-lune"],
+        editions: [
+          {
+            id: "relie",
+            label: "Relié",
+            media: {
+              src: "/assets/covers/Cover_TLL.webp",
+              alt: "Couverture de Trouver la Lune - édition reliée",
+              label: "Relié",
+            },
+            publishing: {
+              format: "Relié",
+              isbn: "9791097846909",
+              price: "30€",
+              pages: 566,
+              releaseDate: "2027",
+              status: "Pas disponible",
+            },
+          },
+          {
+            id: "broche",
+            label: "Broché",
+            media: {
+              src: "/assets/covers/Cover_TLL_broche.png",
+              alt: "Format broché de Trouver la Lune",
+              label: "Broché",
+            },
+            publishing: {
+              format: "Broché",
+              isbn: "9791097846916",
+              price: "18€",
+              pages: 371,
+              releaseDate: "2027",
+              status: "Disponible",
+            },
+          },
+        ],
+      },
+      links: {
+        // purchase: [
+        //   {
+        //     label: "Boutique SumUp",
+        //     href: "https://vanyastolarski.sumupstore.com/product/coeur-de-renard-relie",
+        //   },
+        // ],
+        playlists: [
+          {
+            label: "Playlist - Trouver la Lune",
+            href: "https://www.youtube.com/watch?v=MMnuiwCHbdc&list=PLVXimxL_FsmRbtkliOQgQDU0FZkXAKxwV",
+          },
+        ],
+        // chapterOneHref:
+        //   "/assets/chapteronebooks/chapteronebooks-coeur-de-renard.pdf",
+      },
+    marketing: {
+      isLatest: true,
+        featured: {
+          kicker: "Lecture phare",
+          shortPitch:
+            "Une sorcière des astres qui doit veiller sur l’équilibre entre les astres. Un chevalier du soleil déterminé à venger sa famille perdue dans un incendie. Rien n’est censé les lier, sinon une bataille sanglante au sein du conflit. C’était sans compter le passé… et la fille qu’ils ont eu ensembles, lorsqu’ils se sont aimés, dix ans plus tôt. Ainsi que la volonté d’attirer l’autre dans son camp. Pour sauver le monde, ou le détruire.",
+          media: {
+            type: "image",
+            src: "/assets/covers/Cover_TLL.webp",
+            poster: "/assets/covers/Cover_TLL.webp",
+            alt: "Couverture de Trouver La Lune - édition reliée",
+            gallery: [
+              {
+                src: "/assets/covers/Cover_TLL.webp",
+                alt: "Couverture de Trouver La Lune - édition reliée",
+                label: "Relié",
+              },
+              {
+                src: "/assets/covers/Cover_TLL_broche.png",
+                alt: "Format broché de Trouver La Lune",
+                label: "Broché",
+              },
+            ],
+          },
+          stats: [
+            { label: "Pagination", value: "566 pages" },
+            { label: "Format", value: "Relié + broché" },
+            { label: "Tonalité", value: "Romantasy" },
+          ],
+          spotlight: [
+            { label: "Héroïne", value: "Valor" },
+            { label: "Anti-héros", value: "Renard" },
+            { label: "Cadre", value: "Paris, 1943" },
+          ],
+        },
+      },
+    },
+ ] as Book[]).sort((a, b) =>
+  a.slug === "trouver-la-lune" ? -1 : b.slug === "trouver-la-lune" ? 1 : 0,
+);
 
 export const getBookBySlug = (slug: string) =>
   books.find((book) => book.slug === slug);

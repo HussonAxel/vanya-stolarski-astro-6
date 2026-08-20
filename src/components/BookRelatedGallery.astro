@@ -1,4 +1,6 @@
 ---
+import { Image } from "astro:assets";
+import { getImageDimensions } from "../lib/image-dimensions";
 import type { GalleryItemViewModel } from "../lib/books";
 
 interface Props {
@@ -8,6 +10,7 @@ interface Props {
 
 const { items, title } = Astro.props as Props;
 const galleryId = `book-related-gallery-${Math.random().toString(36).slice(2, 10)}`;
+const firstItem = items[0];
 ---
 
 <section class="bg-[#FFFAFA] px-6 py-24">
@@ -35,31 +38,37 @@ const galleryId = `book-related-gallery-${Math.random().toString(36).slice(2, 10
       data-book-related-gallery
     >
       {
-        items.map((item) => (
-          <button
-            type="button"
-            class="gallery-card fade-up group relative mb-4 block w-full break-inside-avoid overflow-hidden rounded-[1.35rem] border border-[#3d3834]/8 bg-[#FFFAFA] shadow-[0_24px_80px_-52px_rgba(61,56,52,0.45)] transition-all duration-300 hover:shadow-[0_30px_90px_-52px_rgba(61,56,52,0.5)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#3a4d45]"
-            data-gallery-trigger
-            data-title={item.title}
-            data-image={item.image}
-            data-alt={item.alt}
-            data-book-label={item.bookLabel}
-            data-book-href={item.bookHref}
-            data-artist-label={item.artist}
-            data-date={item.date}
-            data-description={item.description}
-            aria-label={`Ouvrir la fiche de ${item.title}`}
-          >
-            <div class="relative overflow-hidden bg-[#FFFAFA]">
-              <img
-                src={item.image}
-                alt={item.alt}
-                loading="lazy"
-                class="w-full rounded-[1.35rem] object-cover transition-transform duration-700 group-hover:scale-[1.025]"
-              />
-            </div>
-          </button>
-        ))
+        items.map((item) => {
+          const dimensions = getImageDimensions(item.image);
+
+          return (
+            <button
+              type="button"
+              class="gallery-card fade-up group relative mb-4 block w-full break-inside-avoid overflow-hidden rounded-lg border border-[#3d3834]/8 bg-[#FFFAFA] shadow-[0_24px_80px_-52px_rgba(61,56,52,0.45)] transition-all duration-300 hover:shadow-[0_30px_90px_-52px_rgba(61,56,52,0.5)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#3a4d45]"
+              data-gallery-trigger
+              data-title={item.title}
+              data-image={item.image}
+              data-alt={item.alt}
+              data-book-label={item.bookLabel}
+              data-book-href={item.bookHref}
+              data-artist-label={item.artist}
+              data-date={item.date}
+              data-description={item.description}
+              aria-label={`Ouvrir la fiche de ${item.title}`}
+            >
+              <div class="relative overflow-hidden bg-[#FFFAFA]">
+                <Image
+                  src={item.image}
+                  alt={item.alt}
+                  width={dimensions.width}
+                  height={dimensions.height}
+                  loading="lazy"
+                  class="w-full rounded-lg object-cover transition-transform duration-700 group-hover:scale-[1.025]"
+                />
+              </div>
+            </button>
+          );
+        })
       }
     </div>
   </div>
@@ -73,7 +82,7 @@ const galleryId = `book-related-gallery-${Math.random().toString(36).slice(2, 10
     aria-hidden="true"
   >
     <div data-gallery-close class="absolute inset-0"></div>
-    <div class="relative z-10 my-auto w-full max-w-[min(96vw,1380px)] overflow-hidden rounded-[2.2rem] border border-[#FFFAFA]/10 bg-[#FFFAFA] shadow-[0_35px_120px_-50px_rgba(61,56,52,0.6)] lg:max-h-[92vh]">
+    <div class="relative z-10 my-auto w-full max-w-[min(96vw,1380px)] overflow-hidden rounded-lg border border-[#FFFAFA]/10 bg-[#FFFAFA] shadow-[0_35px_120px_-50px_rgba(61,56,52,0.6)] lg:max-h-[92vh]">
       <button
         type="button"
         class="absolute top-4 right-4 z-20 inline-flex h-11 w-11 items-center justify-center rounded-full border border-[#3d3834]/10 bg-[#FFFAFA]/92 font-sans text-xs font-bold tracking-[0.2em] text-[#3d3834] uppercase shadow-[0_10px_30px_-24px_rgba(61,56,52,0.55)] transition-all duration-300 hover:border-[#3a4d45]/30 hover:bg-[#3a4d45] hover:text-[#FFFAFA]"
@@ -86,13 +95,20 @@ const galleryId = `book-related-gallery-${Math.random().toString(36).slice(2, 10
       <div class="grid lg:grid-cols-[minmax(0,1fr)_400px] lg:items-stretch">
         <div class="relative flex min-h-[38vh] items-center justify-center overflow-hidden bg-[#3d3834] p-3 md:min-h-[48vh] md:p-4 lg:min-h-0 lg:p-5">
           <div class="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,250,248,0.08),transparent_56%)]"></div>
-          <div class="relative inline-flex h-full w-full max-w-full items-center justify-center overflow-hidden rounded-[1.55rem] border border-[#FFFAFA]/8 bg-[#312d2a] p-3 shadow-[0_24px_60px_-45px_rgba(61,56,52,0.45)] md:p-4">
-            <img
-              src=""
-              alt=""
-              class="block max-h-[58vh] max-w-full rounded-[1rem] object-contain md:max-h-[72vh] lg:max-h-[calc(92vh-5.5rem)]"
-              data-gallery-modal-image
-            />
+          <div class="relative inline-flex h-full w-full max-w-full items-center justify-center overflow-hidden rounded-lg border border-[#FFFAFA]/8 bg-[#312d2a] p-3 shadow-[0_24px_60px_-45px_rgba(61,56,52,0.45)] md:p-4">
+            {
+              firstItem && (
+                <Image
+                  src={firstItem.image}
+                  alt={firstItem.alt}
+                  width={getImageDimensions(firstItem.image).width}
+                  height={getImageDimensions(firstItem.image).height}
+                  loading="lazy"
+                  class="block max-h-[58vh] max-w-full rounded-lg object-contain md:max-h-[72vh] lg:max-h-[calc(92vh-5.5rem)]"
+                  data-gallery-modal-image
+                />
+              )
+            }
           </div>
         </div>
 
@@ -111,7 +127,7 @@ const galleryId = `book-related-gallery-${Math.random().toString(36).slice(2, 10
               </div>
             </div>
 
-            <div class="rounded-[1.7rem] border border-[#3d3834]/10 bg-[#fffaf8] p-5">
+            <div class="rounded-lg border border-[#3d3834]/10 bg-[#fffaf8] p-5">
               <p class="font-sans text-[10px] font-bold tracking-[0.22em] text-[#3d3834]/58 uppercase">
                 Contexte
               </p>
@@ -137,7 +153,7 @@ const galleryId = `book-related-gallery-${Math.random().toString(36).slice(2, 10
               </dl>
             </div>
 
-            <div class="rounded-[1.7rem] border border-[#3d3834]/10 bg-[#FFFAFA] p-5">
+            <div class="rounded-lg border border-[#3d3834]/10 bg-[#FFFAFA] p-5">
               <p class="font-sans text-[10px] font-bold tracking-[0.22em] text-[#3d3834]/58 uppercase">
                 Note visuelle
               </p>

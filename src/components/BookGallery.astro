@@ -1,5 +1,7 @@
 ---
+import { Image } from "astro:assets";
 import type { BookGalleryItem } from "../data/books";
+import { getImageDimensions } from "../lib/image-dimensions";
 
 interface Props {
   items: BookGalleryItem[];
@@ -11,7 +13,7 @@ const galleryId = `gallery-${Math.random().toString(36).slice(2, 10)}`;
 const slides = items.length > 0 ? items : [];
 const hasMultiple = slides.length > 1;
 const useContainFit = (src: string) =>
-  /(?:Cover_CDR_Ulule\.png|coeur-de-renard-tome-2--relie\.webp)$/i.test(src);
+  /(?:Cover_CDR_Ulule\.png|Cover_TLL_broche\.png|coeur-de-renard-tome-2--relie\.webp)$/i.test(src);
 ---
 
 <div
@@ -21,31 +23,37 @@ const useContainFit = (src: string) =>
   data-count={slides.length}
   aria-label={title}
 >
-  <div class="rounded-[1.85rem] border border-[#3d3834]/8 bg-[#FFFAFA] p-2.5 shadow-[0_32px_90px_-60px_rgba(61,56,52,0.45)]">
-    <div class="relative overflow-hidden rounded-[1.55rem] bg-[#f6efec]">
+  <div class="rounded-lg border border-[#3d3834]/8 bg-[#FFFAFA] p-2.5 shadow-[0_32px_90px_-60px_rgba(61,56,52,0.45)]">
+    <div class="relative overflow-hidden rounded-lg bg-[#f6efec]">
       {
-        slides.map((item, index) => (
-          <figure
-            class:list={[
-              "book-gallery-slide",
-              index === 0 ? "block" : "hidden",
-            ]}
-            data-slide
-            data-index={index}
-          >
-            <img
-              src={item.src}
-              alt={item.alt}
+        slides.map((item, index) => {
+          const dimensions = getImageDimensions(item.src);
+
+          return (
+            <figure
               class:list={[
-                "aspect-[4/4.9] w-full",
-                useContainFit(item.src)
-                  ? "bg-[#f6efec] p-4 object-contain"
-                  : "object-cover",
+                "book-gallery-slide",
+                index === 0 ? "block" : "hidden",
               ]}
-              loading={index === 0 ? "eager" : "lazy"}
-            />
-          </figure>
-        ))
+              data-slide
+              data-index={index}
+            >
+              <Image
+                src={item.src}
+                alt={item.alt}
+                width={dimensions.width}
+                height={dimensions.height}
+                class:list={[
+                  "aspect-[4/4.9] w-full",
+                  useContainFit(item.src)
+                    ? "bg-[#f6efec] p-4 object-contain"
+                    : "object-cover",
+                ]}
+                loading={index === 0 ? "eager" : "lazy"}
+              />
+            </figure>
+          );
+        })
       }
 
       {
@@ -87,7 +95,7 @@ const useContainFit = (src: string) =>
 
   {
     hasMultiple && (
-      <div class="rounded-[1.4rem] border border-[#3d3834]/8 bg-[#FFFAFA] p-3 shadow-[0_20px_60px_-48px_rgba(61,56,52,0.35)]">
+      <div class="rounded-lg border border-[#3d3834]/8 bg-[#FFFAFA] p-3 shadow-[0_20px_60px_-48px_rgba(61,56,52,0.35)]">
         <div class="space-y-2.5">
           <p class="font-sans text-[10px] font-bold tracking-[0.24em] text-[#3d3834]/58 uppercase">
             Choisir une vue

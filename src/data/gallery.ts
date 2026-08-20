@@ -274,8 +274,62 @@ export const galleryItems: GalleryItem[] = [
     description:
       "Un portrait de Valor rattache a l'univers de Trouver la lune.",
   },
+  {
+    id: "gal-25",
+    title: "Valor",
+    image: "/assets/gallery/trouver-la-lune--valoretlocke.png",
+    alt: "Illustration de Valor pour Trouver la lune",
+    bookSlug: "trouver-la-lune",
+    artist: "purplishartz",
+    date: "Mai 2026",
+    description:
+      "Un portrait de Valor et Locke rattache a l'univers de Trouver la lune.",
+  },
+  {
+    id: "gal-26",
+    title: "Valor",
+    image: "/assets/gallery/trouver-la-lune--enfants.PNG",
+    alt: "Illustration de Valor enfant pour Trouver la lune",
+    bookSlug: "trouver-la-lune",
+    artist: "shannon.p.elliott",
+    date: "Juin 2026",
+    description:
+      "Un portrait de Valor et Locke enfants rattache a l'univers de Trouver la lune.",
+  },
+  {
+    id: "gal-27",
+    title: "Valor",
+    image: "/assets/gallery/trouver-la-lune--carte.png",
+    alt: "Carte du monde pour Trouver la lune",
+    bookSlug: "trouver-la-lune",
+    artist: "Vanya Stolarski",
+    date: "Juin 2026",
+    description:
+      "Carte du monde pour Trouver la lune.",
+  },
+  {
+    id: "gal-27",
+    title: "Valor",
+    image: "/assets/gallery/trouver-la-lune--jaquette.png",
+    alt: "jaquette  pour Trouver la lune",
+    bookSlug: "trouver-la-lune",
+    artist: "Vanya Stolarski",
+    date: "Juin 2026",
+    description:
+      "Carte du monde pour Trouver la lune.",
+  },
+  {
+    id: "gal-28",
+    title: "Valor",
+    image: "/assets/gallery/trouver-la-lune--shadar.png",
+    alt: "jaquette  pour Trouver la lune",
+    bookSlug: "trouver-la-lune",
+    artist: "Vanya Stolarski",
+    date: "Juin 2026",
+    description:
+      "Carte du monde pour Trouver la lune.",
+  }
 ];
-
 export const getGalleryItemsByBookSlug = (slug: string) =>
   galleryItems.filter((item) => item.bookSlug === slug);
 

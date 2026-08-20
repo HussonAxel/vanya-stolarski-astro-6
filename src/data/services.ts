@@ -139,6 +139,17 @@ export const services: Service[] = [
         alt: "Exemple de pages de garde sur mesure",
         label: "Univers",
       },
+      {
+        src: "/assets/services/pagedegarde/pdg4.png",
+        alt: "Exemple de pages de garde sur mesure",
+        label: "Univers",
+      },
+      {
+        src: "/assets/services/pagedegarde/pdg5.png",
+        alt: "Exemple de pages de garde sur mesure",
+        label: "Univers",
+      },
+
     ],
     tags: ["Intérieur", "Sur devis", "Univers sur mesure"],
     description:
@@ -239,6 +250,11 @@ export const services: Service[] = [
       },
       {
         src: "/assets/services/maps/maps-height.webp",
+        alt: "Exemple de carte fantasy détaillée",
+        label: "Détaillée",
+      },
+      {
+        src: "/assets/gallery/trouver-la-lune--carte.png",
         alt: "Exemple de carte fantasy détaillée",
         label: "Détaillée",
       },

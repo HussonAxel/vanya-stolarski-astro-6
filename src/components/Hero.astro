@@ -1,4 +1,5 @@
 ---
+import { Image } from "astro:assets";
 import LatestUluleCampaign from "./LatestUluleCampaign.astro";
 
 const currentPath = Astro.url.pathname;
@@ -75,7 +76,7 @@ const isActive = (href: string) =>
     >
       <!-- LEFT PANEL — Navigation -->
       <div
-        class="hero-left-card hero-card group/hero-left relative flex min-h-[560px] flex-col justify-between overflow-hidden rounded-3xl bg-[#faf8f6] p-7 md:col-span-2 md:p-8 lg:rounded-[2rem] lg:p-9 xl:col-span-4 xl:h-full xl:min-h-0"
+        class="hero-left-card hero-card group/hero-left relative flex min-h-[560px] flex-col justify-between overflow-hidden rounded-lg bg-[#faf8f6] p-7 md:col-span-2 md:p-8 lg:p-9 xl:col-span-4 xl:h-full xl:min-h-0"
       >
         <div class="relative z-10 flex h-full flex-col">
           <div class="flex h-full flex-col">
@@ -108,7 +109,7 @@ const isActive = (href: string) =>
                         rel={link.external ? "noreferrer" : undefined}
                         data-active={active ? "true" : "false"}
                         class:list={[
-                          "hero-nav-link group relative flex w-full items-center justify-between rounded-2xl border p-3 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1c1917]/20 focus-visible:ring-offset-2",
+                          "hero-nav-link group relative flex w-full items-center justify-between rounded-lg border p-3 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1c1917]/20 focus-visible:ring-offset-2",
                           active
                             ? "border-[#1c1917] bg-[#1c1917] text-white shadow-lg shadow-[#1c1917]/15"
                             : "border-[#1c1917]/10 bg-transparent text-[#1c1917] hover:border-[#3a4d45] hover:bg-[#3a4d45] hover:text-white hover:shadow-lg hover:shadow-[#3a4d45]/20",
@@ -117,7 +118,7 @@ const isActive = (href: string) =>
                         <div class="flex items-center gap-3.5">
                           <div
                             class:list={[
-                              "flex h-11 w-11 items-center justify-center rounded-xl transition-colors duration-300",
+                              "flex h-11 w-11 items-center justify-center rounded-lg transition-colors duration-300",
                               active
                                 ? "bg-white/15 text-white"
                                 : "bg-[#1c1917]/[0.06] text-[#1c1917]/70 group-hover:bg-white/15 group-hover:text-white",
@@ -362,12 +363,12 @@ const isActive = (href: string) =>
       >
         <!-- Services card -->
         <div
-          class="hero-card group relative flex min-h-[300px] flex-col justify-between overflow-hidden rounded-3xl bg-[#292524] p-7 md:h-full md:min-h-0 md:p-8 lg:rounded-[2rem] lg:p-9"
+          class="hero-card group relative flex min-h-[300px] flex-col justify-between overflow-hidden rounded-lg bg-[#292524] p-7 md:h-full md:min-h-0 md:p-8 lg:p-9"
         >
           <div class="relative z-10 space-y-5">
             <div class="flex items-center justify-between">
               <div
-                class="flex h-11 w-11 items-center justify-center rounded-xl bg-white/10 transition-colors duration-300 group-hover:bg-white/15"
+                class="flex h-11 w-11 items-center justify-center rounded-lg bg-white/10 transition-colors duration-300 group-hover:bg-white/15"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -405,13 +406,13 @@ const isActive = (href: string) =>
             <div class="flex flex-wrap gap-2">
               <a
                 href="/galerie"
-                class="inline-flex h-10 items-center rounded-xl bg-white px-5 font-sans text-[10px] font-semibold tracking-widest text-[#1c1917] uppercase transition-all duration-300 hover:bg-white/90"
+                class="inline-flex h-10 items-center rounded-lg bg-white px-5 font-sans text-[10px] font-semibold tracking-widest text-[#1c1917] uppercase transition-all duration-300 hover:bg-white/90"
               >
                 Galerie
               </a>
               <a
                 href="/tarifs"
-                class="inline-flex h-10 items-center rounded-xl bg-white/10 px-5 font-sans text-[10px] font-semibold tracking-widest text-white uppercase transition-all duration-300 hover:bg-white/[0.16]"
+                class="inline-flex h-10 items-center rounded-lg bg-white/10 px-5 font-sans text-[10px] font-semibold tracking-widest text-white uppercase transition-all duration-300 hover:bg-white/[0.16]"
               >
                 Portfolio
               </a>
@@ -421,12 +422,12 @@ const isActive = (href: string) =>
 
         <!-- YouTube card -->
         <div
-          class="hero-card group relative flex min-h-[300px] flex-col justify-between overflow-hidden rounded-3xl bg-[#faf8f6] p-7 md:h-full md:min-h-0 md:p-8 lg:rounded-[2rem] lg:p-9"
+          class="hero-card group relative flex min-h-[300px] flex-col justify-between overflow-hidden rounded-lg bg-[#faf8f6] p-7 md:h-full md:min-h-0 md:p-8 lg:p-9"
         >
           <div class="relative z-10 space-y-5">
             <div class="flex items-center justify-between">
               <div
-                class="flex h-11 w-11 items-center justify-center rounded-xl bg-[#1c1917]/[0.06] text-[#1c1917]/70"
+                class="flex h-11 w-11 items-center justify-center rounded-lg bg-[#1c1917]/[0.06] text-[#1c1917]/70"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -459,7 +460,7 @@ const isActive = (href: string) =>
             <div class="space-y-2">
               <a
                 href="https://www.youtube.com/watch?v=ReucEI_1ON4&list=PLVXimxL_FsmRbztlkOcut0Nn8ILUXwzRT"
-                class="group/link flex items-center justify-between rounded-xl bg-[#1c1917]/[0.03] p-3.5 transition-all duration-300 hover:bg-[#1c1917] hover:text-white"
+                class="group/link flex items-center justify-between rounded-lg bg-[#1c1917]/[0.03] p-3.5 transition-all duration-300 hover:bg-[#1c1917] hover:text-white"
               >
                 <span
                   class="flex items-center gap-2.5 font-sans text-xs text-[#1c1917]/70 transition-colors duration-300 group-hover/link:text-white"
@@ -496,7 +497,7 @@ const isActive = (href: string) =>
               </a>
               <a
                 href="https://www.youtube.com/watch?v=QmrU94FzTSI&list=PLVXimxL_FsmQJipEaN7eBoVW4l9XBOJqF"
-                class="group/link flex items-center justify-between rounded-xl bg-[#1c1917]/[0.03] p-3.5 transition-all duration-300 hover:bg-[#1c1917] hover:text-white"
+                class="group/link flex items-center justify-between rounded-lg bg-[#1c1917]/[0.03] p-3.5 transition-all duration-300 hover:bg-[#1c1917] hover:text-white"
               >
                 <span
                   class="flex items-center gap-2.5 font-sans text-xs text-[#1c1917]/70 transition-colors duration-300 group-hover/link:text-white"
@@ -533,7 +534,7 @@ const isActive = (href: string) =>
               </a>
               <a
                 href="https://www.youtube.com/watch?v=wPY6dOC-MDA&list=PLVXimxL_FsmSAfAhgqJiFWwFJvtPO8MsY"
-                class="group/link flex items-center justify-between rounded-xl bg-[#1c1917]/[0.03] p-3.5 transition-all duration-300 hover:bg-[#1c1917] hover:text-white"
+                class="group/link flex items-center justify-between rounded-lg bg-[#1c1917]/[0.03] p-3.5 transition-all duration-300 hover:bg-[#1c1917] hover:text-white"
               >
                 <span
                   class="flex items-center gap-2.5 font-sans text-xs text-[#1c1917]/70 transition-colors duration-300 group-hover/link:text-white"
@@ -570,7 +571,7 @@ const isActive = (href: string) =>
               </a>
               <a
                 href="https://www.youtube.com/watch?v=MMnuiwCHbdc&list=PLVXimxL_FsmRbtkliOQgQDU0FZkXAKxwV"
-                class="group/link flex items-center justify-between rounded-xl bg-[#1c1917]/[0.03] p-3.5 transition-all duration-300 hover:bg-[#1c1917] hover:text-white"
+                class="group/link flex items-center justify-between rounded-lg bg-[#1c1917]/[0.03] p-3.5 transition-all duration-300 hover:bg-[#1c1917] hover:text-white"
               >
                 <span
                   class="flex items-center gap-2.5 font-sans text-xs text-[#1c1917]/70 transition-colors duration-300 group-hover/link:text-white"
@@ -614,7 +615,7 @@ const isActive = (href: string) =>
           <LatestUluleCampaign server:defer>
             <div
               slot="fallback"
-              class="hero-card group relative h-full min-h-[22rem] overflow-hidden rounded-3xl bg-[#292524] p-6 sm:p-7 md:p-8 lg:rounded-[2rem] lg:p-9 xl:min-h-0"
+              class="hero-card group relative h-full min-h-[22rem] overflow-hidden rounded-lg bg-[#292524] p-6 sm:p-7 md:p-8 lg:p-9 xl:min-h-0"
             >
               <div
                 class="relative z-10 grid h-full gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(220px,280px)] lg:items-center"
@@ -625,13 +626,14 @@ const isActive = (href: string) =>
                       <a
                         href="/galerie"
                         aria-label="Voir la campagne sur Ulule"
-                        class="inline-flex h-11 items-center rounded-xl border border-white/10 bg-white/10 px-2.5"
+                        class="inline-flex h-11 items-center rounded-lg border border-white/10 bg-white/10 px-2.5"
                       >
-                        <img
+                        <Image
                           src="/assets/logo/ulule-horizontal-white.svg"
                           alt="Ulule"
                           width="100"
                           height="31"
+                          loading="eager"
                           class="h-auto w-[6.25rem]"
                         />
                       </a>
@@ -657,16 +659,16 @@ const isActive = (href: string) =>
                   </div>
                   <div class="grid grid-cols-3 gap-2 sm:gap-3">
                     <div
-                      class="h-[5.5rem] animate-pulse rounded-2xl bg-white/[0.06]"
+                      class="h-[5.5rem] animate-pulse rounded-lg bg-white/[0.06]"
                     >
                     </div>
                     <div
-                      class="h-[5.5rem] animate-pulse rounded-2xl bg-white/[0.06]"
+                      class="h-[5.5rem] animate-pulse rounded-lg bg-white/[0.06]"
                       style="animation-delay: 150ms"
                     >
                     </div>
                     <div
-                      class="h-[5.5rem] animate-pulse rounded-2xl bg-white/[0.06]"
+                      class="h-[5.5rem] animate-pulse rounded-lg bg-white/[0.06]"
                       style="animation-delay: 300ms"
                     >
                     </div>
@@ -680,10 +682,10 @@ const isActive = (href: string) =>
                   </div>
                   <div class="relative z-10 flex w-full justify-center">
                     <div
-                      class="w-full max-w-[14rem] rounded-2xl bg-white/[0.06] p-3.5 sm:p-4 lg:max-w-[16rem] xl:max-w-[14rem] 2xl:max-w-[17rem]"
+                    class="w-full max-w-[14rem] rounded-lg bg-white/[0.06] p-3.5 sm:p-4 lg:max-w-[16rem] xl:max-w-[14rem] 2xl:max-w-[17rem]"
                     >
                       <div
-                        class="aspect-[4/5] w-full animate-pulse rounded-xl bg-white/[0.06]"
+                        class="aspect-[4/5] w-full animate-pulse rounded-lg bg-white/[0.06]"
                       >
                       </div>
                     </div>

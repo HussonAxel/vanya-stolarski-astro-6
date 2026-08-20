@@ -1,5 +1,7 @@
 ---
+import { Image } from "astro:assets";
 import { services } from "../data/services";
+import { getImageDimensions } from "../lib/image-dimensions";
 import Layout from "../layouts/Layout.astro";
 
 const contact = {
@@ -185,6 +187,8 @@ const serviceImageDimensions: Record<string, { width: number; height: number }> 
     },
   };
 
+const firstServiceImage = services[0]?.gallery[0];
+
 const getServiceGalleryCardWidth = (src: string) => {
   const dimensions = serviceImageDimensions[src];
 
@@ -298,7 +302,7 @@ const getServiceGalleryCardWidth = (src: string) => {
             </div>
 
             <div
-              class="mt-8 rounded-[1.6rem] border border-[#FFFAFA]/10 bg-[#FFFAFA] p-6"
+              class="mt-8 rounded-lg border border-[#FFFAFA]/10 bg-[#FFFAFA] p-6"
             >
               <p
                 class="font-sans text-[10px] font-bold tracking-[0.3em] text-[#3a4d45] uppercase"
@@ -359,7 +363,7 @@ const getServiceGalleryCardWidth = (src: string) => {
         <div class="space-y-10 pt-8 lg:space-y-12">
           {
             services.map((service) => (
-              <section class="section-panel fade-up space-y-7 overflow-hidden rounded-[2.4rem] bg-[#fffdfa] p-6 md:p-8 xl:p-10">
+              <section class="section-panel fade-up space-y-7 overflow-hidden rounded-lg bg-[#fffdfa] p-6 md:p-8 xl:p-10">
                 {/* ── En-tête service ── */}
                 <div class="flex flex-wrap items-start justify-between gap-5 border-b border-[#3d3834]/8 pb-6">
                   <div class="space-y-2.5">
@@ -430,14 +434,14 @@ const getServiceGalleryCardWidth = (src: string) => {
                             aria-label={`Voir ${img.label} en grand`}
                           >
                             <div
-                              class="relative flex h-[18rem] items-center justify-center overflow-hidden rounded-[1.9rem] border border-[#3d3834]/8 bg-[linear-gradient(180deg,#fffdfa_0%,#f2e9e4_100%)] p-3 transition-all duration-500 sm:h-[21rem] sm:p-4 md:h-[24rem] lg:h-[27rem]"
+                              class="relative flex h-[18rem] items-center justify-center overflow-hidden rounded-lg border border-[#3d3834]/8 bg-[linear-gradient(180deg,#fffdfa_0%,#f2e9e4_100%)] p-3 transition-all duration-500 sm:h-[21rem] sm:p-4 md:h-[24rem] lg:h-[27rem]"
                             >
-                              <img
+                              <Image
                                 src={img.src}
                                 alt={img.alt}
-                                width={serviceImageDimensions[img.src]?.width}
-                                height={serviceImageDimensions[img.src]?.height}
-                                class="h-full w-full rounded-[0.8rem] object-contain transition-transform duration-500 group-hover:scale-[1.02]"
+                                width={serviceImageDimensions[img.src]?.width ?? getImageDimensions(img.src).width}
+                                height={serviceImageDimensions[img.src]?.height ?? getImageDimensions(img.src).height}
+                                class="h-full w-full rounded-lg object-contain transition-transform duration-500 group-hover:scale-[1.02]"
                                 loading={i === 0 ? "eager" : "lazy"}
                               />
                               <span class="absolute bottom-4 left-4 inline-flex rounded-full border border-[#FFFAFA]/20 bg-[#3d3834]/78 px-3 py-1.5 font-sans text-[9px] font-bold tracking-[0.22em] text-[#FFFAFA] uppercase backdrop-blur-sm">
@@ -478,7 +482,7 @@ const getServiceGalleryCardWidth = (src: string) => {
                     </div>
                   </div>
                   <div class="grid gap-3 sm:grid-cols-3 lg:grid-cols-1 xl:grid-cols-3">
-                    <div class="rounded-[1.7rem] border border-[#3d3834]/8 bg-[#fffaf8] px-4 py-4">
+                    <div class="rounded-lg border border-[#3d3834]/8 bg-[#fffaf8] px-4 py-4">
                       <p class="font-sans text-[9px] font-bold tracking-[0.2em] text-[#3d3834]/50 uppercase">
                         Format
                       </p>
@@ -486,7 +490,7 @@ const getServiceGalleryCardWidth = (src: string) => {
                         {service.format}
                       </p>
                     </div>
-                    <div class="rounded-[1.7rem] border border-[#3d3834]/8 bg-[#fffaf8] px-4 py-4">
+                    <div class="rounded-lg border border-[#3d3834]/8 bg-[#fffaf8] px-4 py-4">
                       <p class="font-sans text-[9px] font-bold tracking-[0.2em] text-[#3d3834]/50 uppercase">
                         Adapté à
                       </p>
@@ -494,7 +498,7 @@ const getServiceGalleryCardWidth = (src: string) => {
                         {service.universe}
                       </p>
                     </div>
-                    <div class="rounded-[1.7rem] border border-[#3d3834]/8 bg-[#fffaf8] px-4 py-4">
+                    <div class="rounded-lg border border-[#3d3834]/8 bg-[#fffaf8] px-4 py-4">
                       <p class="font-sans text-[9px] font-bold tracking-[0.2em] text-[#3d3834]/50 uppercase">
                         Focus
                       </p>
@@ -520,7 +524,7 @@ const getServiceGalleryCardWidth = (src: string) => {
       aria-hidden="true"
     >
       <div data-service-gallery-close class="absolute inset-0"></div>
-      <div class="relative z-10 my-auto w-full max-w-[min(96vw,1380px)] overflow-hidden rounded-[2.2rem] border border-[#FFFAFA]/10 bg-[#FFFAFA] shadow-[0_35px_120px_-50px_rgba(61,56,52,0.6)] lg:max-h-[92vh]">
+      <div class="relative z-10 my-auto w-full max-w-[min(96vw,1380px)] overflow-hidden rounded-lg border border-[#FFFAFA]/10 bg-[#FFFAFA] shadow-[0_35px_120px_-50px_rgba(61,56,52,0.6)] lg:max-h-[92vh]">
         <button
           type="button"
           id="service-gallery-modal-close"
@@ -542,13 +546,20 @@ const getServiceGalleryCardWidth = (src: string) => {
               >
                 ‹
               </button>
-              <div class="relative inline-flex max-h-[78vh] w-full max-w-full items-center justify-center overflow-hidden rounded-[1.55rem] border border-[#FFFAFA]/8 bg-[#312d2a] p-3 shadow-[0_24px_60px_-45px_rgba(61,56,52,0.45)] md:p-4">
-                <img
-                  id="service-gallery-modal-image"
-                  src=""
-                  alt=""
-                  class="block max-h-[68vh] max-w-full rounded-[1rem] object-contain md:max-h-[74vh] lg:max-h-[calc(92vh-8rem)]"
-                />
+              <div class="relative inline-flex max-h-[78vh] w-full max-w-full items-center justify-center overflow-hidden rounded-lg border border-[#FFFAFA]/8 bg-[#312d2a] p-3 shadow-[0_24px_60px_-45px_rgba(61,56,52,0.45)] md:p-4">
+                {
+                  firstServiceImage && (
+                    <Image
+                      id="service-gallery-modal-image"
+                      src={firstServiceImage.src}
+                      alt={firstServiceImage.alt}
+                      width={serviceImageDimensions[firstServiceImage.src]?.width ?? getImageDimensions(firstServiceImage.src).width}
+                      height={serviceImageDimensions[firstServiceImage.src]?.height ?? getImageDimensions(firstServiceImage.src).height}
+                      loading="lazy"
+                      class="block max-h-[68vh] max-w-full rounded-lg object-contain md:max-h-[74vh] lg:max-h-[calc(92vh-8rem)]"
+                    />
+                  )
+                }
               </div>
               <button
                 type="button"
@@ -575,7 +586,7 @@ const getServiceGalleryCardWidth = (src: string) => {
                 </div>
               </div>
 
-              <div class="rounded-[1.7rem] border border-[#3d3834]/10 bg-[#fffaf8] p-5">
+              <div class="rounded-lg border border-[#3d3834]/10 bg-[#fffaf8] p-5">
                 <p class="font-sans text-[10px] font-bold tracking-[0.22em] text-[#3d3834]/58 uppercase">
                   Détails
                 </p>
@@ -599,7 +610,7 @@ const getServiceGalleryCardWidth = (src: string) => {
                 </dl>
               </div>
 
-              <div class="rounded-[1.7rem] border border-[#3d3834]/10 bg-[#FFFAFA] p-5">
+              <div class="rounded-lg border border-[#3d3834]/10 bg-[#FFFAFA] p-5">
                 <p class="font-sans text-[10px] font-bold tracking-[0.22em] text-[#3d3834]/58 uppercase">
                   Note visuelle
                 </p>
@@ -615,7 +626,7 @@ const getServiceGalleryCardWidth = (src: string) => {
     <section class="relative overflow-hidden bg-[#FFFAFA] px-6 py-24">
       <div class="site-shell relative grid gap-8 xl:grid-cols-[minmax(0,1.04fr)_minmax(23rem,0.96fr)] xl:items-start">
         <div
-          class="section-panel fade-up overflow-hidden rounded-[2.55rem] border border-[#3d3834]/10 bg-[linear-gradient(180deg,#4b443f_0%,#3d3834_100%)] p-8 text-[#FFFAFA] shadow-[0_30px_90px_-52px_rgba(61,56,52,0.46)] md:p-10 xl:p-12"
+          class="section-panel fade-up overflow-hidden rounded-lg border border-[#3d3834]/10 bg-[linear-gradient(180deg,#4b443f_0%,#3d3834_100%)] p-8 text-[#FFFAFA] shadow-[0_30px_90px_-52px_rgba(61,56,52,0.46)] md:p-10 xl:p-12"
         >
           <p
             class="font-sans text-[10px] font-bold tracking-[0.35em] text-[#6f9184] uppercase"
@@ -637,7 +648,7 @@ const getServiceGalleryCardWidth = (src: string) => {
           <div class="mt-10 space-y-3 border-t border-[#FFFAFA]/10 pt-8 md:mt-12 md:pt-9">
             {
               process.map((item) => (
-                <div class="grid gap-4 rounded-[1.7rem] border border-[#FFFAFA]/10 bg-[#FFFAFA]/[0.04] px-4 py-4 md:grid-cols-[auto_1fr] md:items-start md:px-5">
+                <div class="grid gap-4 rounded-lg border border-[#FFFAFA]/10 bg-[#FFFAFA]/[0.04] px-4 py-4 md:grid-cols-[auto_1fr] md:items-start md:px-5">
                   <span class="inline-flex h-12 w-12 items-center justify-center rounded-full border border-[#6f9184]/35 bg-[#6f9184]/10 font-serif text-2xl text-[#6f9184]">
                     {item.step}
                   </span>
@@ -660,7 +671,7 @@ const getServiceGalleryCardWidth = (src: string) => {
             highlightedCommitments.map((item, index) => (
               <article
                 class:list={[
-                  "section-panel fade-up flex h-full flex-col rounded-[2rem] border p-7 shadow-[0_20px_70px_-45px_rgba(61,56,52,0.28)] backdrop-blur-sm md:p-8",
+                  "section-panel fade-up flex h-full flex-col rounded-lg border p-7 shadow-[0_20px_70px_-45px_rgba(61,56,52,0.28)] backdrop-blur-sm md:p-8",
                   index === 2
                     ? "border-[#3a4d45]/14 bg-[linear-gradient(180deg,#f6efe9_0%,#fffaf8_100%)] md:col-span-2"
                     : "border-[#3d3834]/10 bg-[#FFFAFA]",
@@ -696,7 +707,7 @@ const getServiceGalleryCardWidth = (src: string) => {
     <section class="relative overflow-hidden bg-[#FFFAFA] px-6 py-24">
       <div class="site-shell relative mt-20">
         <div
-          class="section-panel fade-up rounded-[2.5rem] border border-[#3d3834]/10 bg-[#3d3834] px-8 py-10 text-[#FFFAFA] shadow-[0_26px_90px_-55px_rgba(61,56,52,0.45)] md:px-10 md:py-12"
+          class="section-panel fade-up rounded-lg border border-[#3d3834]/10 bg-[#3d3834] px-8 py-10 text-[#FFFAFA] shadow-[0_26px_90px_-55px_rgba(61,56,52,0.45)] md:px-10 md:py-12"
         >
           <div class="grid gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-end">
             <div>

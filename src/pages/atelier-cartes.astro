@@ -1,5 +1,7 @@
 ---
+import { Image } from "astro:assets";
 import "../styles/global.css";
+import { getImageDimensions } from "../lib/image-dimensions";
 
 type Cover = {
   id: string;
@@ -189,7 +191,13 @@ const positions: Array<[string, string, number, number]> = [
                   data-cover-edition={cover.edition}
                   aria-pressed={index === 0 ? "true" : "false"}
                 >
-                  <img src={cover.src} alt="" loading={index === 0 ? "eager" : "lazy"} />
+                  <Image
+                    src={cover.src}
+                    alt=""
+                    width={getImageDimensions(cover.src).width}
+                    height={getImageDimensions(cover.src).height}
+                    loading={index === 0 ? "eager" : "lazy"}
+                  />
                   <span>
                     <strong>{cover.title}</strong>
                     <small>{cover.edition}</small>
@@ -484,12 +492,24 @@ const positions: Array<[string, string, number, number]> = [
         <div class="comparison-grid">
           <figure class="comparison-card" data-comparison="a">
             <div class="comparison-placeholder"><span>A</span><p>Capturez votre première variante</p></div>
-            <img alt="Variante A de la matière" hidden />
+            <Image
+              src={covers[0].src}
+              alt="Variante A de la matière"
+              width={getImageDimensions(covers[0].src).width}
+              height={getImageDimensions(covers[0].src).height}
+              hidden
+            />
             <figcaption><strong>Variante A</strong><small>Aucune capture</small></figcaption>
           </figure>
           <figure class="comparison-card" data-comparison="b">
             <div class="comparison-placeholder"><span>B</span><p>Capturez votre seconde variante</p></div>
-            <img alt="Variante B de la matière" hidden />
+            <Image
+              src={covers[0].src}
+              alt="Variante B de la matière"
+              width={getImageDimensions(covers[0].src).width}
+              height={getImageDimensions(covers[0].src).height}
+              hidden
+            />
             <figcaption><strong>Variante B</strong><small>Aucune capture</small></figcaption>
           </figure>
         </div>

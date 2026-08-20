@@ -1,11 +1,15 @@
 ---
+import { Image } from "astro:assets";
+import { getImageDimensions } from "../lib/image-dimensions";
 import { getUluleCampaignCard } from "../lib/ulule";
 
 const campaign = await getUluleCampaignCard();
+const isLocalCampaignCover = campaign.coverSrc.startsWith("/");
+const campaignCoverDimensions = getImageDimensions(campaign.coverSrc);
 ---
 
 <div
-    class="campaign-card hero-card group relative h-full min-h-[22rem] overflow-hidden rounded-3xl bg-[#3a4d45] p-6 sm:p-7 md:p-8 lg:rounded-[2rem] lg:p-9 xl:min-h-0"
+    class="campaign-card hero-card group relative h-full min-h-[22rem] overflow-hidden rounded-lg bg-[#3a4d45] p-6 sm:p-7 md:p-8 lg:p-9 xl:min-h-0"
 >
     <div
         class="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.12),transparent_34%),radial-gradient(circle_at_bottom_left,rgba(255,255,255,0.07),transparent_30%)]"
@@ -33,13 +37,14 @@ const campaign = await getUluleCampaignCard();
                             ? "noreferrer"
                             : undefined}
                         aria-label="Voir la campagne sur Ulule"
-                        class="hero-chip-link inline-flex h-11 items-center rounded-xl border border-white/10 bg-white/10 px-2.5 hover:bg-white/15"
+                        class="hero-chip-link inline-flex h-11 items-center rounded-lg border border-white/10 bg-white/10 px-2.5 hover:bg-white/15"
                     >
-                        <img
+                        <Image
                             src="/assets/logo/ulule-horizontal-white.svg"
                             alt="Ulule"
                             width="100"
                             height="31"
+                            loading="eager"
                             class="h-auto w-[6.25rem]"
                         />
                     </a>
@@ -67,7 +72,7 @@ const campaign = await getUluleCampaignCard();
             <div class="campaign-stats grid grid-cols-3 gap-2 sm:gap-3">
                 {
                     campaign.stats.map((stat) => (
-                        <div class="campaign-stat rounded-2xl border border-white/10 bg-white/[0.07] px-3 py-3.5 transition-colors duration-300 group-hover:bg-white/[0.1] sm:px-4 sm:py-4">
+                        <div class="campaign-stat rounded-lg border border-white/10 bg-white/[0.07] px-3 py-3.5 transition-colors duration-300 group-hover:bg-white/[0.1] sm:px-4 sm:py-4">
                             <p class="font-serif text-xl leading-none text-white sm:text-[1.55rem]">
                                 {stat.value}
                             </p>
@@ -117,17 +122,30 @@ const campaign = await getUluleCampaignCard();
 
             <div class="relative z-10 flex w-full justify-center">
                 <div
-                    class="campaign-frame w-full max-w-[14rem] rounded-2xl border border-white/10 bg-white/[0.06] p-3.5 sm:p-4 lg:max-w-[16rem] xl:max-w-[14rem] 2xl:max-w-[17rem]"
+                    class="campaign-frame w-full max-w-[14rem] rounded-lg border border-white/10 bg-white/[0.06] p-3.5 sm:p-4 lg:max-w-[16rem] xl:max-w-[14rem] 2xl:max-w-[17rem]"
                 >
                     <div
-                        class="campaign-cover-stage flex aspect-[4/5] items-center justify-center rounded-xl bg-[linear-gradient(180deg,#f7f1ec_0%,#ebe2dc_100%)] p-4 shadow-[0_34px_100px_-46px_rgba(0,0,0,0.58)] transition-all duration-700 group-hover:shadow-[0_42px_120px_-50px_rgba(0,0,0,0.62)]"
+                        class="campaign-cover-stage flex aspect-[4/5] items-center justify-center rounded-lg bg-[linear-gradient(180deg,#f7f1ec_0%,#ebe2dc_100%)] p-4 shadow-[0_34px_100px_-46px_rgba(0,0,0,0.58)] transition-all duration-700 group-hover:shadow-[0_42px_120px_-50px_rgba(0,0,0,0.62)]"
                     >
-                        <img
-                            src={campaign.coverSrc}
-                            alt={campaign.coverAlt}
-                            class="h-full w-auto max-w-full object-contain drop-shadow-[0_20px_30px_rgba(61,56,52,0.2)]"
-                            loading="lazy"
-                        />
+                        {
+                            isLocalCampaignCover ? (
+                                <Image
+                                    src={campaign.coverSrc}
+                                    alt={campaign.coverAlt}
+                                    width={campaignCoverDimensions.width}
+                                    height={campaignCoverDimensions.height}
+                                    class="h-full w-auto max-w-full object-contain drop-shadow-[0_20px_30px_rgba(61,56,52,0.2)]"
+                                    loading="lazy"
+                                />
+                            ) : (
+                                <img
+                                    src={campaign.coverSrc}
+                                    alt={campaign.coverAlt}
+                                    class="h-full w-auto max-w-full object-contain drop-shadow-[0_20px_30px_rgba(61,56,52,0.2)]"
+                                    loading="lazy"
+                                />
+                            )
+                        }
                     </div>
                 </div>
             </div>

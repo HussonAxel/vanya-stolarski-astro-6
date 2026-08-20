@@ -1,5 +1,7 @@
 ---
+import { Image } from "astro:assets";
 import { latestBook } from "../data/books";
+import { getImageDimensions } from "../lib/image-dimensions";
 import {
   getBookHook,
   getBookSeries,
@@ -13,7 +15,7 @@ const featured = getFeaturedBlock(latestBook);
 
 <section class="relative overflow-hidden bg-[#FFFAFA] pt-16 pb-14 md:pt-20 md:pb-18">
   <div class="site-shell relative z-10 mt-16 px-6">
-    <article class="fade-up rounded-[2.8rem] border border-[#3d3834]/8 bg-[#FFFAFA] p-6 shadow-[0_34px_120px_-72px_rgba(61,56,52,0.42)] md:p-8 xl:p-10">
+    <article class="fade-up rounded-lg border border-[#3d3834]/8 bg-[#FFFAFA] p-6 shadow-[0_34px_120px_-72px_rgba(61,56,52,0.42)] md:p-8 xl:p-10">
       <div class="grid gap-8 xl:grid-cols-[1.02fr_0.98fr] xl:items-start">
         <div class="space-y-8">
           <div class="space-y-5">
@@ -62,7 +64,7 @@ const featured = getFeaturedBlock(latestBook);
           <div class="grid gap-4 sm:grid-cols-3">
             {
               featured?.stats.map((item) => (
-                <div class="rounded-[1.9rem] border border-[#3d3834]/8 bg-[#FFFAFA] p-5 shadow-[0_22px_60px_-48px_rgba(61,56,52,0.22)]">
+                <div class="rounded-lg border border-[#3d3834]/8 bg-[#FFFAFA] p-5 shadow-[0_22px_60px_-48px_rgba(61,56,52,0.22)]">
                   <p class="font-serif text-[1.7rem] leading-tight text-[#3d3834]">{item.value}</p>
                   <p class="mt-3 font-sans text-[10px] font-bold tracking-[0.24em] text-[#3d3834]/78 uppercase">
                     {item.label}
@@ -74,23 +76,25 @@ const featured = getFeaturedBlock(latestBook);
         </div>
 
         <div class="space-y-5">
-          <div class="relative overflow-hidden rounded-[2.4rem]">
+          <div class="relative overflow-hidden rounded-lg">
             {
               featured?.media.type === "video" ? (
                 <video
                   controls
                   poster={featured.media.poster}
-                  class="aspect-[5/6] w-full rounded-[1.85rem] object-cover"
+                  class="aspect-[5/6] w-full rounded-lg object-cover"
                 >
                   <source src={featured.media.src} />
                 </video>
-              ) : (
-                <img
-                  src={featured?.media.src}
-                  alt={featured?.media.alt}
-                  class="aspect-[5/6] max-w-xl w-full rounded-[1.85rem] object-cover"
+              ) : featured ? (
+                <Image
+                  src={featured.media.src}
+                  alt={featured.media.alt}
+                  width={getImageDimensions(featured.media.src).width}
+                  height={getImageDimensions(featured.media.src).height}
+                  class="aspect-[5/6] max-w-xl w-full rounded-lg object-cover"
                 />
-              )
+              ) : null
             }
           </div>
         </div>

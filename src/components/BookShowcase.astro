@@ -12,6 +12,7 @@ import {
 import BookCardGallery from "./BookCardGallery.astro";
 
 const bookOrder = [
+  "trouver-la-lune",
   "coeur-de-renard-tome-2",
   "coeur-de-renard",
   "fous-papillons",
@@ -93,39 +94,43 @@ const orderedBooks = [...books].sort((left, right) => {
           const isbn = getBookIsbn(book);
 
           return (
-            <article class="section-panel fade-up group flex h-full flex-col overflow-hidden rounded-[2.2rem] border border-[#FFFAFA]/10 bg-[#FFFAFA] text-[#3d3834] shadow-[0_30px_90px_-54px_rgba(0,0,0,0.45)] backdrop-blur-sm transition-transform duration-500">
-              <div class="relative overflow-hidden rounded-b-[1.5rem]">
-                <BookCardGallery
-                  items={getBookCoverGalleryItems(book)}
-                  title={`Galerie ${title}`}
-                  href={`/livres/${book.slug}`}
-                  linkLabel={`Ouvrir la fiche de ${title}`}
-                />
+            <article class="section-panel fade-up group flex h-full flex-col overflow-hidden rounded-lg border border-[#3d3834]/10 bg-[#fffaf8] text-[#3d3834] shadow-[0_30px_90px_-54px_rgba(0,0,0,0.45)] backdrop-blur-sm transition-[transform,box-shadow,border-color] duration-500 ease-out hover:-translate-y-1 hover:border-[#3a4d45]/25 hover:shadow-[0_42px_100px_-52px_rgba(0,0,0,0.58)] focus-within:ring-2 focus-within:ring-[#6f9184]/60 focus-within:ring-offset-2 focus-within:ring-offset-[#3a4d45]">
+              <div class="relative overflow-hidden bg-[#f6efec] px-3 pt-3">
+                <div class="overflow-hidden rounded-lg">
+                  <BookCardGallery
+                    items={getBookCoverGalleryItems(book)}
+                    title={`Galerie ${title}`}
+                    href={`/livres/${book.slug}`}
+                    linkLabel={`Ouvrir la fiche de ${title}`}
+                  />
+                </div>
               </div>
 
-              <div class="flex flex-1 flex-col p-6 text-center md:text-left">
-                <div class="flex flex-1 flex-col gap-4">
-                  <h3 class="font-serif text-2xl text-[#3d3834] text-balance">
+              <div class="flex flex-1 flex-col p-7 text-center md:p-8 md:text-left">
+                <div class="flex flex-1 flex-col gap-5">
+                  <div class="space-y-3">
+                    <h3 class="font-serif text-[1.8rem] leading-[1.05] tracking-[-0.02em] text-[#3d3834] text-balance">
                     {title}
-                  </h3>
-                  <p class="font-sans text-xs tracking-widest text-[#3d3834]/78 uppercase">
+                    </h3>
+                  </div>
+                  <p class="border-y border-[#3d3834]/10 py-3 font-sans text-[10px] font-bold tracking-[0.18em] text-[#3d3834]/62 uppercase">
                     {[getBookTome(book), pages ? `${pages} pages` : null, isbn ? `ISBN ${isbn}` : null]
                       .filter(Boolean)
                       .join(" - ")}
                   </p>
                   <div class="flex flex-wrap justify-center gap-2 md:justify-start">
                     {getBookGenres(book).map((genre) => (
-                      <span class="border border-[#3d3834]/10 bg-[#FFFAFA] px-2 py-1 text-[10px] tracking-wide text-[#3d3834] uppercase">
+                      <span class="rounded-full border border-[#3a4d45]/12 bg-[#f6efec] px-2.5 py-1 font-sans text-[9px] font-bold tracking-[0.08em] text-[#3d3834]/82 uppercase">
                         {genre}
                       </span>
                     ))}
                   </div>
-                  <p class="line-clamp-3 text-sm leading-relaxed font-light whitespace-pre-line text-[#3d3834]/80">
+                  <p class="line-clamp-3 text-[0.92rem] leading-[1.65] font-light whitespace-pre-line text-[#3d3834]/72">
                     {getBookShortDescription(book)}
                   </p>
                   <a
                     href={`/livres/${book.slug}`}
-                    class="mt-auto inline-flex items-center text-xs font-bold tracking-widest text-[#3a4d45] uppercase hover:underline"
+                    class="group/link mt-auto inline-flex w-fit items-center gap-2 border-b border-[#3a4d45]/25 pb-1.5 text-[11px] font-bold tracking-[0.2em] text-[#3a4d45] uppercase transition-[color,border-color] duration-300 hover:border-[#3a4d45] hover:text-[#3a4d45] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#6f9184] focus-visible:ring-offset-2"
                   >
                     En savoir plus
                     <svg
@@ -138,7 +143,7 @@ const orderedBooks = [...books].sort((left, right) => {
                       stroke-width="2"
                       stroke-linecap="round"
                       stroke-linejoin="round"
-                      class="ml-1"
+                      class="transition-transform duration-300 group-hover/link:translate-x-1"
                     >
                       <path d="M5 12h14" />
                       <path d="m12 5 7 7-7 7" />
@@ -155,7 +160,7 @@ const orderedBooks = [...books].sort((left, right) => {
     <div class="mt-20 text-center">
       <a
         href="/livres"
-        class="section-panel inline-flex items-center gap-3 rounded-full border border-[#3d3834]/15 bg-[#3a4d45] px-8 py-4 font-sans text-[11px] font-bold tracking-[0.25em] text-[#FFFAFA] uppercase transition-all duration-300 hover:border-[#3a4d45]/40 hover:bg-[#3a4d45] hover:text-[#FFFAFA]"
+        class="section-panel inline-flex items-center gap-3 rounded-full border-2 border-[#FFFAFA] bg-[#3a4d45] px-8 py-4 font-sans text-[11px] font-bold tracking-[0.25em] text-[#FFFAFA] uppercase transition-colors duration-300 hover:border-[#3a4d45]/35 hover:bg-[#FFFAFA] hover:text-[#3d3834]"
       >
         Voir toute la bibliothèque
         <svg

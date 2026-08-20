@@ -1,4 +1,5 @@
 ---
+import { Image } from "astro:assets";
 import BookGallery from "../../components/BookGallery.astro";
 import BookRelatedGallery from "../../components/BookRelatedGallery.astro";
 import { books } from "../../data/books";
@@ -11,6 +12,7 @@ import {
   getBookShortDescription,
 } from "../../lib/books";
 import Layout from "../../layouts/Layout.astro";
+import { getImageDimensions } from "../../lib/image-dimensions";
 
 export const prerender = true;
 
@@ -274,23 +276,28 @@ const useContainFit = (src: string) =>
             </div>
 
             <div class="grid gap-6 md:grid-cols-2">
-              {pageModel.relatedBooks.map((entry) => (
-                <a
-                  href={`/livres/${entry.slug}`}
-                  class="fade-up group grid gap-6 overflow-hidden rounded-lg border border-[#FFFAFA]/10 bg-[#FFFAFA] p-6 backdrop-blur-sm transition-all duration-300 md:grid-cols-[180px_1fr]"
-                >
-                  <img
-                    src={entry.media.cover.src}
-                    alt={`Couverture de ${getBookTitle(entry)}`}
-                    loading="lazy"
-                    class:list={[
-                      "aspect-[4/5] h-auto w-full self-start rounded-[1.5rem]",
-                      useContainFit(entry.media.cover.src)
-                        ? "bg-[#f6efec] p-3 object-contain"
-                        : "object-cover",
-                    ]}
-                  />
-                  <div class="flex flex-col justify-between gap-5">
+              {pageModel.relatedBooks.map((entry) => {
+                const dimensions = getImageDimensions(entry.media.cover.src);
+
+                return (
+                  <a
+                    href={`/livres/${entry.slug}`}
+                    class="fade-up group grid gap-6 overflow-hidden rounded-lg border border-[#FFFAFA]/10 bg-[#FFFAFA] p-6 backdrop-blur-sm transition-all duration-300 md:grid-cols-[180px_1fr]"
+                  >
+                    <Image
+                      src={entry.media.cover.src}
+                      alt={`Couverture de ${getBookTitle(entry)}`}
+                      loading="lazy"
+                      width={dimensions.width}
+                      height={dimensions.height}
+                      class:list={[
+                        "aspect-[4/5] h-auto w-full self-start rounded-lg",
+                        useContainFit(entry.media.cover.src)
+                          ? "bg-[#f6efec] p-3 object-contain"
+                          : "object-cover",
+                      ]}
+                    />
+                    <div class="flex flex-col justify-between gap-5">
                     <div>
                       <p class="font-sans text-[10px] font-bold tracking-[0.25em] text-[#3a4d45] uppercase">
                         {getBookSeries(entry)}
@@ -321,8 +328,9 @@ const useContainFit = (src: string) =>
                       </svg>
                     </span>
                   </div>
-                </a>
-              ))}
+                  </a>
+                );
+              })}
             </div>
           </div>
         </section>

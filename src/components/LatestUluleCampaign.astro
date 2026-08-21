@@ -45,6 +45,7 @@ const campaignCoverDimensions = getImageDimensions(campaign.coverSrc);
                             width="100"
                             height="31"
                             loading="eager"
+                            decoding="async"
                             class="h-auto w-[6.25rem]"
                         />
                     </a>
@@ -136,6 +137,7 @@ const campaignCoverDimensions = getImageDimensions(campaign.coverSrc);
                                     height={campaignCoverDimensions.height}
                                     class="h-full w-auto max-w-full object-contain drop-shadow-[0_20px_30px_rgba(61,56,52,0.2)]"
                                     loading="lazy"
+                                    decoding="async"
                                 />
                             ) : (
                                 <img
@@ -143,6 +145,7 @@ const campaignCoverDimensions = getImageDimensions(campaign.coverSrc);
                                     alt={campaign.coverAlt}
                                     class="h-full w-auto max-w-full object-contain drop-shadow-[0_20px_30px_rgba(61,56,52,0.2)]"
                                     loading="lazy"
+                                    decoding="async"
                                 />
                             )
                         }

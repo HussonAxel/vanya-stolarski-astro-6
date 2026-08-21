@@ -274,6 +274,8 @@ const firstGalleryItem = galleryItems[0];
                                                 width={dimensions.width}
                                                 height={dimensions.height}
                                                 loading="lazy"
+                                                decoding="async"
+                                                sizes="(min-width: 1280px) 25vw, (min-width: 640px) 50vw, 100vw"
                                                 class="w-full rounded-lg object-cover transition-transform duration-700 group-hover:scale-[1.025]"
                                             />
                                         </div>
@@ -329,6 +331,7 @@ const firstGalleryItem = galleryItems[0];
                                         width={getImageDimensions(firstGalleryItem.image).width}
                                         height={getImageDimensions(firstGalleryItem.image).height}
                                         loading="lazy"
+                                        decoding="async"
                                         class="block max-h-[58vh] max-w-full rounded-lg object-contain md:max-h-[72vh] lg:max-h-[calc(92vh-5.5rem)]"
                                     />
                                 )

@@ -92,6 +92,10 @@ const featured = getFeaturedBlock(latestBook);
                   alt={featured.media.alt}
                   width={getImageDimensions(featured.media.src).width}
                   height={getImageDimensions(featured.media.src).height}
+                  loading="eager"
+                  fetchpriority="high"
+                  decoding="async"
+                  sizes="(min-width: 1280px) 42vw, 100vw"
                   class="aspect-[5/6] max-w-xl w-full rounded-lg object-cover"
                 />
               ) : null

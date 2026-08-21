@@ -140,12 +140,12 @@ export const services: Service[] = [
         label: "Univers",
       },
       {
-        src: "/assets/services/pagedegarde/pdg4.png",
+        src: "/assets/services/pagedegarde/pdg4.webp",
         alt: "Exemple de pages de garde sur mesure",
         label: "Univers",
       },
       {
-        src: "/assets/services/pagedegarde/pdg5.png",
+        src: "/assets/services/pagedegarde/pdg5.webp",
         alt: "Exemple de pages de garde sur mesure",
         label: "Univers",
       },
@@ -254,7 +254,7 @@ export const services: Service[] = [
         label: "Détaillée",
       },
       {
-        src: "/assets/gallery/trouver-la-lune--carte.png",
+        src: "/assets/gallery/trouver-la-lune--carte.webp",
         alt: "Exemple de carte fantasy détaillée",
         label: "Détaillée",
       },
@@ -273,7 +273,7 @@ export const services: Service[] = [
     focus: "Communication & personnages",
     gallery: [
       {
-        src: "/assets/gallery/trouver-la-lune--valor.png",
+        src: "/assets/gallery/trouver-la-lune--valor.webp",
         alt: "Illustration de Valor pour Trouver la lune",
         label: "Valor",
       },

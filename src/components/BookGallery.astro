@@ -13,7 +13,7 @@ const galleryId = `gallery-${Math.random().toString(36).slice(2, 10)}`;
 const slides = items.length > 0 ? items : [];
 const hasMultiple = slides.length > 1;
 const useContainFit = (src: string) =>
-  /(?:Cover_CDR_Ulule\.png|Cover_TLL_broche\.png|coeur-de-renard-tome-2--relie\.webp)$/i.test(src);
+  /(?:Cover_CDR_Ulule\.webp|Cover_TLL_broche\.webp|coeur-de-renard-tome-2--relie\.webp)$/i.test(src);
 ---
 
 <div
@@ -50,6 +50,8 @@ const useContainFit = (src: string) =>
                     : "object-cover",
                 ]}
                 loading={index === 0 ? "eager" : "lazy"}
+                decoding="async"
+                sizes="(min-width: 1280px) 42rem, 100vw"
               />
             </figure>
           );

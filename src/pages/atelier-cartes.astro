@@ -18,35 +18,35 @@ const covers: Cover[] = [
     id: "aube-musique",
     title: "Aube · Variation musicale",
     edition: "Filtre Holographique",
-    src: "/assets/card-tests/collibris/aube-musique.png",
+    src: "/assets/card-tests/collibris/aube-musique.webp",
     effect: "holo",
   },
   {
     id: "aube-couverture",
     title: "Aube · Première couverture",
     edition: "Filtre Satin",
-    src: "/assets/card-tests/collibris/aube-premiere-couverture.png",
+    src: "/assets/card-tests/collibris/aube-premiere-couverture.webp",
     effect: "satin",
   },
   {
     id: "pumpkin-space",
     title: "Pumpkin Space",
     edition: "Filtre Prismatique",
-    src: "/assets/card-tests/collibris/pumpkin-space.png",
+    src: "/assets/card-tests/collibris/pumpkin-space.webp",
     effect: "prism",
   },
   {
     id: "phenix-003",
     title: "Le Phénix d’espoir",
     edition: "Filtre Projecteur",
-    src: "/assets/card-tests/collibris/phenix-003.png",
+    src: "/assets/card-tests/collibris/phenix-003.webp",
     effect: "spot",
   },
   {
     id: "coeur-renard-mockup",
     title: "Cœur de Renard · Renard et Fortune",
     edition: "Filtre Holographique",
-    src: "/assets/card-tests/collibris/coeur-de-renard-mockup-2.png",
+    src: "/assets/card-tests/collibris/coeur-de-renard-mockup-2.webp",
     effect: "holo",
   },
   {
@@ -197,6 +197,7 @@ const positions: Array<[string, string, number, number]> = [
                     width={getImageDimensions(cover.src).width}
                     height={getImageDimensions(cover.src).height}
                     loading={index === 0 ? "eager" : "lazy"}
+                    decoding="async"
                   />
                   <span>
                     <strong>{cover.title}</strong>
@@ -497,6 +498,7 @@ const positions: Array<[string, string, number, number]> = [
               alt="Variante A de la matière"
               width={getImageDimensions(covers[0].src).width}
               height={getImageDimensions(covers[0].src).height}
+              decoding="async"
               hidden
             />
             <figcaption><strong>Variante A</strong><small>Aucune capture</small></figcaption>
@@ -508,6 +510,7 @@ const positions: Array<[string, string, number, number]> = [
               alt="Variante B de la matière"
               width={getImageDimensions(covers[0].src).width}
               height={getImageDimensions(covers[0].src).height}
+              decoding="async"
               hidden
             />
             <figcaption><strong>Variante B</strong><small>Aucune capture</small></figcaption>
@@ -688,7 +691,7 @@ const positions: Array<[string, string, number, number]> = [
         iri9: "/assets/card-tests/pokebox-sv3-5-199/iri-9.webp",
       } as const;
       const pokeboxReferenceTextures = new Map<string, THREE.Texture>();
-      const pokeboxGlitterPath = "/assets/card-tests/pokebox-common/glitter.png";
+      const pokeboxGlitterPath = "/assets/card-tests/pokebox-common/glitter.webp";
       let pokeboxIrMaterial: THREE.ShaderMaterial | null = null;
       let pokeboxIrUniforms: ReturnType<typeof createPokeboxIllustrationRareMaterial>["uniforms"] | null = null;
       let pokeboxSirMaterial: THREE.ShaderMaterial | null = null;
@@ -697,7 +700,7 @@ const positions: Array<[string, string, number, number]> = [
       let currentEffect = "holo";
       let currentCardTexture: THREE.Texture | null = null;
       let currentCardMask: THREE.Texture | null = null;
-      let currentCardSrc = "/assets/card-tests/collibris/aube-musique.png";
+      let currentCardSrc = "/assets/card-tests/collibris/aube-musique.webp";
       let currentCardTitle = "Aube · Variation musicale";
       let uploadedMaskTexture: THREE.Texture | null = null;
       let uploadedEtchTexture: THREE.Texture | null = null;
@@ -1633,7 +1636,7 @@ const positions: Array<[string, string, number, number]> = [
         const referenceCover = document.querySelector('[data-cover-profile="pokebox-sir"]');
         if (referenceCover instanceof HTMLButtonElement) referenceCover.click();
       } else {
-        setCover("/assets/card-tests/collibris/aube-musique.png");
+        setCover("/assets/card-tests/collibris/aube-musique.webp");
       }
       animate();
     </script>

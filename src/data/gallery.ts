@@ -233,7 +233,7 @@ export const galleryItems: GalleryItem[] = [
   {
     id: "gal-21",
     title: "Geina",
-    image: "/assets/gallery/notre-sang-dans-lhumus-de-la-foret--geina.png",
+    image: "/assets/gallery/notre-sang-dans-lhumus-de-la-foret--geina.webp",
     alt: "Illustration de Geina pour Notre sang dans l'humus de la Foret",
     bookSlug: "notre-sang-dans-lhumus-de-la-foret",
     artist: "Vanya",
@@ -244,7 +244,7 @@ export const galleryItems: GalleryItem[] = [
   {
     id: "gal-22",
     title: "Locke",
-    image: "/assets/gallery/trouver-la-lune--locke.png",
+    image: "/assets/gallery/trouver-la-lune--locke.webp",
     alt: "Illustration de Locke pour Trouver la lune",
     bookSlug: "trouver-la-lune",
     artist: "Vanya",
@@ -255,7 +255,7 @@ export const galleryItems: GalleryItem[] = [
   {
     id: "gal-23",
     title: "Locke & Valor",
-    image: "/assets/gallery/trouver-la-lune--locke-valor.png",
+    image: "/assets/gallery/trouver-la-lune--locke-valor.webp",
     alt: "Illustration de Locke et Valor pour Trouver la lune",
     bookSlug: "trouver-la-lune",
     artist: "Vanya",
@@ -266,7 +266,7 @@ export const galleryItems: GalleryItem[] = [
   {
     id: "gal-24",
     title: "Valor",
-    image: "/assets/gallery/trouver-la-lune--valor.png",
+    image: "/assets/gallery/trouver-la-lune--valor.webp",
     alt: "Illustration de Valor pour Trouver la lune",
     bookSlug: "trouver-la-lune",
     artist: "Vanya",
@@ -277,7 +277,7 @@ export const galleryItems: GalleryItem[] = [
   {
     id: "gal-25",
     title: "Valor",
-    image: "/assets/gallery/trouver-la-lune--valoretlocke.png",
+    image: "/assets/gallery/trouver-la-lune--valoretlocke.webp",
     alt: "Illustration de Valor pour Trouver la lune",
     bookSlug: "trouver-la-lune",
     artist: "purplishartz",
@@ -288,7 +288,7 @@ export const galleryItems: GalleryItem[] = [
   {
     id: "gal-26",
     title: "Valor",
-    image: "/assets/gallery/trouver-la-lune--enfants.PNG",
+    image: "/assets/gallery/trouver-la-lune--enfants.webp",
     alt: "Illustration de Valor enfant pour Trouver la lune",
     bookSlug: "trouver-la-lune",
     artist: "shannon.p.elliott",
@@ -299,7 +299,7 @@ export const galleryItems: GalleryItem[] = [
   {
     id: "gal-27",
     title: "Valor",
-    image: "/assets/gallery/trouver-la-lune--carte.png",
+    image: "/assets/gallery/trouver-la-lune--carte.webp",
     alt: "Carte du monde pour Trouver la lune",
     bookSlug: "trouver-la-lune",
     artist: "Vanya Stolarski",
@@ -310,7 +310,7 @@ export const galleryItems: GalleryItem[] = [
   {
     id: "gal-27",
     title: "Valor",
-    image: "/assets/gallery/trouver-la-lune--jaquette.png",
+    image: "/assets/gallery/trouver-la-lune--jaquette.webp",
     alt: "jaquette  pour Trouver la lune",
     bookSlug: "trouver-la-lune",
     artist: "Vanya Stolarski",
@@ -321,7 +321,7 @@ export const galleryItems: GalleryItem[] = [
   {
     id: "gal-28",
     title: "Valor",
-    image: "/assets/gallery/trouver-la-lune--shadar.png",
+    image: "/assets/gallery/trouver-la-lune--shadar.webp",
     alt: "jaquette  pour Trouver la lune",
     bookSlug: "trouver-la-lune",
     artist: "Vanya Stolarski",

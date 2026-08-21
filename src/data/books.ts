@@ -147,7 +147,7 @@ export const books = ([
     },
     media: {
       cover: {
-        src: "/assets/covers/Cover_CDR_Ulule.png",
+        src: "/assets/covers/Cover_CDR_Ulule.webp",
         alt: "Couverture de Coeur de Renard - édition reliée",
       },
       relatedGalleryIds: ["coeur-de-renard-tome-2"],
@@ -156,7 +156,7 @@ export const books = ([
           id: "relie",
           label: "Relié",
           media: {
-            src: "/assets/covers/Cover_CDR_Ulule.png",
+            src: "/assets/covers/Cover_CDR_Ulule.webp",
             alt: "Couverture de Coeur de Renard - édition reliée",
             label: "Relié",
           },
@@ -211,12 +211,12 @@ export const books = ([
           "En pleine occupation, Renard tente de survivre en remboursant une dette qui le pousse aux pires vices, notamment en vendant des faux tableaux. Fortune, quant à elle, voit, impuissante, ses parents sombrer dans les idéologies nazies et d'extrême droite. Alors qu'elle tente de leur faire ouvrir les yeux sur les conséquences de leurs décisions, les occupants gagnent en influence sur la banque dont elle doit hériter. Son honneur sera sali si elle échoue à retrouver l'escroc qui souhaite la chute de la banque, mais quel honneur lui restera-t-il si ses parents se vendent aux nazis ?",
         media: {
           type: "image",
-          src: "/assets/covers/Cover_CDR_Ulule.png",
-          poster: "/assets/covers/Cover_CDR_Ulule.png",
+          src: "/assets/covers/Cover_CDR_Ulule.webp",
+          poster: "/assets/covers/Cover_CDR_Ulule.webp",
           alt: "Couverture de Coeur de Renard - édition reliée",
           gallery: [
             {
-              src: "/assets/covers/Cover_CDR_Ulule.png",
+              src: "/assets/covers/Cover_CDR_Ulule.webp",
               alt: "Couverture de Coeur de Renard - édition reliée",
               label: "Relié",
             },
@@ -652,7 +652,7 @@ Peut-elle encore sauver l’homme qu’il était… ou devra-t-elle l’abattre 
             id: "broche",
             label: "Broché",
             media: {
-              src: "/assets/covers/Cover_TLL_broche.png",
+              src: "/assets/covers/Cover_TLL_broche.webp",
               alt: "Format broché de Trouver la Lune",
               label: "Broché",
             },
@@ -701,7 +701,7 @@ Peut-elle encore sauver l’homme qu’il était… ou devra-t-elle l’abattre 
                 label: "Relié",
               },
               {
-                src: "/assets/covers/Cover_TLL_broche.png",
+                src: "/assets/covers/Cover_TLL_broche.webp",
                 alt: "Format broché de Trouver La Lune",
                 label: "Broché",
               },

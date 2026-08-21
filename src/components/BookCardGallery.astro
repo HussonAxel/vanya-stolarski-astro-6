@@ -20,7 +20,7 @@ const galleryId = `card-gallery-${Math.random().toString(36).slice(2, 10)}`;
 const slides = items.length > 0 ? items : [];
 const hasMultiple = slides.length > 1;
 const useContainFit = (src: string) =>
-  /(?:Cover_CDR_Ulule\.png|Cover_TLL_broche\.png|coeur-de-renard-tome-2--relie\.webp)$/i.test(src);
+  /(?:Cover_CDR_Ulule\.webp|Cover_TLL_broche\.webp|coeur-de-renard-tome-2--relie\.webp)$/i.test(src);
 ---
 
 <div
@@ -55,6 +55,8 @@ const useContainFit = (src: string) =>
                 width={dimensions.width}
                 height={dimensions.height}
                 loading="lazy"
+                decoding="async"
+                sizes="(min-width: 1280px) 25vw, (min-width: 640px) 50vw, 100vw"
               />
             </figure>
           );

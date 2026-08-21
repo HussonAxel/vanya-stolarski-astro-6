@@ -27,7 +27,7 @@ const { book } = Astro.props;
 const pageModel = buildBookPageModel(book, books, allGalleryItems);
 const galleryItems = getBookCoverGalleryItems(book);
 const useContainFit = (src: string) =>
-  /(?:Cover_CDR_Ulule\.png|coeur-de-renard-tome-2--relie\.webp)$/i.test(src);
+  /(?:Cover_CDR_Ulule\.webp|coeur-de-renard-tome-2--relie\.webp)$/i.test(src);
 ---
 
 <Layout title={`${pageModel.hero.title} - Vanya Stolarski`}>
@@ -288,6 +288,7 @@ const useContainFit = (src: string) =>
                       src={entry.media.cover.src}
                       alt={`Couverture de ${getBookTitle(entry)}`}
                       loading="lazy"
+                      decoding="async"
                       width={dimensions.width}
                       height={dimensions.height}
                       class:list={[

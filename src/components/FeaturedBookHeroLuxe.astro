@@ -140,6 +140,10 @@ const displayStatus =
                     alt={featured.media.alt}
                     width={getImageDimensions(featured.media.src).width}
                     height={getImageDimensions(featured.media.src).height}
+                    loading="eager"
+                    fetchpriority="high"
+                    decoding="async"
+                    sizes="(min-width: 1280px) 42vw, 100vw"
                     class="w-full object-cover"
                   />
                 ) : null

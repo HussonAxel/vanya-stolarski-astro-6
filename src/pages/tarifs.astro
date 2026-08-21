@@ -181,7 +181,7 @@ const serviceImageDimensions: Record<string, { width: number; height: number }> 
       width: 3000,
       height: 4000,
     },
-    "/assets/gallery/trouver-la-lune--valor.png": {
+    "/assets/gallery/trouver-la-lune--valor.webp": {
       width: 3062,
       height: 4000,
     },
@@ -443,6 +443,8 @@ const getServiceGalleryCardWidth = (src: string) => {
                                 height={serviceImageDimensions[img.src]?.height ?? getImageDimensions(img.src).height}
                                 class="h-full w-full rounded-lg object-contain transition-transform duration-500 group-hover:scale-[1.02]"
                                 loading={i === 0 ? "eager" : "lazy"}
+                                decoding="async"
+                                sizes="(min-width: 1024px) 42vw, 90vw"
                               />
                               <span class="absolute bottom-4 left-4 inline-flex rounded-full border border-[#FFFAFA]/20 bg-[#3d3834]/78 px-3 py-1.5 font-sans text-[9px] font-bold tracking-[0.22em] text-[#FFFAFA] uppercase backdrop-blur-sm">
                                 {img.label}
@@ -556,6 +558,7 @@ const getServiceGalleryCardWidth = (src: string) => {
                       width={serviceImageDimensions[firstServiceImage.src]?.width ?? getImageDimensions(firstServiceImage.src).width}
                       height={serviceImageDimensions[firstServiceImage.src]?.height ?? getImageDimensions(firstServiceImage.src).height}
                       loading="lazy"
+                      decoding="async"
                       class="block max-h-[68vh] max-w-full rounded-lg object-contain md:max-h-[74vh] lg:max-h-[calc(92vh-8rem)]"
                     />
                   )

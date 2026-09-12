@@ -1,5 +1,5 @@
 ---
-import { latestBook } from "../data/books";
+import { getLatestBookContent } from "../lib/content";
 import BookGallery from "./BookGallery.astro";
 import {
   getBookFormat,
@@ -16,6 +16,7 @@ import {
   getFeaturedGalleryItems,
 } from "../lib/books";
 
+const latestBook = await getLatestBookContent();
 const featured = getFeaturedBlock(latestBook);
 const displayStatus =
   getBookStatus(latestBook) === "Disponible" ? "Publié" : getBookStatus(latestBook);

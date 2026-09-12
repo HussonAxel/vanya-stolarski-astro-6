@@ -2,8 +2,7 @@
 import { Image } from "astro:assets";
 import BookGallery from "../../components/BookGallery.astro";
 import BookRelatedGallery from "../../components/BookRelatedGallery.astro";
-import { books } from "../../data/books";
-import { galleryItems as allGalleryItems } from "../../data/gallery";
+import { getBooksContent, getGalleryContent } from "../../lib/content";
 import {
   buildBookPageModel,
   getBookCoverGalleryItems,
@@ -14,16 +13,15 @@ import {
 import Layout from "../../layouts/Layout.astro";
 import { getImageDimensions } from "../../lib/image-dimensions";
 
-export const prerender = true;
+const books = await getBooksContent();
+const allGalleryItems = await getGalleryContent();
+const slug = Astro.params.slug || "";
+const book = books.find((entry) => entry.slug === slug);
 
-export function getStaticPaths() {
-  return books.map((book) => ({
-    params: { slug: book.slug },
-    props: { book },
-  }));
+if (!book) {
+  return Astro.redirect("/livres");
 }
 
-const { book } = Astro.props;
 const pageModel = buildBookPageModel(book, books, allGalleryItems);
 const galleryItems = getBookCoverGalleryItems(book);
 const useContainFit = (src: string) =>
@@ -277,7 +275,7 @@ const useContainFit = (src: string) =>
 
             <div class="grid gap-6 md:grid-cols-2">
               {pageModel.relatedBooks.map((entry) => {
-                const dimensions = getImageDimensions(entry.media.cover.src);
+                const dimensions = getImageDimensions(entry.media.cover.src, entry.media.cover);
 
                 return (
                   <a

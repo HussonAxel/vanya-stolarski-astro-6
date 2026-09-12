@@ -97,5 +97,8 @@ const imageDimensions: Record<string, ImageDimensions> = {
   "/assets/services/premades/premade2.webp": { width: 2360, height: 1663 },
 };
 
-export const getImageDimensions = (src: string): ImageDimensions =>
-  imageDimensions[src] ?? { width: 1600, height: 1600 };
+export const getImageDimensions = (src: string, known?: Partial<ImageDimensions>): ImageDimensions =>
+  imageDimensions[src] ??
+  (known?.width && known?.height
+    ? { width: known.width, height: known.height }
+    : { width: 1600, height: 1600 });

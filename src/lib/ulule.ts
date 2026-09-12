@@ -1,4 +1,5 @@
-import { books } from "../data/books";
+import type { Book } from "../data/books";
+import { getBooksContent } from "./content";
 import { getBookTitle } from "./books";
 
 const FOUR_HOURS_IN_MS = 4 * 60 * 60 * 1000;
@@ -148,11 +149,11 @@ const normalizeSearchValue = (value: string | undefined) =>
     .replace(/[^a-z0-9]+/g, " ")
     .trim();
 
-const findMatchingBook = (title: string | undefined, slug: string | undefined) => {
+const findMatchingBook = (title: string | undefined, slug: string | undefined, availableBooks: Book[]) => {
   const normalizedTitle = normalizeSearchValue(title);
   const normalizedSlug = normalizeSearchValue(slug?.replace(/---.*$/, "").replace(/-/g, " "));
 
-  return books.find((book) => {
+  return availableBooks.find((book) => {
     const normalizedBookTitle = normalizeSearchValue(getBookTitle(book));
     const normalizedBookSlug = normalizeSearchValue(book.slug.replace(/-/g, " "));
 
@@ -232,7 +233,7 @@ const readDetailImage = (project: Record<string, any>) =>
     project.share_image?.fr?.versions?.large?.url,
   ) ?? fallbackCampaign.detailSrc;
 
-const buildCampaignFromProject = (project: Record<string, any>): UluleCampaignCard => {
+const buildCampaignFromProject = (project: Record<string, any>, availableBooks: Book[]): UluleCampaignCard => {
   const slug = getFirstString(project.slug);
   const title = normalizeTitle(
     getFirstLocalizedString(project.name, project.title, project.name_fr, project.title_fr),
@@ -268,7 +269,7 @@ const buildCampaignFromProject = (project: Record<string, any>): UluleCampaignCa
   const amountRaised = Number(project.amount_raised ?? project.committed ?? 0);
   const currencyDisplay = getFirstString(project.currency_display) ?? "€";
   const endDate = getFirstString(project.date_end, project.end_date);
-  const matchedBook = findMatchingBook(title, slug);
+  const matchedBook = findMatchingBook(title, slug, availableBooks);
   const matchedBookHref = matchedBook ? `/livres/${matchedBook.slug}` : undefined;
   const remainingStat = formatRemainingTime(
     endDate,
@@ -335,7 +336,7 @@ const buildCampaignFromProject = (project: Record<string, any>): UluleCampaignCa
   };
 };
 
-const fetchUluleCampaign = async () => {
+const fetchUluleCampaign = async (availableBooks: Book[]) => {
   const projectId = getFirstString(import.meta.env.ULULE_PROJECT_ID);
 
   if (!projectId) {
@@ -361,7 +362,7 @@ const fetchUluleCampaign = async () => {
     throw new Error("Ulule API returned an unexpected payload");
   }
 
-  return buildCampaignFromProject(project);
+  return buildCampaignFromProject(project, availableBooks);
 };
 
 export const getUluleCampaignCard = async () => {
@@ -375,7 +376,8 @@ export const getUluleCampaignCard = async () => {
     return campaignInFlight;
   }
 
-  campaignInFlight = fetchUluleCampaign()
+  const availableBooks = await getBooksContent();
+  campaignInFlight = fetchUluleCampaign(availableBooks)
     .then((data) => {
       campaignCache = {
         data,

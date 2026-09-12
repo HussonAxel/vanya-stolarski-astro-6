@@ -1,5 +1,5 @@
 ---
-import { books } from "../data/books";
+import { getBooksContent } from "../lib/content";
 import {
   getBookCoverGalleryItems,
   getBookGenres,
@@ -10,6 +10,8 @@ import {
   getBookTome,
 } from "../lib/books";
 import BookCardGallery from "./BookCardGallery.astro";
+
+const books = await getBooksContent();
 
 const bookOrder = [
   "trouver-la-lune",

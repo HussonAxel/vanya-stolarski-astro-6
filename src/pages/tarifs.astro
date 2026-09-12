@@ -1,8 +1,10 @@
 ---
 import { Image } from "astro:assets";
-import { services } from "../data/services";
+import { getServicesContent } from "../lib/content";
 import { getImageDimensions } from "../lib/image-dimensions";
 import Layout from "../layouts/Layout.astro";
+
+const services = await getServicesContent();
 
 const contact = {
   email: "vanya.stolarski@gmail.com",
@@ -439,8 +441,8 @@ const getServiceGalleryCardWidth = (src: string) => {
                               <Image
                                 src={img.src}
                                 alt={img.alt}
-                                width={serviceImageDimensions[img.src]?.width ?? getImageDimensions(img.src).width}
-                                height={serviceImageDimensions[img.src]?.height ?? getImageDimensions(img.src).height}
+                                width={serviceImageDimensions[img.src]?.width ?? getImageDimensions(img.src, img).width}
+                                height={serviceImageDimensions[img.src]?.height ?? getImageDimensions(img.src, img).height}
                                 class="h-full w-full rounded-lg object-contain transition-transform duration-500 group-hover:scale-[1.02]"
                                 loading={i === 0 ? "eager" : "lazy"}
                                 decoding="async"
@@ -555,8 +557,8 @@ const getServiceGalleryCardWidth = (src: string) => {
                       id="service-gallery-modal-image"
                       src={firstServiceImage.src}
                       alt={firstServiceImage.alt}
-                      width={serviceImageDimensions[firstServiceImage.src]?.width ?? getImageDimensions(firstServiceImage.src).width}
-                      height={serviceImageDimensions[firstServiceImage.src]?.height ?? getImageDimensions(firstServiceImage.src).height}
+                      width={serviceImageDimensions[firstServiceImage.src]?.width ?? getImageDimensions(firstServiceImage.src, firstServiceImage).width}
+                      height={serviceImageDimensions[firstServiceImage.src]?.height ?? getImageDimensions(firstServiceImage.src, firstServiceImage).height}
                       loading="lazy"
                       decoding="async"
                       class="block max-h-[68vh] max-w-full rounded-lg object-contain md:max-h-[74vh] lg:max-h-[calc(92vh-8rem)]"

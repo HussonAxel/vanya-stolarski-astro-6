@@ -39,7 +39,7 @@ const firstItem = items[0];
     >
       {
         items.map((item) => {
-          const dimensions = getImageDimensions(item.image);
+          const dimensions = getImageDimensions(item.image, item);
 
           return (
             <button
@@ -103,8 +103,8 @@ const firstItem = items[0];
                 <Image
                   src={firstItem.image}
                   alt={firstItem.alt}
-                  width={getImageDimensions(firstItem.image).width}
-                  height={getImageDimensions(firstItem.image).height}
+                  width={getImageDimensions(firstItem.image, firstItem).width}
+                  height={getImageDimensions(firstItem.image, firstItem).height}
                   loading="lazy"
                   decoding="async"
                   class="block max-h-[58vh] max-w-full rounded-lg object-contain md:max-h-[72vh] lg:max-h-[calc(92vh-5.5rem)]"

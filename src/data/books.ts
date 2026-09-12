@@ -7,6 +7,8 @@ export interface MediaImage {
   src: string;
   alt: string;
   label?: string;
+  width?: number;
+  height?: number;
 }
 
 export interface BookDetail {
@@ -44,6 +46,8 @@ export interface FeaturedBookBlock {
     src: string;
     poster?: string;
     alt: string;
+    width?: number;
+    height?: number;
     gallery?: MediaImage[];
   };
   stats: Array<{ label: string; value: string }>;
@@ -97,6 +101,8 @@ export type BookGalleryItem = {
   src: string;
   alt: string;
   label?: string;
+  width?: number;
+  height?: number;
 };
 
 export const books = ([

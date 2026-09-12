@@ -32,7 +32,7 @@ const useContainFit = (src: string) =>
   <div class="relative aspect-[4/4.8] overflow-hidden bg-[#FFFAFA]">
     {
         slides.map((item, index) => {
-          const dimensions = getImageDimensions(item.src);
+          const dimensions = getImageDimensions(item.src, item);
 
           return (
             <figure

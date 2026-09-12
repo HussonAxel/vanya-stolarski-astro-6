@@ -1,6 +1,6 @@
 ---
 import BookCardGallery from "../../components/BookCardGallery.astro";
-import { books, latestBook } from "../../data/books";
+import { getBooksContent, getLatestBookContent } from "../../lib/content";
 import {
   getBookAccent,
   getBookChapterOneHref,
@@ -16,6 +16,9 @@ import {
   getPrimaryStoreLink,
 } from "../../lib/books";
 import Layout from "../../layouts/Layout.astro";
+
+const books = await getBooksContent();
+const latestBook = await getLatestBookContent();
 
 const bookOrder = [
   "trouver-la-lune",

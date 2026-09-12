@@ -1,6 +1,7 @@
 ---
-import { reviews } from "../data/reviews";
+import { getReviewsContent } from "../lib/content";
 import Layout from "../layouts/Layout.astro";
+const reviews = await getReviewsContent();
 ---
 
 <Layout title="Avis de lecture - Vanya Stolarski">

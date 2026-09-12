@@ -5,7 +5,6 @@ import type {
   ExternalLink,
   MediaImage,
 } from "../data/books";
-import { books } from "../data/books";
 import type { GalleryItem } from "../data/gallery";
 
 export type CTAViewModel = {
@@ -42,6 +41,8 @@ export type GalleryItemViewModel = {
   title: string;
   image: string;
   alt: string;
+  width?: number;
+  height?: number;
   bookLabel: string;
   bookHref: string;
   artist: string;
@@ -101,8 +102,8 @@ export const sortExternalLinks = (links: ExternalLink[] = []) =>
     return rightScore - leftScore;
   });
 
-export const getBookBySlug = (slug: string) =>
-  books.find((book) => book.slug === slug);
+export const getBookBySlug = (slug: string, allBooks: Book[] = []) =>
+  allBooks.find((book) => book.slug === slug);
 
 export const getRelatedBooks = (book: Book, allBooks: Book[], limit = 2) =>
   allBooks.filter((entry) => entry.slug !== book.slug).slice(0, limit);
@@ -120,6 +121,8 @@ export const toBookGalleryItems = (images: MediaImage[] = []): BookGalleryItem[]
     src: image.src,
     alt: image.alt,
     label: image.label,
+    width: image.width,
+    height: image.height,
   }));
 
 export const getBookCoverGalleryItems = (book: Book): BookGalleryItem[] => {
@@ -128,6 +131,8 @@ export const getBookCoverGalleryItems = (book: Book): BookGalleryItem[] => {
       src: edition.media.src,
       alt: edition.media.alt,
       label: edition.media.label ?? edition.label,
+      width: edition.media.width,
+      height: edition.media.height,
     }));
   }
 
@@ -268,6 +273,8 @@ export const getBookRelatedGalleryItems = (
       title: item.title,
       image: item.image,
       alt: item.alt,
+      width: item.width,
+      height: item.height,
       bookLabel: getBookTitle(book),
       bookHref: `/livres/${book.slug}`,
       artist: item.artist,

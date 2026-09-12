@@ -1,6 +1,8 @@
 export interface ServiceGalleryItem {
   src: string;
   alt: string;
+  width?: number;
+  height?: number;
   label: string;
 }
 

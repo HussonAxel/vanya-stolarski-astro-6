@@ -2,20 +2,18 @@
 import { Image } from "astro:assets";
 import Layout from "../layouts/Layout.astro";
 import { getImageDimensions } from "../lib/image-dimensions";
-import {
-  galleryItems,
-  getGalleryArtistFilters,
-  getGalleryBookFilters,
-} from "../data/gallery";
-import { getBookBySlug, getBookTitle } from "../lib/books";
+import { getGalleryContent, getBooksContent } from "../lib/content";
+import { getBookTitle } from "../lib/books";
 
-const galleryArtistFilters = getGalleryArtistFilters(galleryItems);
-const galleryBookFilters = getGalleryBookFilters(galleryItems);
+const galleryItems = await getGalleryContent();
+const books = await getBooksContent();
+const galleryArtistFilters = ["all", ...new Set(galleryItems.map((item) => item.artist).filter(Boolean))];
+const galleryBookFilters = ["all", ...new Set(galleryItems.map((item) => item.bookSlug).filter(Boolean))];
 const galleryBookFilterLabels = Object.fromEntries(
   galleryBookFilters
     .filter((filter) => filter !== "all")
     .map((filter) => {
-      const book = getBookBySlug(filter);
+      const book = books.find((entry) => entry.slug === filter);
       return [filter, book ? getBookTitle(book) : filter];
     }),
 );
@@ -248,7 +246,7 @@ const firstGalleryItem = galleryItems[0];
                     >
                         {
                             galleryItems.map((item) => {
-                                const dimensions = getImageDimensions(item.image);
+                                const dimensions = getImageDimensions(item.image, item);
 
                                 return (
                                     <button

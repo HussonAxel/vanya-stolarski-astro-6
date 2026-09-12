@@ -1,6 +1,6 @@
 ---
 import { Image } from "astro:assets";
-import { latestBook } from "../data/books";
+import { getLatestBookContent } from "../lib/content";
 import { getImageDimensions } from "../lib/image-dimensions";
 import {
   getBookFormat,
@@ -15,6 +15,7 @@ import {
   getFeaturedBlock,
 } from "../lib/books";
 
+const latestBook = await getLatestBookContent();
 const featured = getFeaturedBlock(latestBook);
 const displayStatus =
   getBookStatus(latestBook) === "Disponible" ? "Publié" : getBookStatus(latestBook);
@@ -138,8 +139,8 @@ const displayStatus =
                   <Image
                     src={featured.media.src}
                     alt={featured.media.alt}
-                    width={getImageDimensions(featured.media.src).width}
-                    height={getImageDimensions(featured.media.src).height}
+                    width={getImageDimensions(featured.media.src, featured.media).width}
+                    height={getImageDimensions(featured.media.src, featured.media).height}
                     loading="eager"
                     fetchpriority="high"
                     decoding="async"

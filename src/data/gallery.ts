@@ -3,6 +3,8 @@ export interface GalleryItem {
   title: string;
   image: string;
   alt: string;
+  width?: number;
+  height?: number;
   bookSlug: string;
   artist: string;
   date: string;

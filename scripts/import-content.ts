@@ -33,6 +33,9 @@ type SanityDocument = Record<string, any> & {
 };
 
 const assetCache = new Map<string, Promise<string>>();
+// All callers (including nested Promise.alls) share the same upload slots.
+const uploadSlots: Promise<unknown>[] = Array.from({ length: 4 }, () => Promise.resolve());
+let nextUploadSlot = 0;
 
 const localPathFromSrc = (src: string) => {
   if (!src.startsWith("/")) {
@@ -53,14 +56,35 @@ const uploadImage = (src: string): Promise<string> => {
     return cachedAsset;
   }
 
-  const upload = (async () => {
+  const slot = nextUploadSlot++ % uploadSlots.length;
+  const upload = uploadSlots[slot].then(async () => {
     const localPath = localPathFromSrc(src);
-    const asset = await client.assets.upload("image", createReadStream(localPath), {
-      filename: basename(localPath),
-    });
-    console.log("Image importée:", src);
-    return asset._id;
-  })();
+    for (let attempt = 0; ; attempt++) {
+      try {
+        // A stream must be recreated for each retry.
+        const asset = await client.assets.upload("image", createReadStream(localPath), {
+          filename: basename(localPath),
+        });
+        console.log("Image importée:", src);
+        return asset._id;
+      } catch (error) {
+        const response = error as {
+          statusCode?: number;
+          response?: { headers?: Record<string, string> };
+        };
+        if (response.statusCode !== 429 || attempt >= 3) throw error;
+        const retryAfter = response.response?.headers?.["retry-after"];
+        const seconds = retryAfter ? Number(retryAfter) : NaN;
+        const delay = Number.isFinite(seconds)
+          ? seconds * 1000
+          : retryAfter ? Date.parse(retryAfter) - Date.now() : NaN;
+        const waitMs = Math.max(1000 * 2 ** attempt, Number.isFinite(delay) ? delay : 0);
+        console.warn(`Limite Sanity atteinte, nouvel essai dans ${waitMs / 1000} s: ${src}`);
+        await new Promise(resolve => setTimeout(resolve, waitMs));
+      }
+    }
+  });
+  uploadSlots[slot] = upload;
 
   assetCache.set(src, upload);
   return upload;

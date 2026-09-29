@@ -18,8 +18,6 @@ export type UluleCampaignCard = {
   description: string;
   primaryHref: string;
   primaryLabel: string;
-  secondaryHref?: string;
-  secondaryLabel?: string;
   coverSrc: string;
   coverAlt: string;
   detailSrc: string;
@@ -41,8 +39,6 @@ const fallbackCampaign: UluleCampaignCard = {
     "Un bandeau pense comme une vitrine de campagne: couverture, atmosphere, bonus editoriaux et pieces visuelles creees pour porter le projet.",
   primaryHref: "/galerie",
   primaryLabel: "Voir les visuels",
-  secondaryHref: "/livres",
-  secondaryLabel: "Voir les livres",
   coverSrc: "/assets/covers/fous-papillons-cover.webp",
   coverAlt: "Couverture de Fous-Papillons",
   detailSrc: "/assets/gallery/fous-papillons--esther.webp",
@@ -270,7 +266,6 @@ const buildCampaignFromProject = (project: Record<string, any>, availableBooks: 
   const currencyDisplay = getFirstString(project.currency_display) ?? "€";
   const endDate = getFirstString(project.date_end, project.end_date);
   const matchedBook = findMatchingBook(title, slug, availableBooks);
-  const matchedBookHref = matchedBook ? `/livres/${matchedBook.slug}` : undefined;
   const remainingStat = formatRemainingTime(
     endDate,
   );
@@ -299,13 +294,6 @@ const buildCampaignFromProject = (project: Record<string, any>, availableBooks: 
     description,
     primaryHref: projectUrl,
     primaryLabel: "Voir la campagne",
-    secondaryHref:
-      getFirstString(import.meta.env.ULULE_SECONDARY_HREF) ??
-      matchedBookHref ??
-      fallbackCampaign.secondaryHref,
-    secondaryLabel:
-      getFirstString(import.meta.env.ULULE_SECONDARY_LABEL) ??
-      (matchedBookHref ? "Voir le livre" : fallbackCampaign.secondaryLabel),
     coverSrc: imageSrc,
     coverAlt: matchedBook
       ? `Couverture de ${getBookTitle(matchedBook)}`

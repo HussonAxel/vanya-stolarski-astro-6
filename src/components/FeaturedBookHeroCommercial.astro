@@ -38,7 +38,7 @@ const priceOptions = getBookPriceOptions(latestBook);
 
   <div class="site-shell relative z-10 px-6">
     <article
-      class="fade-up mt-20 overflow-hidden rounded-lg border border-[#3d3834]/10 bg-[#fffaf8] p-6 shadow-[0_34px_110px_-70px_rgba(61,56,52,0.34)] md:p-8 xl:p-9"
+      class="fade-up mt-20 overflow-hidden rounded-lg border border-[#3d3834]/14 bg-[#fffaf8] p-6 shadow-[0_34px_110px_-70px_rgba(61,56,52,0.34)] md:p-8 xl:p-9"
     >
       <div
         class="grid gap-7 xl:grid-cols-[minmax(0,1.06fr)_24rem] xl:items-stretch"
@@ -46,18 +46,18 @@ const priceOptions = getBookPriceOptions(latestBook);
         <div class="flex min-w-0 flex-col gap-6 xl:h-full">
           <div class="flex flex-wrap items-center gap-2.5">
             <span
-              class="rounded-full bg-[#3a4d45] px-4 py-2 font-sans text-[10px] font-bold tracking-[0.28em] text-[#FFFAFA] uppercase"
+              class="rounded-md bg-[#3a4d45] px-4 py-2 font-sans text-[10px] font-bold tracking-[0.28em] text-[#FFFAFA] uppercase"
             >
               {displayStatus}
             </span>
             <span
-              class="rounded-full border border-[#3d3834]/10 bg-[#FFFAFA] px-4 py-2 font-sans text-[10px] font-bold tracking-[0.28em] text-[#3d3834]/78 uppercase"
+              class="rounded-md border border-[#3d3834]/14 bg-[#FFFAFA] px-4 py-2 font-sans text-[10px] font-bold tracking-[0.28em] text-[#3d3834]/78 uppercase"
             >
               {featured?.label}
             </span>
             {
               getBookGenres(latestBook).map((genre) => (
-                <span class="rounded-full border border-[#3d3834]/10 bg-[#FFFAFA] px-3 py-1.5 font-sans text-[10px] font-bold tracking-[0.2em] text-[#3d3834]/70 uppercase">
+                <span class="rounded-md border border-[#3d3834]/14 bg-[#FFFAFA] px-3 py-1.5 font-sans text-[10px] font-bold tracking-[0.2em] text-[#3d3834]/72 uppercase">
                   {genre}
                 </span>
               ))
@@ -66,7 +66,7 @@ const priceOptions = getBookPriceOptions(latestBook);
 
           <div class="space-y-3">
             <p
-              class="font-sans text-[10px] font-bold tracking-[0.34em] text-[#3d3834]/60 uppercase"
+              class="font-sans text-[10px] font-bold tracking-[0.34em] text-[#3d3834]/72 uppercase"
             >
               {getBookSeries(latestBook)} - {getBookTome(latestBook)}
             </p>
@@ -81,7 +81,7 @@ const priceOptions = getBookPriceOptions(latestBook);
               {getBookHook(latestBook)}
             </p>
             <p
-              class="max-w-2xl font-sans text-sm leading-relaxed text-[#3d3834]/68 md:text-[0.98rem]"
+              class="max-w-2xl font-sans text-sm leading-relaxed text-[#3d3834]/72 md:text-[0.98rem]"
             >
               {featured?.shortPitch}
             </p>
@@ -89,16 +89,16 @@ const priceOptions = getBookPriceOptions(latestBook);
 
           <div class="mt-auto space-y-3.5">
             <div class="grid gap-3 sm:grid-cols-[11rem_minmax(0,1fr)]">
-              <div class="rounded-lg border border-[#3d3834]/8 bg-[#FFFAFA] px-4 py-3.5">
-                <p class="font-sans text-[8px] font-bold tracking-[0.24em] text-[#3d3834]/46 uppercase">
+              <div class="rounded-lg border border-[#3d3834]/14 bg-[#FFFAFA] px-4 py-3.5">
+                <p class="font-sans text-[9px] font-bold tracking-[0.24em] text-[#3d3834]/72 uppercase">
                   Disponibilité
                 </p>
                 <p class="mt-1.5 font-serif text-[1.08rem] leading-tight text-[#3d3834]">
                   {getBookReleaseDate(latestBook)}
                 </p>
               </div>
-              <div class="rounded-lg border border-[#3d3834]/8 bg-[#FFFAFA] px-4 py-3.5">
-                <p class="font-sans text-[8px] font-bold tracking-[0.24em] text-[#3d3834]/46 uppercase">
+              <div class="rounded-lg border border-[#3d3834]/14 bg-[#FFFAFA] px-4 py-3.5">
+                <p class="font-sans text-[9px] font-bold tracking-[0.24em] text-[#3d3834]/72 uppercase">
                   Format
                 </p>
                 {
@@ -110,7 +110,7 @@ const priceOptions = getBookPriceOptions(latestBook);
                       <div class="flex flex-wrap items-center gap-x-3 gap-y-1 text-[#3d3834]">
                         {priceOptions.map((option) => (
                           <p class="font-serif text-[0.98rem] leading-tight">
-                            <span class="text-[#3d3834]/58">{option.label}</span>{" "}
+                            <span class="text-[#3d3834]/72">{option.label}</span>{" "}
                             <span>{option.value}</span>
                           </p>
                         ))}
@@ -128,13 +128,13 @@ const priceOptions = getBookPriceOptions(latestBook);
             <div class="flex flex-wrap gap-3">
               <a
                 href={`/livres/${latestBook.slug}`}
-                class="inline-flex items-center gap-3 rounded-full bg-[#3a4d45] px-7 py-4 font-sans text-[11px] font-bold tracking-[0.24em] text-[#FFFAFA] uppercase transition-all duration-300 hover:bg-[#3d3834]"
+                class="inline-flex items-center gap-3 rounded-lg bg-[#3a4d45] px-7 py-4 font-sans text-[11px] font-bold tracking-[0.24em] text-[#FFFAFA] uppercase transition-all duration-300 hover:bg-[#3d3834]"
               >
                 Decouvrir le roman
               </a>
               <a
                 href="/reviews"
-                class="inline-flex items-center gap-3 rounded-full border border-[#3d3834]/10 bg-[#FFFAFA] px-7 py-4 font-sans text-[11px] font-bold tracking-[0.24em] text-[#3d3834] uppercase transition-all duration-300 hover:border-[#3a4d45]/35 hover:bg-[#3a4d45] hover:text-[#FFFAFA]"
+                class="inline-flex items-center gap-3 rounded-lg border border-[#3d3834]/14 bg-[#FFFAFA] px-7 py-4 font-sans text-[11px] font-bold tracking-[0.24em] text-[#3d3834] uppercase transition-all duration-300 hover:border-[#3a4d45]/40 hover:bg-[#3a4d45] hover:text-[#FFFAFA]"
               >
                 Voir les avis
               </a>

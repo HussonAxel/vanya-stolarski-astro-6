@@ -13,7 +13,7 @@ const accents = ["#3a4d45", "#3d3834", "#8b5e3c"];
       <div class="site-shell relative mt-20">
         <div class="mt-10 grid gap-10 md:grid-cols-[1.15fr_0.85fr] md:items-end">
           <div class="space-y-6">
-            <span class="inline-flex rounded-full border border-[#FFFAFA]/10 bg-[#FFFAFA] px-4 py-2 font-sans text-[10px] font-bold tracking-[0.25em] text-[#3d3834] uppercase">
+            <span class="inline-flex rounded-md border border-[#FFFAFA]/16 bg-[#FFFAFA] px-4 py-2 font-sans text-[10px] font-bold tracking-[0.25em] text-[#3d3834] uppercase">
               Extraits de romans
             </span>
             <h1 class="max-w-4xl font-serif text-5xl leading-none text-balance md:text-7xl">
@@ -24,7 +24,7 @@ const accents = ["#3a4d45", "#3d3834", "#8b5e3c"];
             </p>
           </div>
 
-          <div class="section-panel fade-up rounded-lg border border-[#FFFAFA]/10 bg-[#FFFAFA] p-8 backdrop-blur-sm">
+          <div class="section-panel fade-up rounded-lg border border-[#FFFAFA]/16 bg-[#FFFAFA] p-8 backdrop-blur-sm">
             <p class="font-serif text-6xl text-[#3a4d45]">{citations.length}</p>
             <p class="mt-3 font-sans text-[10px] font-bold tracking-[0.25em] text-[#3d3834] uppercase">
               Citations en ligne
@@ -43,7 +43,7 @@ const accents = ["#3a4d45", "#3d3834", "#8b5e3c"];
             return (
               <article
                 class:list={[
-                  "section-panel fade-up group relative overflow-hidden rounded-lg border border-[#3d3834]/10 bg-[#FFFAFA] p-7 shadow-[0_24px_80px_-48px_rgba(61,56,52,0.38)] backdrop-blur-sm transition-all duration-300 md:p-8",
+                  "section-panel fade-up group relative overflow-hidden rounded-lg border border-[#3d3834]/14 bg-[#FFFAFA] p-7 shadow-[0_24px_80px_-48px_rgba(61,56,52,0.38)] backdrop-blur-sm transition-all duration-300 md:p-8",
                   index % 3 === 0 ? "lg:col-span-2" : "",
                 ]}
               >
@@ -57,12 +57,12 @@ const accents = ["#3a4d45", "#3d3834", "#8b5e3c"];
                   <div class="flex flex-wrap items-center justify-between gap-4">
                     <div class="flex flex-wrap items-center gap-3">
                       <span
-                        class="rounded-full px-4 py-2 font-sans text-[10px] font-bold tracking-[0.25em] uppercase"
+                        class="rounded-md px-4 py-2 font-sans text-[10px] font-bold tracking-[0.25em] uppercase"
                         style={`background:${accent}; color:#FFFAFA;`}
                       >
                         Citation
                       </span>
-                      <span class="inline-flex items-center gap-2 rounded-full border border-[#3d3834]/10 bg-[#fffaf8] px-4 py-2 font-sans text-[10px] font-bold tracking-[0.18em] text-[#3d3834] uppercase">
+                      <span class="inline-flex items-center gap-2 rounded-md border border-[#3d3834]/14 bg-[#fffaf8] px-4 py-2 font-sans text-[10px] font-bold tracking-[0.18em] text-[#3d3834] uppercase">
                         <span class="text-[#3a4d45]">+</span>
                         {citation.bookTitle}
                       </span>
@@ -71,7 +71,7 @@ const accents = ["#3a4d45", "#3d3834", "#8b5e3c"];
                       </span>
                     </div>
 
-                    <span class="font-sans text-[10px] font-bold tracking-[0.25em] text-[#3d3834]/58 uppercase">
+                    <span class="font-sans text-[10px] font-bold tracking-[0.25em] text-[#3d3834]/72 uppercase">
                       Citation {String(citation.quoteNumber).padStart(2, "0")}
                     </span>
                   </div>
@@ -80,7 +80,7 @@ const accents = ["#3a4d45", "#3d3834", "#8b5e3c"];
                     "{citation.quote}"
                   </blockquote>
 
-                  <div class="flex flex-wrap items-center justify-between gap-4 border-t border-[#3d3834]/8 pt-5">
+                  <div class="flex flex-wrap items-center justify-between gap-4 border-t border-[#3d3834]/14 pt-5">
                     <div>
                       <p class="font-sans text-[10px] font-bold tracking-[0.25em] text-[#3a4d45] uppercase">
                         {citation.authorOfQuote}
@@ -92,7 +92,7 @@ const accents = ["#3a4d45", "#3d3834", "#8b5e3c"];
 
                     <a
                       href="/livres"
-                      class="inline-flex items-center gap-3 rounded-full border border-[#3d3834]/10 bg-[#FFFAFA] px-5 py-3 font-sans text-[10px] font-bold tracking-[0.24em] text-[#3d3834] uppercase transition-all duration-300 hover:border-[#3a4d45]/35 hover:bg-[#3a4d45] hover:text-[#FFFAFA]"
+                      class="inline-flex items-center gap-3 rounded-lg border border-[#3d3834]/14 bg-[#FFFAFA] px-5 py-3 font-sans text-[10px] font-bold tracking-[0.24em] text-[#3d3834] uppercase transition-all duration-300 hover:border-[#3a4d45]/40 hover:bg-[#3a4d45] hover:text-[#FFFAFA]"
                     >
                       Voir les romans
                       <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">

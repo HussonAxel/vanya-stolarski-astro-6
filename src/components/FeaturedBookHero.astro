@@ -16,15 +16,15 @@ const featured = getFeaturedBlock(latestBook);
 
 <section class="relative overflow-hidden bg-[#FFFAFA] pt-16 pb-14 md:pt-20 md:pb-18">
   <div class="site-shell relative z-10 mt-16 px-6">
-    <article class="fade-up rounded-lg border border-[#3d3834]/8 bg-[#FFFAFA] p-6 shadow-[0_34px_120px_-72px_rgba(61,56,52,0.42)] md:p-8 xl:p-10">
+    <article class="fade-up rounded-lg border border-[#3d3834]/14 bg-[#FFFAFA] p-6 shadow-[0_34px_120px_-72px_rgba(61,56,52,0.42)] md:p-8 xl:p-10">
       <div class="grid gap-8 xl:grid-cols-[1.02fr_0.98fr] xl:items-start">
         <div class="space-y-8">
           <div class="space-y-5">
             <div class="flex flex-wrap items-center gap-3">
-              <span class="rounded-full border border-[#3a4d45]/25 bg-[#3a4d45] px-4 py-2 font-sans text-[10px] font-bold tracking-[0.3em] text-[#FFFAFA] uppercase">
+              <span class="rounded-md border border-[#3a4d45]/25 bg-[#3a4d45] px-4 py-2 font-sans text-[10px] font-bold tracking-[0.3em] text-[#FFFAFA] uppercase">
                 {featured?.label}
               </span>
-              <span class="rounded-full border border-[#3a4d45]/18 bg-[#3a4d45] px-4 py-2 font-sans text-[10px] font-bold tracking-[0.3em] text-[#FFFAFA] uppercase">
+              <span class="rounded-md border border-[#3a4d45]/18 bg-[#3a4d45] px-4 py-2 font-sans text-[10px] font-bold tracking-[0.3em] text-[#FFFAFA] uppercase">
                 {featured?.kicker}
               </span>
             </div>
@@ -50,13 +50,13 @@ const featured = getFeaturedBlock(latestBook);
           <div class="flex flex-wrap gap-3">
             <a
               href={`/livres/${latestBook.slug}`}
-              class="inline-flex items-center gap-3 rounded-full bg-[#3d3834] px-7 py-4 font-sans text-[11px] font-bold tracking-[0.25em] text-[#FFFAFA] uppercase transition-all duration-300 hover:bg-[#3a4d45]"
+              class="inline-flex items-center gap-3 rounded-lg bg-[#3d3834] px-7 py-4 font-sans text-[11px] font-bold tracking-[0.25em] text-[#FFFAFA] uppercase transition-all duration-300 hover:bg-[#3a4d45]"
             >
               Lire la fiche du roman
             </a>
             <a
               href="/reviews"
-              class="inline-flex items-center gap-3 rounded-full border border-[#3d3834]/10 bg-[#FFFAFA] px-7 py-4 font-sans text-[11px] font-bold tracking-[0.25em] text-[#3d3834] uppercase transition-all duration-300 hover:border-[#3a4d45]/35 hover:bg-[#3a4d45] hover:text-[#FFFAFA]"
+              class="inline-flex items-center gap-3 rounded-lg border border-[#3d3834]/14 bg-[#FFFAFA] px-7 py-4 font-sans text-[11px] font-bold tracking-[0.25em] text-[#3d3834] uppercase transition-all duration-300 hover:border-[#3a4d45]/40 hover:bg-[#3a4d45] hover:text-[#FFFAFA]"
             >
               Voir les avis
             </a>
@@ -65,7 +65,7 @@ const featured = getFeaturedBlock(latestBook);
           <div class="grid gap-4 sm:grid-cols-3">
             {
               featured?.stats.map((item) => (
-                <div class="rounded-lg border border-[#3d3834]/8 bg-[#FFFAFA] p-5 shadow-[0_22px_60px_-48px_rgba(61,56,52,0.22)]">
+                <div class="rounded-lg border border-[#3d3834]/14 bg-[#FFFAFA] p-5 shadow-[0_22px_60px_-48px_rgba(61,56,52,0.22)]">
                   <p class="font-serif text-[1.7rem] leading-tight text-[#3d3834]">{item.value}</p>
                   <p class="mt-3 font-sans text-[10px] font-bold tracking-[0.24em] text-[#3d3834]/78 uppercase">
                     {item.label}

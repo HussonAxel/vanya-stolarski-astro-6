@@ -54,12 +54,12 @@ const orderedBooks = [...books].sort((left, right) => {
         <div class="flex flex-wrap items-center gap-3">
           <span class="h-px w-10 bg-[#FFFAFA]/65"></span>
           <h2
-            class="rounded-full border border-[#FFFAFA]/18 bg-[#FFFAFA]/10 px-4 py-2 font-sans text-[12px] font-bold tracking-[0.28em] text-[#FFFAFA] uppercase backdrop-blur-sm"
+            class="rounded-md border border-[#FFFAFA]/18 bg-[#FFFAFA]/10 px-4 py-2 font-sans text-[12px] font-bold tracking-[0.28em] text-[#FFFAFA] uppercase backdrop-blur-sm"
           >
             Romans
           </h2>
           <span
-            class="font-sans text-[10px] font-bold tracking-[0.25em] text-[#FFFAFA]/62 uppercase"
+            class="font-sans text-[10px] font-bold tracking-[0.25em] text-[#FFFAFA]/72 uppercase"
           >
             Éditions et formats
           </span>
@@ -68,7 +68,7 @@ const orderedBooks = [...books].sort((left, right) => {
 
       <a
         href="/reviews"
-        class="section-panel inline-flex items-center gap-3 self-start rounded-full border-2 border-[#FFFAFA] bg-[#3a4d45] px-6 py-4 font-sans text-[11px] font-bold tracking-[0.25em] text-[#FFFAFA] uppercase shadow-[0_18px_60px_-35px_rgba(61,56,52,0.45)] transition-all duration-300 hover:border-[#3a4d45]/35 hover:bg-[#FFFAFA] hover:text-[#3d3834]"
+        class="section-panel inline-flex items-center gap-3 self-start rounded-lg border border-[#FFFAFA] bg-[#3a4d45] px-6 py-4 font-sans text-[11px] font-bold tracking-[0.25em] text-[#FFFAFA] uppercase shadow-[0_18px_60px_-35px_rgba(61,56,52,0.45)] transition-all duration-300 hover:border-[#3a4d45]/40 hover:bg-[#FFFAFA] hover:text-[#3d3834]"
       >
         Voir tous les avis
         <svg
@@ -96,7 +96,7 @@ const orderedBooks = [...books].sort((left, right) => {
           const isbn = getBookIsbn(book);
 
           return (
-            <article class="section-panel fade-up group flex h-full flex-col overflow-hidden rounded-lg border border-[#3d3834]/10 bg-[#fffaf8] text-[#3d3834] shadow-[0_30px_90px_-54px_rgba(0,0,0,0.45)] backdrop-blur-sm transition-[transform,box-shadow,border-color] duration-500 ease-out hover:-translate-y-1 hover:border-[#3a4d45]/25 hover:shadow-[0_42px_100px_-52px_rgba(0,0,0,0.58)] focus-within:ring-2 focus-within:ring-[#6f9184]/60 focus-within:ring-offset-2 focus-within:ring-offset-[#3a4d45]">
+            <article class="section-panel fade-up group flex h-full flex-col overflow-hidden rounded-lg border border-[#3d3834]/14 bg-[#fffaf8] text-[#3d3834] shadow-[0_30px_90px_-54px_rgba(0,0,0,0.45)] backdrop-blur-sm transition-[transform,box-shadow,border-color] duration-500 ease-out hover:-translate-y-1 hover:border-[#3a4d45]/40 hover:shadow-[0_42px_100px_-52px_rgba(0,0,0,0.58)] focus-within:ring-2 focus-within:ring-[#6f9184]/60 focus-within:ring-offset-2 focus-within:ring-offset-[#3a4d45]">
               <div class="relative overflow-hidden bg-[#f6efec] px-3 pt-3">
                 <div class="overflow-hidden rounded-lg">
                   <BookCardGallery
@@ -115,14 +115,14 @@ const orderedBooks = [...books].sort((left, right) => {
                     {title}
                     </h3>
                   </div>
-                  <p class="border-y border-[#3d3834]/10 py-3 font-sans text-[10px] font-bold tracking-[0.18em] text-[#3d3834]/62 uppercase">
+                  <p class="border-y border-[#3d3834]/14 py-3 font-sans text-[10px] font-bold tracking-[0.18em] text-[#3d3834]/72 uppercase">
                     {[getBookTome(book), pages ? `${pages} pages` : null, isbn ? `ISBN ${isbn}` : null]
                       .filter(Boolean)
                       .join(" - ")}
                   </p>
                   <div class="flex flex-wrap justify-center gap-2 md:justify-start">
                     {getBookGenres(book).map((genre) => (
-                      <span class="rounded-full border border-[#3a4d45]/12 bg-[#f6efec] px-2.5 py-1 font-sans text-[9px] font-bold tracking-[0.08em] text-[#3d3834]/82 uppercase">
+                      <span class="rounded-md border border-[#3a4d45]/12 bg-[#f6efec] px-2.5 py-1 font-sans text-[9px] font-bold tracking-[0.08em] text-[#3d3834]/82 uppercase">
                         {genre}
                       </span>
                     ))}
@@ -162,7 +162,7 @@ const orderedBooks = [...books].sort((left, right) => {
     <div class="mt-20 text-center">
       <a
         href="/livres"
-        class="section-panel inline-flex items-center gap-3 rounded-full border-2 border-[#FFFAFA] bg-[#3a4d45] px-8 py-4 font-sans text-[11px] font-bold tracking-[0.25em] text-[#FFFAFA] uppercase transition-colors duration-300 hover:border-[#3a4d45]/35 hover:bg-[#FFFAFA] hover:text-[#3d3834]"
+        class="section-panel inline-flex items-center gap-3 rounded-lg border border-[#FFFAFA] bg-[#3a4d45] px-8 py-4 font-sans text-[11px] font-bold tracking-[0.25em] text-[#FFFAFA] uppercase transition-colors duration-300 hover:border-[#3a4d45]/40 hover:bg-[#FFFAFA] hover:text-[#3d3834]"
       >
         Voir toute la bibliothèque
         <svg

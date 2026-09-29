@@ -8,15 +8,15 @@ const viewerUrl = featuredCard.viewerUrl;
 const metadata = featuredCard.metadata;
 const iframeDisplayAttributes = { scrolling: "no" };
 const metadataCellClasses = [
-  "border-b border-r border-white/12 py-5 pr-5",
-  "border-b border-white/12 py-5 pl-5",
-  "border-r border-white/12 py-5 pr-5",
+  "border-b border-r border-[#FFFAFA]/16 py-5 pr-5",
+  "border-b border-[#FFFAFA]/16 py-5 pl-5",
+  "border-r border-[#FFFAFA]/16 py-5 pr-5",
   "py-5 pl-5",
 ];
 const collectionMetadataCellClasses = [
-  "border-b border-r border-[#3d3834]/12 py-3 pr-3",
-  "border-b border-[#3d3834]/12 py-3 pl-3",
-  "border-r border-[#3d3834]/12 py-3 pr-3",
+  "border-b border-r border-[#3d3834]/14 py-3 pr-3",
+  "border-b border-[#3d3834]/14 py-3 pl-3",
+  "border-r border-[#3d3834]/14 py-3 pr-3",
   "py-3 pl-3",
 ];
 ---
@@ -29,28 +29,28 @@ const collectionMetadataCellClasses = [
       <div class="coll-libris-layout site-shell relative grid w-full gap-12 lg:items-center xl:gap-20">
         <div class="max-w-2xl space-y-7">
           <div class="flex items-center gap-3">
-            <span class="h-px w-10 bg-white/30"></span>
-            <span class="font-sans text-[10px] font-bold tracking-[0.32em] text-white/55 uppercase">Collection interactive</span>
+            <span class="h-px w-10 bg-[#FFFAFA]/30"></span>
+            <span class="font-sans text-[10px] font-bold tracking-[0.32em] text-[#FFFAFA]/72 uppercase">Collection interactive</span>
           </div>
 
           <div class="space-y-3">
             <h1 class="font-serif text-6xl font-bold leading-none tracking-tight text-balance sm:text-7xl lg:text-[4.5rem] xl:text-[4.75rem]">
               Coll'Libris
             </h1>
-            <p class="font-serif text-3xl leading-tight text-white/72 sm:text-4xl">Cartes collector</p>
+            <p class="font-serif text-3xl leading-tight text-[#FFFAFA]/72 sm:text-4xl">Cartes collector</p>
           </div>
 
-          <dl class="grid max-w-xl grid-cols-2 border-y border-white/12">
+          <dl class="grid max-w-xl grid-cols-2 border-y border-[#FFFAFA]/16">
             {metadata.map((item, index) => (
               <div class={metadataCellClasses[index]}>
-                <dt class="font-sans text-[9px] font-bold tracking-[0.22em] text-white/45 uppercase">{item.label}</dt>
-                <dd class="mt-2 font-serif text-xl leading-tight text-white sm:text-2xl">
+                <dt class="font-sans text-[9px] font-bold tracking-[0.22em] text-[#FFFAFA]/72 uppercase">{item.label}</dt>
+                <dd class="mt-2 font-serif text-xl leading-tight text-[#FFFAFA] sm:text-2xl">
                   {item.url ? (
                     <a
                       href={item.url}
                       target={item.url.startsWith("http") ? "_blank" : undefined}
                       rel={item.url.startsWith("http") ? "noreferrer" : undefined}
-                      class="metadata-link relative inline-block pb-1 transition-colors duration-300 hover:text-white/68 focus-visible:text-white/68 focus-visible:outline-none"
+                      class="metadata-link relative inline-block pb-1 transition-colors duration-300 hover:text-[#FFFAFA]/72 focus-visible:text-[#FFFAFA]/72 focus-visible:outline-none"
                     >
                       {item.value}
                     </a>
@@ -60,14 +60,14 @@ const collectionMetadataCellClasses = [
             ))}
           </dl>
 
-          <aside class="max-w-xl border-l border-white/28 pl-4" aria-label="Avertissement sur la prévisualisation">
-            <p class="font-sans text-[9px] font-bold tracking-[0.2em] text-white/55 uppercase">Prévisualisation</p>
-            <p class="mt-1.5 max-w-lg font-sans text-xs leading-relaxed text-white/48 sm:text-sm">
+          <aside class="max-w-xl border-l border-[#FFFAFA]/28 pl-4" aria-label="Avertissement sur la prévisualisation">
+            <p class="font-sans text-[9px] font-bold tracking-[0.2em] text-[#FFFAFA]/72 uppercase">Prévisualisation</p>
+            <p class="mt-1.5 max-w-lg font-sans text-xs leading-relaxed text-[#FFFAFA]/72 sm:text-sm">
               {previewWarning}
             </p>
           </aside>
 
-          <a href={viewerUrl} target="_blank" rel="noreferrer" class="group inline-flex w-fit items-center gap-2 font-sans text-[9px] font-bold tracking-[0.2em] text-white/45 uppercase transition-colors duration-300 hover:text-white/80">
+          <a href={viewerUrl} target="_blank" rel="noreferrer" class="group inline-flex w-fit items-center gap-2 font-sans text-[9px] font-bold tracking-[0.2em] text-[#FFFAFA]/72 uppercase transition-colors duration-300 hover:text-[#FFFAFA]/80">
             Ouvrir en plein écran
             <span class="transition-transform duration-300 group-hover:translate-x-0.5" aria-hidden="true">↗</span>
           </a>
@@ -76,7 +76,7 @@ const collectionMetadataCellClasses = [
 
         <div class="viewer-shell relative mx-auto w-full">
           <div class="absolute inset-x-[12%] bottom-0 h-16 rounded-full bg-black/60 blur-3xl"></div>
-          <div class="viewer-frame relative overflow-hidden rounded-lg border border-white/12 bg-[#15151d] shadow-[0_45px_120px_-45px_rgba(0,0,0,0.88)]" data-viewer-kind="featured">
+          <div class="viewer-frame relative overflow-hidden rounded-lg border border-[#FFFAFA]/16 bg-[#15151d] shadow-[0_45px_120px_-45px_rgba(0,0,0,0.88)]" data-viewer-kind="featured">
             <iframe
               src={viewerUrl}
               title="Carte interactive Printicards - Coll'Libris"
@@ -102,7 +102,7 @@ const collectionMetadataCellClasses = [
             <article id={card.id} class="min-w-0">
               <div class="collection-viewer-shell relative w-full">
                 <div class="pointer-events-none absolute inset-x-[14%] bottom-0 h-10 rounded-full bg-[#3d3834]/18 blur-2xl"></div>
-                <div class="viewer-frame collection-viewer-frame relative overflow-hidden rounded-lg border border-[#3d3834]/12 bg-[#15151d] shadow-[0_24px_70px_-38px_rgba(61,56,52,0.48)]" data-viewer-kind="collection">
+                <div class="viewer-frame collection-viewer-frame relative overflow-hidden rounded-lg border border-[#3d3834]/14 bg-[#15151d] shadow-[0_24px_70px_-38px_rgba(61,56,52,0.48)]" data-viewer-kind="collection">
                   <iframe
                     src={card.viewerUrl}
                     title={"Carte interactive " + card.title}
@@ -119,7 +119,7 @@ const collectionMetadataCellClasses = [
                   <div class="flex min-w-0 flex-wrap items-center gap-x-3 gap-y-1">
                     <p class="font-sans text-[9px] font-bold tracking-[0.24em] text-[#3a4d45] uppercase">Carte n° {card.number}</p>
                     {card.id === featuredCardId && (
-                      <span class="border-l border-[#3d3834]/20 pl-3 font-sans text-[8px] font-bold tracking-[0.18em] text-[#7d343b] uppercase">Dernière sortie</span>
+                      <span class="border-l border-[#3d3834]/20 pl-3 font-sans text-[9px] font-bold tracking-[0.18em] text-[#7d343b] uppercase">Dernière sortie</span>
                     )}
                   </div>
                   <a
@@ -127,7 +127,7 @@ const collectionMetadataCellClasses = [
                     target="_blank"
                     rel="noreferrer"
                     aria-label={`Acheter la carte ${card.title}`}
-                    class="store-link group/store relative inline-flex h-9 shrink-0 touch-manipulation items-center gap-1.5 rounded-full border border-[#3d3834]/12 bg-[#3d3834]/[0.035] px-3.5 font-sans text-[8px] font-bold tracking-[0.18em] text-[#3d3834]/72 uppercase shadow-[0_10px_30px_-24px_rgba(61,56,52,0.5)] transition-colors duration-300 hover:border-[#3a4d45]/35 hover:bg-[#3a4d45] hover:text-[#fffafa] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#3a4d45] focus-visible:ring-offset-2 active:bg-[#2f4039]"
+                    class="store-link group/store relative inline-flex h-9 shrink-0 touch-manipulation items-center gap-1.5 rounded-md border border-[#3d3834]/14 bg-[#3d3834]/[0.035] px-3.5 font-sans text-[9px] font-bold tracking-[0.18em] text-[#3d3834]/72 uppercase shadow-[0_10px_30px_-24px_rgba(61,56,52,0.5)] transition-colors duration-300 hover:border-[#3a4d45]/40 hover:bg-[#3a4d45] hover:text-[#fffafa] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#3a4d45] focus-visible:ring-offset-2 active:bg-[#2f4039]"
                   >
                     Acheter
                     <span class="transition-transform duration-300 group-hover/store:translate-x-0.5" aria-hidden="true">↗</span>
@@ -136,10 +136,10 @@ const collectionMetadataCellClasses = [
 
                 <h3 class="mt-3 font-serif text-3xl leading-none text-balance">{card.title}</h3>
 
-                <dl class="mt-5 grid grid-cols-2 border-y border-[#3d3834]/12">
+                <dl class="mt-5 grid grid-cols-2 border-y border-[#3d3834]/14">
                   {card.metadata.map((item, index) => (
                     <div class={collectionMetadataCellClasses[index]}>
-                      <dt class="font-sans text-[7px] font-bold tracking-[0.18em] text-[#3d3834]/42 uppercase">{item.label}</dt>
+                      <dt class="font-sans text-[9px] font-bold tracking-[0.18em] text-[#3d3834]/72 uppercase">{item.label}</dt>
                       <dd class="mt-1.5 font-serif text-base leading-tight text-[#3d3834]">
                         {item.url ? (
                           <a
@@ -156,11 +156,11 @@ const collectionMetadataCellClasses = [
                   ))}
                 </dl>
 
-                <p class="mt-4 border-l border-[#7d343b]/35 pl-3 font-sans text-[10px] leading-relaxed text-[#3d3834]/48">
+                <p class="mt-4 border-l border-[#7d343b]/35 pl-3 font-sans text-[10px] leading-relaxed text-[#3d3834]/72">
                   {previewWarning}
                 </p>
 
-                <a href={card.viewerUrl} target="_blank" rel="noreferrer" class="group mt-4 inline-flex w-fit items-center gap-2 font-sans text-[8px] font-bold tracking-[0.18em] text-[#3d3834]/50 uppercase transition-colors duration-300 hover:text-[#3d3834]">
+                <a href={card.viewerUrl} target="_blank" rel="noreferrer" class="group mt-4 inline-flex w-fit items-center gap-2 font-sans text-[9px] font-bold tracking-[0.18em] text-[#3d3834]/72 uppercase transition-colors duration-300 hover:text-[#3d3834]">
                   Plein écran
                   <span class="transition-transform duration-300 group-hover:translate-x-0.5" aria-hidden="true">↗</span>
                 </a>

@@ -563,7 +563,7 @@ const positions: Array<[string, string, number, number]> = [
       renderer.toneMapping = THREE.ACESFilmicToneMapping;
       renderer.toneMappingExposure = 1.08;
       renderer.shadowMap.enabled = true;
-      renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+      renderer.shadowMap.type = THREE.PCFShadowMap;
 
       const scene = new THREE.Scene();
       const pmremGenerator = new THREE.PMREMGenerator(renderer);

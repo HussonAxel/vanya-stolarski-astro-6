@@ -15,7 +15,7 @@ const campaignCoverDimensions = getImageDimensions(campaign.coverSrc);
         class="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.12),transparent_34%),radial-gradient(circle_at_bottom_left,rgba(255,255,255,0.07),transparent_30%)]"
     >
     </div>
-    <div class="pointer-events-none absolute inset-x-0 top-0 h-px bg-white/10">
+    <div class="pointer-events-none absolute inset-x-0 top-0 h-px bg-[#FFFAFA]/10">
     </div>
     <div
         class="pointer-events-none absolute right-[-8%] bottom-[-22%] h-64 w-64 rounded-full bg-[#d8e6df]/10 blur-3xl transition-transform duration-700 group-hover:scale-110"
@@ -37,7 +37,7 @@ const campaignCoverDimensions = getImageDimensions(campaign.coverSrc);
                             ? "noreferrer"
                             : undefined}
                         aria-label="Voir la campagne sur Ulule"
-                        class="hero-chip-link inline-flex h-11 items-center rounded-lg border border-white/10 bg-white/10 px-2.5 hover:bg-white/15"
+                        class="hero-chip-link inline-flex h-11 items-center rounded-lg border border-[#FFFAFA]/16 bg-[#FFFAFA]/10 px-2.5 hover:bg-[#FFFAFA]/15"
                     >
                         <Image
                             src="/assets/logo/ulule-horizontal-white.svg"
@@ -53,17 +53,17 @@ const campaignCoverDimensions = getImageDimensions(campaign.coverSrc);
 
                 <div class="campaign-copy flex flex-col gap-3">
                     <h3
-                        class="max-w-xl font-serif text-4xl leading-none text-white text-balance md:text-[3rem] lg:text-[3.35rem]"
+                        class="max-w-xl font-serif text-4xl leading-none text-[#FFFAFA] text-balance md:text-[3rem] lg:text-[3.35rem]"
                     >
                         {campaign.title}
                     </h3>
                     <p
-                        class="max-w-2xl font-sans text-sm leading-relaxed text-white/70"
+                        class="max-w-2xl font-sans text-sm leading-relaxed text-[#FFFAFA]/72"
                     >
                         {campaign.subtitle}
                     </p>
                     <p
-                        class="campaign-description max-w-2xl font-sans text-sm leading-relaxed text-white/45"
+                        class="campaign-description max-w-2xl font-sans text-sm leading-relaxed text-[#FFFAFA]/72"
                     >
                         {campaign.description}
                     </p>
@@ -73,11 +73,11 @@ const campaignCoverDimensions = getImageDimensions(campaign.coverSrc);
             <div class="campaign-stats grid grid-cols-3 gap-2 sm:gap-3">
                 {
                     campaign.stats.map((stat) => (
-                        <div class="campaign-stat rounded-lg border border-white/10 bg-white/[0.07] px-3 py-3.5 transition-colors duration-300 group-hover:bg-white/[0.1] sm:px-4 sm:py-4">
-                            <p class="font-serif text-xl leading-none text-white sm:text-[1.55rem]">
+                        <div class="campaign-stat rounded-lg border border-[#FFFAFA]/16 bg-[#FFFAFA]/[0.07] px-3 py-3.5 transition-colors duration-300 group-hover:bg-[#FFFAFA]/[0.1] sm:px-4 sm:py-4">
+                            <p class="font-serif text-xl leading-none text-[#FFFAFA] sm:text-[1.55rem]">
                                 {stat.value}
                             </p>
-                            <p class="mt-2 font-sans text-[8px] font-semibold tracking-[0.18em] text-white/55 uppercase">
+                            <p class="mt-2 font-sans text-[9px] font-semibold tracking-[0.18em] text-[#FFFAFA]/80 uppercase">
                                 {stat.label}
                             </p>
                         </div>
@@ -94,20 +94,10 @@ const campaignCoverDimensions = getImageDimensions(campaign.coverSrc);
                     rel={campaign.primaryHref.startsWith("http")
                         ? "noreferrer"
                         : undefined}
-                    class="hero-chip-link inline-flex h-10 items-center rounded-full bg-white px-4 font-sans text-[8px] font-semibold tracking-[0.18em] text-[#31433c] uppercase hover:bg-[#edf4f0] sm:px-5 sm:text-[9px] sm:tracking-[0.22em]"
+                    class="hero-chip-link inline-flex h-10 items-center rounded-md bg-[#FFFAFA] px-4 font-sans text-[9px] font-semibold tracking-[0.18em] text-[#31433c] uppercase hover:bg-[#edf4f0] sm:px-5 sm:text-[9px] sm:tracking-[0.22em]"
                 >
                     {campaign.primaryLabel}
                 </a>
-                {
-                    campaign.secondaryHref && campaign.secondaryLabel && (
-                        <a
-                            href={campaign.secondaryHref}
-                            class="hero-chip-link inline-flex h-10 items-center rounded-full border border-white/16 bg-transparent px-4 font-sans text-[8px] font-semibold tracking-[0.18em] text-white uppercase hover:border-white/30 hover:bg-white hover:text-[#31433c] sm:px-5 sm:text-[9px] sm:tracking-[0.22em]"
-                        >
-                            {campaign.secondaryLabel}
-                        </a>
-                    )
-                }
             </div>
         </div>
 
@@ -117,16 +107,16 @@ const campaignCoverDimensions = getImageDimensions(campaign.coverSrc);
             >
             </div>
             <div
-                class="pointer-events-none absolute left-1/2 top-8 h-40 w-40 -translate-x-1/2 rounded-full bg-white/10 blur-3xl"
+                class="pointer-events-none absolute left-1/2 top-8 h-40 w-40 -translate-x-1/2 rounded-full bg-[#FFFAFA]/10 blur-3xl"
             >
             </div>
 
             <div class="relative z-10 flex w-full justify-center">
                 <div
-                    class="campaign-frame w-full max-w-[14rem] rounded-lg border border-white/10 bg-white/[0.06] p-3.5 sm:p-4 lg:max-w-[16rem] xl:max-w-[14rem] 2xl:max-w-[17rem]"
+                    class="campaign-frame w-full max-w-[14rem] rounded-lg border border-[#FFFAFA]/16 bg-[#FFFAFA]/[0.06] p-3.5 sm:p-4 lg:max-w-[16rem] xl:max-w-[14rem] 2xl:max-w-[17rem]"
                 >
                     <div
-                        class="campaign-cover-stage flex aspect-[4/5] items-center justify-center rounded-lg bg-[linear-gradient(180deg,#f7f1ec_0%,#ebe2dc_100%)] p-4 shadow-[0_34px_100px_-46px_rgba(0,0,0,0.58)] transition-all duration-700 group-hover:shadow-[0_42px_120px_-50px_rgba(0,0,0,0.62)]"
+                        class="campaign-cover-stage flex aspect-[4/5] items-center justify-center rounded-md bg-[linear-gradient(180deg,#f7f1ec_0%,#ebe2dc_100%)] p-4 shadow-[0_34px_100px_-46px_rgba(0,0,0,0.58)] transition-all duration-700 group-hover:shadow-[0_42px_120px_-50px_rgba(0,0,0,0.62)]"
                     >
                         {
                             isLocalCampaignCover ? (
@@ -203,7 +193,7 @@ const campaignCoverDimensions = getImageDimensions(campaign.coverSrc);
         }
 
         .campaign-stat {
-            border-radius: 0.875rem;
+            border-radius: 0.5rem;
             padding: 0.625rem 0.75rem;
         }
 

@@ -3,15 +3,29 @@ import { getReviewsContent } from "../lib/content";
 
 const reviews = await getReviewsContent();
 const featuredReviews = reviews.slice(0, 8);
+const totalLabel = String(featuredReviews.length).padStart(2, "0");
 ---
 
 <section
   id="reviews"
   class="reviews-section relative overflow-hidden text-[#3d3834]"
-  aria-label="Avis de lecture"
+  aria-labelledby="reviews-title"
 >
-  <div class="site-shell relative z-10 px-6">
+  <div class="site-shell relative z-10">
     <div class="reviews-heading">
+      <div class="flex flex-wrap items-center gap-3">
+        <span class="h-px w-10 bg-[#3d3834]/45" aria-hidden="true"></span>
+        <h2
+          id="reviews-title"
+          class="rounded-md border border-[#3d3834]/14 bg-[#fffdfa]/70 px-4 py-2 font-sans text-[12px] font-bold tracking-[0.28em] text-[#3d3834] uppercase"
+        >
+          Avis
+        </h2>
+        <span class="font-sans text-[10px] font-bold tracking-[0.25em] text-[#3d3834]/72 uppercase">
+          Lectrices
+        </span>
+      </div>
+
       <a href="/reviews" class="reviews-all-link">
         Voir tous les avis
         <svg
@@ -32,23 +46,7 @@ const featuredReviews = reviews.slice(0, 8);
       </a>
     </div>
 
-    <div
-      class="reviews-carousel"
-      data-reviews-carousel
-      role="region"
-      aria-label="Avis de lecture"
-    >
-      <button
-        type="button"
-        class="reviews-control-button reviews-control-button--prev"
-        data-reviews-prev
-        aria-label="Avis précédent"
-      >
-        <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-          <path d="m15 18-6-6 6-6" />
-        </svg>
-      </button>
-
+    <div class="reviews-layout">
       <aside class="reviews-summary" aria-label="Note globale">
         <div>
           <p class="reviews-summary-label">Fous Papillons</p>
@@ -69,85 +67,113 @@ const featuredReviews = reviews.slice(0, 8);
         </div>
       </aside>
 
-      <div class="reviews-stage">
-        <div class="reviews-viewport">
-          <div
-            class="reviews-track"
-            data-reviews-track
-            style="--reviews-index: 0; --reviews-step: 0px;"
-          >
-            {
-              featuredReviews.map((review, index) => (
-                <article
-                  class="reviews-card"
-                  data-review-slide={index}
-                  aria-roledescription="diapositive"
-                  aria-label={`Avis ${index + 1} sur ${featuredReviews.length}`}
-                >
-                  <div class="reviews-card-head">
-                    <div class="reviews-card-source">
-                      <span class="reviews-card-mark" aria-hidden="true">VS</span>
-                      <span>{review.source}</span>
-                    </div>
-                    <span class="reviews-card-position" aria-hidden="true">
-                      {String(index + 1).padStart(2, "0")}
-                    </span>
+      <div
+        class="reviews-carousel"
+        data-reviews-carousel
+        role="region"
+        aria-roledescription="carrousel"
+        aria-label="Avis de lecture"
+      >
+        <div class="reviews-track" data-reviews-track>
+          {
+            featuredReviews.map((review, index) => (
+              <article
+                class="reviews-card"
+                data-review-slide={index}
+                aria-roledescription="diapositive"
+                aria-label={`Avis ${index + 1} sur ${featuredReviews.length}`}
+              >
+                <div class="reviews-card-head">
+                  <div class="reviews-card-source">
+                    <span class="reviews-card-mark" aria-hidden="true">VS</span>
+                    <span>{review.source}</span>
                   </div>
+                  <span class="reviews-card-position" aria-hidden="true">
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
+                </div>
 
-                  <blockquote class="reviews-quote">
-                    “{review.text}”
-                  </blockquote>
+                <blockquote class="reviews-quote">
+                  “{review.text}”
+                </blockquote>
 
-                  <div class="reviews-card-footer">
-                    <div class="min-w-0">
-                      <p class="reviews-card-book">{review.book}</p>
-                      <p class="reviews-card-meta">
-                        {review.author} · {review.date}
-                      </p>
-                    </div>
-                    <a href="/reviews" class="reviews-read-link">
-                      Lire l’avis
-                      <svg
-                        aria-hidden="true"
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="14"
-                        height="14"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="1.8"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                      >
-                        <path d="M5 12h14" />
-                        <path d="m12 5 7 7-7 7" />
-                      </svg>
-                    </a>
+                <div class="reviews-card-footer">
+                  <div class="min-w-0">
+                    <p class="reviews-card-book">{review.book}</p>
+                    <p class="reviews-card-meta">
+                      {review.author} · {review.date}
+                    </p>
                   </div>
-                </article>
-              ))
-            }
-          </div>
+                  <a href="/reviews" class="reviews-read-link">
+                    Lire l’avis
+                    <svg
+                      aria-hidden="true"
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="14"
+                      height="14"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.8"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <path d="M5 12h14" />
+                      <path d="m12 5 7 7-7 7" />
+                    </svg>
+                  </a>
+                </div>
+              </article>
+            ))
+          }
         </div>
 
         <div class="reviews-controls">
           <p class="sr-only" data-reviews-status aria-live="polite"></p>
+
+          <div class="reviews-progress" data-reviews-progress>
+            {
+              featuredReviews.map((_, index) => (
+                <button
+                  type="button"
+                  class="reviews-progress-dot"
+                  data-reviews-dot={index}
+                  aria-label={`Afficher l’avis ${index + 1}`}
+                >
+                  <span aria-hidden="true"></span>
+                </button>
+              ))
+            }
+          </div>
+
           <span class="reviews-page-count" aria-hidden="true">
-            <span data-reviews-current>01</span> / {String(featuredReviews.length).padStart(2, "0")}
+            <span data-reviews-current>01</span> / {totalLabel}
           </span>
+
+          <div class="reviews-buttons">
+            <button
+              type="button"
+              class="reviews-control-button"
+              data-reviews-prev
+              aria-label="Avis précédent"
+            >
+              <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="m15 18-6-6 6-6" />
+              </svg>
+            </button>
+            <button
+              type="button"
+              class="reviews-control-button"
+              data-reviews-next
+              aria-label="Avis suivant"
+            >
+              <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="m9 18 6-6-6-6" />
+              </svg>
+            </button>
+          </div>
         </div>
       </div>
-
-      <button
-        type="button"
-        class="reviews-control-button reviews-control-button--next"
-        data-reviews-next
-        aria-label="Avis suivant"
-      >
-        <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-          <path d="m9 18 6-6-6-6" />
-        </svg>
-      </button>
     </div>
   </div>
 </section>
@@ -157,15 +183,20 @@ const featuredReviews = reviews.slice(0, 8);
     --reviews-ink: #3d3834;
     --reviews-forest: #3a4d45;
     --reviews-paper: #fffdfa;
-    --reviews-line: rgb(61 56 52 / 0.11);
+    --reviews-line: rgb(61 56 52 / 0.14);
+    --reviews-gap: clamp(0.875rem, 1.6vw, 1.25rem);
+    --reviews-radius: 0.5rem;
     padding-block: clamp(4.75rem, 9vw, 8rem);
     background: #f2ede8;
   }
 
   .reviews-heading {
     display: flex;
-    justify-content: flex-end;
-    margin-bottom: clamp(2.25rem, 5vw, 4.25rem);
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem 2rem;
+    margin-bottom: clamp(2.25rem, 5vw, 3.5rem);
   }
 
   .reviews-all-link,
@@ -195,12 +226,11 @@ const featuredReviews = reviews.slice(0, 8);
     color: var(--reviews-forest);
   }
 
-  .reviews-carousel {
+  .reviews-layout {
     display: grid;
-    grid-template-columns: 2.5rem clamp(10.75rem, 21vw, 16rem) minmax(0, 1fr) 2.5rem;
-    grid-template-areas: "prev summary stage next";
-    gap: clamp(1rem, 2vw, 1.5rem);
-    align-items: start;
+    grid-template-columns: clamp(12rem, 20vw, 16rem) minmax(0, 1fr);
+    grid-template-rows: auto auto;
+    gap: 0 var(--reviews-gap);
   }
 
   .reviews-summary,
@@ -212,13 +242,12 @@ const featuredReviews = reviews.slice(0, 8);
 
   .reviews-summary {
     display: flex;
-    grid-area: summary;
-    align-self: start;
-    min-height: clamp(19rem, 27vw, 23rem);
+    grid-row: 1;
+    min-height: clamp(19rem, 27vw, 22rem);
     flex-direction: column;
     justify-content: space-between;
-    border-radius: 1.5rem;
-    padding: clamp(1.1rem, 2.2vw, 1.75rem);
+    border-radius: var(--reviews-radius);
+    padding: clamp(1.25rem, 2.2vw, 1.75rem);
   }
 
   .reviews-summary-label,
@@ -235,7 +264,7 @@ const featuredReviews = reviews.slice(0, 8);
     margin: clamp(2.5rem, 5vw, 4.25rem) 0 0.75rem;
     color: var(--reviews-ink);
     font-family: var(--font-sans, system-ui, sans-serif);
-    font-size: clamp(3.25rem, 7vw, 5.8rem);
+    font-size: clamp(3.25rem, 6vw, 5.5rem);
     font-weight: 600;
     letter-spacing: -0.09em;
     line-height: 0.82;
@@ -249,7 +278,7 @@ const featuredReviews = reviews.slice(0, 8);
 
   .reviews-summary-count {
     margin: 0.5rem 0 0;
-    color: rgb(61 56 52 / 0.6);
+    color: rgb(61 56 52 / 0.72);
     font-size: 0.6875rem;
   }
 
@@ -259,7 +288,7 @@ const featuredReviews = reviews.slice(0, 8);
     gap: 0.5rem;
     padding-top: 1rem;
     border-top: 1px solid var(--reviews-line);
-    color: rgb(61 56 52 / 0.57);
+    color: rgb(61 56 52 / 0.72);
     font-size: 0.625rem;
     letter-spacing: 0.08em;
   }
@@ -269,66 +298,73 @@ const featuredReviews = reviews.slice(0, 8);
     font-size: 0.8rem;
   }
 
-  .reviews-stage {
-    grid-area: stage;
+  /* Subgrid keeps the summary exactly as tall as the cards, with controls on their own row.
+     No container-type here: layout containment would disable the subgrid. */
+  .reviews-carousel {
+    display: grid;
+    grid-row: 1 / span 2;
+    grid-template-rows: subgrid;
     min-width: 0;
   }
 
-  .reviews-control-button--prev {
-    grid-area: prev;
-  }
-
-  .reviews-control-button--next {
-    grid-area: next;
-  }
-
-  .reviews-control-button--prev,
-  .reviews-control-button--next {
-    align-self: start;
-    margin-top: calc((clamp(19rem, 27vw, 23rem) - 2.5rem) / 2);
-  }
-
-  .reviews-viewport {
-    overflow: hidden;
-    min-height: clamp(19rem, 27vw, 23rem);
-    border-radius: 1.5rem;
-  }
-
+  /* Native scroll-snap track: swipe, trackpad and keyboard scrolling work out of the box.
+     Vertical padding keeps card shadows from being clipped by the scroll container. */
   .reviews-track {
     display: flex;
-    gap: 1rem;
-    height: 100%;
-    transform: translate3d(calc(var(--reviews-index) * -1 * var(--reviews-step)), 0, 0);
-    transition: transform 620ms cubic-bezier(0.19, 1, 0.22, 1);
+    gap: var(--reviews-gap);
+    margin-block: -1rem -2.75rem;
+    padding-block: 1rem 2.75rem;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    container-type: inline-size;
+  }
+
+  .reviews-track::-webkit-scrollbar {
+    display: none;
   }
 
   .reviews-card {
     display: flex;
-    min-height: clamp(19rem, 27vw, 23rem);
-    flex: 0 0 min(78%, 42rem);
+    min-height: clamp(19rem, 27vw, 22rem);
+    flex: 0 0 86%;
     flex-direction: column;
     justify-content: space-between;
-    border-radius: 1.5rem;
-    padding: clamp(1.25rem, 2.6vw, 2rem);
+    border-radius: var(--reviews-radius);
+    padding: clamp(1.25rem, 2.4vw, 1.75rem);
+    scroll-snap-align: start;
+    transition: opacity 320ms ease, border-color 320ms ease;
+  }
+
+  .reviews-card[data-offscreen] {
+    opacity: 0.55;
+  }
+
+  @container (min-width: 44rem) {
+    .reviews-card {
+      flex-basis: calc((100% - var(--reviews-gap)) / 2);
+    }
   }
 
   .reviews-card-head,
   .reviews-card-footer,
+  .reviews-card-source,
   .reviews-controls,
-  .reviews-card-source {
+  .reviews-buttons {
     display: flex;
     align-items: center;
   }
 
   .reviews-card-head,
-  .reviews-card-footer,
-  .reviews-controls {
+  .reviews-card-footer {
     justify-content: space-between;
   }
 
   .reviews-card-source {
     gap: 0.65rem;
-    color: rgb(61 56 52 / 0.68);
+    color: rgb(61 56 52 / 0.72);
     font-size: 0.6875rem;
     font-weight: 700;
     letter-spacing: 0.18em;
@@ -349,26 +385,25 @@ const featuredReviews = reviews.slice(0, 8);
   }
 
   .reviews-card-position {
-    color: rgb(61 56 52 / 0.3);
+    color: rgb(61 56 52 / 0.72);
     font-size: 0.625rem;
     font-weight: 700;
     letter-spacing: 0.14em;
   }
 
   .reviews-quote {
-    max-width: 42rem;
-    margin: 2rem 0;
+    margin: 1.75rem 0;
     color: var(--reviews-ink);
     font-family: var(--font-sans, system-ui, sans-serif);
-    font-size: clamp(1.15rem, 2.15vw, 1.85rem);
+    font-size: clamp(1.2rem, 1.7vw, 1.5rem);
     font-weight: 450;
-    letter-spacing: -0.04em;
-    line-height: 1.13;
-    text-wrap: balance;
+    letter-spacing: -0.035em;
+    line-height: 1.2;
+    text-wrap: pretty;
     display: -webkit-box;
     overflow: hidden;
     -webkit-box-orient: vertical;
-    -webkit-line-clamp: 5;
+    -webkit-line-clamp: 6;
   }
 
   .reviews-card-footer {
@@ -380,7 +415,7 @@ const featuredReviews = reviews.slice(0, 8);
   .reviews-card-meta {
     margin: 0.45rem 0 0;
     overflow: hidden;
-    color: rgb(61 56 52 / 0.56);
+    color: rgb(61 56 52 / 0.72);
     font-size: 0.72rem;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -407,65 +442,117 @@ const featuredReviews = reviews.slice(0, 8);
   }
 
   .reviews-controls {
-    justify-content: flex-end;
-    margin-top: 1rem;
-    min-height: 1rem;
+    gap: 1.25rem;
+    margin-top: 1.25rem;
+  }
+
+  .reviews-progress {
+    display: flex;
+    flex: 1 1 auto;
+    gap: 0.375rem;
+    min-width: 0;
+  }
+
+  .reviews-progress-dot {
+    display: flex;
+    flex: 1 1 0;
+    align-items: center;
+    max-width: 3.5rem;
+    height: 1.5rem;
+    padding: 0;
+    border: 0;
+    background: none;
+    cursor: pointer;
+  }
+
+  .reviews-progress-dot span {
+    width: 100%;
+    height: 2px;
+    border-radius: 999px;
+    background: rgb(61 56 52 / 0.16);
+    transition: background-color 320ms ease, height 200ms ease;
+  }
+
+  .reviews-progress-dot:hover span {
+    background: rgb(61 56 52 / 0.34);
+  }
+
+  .reviews-progress-dot[aria-current="true"] span {
+    height: 3px;
+    background: var(--reviews-forest);
   }
 
   .reviews-page-count {
-    color: rgb(61 56 52 / 0.56);
+    flex: 0 0 auto;
+    color: rgb(61 56 52 / 0.72);
     font-size: 0.625rem;
     font-weight: 700;
     letter-spacing: 0.16em;
+    font-variant-numeric: tabular-nums;
   }
 
   .reviews-page-count span {
     color: var(--reviews-forest);
   }
 
+  .reviews-buttons {
+    flex: 0 0 auto;
+    gap: 0.5rem;
+  }
+
   .reviews-control-button {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    min-height: 2.5rem;
+    width: 2.75rem;
+    height: 2.75rem;
     border: 1px solid rgb(61 56 52 / 0.14);
+    border-radius: var(--reviews-radius);
     color: var(--reviews-ink);
     background: rgb(255 253 250 / 0.76);
     cursor: pointer;
-    transition: color 160ms ease, background-color 160ms ease, border-color 160ms ease, transform 160ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    transition: color 160ms ease, background-color 160ms ease, border-color 160ms ease, opacity 160ms ease, transform 160ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
   }
 
-  .reviews-control-button {
-    width: 2.5rem;
-    border-radius: 999px;
-  }
-
-  .reviews-control-button:hover,
+  .reviews-control-button:hover:not(:disabled),
   .reviews-control-button:focus-visible {
     border-color: var(--reviews-forest);
     background: var(--reviews-forest);
     color: #fffdfa;
   }
 
-  .reviews-control-button:active {
+  .reviews-control-button:active:not(:disabled) {
     transform: scale(0.96);
+  }
+
+  .reviews-control-button:disabled {
+    opacity: 0.38;
+    cursor: default;
   }
 
   .reviews-all-link:focus-visible,
   .reviews-read-link:focus-visible,
-  .reviews-control-button:focus-visible {
+  .reviews-control-button:focus-visible,
+  .reviews-progress-dot:focus-visible {
     outline: 2px solid var(--reviews-forest);
     outline-offset: 3px;
   }
 
   @media (max-width: 767px) {
+    .reviews-layout {
+      grid-template-columns: minmax(0, 1fr);
+      grid-template-rows: none;
+      gap: 1rem;
+    }
+
+    .reviews-summary,
     .reviews-carousel {
-      grid-template-columns: 2.5rem minmax(0, 1fr) 2.5rem;
-      grid-template-areas:
-        "summary summary summary"
-        "prev stage next";
-      column-gap: 0.5rem;
-      row-gap: 1rem;
+      grid-row: auto;
+    }
+
+    .reviews-carousel {
+      display: flex;
+      flex-direction: column;
     }
 
     .reviews-summary {
@@ -473,13 +560,13 @@ const featuredReviews = reviews.slice(0, 8);
       flex-direction: row;
       align-items: flex-end;
       gap: 1rem;
-      border-radius: 1.25rem;
+      border-radius: var(--reviews-radius);
       padding: 1.25rem;
     }
 
     .reviews-score {
-      margin-top: 2rem;
-      font-size: 4rem;
+      margin-top: 1.5rem;
+      font-size: 3.5rem;
     }
 
     .reviews-summary-footer {
@@ -489,21 +576,22 @@ const featuredReviews = reviews.slice(0, 8);
       text-align: right;
     }
 
-    .reviews-viewport {
-      min-height: 22rem;
-      border-radius: 1.25rem;
+    /* Let cards bleed to the screen edge so the next one peeks in as a swipe hint. */
+    .reviews-track {
+      margin-inline: calc(var(--site-gutter) * -1);
+      padding-inline: var(--site-gutter);
+      scroll-padding-inline: var(--site-gutter);
     }
 
     .reviews-card {
-      min-height: 22rem;
-      flex-basis: 88%;
-      border-radius: 1.25rem;
+      min-height: 20rem;
+      border-radius: var(--reviews-radius);
       padding: 1.25rem;
     }
 
     .reviews-quote {
       margin-block: 1.5rem;
-      font-size: 1.25rem;
+      font-size: 1.2rem;
     }
 
     .reviews-card-footer {
@@ -511,18 +599,25 @@ const featuredReviews = reviews.slice(0, 8);
     }
 
     .reviews-card-meta {
-      max-width: 11rem;
       white-space: normal;
     }
 
-    .reviews-control-button--prev,
-    .reviews-control-button--next {
-      margin-top: calc((22rem - 2.5rem) / 2);
+    .reviews-controls {
+      gap: 1rem;
+    }
+
+    .reviews-page-count {
+      display: none;
     }
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .reviews-track,
+    .reviews-track {
+      scroll-behavior: auto;
+    }
+
+    .reviews-card,
+    .reviews-progress-dot span,
     .reviews-all-link,
     .reviews-read-link,
     .reviews-control-button {
@@ -537,6 +632,7 @@ const featuredReviews = reviews.slice(0, 8);
   if (carousel) {
     const track = carousel.querySelector<HTMLElement>("[data-reviews-track]");
     const slides = Array.from(carousel.querySelectorAll<HTMLElement>("[data-review-slide]"));
+    const dots = Array.from(carousel.querySelectorAll<HTMLButtonElement>("[data-reviews-dot]"));
     const previousButton = carousel.querySelector<HTMLButtonElement>("[data-reviews-prev]");
     const nextButton = carousel.querySelector<HTMLButtonElement>("[data-reviews-next]");
     const currentPage = carousel.querySelector<HTMLElement>("[data-reviews-current]");
@@ -544,17 +640,67 @@ const featuredReviews = reviews.slice(0, 8);
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 
     if (track && slides.length && previousButton && nextButton) {
-      let activeIndex = 0;
+      let firstVisible = 0;
       let timer: number | undefined;
+      let autoplayEnabled = true;
       let isHovering = false;
       let isFocused = false;
-      let isVisible = false;
+      let isInView = false;
+      let settleTimer: number | undefined;
 
-      const setStep = () => {
-        const firstSlide = slides[0];
-        const trackStyles = window.getComputedStyle(track);
-        const gap = Number.parseFloat(trackStyles.columnGap || trackStyles.gap) || 0;
-        track.style.setProperty("--reviews-step", `${firstSlide.getBoundingClientRect().width + gap}px`);
+      const pad = (value: number) => String(value).padStart(2, "0");
+
+      const scrollToSlide = (index: number) => {
+        const target = slides[Math.max(0, Math.min(index, slides.length - 1))];
+        const offset = target.offsetLeft - slides[0].offsetLeft;
+        track.scrollTo({ left: offset, behavior: reduceMotion.matches ? "auto" : "smooth" });
+      };
+
+      const isAtEnd = () => track.scrollLeft + track.clientWidth >= track.scrollWidth - 2;
+
+      // A slide counts as visible when it sits fully inside the track's padded area.
+      const getVisible = () => {
+        const styles = window.getComputedStyle(track);
+        const bounds = track.getBoundingClientRect();
+        const start = bounds.left + Number.parseFloat(styles.paddingLeft) - 4;
+        const end = bounds.right - Number.parseFloat(styles.paddingRight) + 4;
+        return new Set(
+          slides.flatMap((slide, index) => {
+            const rect = slide.getBoundingClientRect();
+            return rect.left >= start && rect.right <= end ? [index] : [];
+          }),
+        );
+      };
+
+      const render = () => {
+        const visible = getVisible();
+        const indexes = [...visible].sort((a, b) => a - b);
+        if (indexes.length) firstVisible = indexes[0];
+        const lastVisible = indexes.at(-1) ?? firstVisible;
+
+        dots.forEach((dot, index) => {
+          dot.setAttribute("aria-current", String(visible.has(index)));
+        });
+
+        if (currentPage) {
+          currentPage.textContent =
+            lastVisible > firstVisible ? `${pad(firstVisible + 1)}–${pad(lastVisible + 1)}` : pad(firstVisible + 1);
+        }
+
+        previousButton.disabled = track.scrollLeft <= 2;
+        nextButton.disabled = isAtEnd();
+
+        // Dim off-screen cards only once scrolling settles, so cards don't flicker mid-swipe.
+        window.clearTimeout(settleTimer);
+        settleTimer = window.setTimeout(() => {
+          slides.forEach((slide, index) => {
+            slide.toggleAttribute("data-offscreen", !visible.has(index));
+          });
+        }, 120);
+      };
+
+      const announce = () => {
+        if (status) status.textContent = `Avis ${firstVisible + 1} sur ${slides.length}`;
       };
 
       const stopTimer = () => {
@@ -564,32 +710,33 @@ const featuredReviews = reviews.slice(0, 8);
 
       const syncTimer = () => {
         stopTimer();
-        if (!isVisible || reduceMotion.matches || isHovering || isFocused) return;
+        if (!autoplayEnabled || !isInView || reduceMotion.matches || isHovering || isFocused) return;
         timer = window.setInterval(() => {
-          activeIndex = (activeIndex + 1) % slides.length;
-          update(false);
-        }, 4400);
+          scrollToSlide(isAtEnd() ? 0 : firstVisible + 1);
+        }, 5000);
       };
 
-      const update = (announce: boolean) => {
-        track.style.setProperty("--reviews-index", String(activeIndex));
-        if (currentPage) currentPage.textContent = String(activeIndex + 1).padStart(2, "0");
-        slides.forEach((slide, index) => {
-          slide.toggleAttribute("data-active", index === activeIndex);
-        });
-        if (announce && status) {
-          status.textContent = `Avis ${activeIndex + 1} sur ${slides.length}`;
-        }
+      // Any manual navigation ends autoplay for good, so the reader keeps control.
+      const takeControl = () => {
+        autoplayEnabled = false;
+        stopTimer();
       };
 
-      const move = (direction: number) => {
-        activeIndex = (activeIndex + direction + slides.length) % slides.length;
-        update(true);
-        syncTimer();
+      const goTo = (index: number) => {
+        takeControl();
+        scrollToSlide(index);
+        window.setTimeout(announce, 400);
       };
 
-      previousButton.addEventListener("click", () => move(-1));
-      nextButton.addEventListener("click", () => move(1));
+      previousButton.addEventListener("click", () => goTo(firstVisible - 1));
+      nextButton.addEventListener("click", () => goTo(firstVisible + 1));
+      dots.forEach((dot, index) => dot.addEventListener("click", () => goTo(index)));
+
+      track.addEventListener("pointerdown", takeControl);
+      track.addEventListener("wheel", (event) => {
+        if (Math.abs(event.deltaX) > Math.abs(event.deltaY)) takeControl();
+      }, { passive: true });
+      track.addEventListener("scroll", render, { passive: true });
 
       carousel.addEventListener("mouseenter", () => {
         isHovering = true;
@@ -609,23 +756,19 @@ const featuredReviews = reviews.slice(0, 8);
         syncTimer();
       });
 
-      const resizeObserver = new ResizeObserver(setStep);
-      resizeObserver.observe(slides[0]);
-      const visibilityObserver = new IntersectionObserver(
+      new ResizeObserver(render).observe(track);
+
+      const viewObserver = new IntersectionObserver(
         ([entry]) => {
-          isVisible = entry.isIntersecting;
+          isInView = entry.isIntersecting;
           syncTimer();
         },
-        { threshold: 0.2 },
+        { threshold: 0.3 },
       );
-      visibilityObserver.observe(carousel);
-      reduceMotion.addEventListener("change", () => {
-        syncTimer();
-      });
+      viewObserver.observe(carousel);
+      reduceMotion.addEventListener("change", syncTimer);
 
-      setStep();
-      update(false);
-      syncTimer();
+      render();
     }
   }
 </script>

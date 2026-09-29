@@ -89,7 +89,10 @@ main {
   overflow: hidden;
 }
 
-.section-panel {
-  border: 1px solid rgb(61 56 52 / 0.08);
-  box-shadow: 0 34px 120px -72px rgb(61 56 52 / 0.5);
+/* Layered so border-* and shadow-* utilities on the element win. */
+@layer components {
+  .section-panel {
+    border: 1px solid rgb(61 56 52 / 0.14);
+    box-shadow: 0 34px 120px -72px rgb(61 56 52 / 0.5);
+  }
 }

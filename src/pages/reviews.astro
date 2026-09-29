@@ -15,7 +15,7 @@ const reviews = await getReviewsContent();
         >
           <div class="space-y-6">
             <span
-              class="inline-flex rounded-full border border-[#FFFAFA]/10 bg-[#FFFAFA] px-4 py-2 font-sans text-[10px] font-bold tracking-[0.25em] text-[#3d3834] uppercase"
+              class="inline-flex rounded-md border border-[#FFFAFA]/16 bg-[#FFFAFA] px-4 py-2 font-sans text-[10px] font-bold tracking-[0.25em] text-[#3d3834] uppercase"
             >
               Avis de lecture
             </span>
@@ -34,7 +34,7 @@ const reviews = await getReviewsContent();
           </div>
 
           <div
-            class="section-panel fade-up rounded-lg border border-[#FFFAFA]/10 bg-[#FFFAFA] p-8 backdrop-blur-sm"
+            class="section-panel fade-up rounded-lg border border-[#FFFAFA]/16 bg-[#FFFAFA] p-8 backdrop-blur-sm"
           >
             <p class="font-serif text-6xl text-[#3a4d45]">{reviews.length}</p>
             <p
@@ -59,14 +59,14 @@ const reviews = await getReviewsContent();
               <article
                 class:list={[
                   "fade-up relative py-12 md:py-16",
-                  index > 0 ? "border-t border-[#3d3834]/10" : "",
+                  index > 0 ? "border-t border-[#3d3834]/14" : "",
                 ]}
               >
                 <div class="grid gap-10 xl:grid-cols-[16rem_minmax(0,1fr)] xl:gap-14">
                   <aside class="space-y-6">
                     <div class="flex flex-wrap items-center gap-3">
                       <span
-                        class="rounded-full px-4 py-2 font-sans text-[10px] font-bold tracking-[0.25em] uppercase"
+                        class="rounded-md px-4 py-2 font-sans text-[10px] font-bold tracking-[0.25em] uppercase"
                         style={`background:${review.accent}; color:#FFFAFA;`}
                       >
                         {review.tag}
@@ -106,7 +106,7 @@ const reviews = await getReviewsContent();
                           href={review.link}
                           target="_blank"
                           rel="noreferrer"
-                          class="inline-flex items-center gap-3 rounded-full border border-[#3d3834]/10 bg-[#FFFAFA] px-5 py-3 font-sans text-[10px] font-bold tracking-[0.24em] text-[#3d3834] uppercase transition-all duration-300 hover:border-[#3a4d45]/35 hover:text-[#3a4d45]"
+                          class="inline-flex items-center gap-3 rounded-lg border border-[#3d3834]/14 bg-[#FFFAFA] px-5 py-3 font-sans text-[10px] font-bold tracking-[0.24em] text-[#3d3834] uppercase transition-all duration-300 hover:border-[#3a4d45]/40 hover:text-[#3a4d45]"
                         >
                           Voir l'avis
                           <svg
@@ -127,7 +127,7 @@ const reviews = await getReviewsContent();
                       )}
                       <a
                         href={`/livres/${review.bookSlug}`}
-                        class="inline-flex items-center gap-3 rounded-full border border-[#3d3834]/10 bg-[#FFFAFA] px-5 py-3 font-sans text-[10px] font-bold tracking-[0.24em] text-[#3d3834] uppercase transition-all duration-300 hover:border-[#3a4d45]/35 hover:text-[#3a4d45]"
+                        class="inline-flex items-center gap-3 rounded-lg border border-[#3d3834]/14 bg-[#FFFAFA] px-5 py-3 font-sans text-[10px] font-bold tracking-[0.24em] text-[#3d3834] uppercase transition-all duration-300 hover:border-[#3a4d45]/40 hover:text-[#3a4d45]"
                       >
                         Voir le roman
                         <svg
@@ -151,7 +151,7 @@ const reviews = await getReviewsContent();
                   <div class="space-y-6 md:space-y-7">
                     <div class="flex items-center gap-3">
                       <span class="h-px w-12 bg-[#3a4d45]/28" />
-                      <span class="font-sans text-[9px] font-bold tracking-[0.26em] text-[#3d3834]/42 uppercase">
+                      <span class="font-sans text-[9px] font-bold tracking-[0.26em] text-[#3d3834]/72 uppercase">
                         Extrait
                       </span>
                     </div>
@@ -162,7 +162,7 @@ const reviews = await getReviewsContent();
 
                     {hasExtendedBody && (
                       <div class="max-w-[72ch] space-y-3">
-                        <p class="font-sans text-[9px] font-bold tracking-[0.24em] text-[#3d3834]/45 uppercase">
+                        <p class="font-sans text-[9px] font-bold tracking-[0.24em] text-[#3d3834]/72 uppercase">
                           Lecture complète
                         </p>
                         <p class="font-sans text-[15px] leading-8 text-[#3d3834]/74 md:text-base md:leading-[1.9]">

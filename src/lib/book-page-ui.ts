@@ -36,11 +36,11 @@ const iconMarkup = {
 
 const ctaClassNames: Record<CTAViewModel["kind"], string> = {
   primary:
-    "inline-flex items-center justify-center gap-3 rounded-full px-5 py-3.5 font-sans text-[11px] font-bold tracking-[0.22em] uppercase transition-all duration-300 bg-[#3a4d45] text-[#FFFAFA] hover:bg-[#2f4039]",
+    "inline-flex items-center justify-center gap-3 rounded-lg px-5 py-3.5 font-sans text-[11px] font-bold tracking-[0.22em] uppercase transition-all duration-300 bg-[#3a4d45] text-[#FFFAFA] hover:bg-[#2f4039]",
   secondary:
-    "inline-flex items-center justify-center gap-3 rounded-full border border-[#FFFAFA]/18 bg-transparent px-5 py-3.5 font-sans text-[11px] font-bold tracking-[0.22em] text-[#FFFAFA] uppercase transition-all duration-300 hover:border-[#3a4d45]/35 hover:bg-[#FFFAFA] hover:text-[#3d3834]",
+    "inline-flex items-center justify-center gap-3 rounded-lg border border-[#FFFAFA]/18 bg-transparent px-5 py-3.5 font-sans text-[11px] font-bold tracking-[0.22em] text-[#FFFAFA] uppercase transition-all duration-300 hover:border-[#3a4d45]/40 hover:bg-[#FFFAFA] hover:text-[#3d3834]",
   ghost:
-    "inline-flex items-center justify-center gap-3 rounded-full border border-[#FFFAFA]/18 bg-transparent px-5 py-3.5 font-sans text-[11px] font-bold tracking-[0.22em] text-[#FFFAFA] uppercase transition-all duration-300 hover:border-[#ff0000]/35 hover:bg-[#FFFAFA] hover:text-[#3d3834]",
+    "inline-flex items-center justify-center gap-3 rounded-lg border border-[#FFFAFA]/18 bg-transparent px-5 py-3.5 font-sans text-[11px] font-bold tracking-[0.22em] text-[#FFFAFA] uppercase transition-all duration-300 hover:border-[#FFFAFA] hover:bg-[#FFFAFA] hover:text-[#3d3834]",
 };
 
 const setText = (root: HTMLElement, selector: string, value?: string) => {

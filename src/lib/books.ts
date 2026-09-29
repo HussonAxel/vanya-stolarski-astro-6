@@ -57,7 +57,6 @@ export type BookPageModel = {
     tome: string;
     series: string;
     genres: string[];
-    hiddenGenresCount: number;
     editions: BookEditionViewModel[];
     initialEdition: BookEditionViewModel;
     ctas: CTAViewModel[];
@@ -107,14 +106,6 @@ export const getBookBySlug = (slug: string, allBooks: Book[] = []) =>
 
 export const getRelatedBooks = (book: Book, allBooks: Book[], limit = 2) =>
   allBooks.filter((entry) => entry.slug !== book.slug).slice(0, limit);
-
-export const getBookHeroGenres = (book: Book, maxVisible: number) => {
-  const genres = getBookGenres(book);
-  return {
-    genres: genres.slice(0, maxVisible),
-    hiddenGenresCount: Math.max(genres.length - maxVisible, 0),
-  };
-};
 
 export const toBookGalleryItems = (images: MediaImage[] = []): BookGalleryItem[] =>
   images.map((image) => ({
@@ -288,7 +279,6 @@ export const buildBookPageModel = (
   allBooks: Book[],
   allGalleryItems: GalleryItem[],
 ): BookPageModel => {
-  const heroGenres = getBookHeroGenres(book, 4);
   const editions = getBookEditionViewModels(book);
   const initialEdition = editions[0];
 
@@ -298,8 +288,10 @@ export const buildBookPageModel = (
       title: getBookTitle(book),
       tome: getBookTome(book),
       series: getBookSeries(book),
-      genres: heroGenres.genres,
-      hiddenGenresCount: heroGenres.hiddenGenresCount,
+      // The series already has its own pill.
+      genres: getBookGenres(book).filter(
+        (genre) => genre.toLowerCase() !== getBookSeries(book).toLowerCase(),
+      ),
       editions,
       initialEdition,
       ctas: initialEdition?.ctas ?? [],

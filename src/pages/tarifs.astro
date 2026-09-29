@@ -13,6 +13,12 @@ const contact = {
   shopUrl: "https://vanyastolarski.sumupstore.com/",
 };
 
+const getQuoteSubject = (serviceName?: string) =>
+  serviceName ? `Demande de devis - ${serviceName}` : "Demande de devis";
+
+const getQuoteMailto = (serviceName?: string) =>
+  `mailto:${contact.email}?subject=${encodeURIComponent(getQuoteSubject(serviceName))}`;
+
 const commitments = [
   {
     title: "Univers ciblés",
@@ -232,7 +238,7 @@ const getServiceGalleryCardWidth = (src: string) => {
         >
           <div class="space-y-6">
             <span
-              class="inline-flex rounded-full border border-[#FFFAFA]/10 bg-[#FFFAFA] px-4 py-2 font-sans text-[10px] font-bold tracking-[0.25em] text-[#3d3834] uppercase"
+              class="inline-flex rounded-md border border-[#FFFAFA]/16 bg-[#FFFAFA] px-4 py-2 font-sans text-[10px] font-bold tracking-[0.25em] text-[#3d3834] uppercase"
             >
               Tarifs
             </span>
@@ -248,7 +254,7 @@ const getServiceGalleryCardWidth = (src: string) => {
             <div class="flex flex-wrap gap-3 pt-2">
               <a
                 href="#services"
-                class="inline-flex items-center gap-3 rounded-full bg-[#3a4d45] px-7 py-4 font-sans text-[11px] font-bold tracking-[0.25em] text-[#FFFAFA] uppercase transition-all duration-300 hover:bg-[#FFFAFA] hover:text-[#3d3834]"
+                class="inline-flex items-center gap-3 rounded-lg bg-[#3a4d45] px-7 py-4 font-sans text-[11px] font-bold tracking-[0.25em] text-[#FFFAFA] uppercase transition-all duration-300 hover:bg-[#FFFAFA] hover:text-[#3d3834]"
               >
                 Voir les tarifs
               </a>
@@ -256,13 +262,14 @@ const getServiceGalleryCardWidth = (src: string) => {
                 href={contact.shopUrl}
                 target="_blank"
                 rel="noreferrer"
-                class="inline-flex items-center gap-3 rounded-full border border-[#FFFAFA]/12 bg-transparent px-7 py-4 font-sans text-[11px] font-bold tracking-[0.25em] text-[#FFFAFA] uppercase transition-all duration-300 hover:border-[#FFFAFA] hover:bg-[#FFFAFA] hover:text-[#3d3834]"
+                class="inline-flex items-center gap-3 rounded-lg border border-[#FFFAFA]/16 bg-transparent px-7 py-4 font-sans text-[11px] font-bold tracking-[0.25em] text-[#FFFAFA] uppercase transition-all duration-300 hover:border-[#FFFAFA] hover:bg-[#FFFAFA] hover:text-[#3d3834]"
               >
                 Boutique SumUp
               </a>
               <a
-                href={`mailto:${contact.email}`}
-                class="inline-flex items-center gap-3 rounded-full border border-[#FFFAFA]/12 bg-[#FFFAFA] px-7 py-4 font-sans text-[11px] font-bold tracking-[0.25em] text-[#3d3834] uppercase transition-all duration-300 hover:border-[#3a4d45]/40 hover:bg-[#FFFAFA]"
+                href={getQuoteMailto()}
+                data-quote-trigger
+                class="inline-flex items-center gap-3 rounded-lg border border-[#FFFAFA]/16 bg-[#FFFAFA] px-7 py-4 font-sans text-[11px] font-bold tracking-[0.25em] text-[#3d3834] uppercase transition-all duration-300 hover:border-[#3a4d45] hover:bg-[#3a4d45] hover:text-[#FFFAFA]"
               >
                 Demander un devis
               </a>
@@ -270,7 +277,7 @@ const getServiceGalleryCardWidth = (src: string) => {
           </div>
 
           <div
-            class="section-panel fade-up rounded-lg border border-[#FFFAFA]/10 bg-[#FFFAFA] p-8 backdrop-blur-sm"
+            class="section-panel fade-up rounded-lg border border-[#FFFAFA]/16 bg-[#FFFAFA] p-8 backdrop-blur-sm"
           >
             <div
               class="grid gap-6 sm:grid-cols-3 md:grid-cols-1 xl:grid-cols-3"
@@ -304,7 +311,7 @@ const getServiceGalleryCardWidth = (src: string) => {
             </div>
 
             <div
-              class="mt-8 rounded-lg border border-[#FFFAFA]/10 bg-[#FFFAFA] p-6"
+              class="mt-8 rounded-lg border border-[#FFFAFA]/16 bg-[#FFFAFA] p-6"
             >
               <p
                 class="font-sans text-[10px] font-bold tracking-[0.3em] text-[#3a4d45] uppercase"
@@ -367,7 +374,7 @@ const getServiceGalleryCardWidth = (src: string) => {
             services.map((service) => (
               <section class="section-panel fade-up space-y-7 overflow-hidden rounded-lg bg-[#fffdfa] p-6 md:p-8 xl:p-10">
                 {/* ── En-tête service ── */}
-                <div class="flex flex-wrap items-start justify-between gap-5 border-b border-[#3d3834]/8 pb-6">
+                <div class="flex flex-wrap items-start justify-between gap-5 border-b border-[#3d3834]/14 pb-6">
                   <div class="space-y-2.5">
                     <p class="font-sans text-[10px] font-bold tracking-[0.34em] text-[#3a4d45] uppercase">
                       {service.eyebrow}
@@ -376,16 +383,18 @@ const getServiceGalleryCardWidth = (src: string) => {
                       {service.name}
                     </h3>
                   </div>
-                  <div class="flex items-center gap-3 pt-1">
+                  <div class="flex flex-wrap items-center gap-3 pt-1">
                     <span
-                      class="whitespace-nowrap rounded-full px-5 py-2.5 font-sans text-[11px] font-extrabold tracking-[0.16em] uppercase shadow-[0_10px_24px_rgba(61,56,52,0.18)] ring-1 ring-[#FFFAFA]/18 md:text-xs"
+                      class="whitespace-nowrap rounded-md px-5 py-2.5 font-sans text-[11px] font-extrabold tracking-[0.16em] uppercase shadow-[0_10px_24px_rgba(61,56,52,0.18)] ring-1 ring-[#FFFAFA]/18 md:text-xs"
                       style={`background:${service.accent}; color:#FFFAFA;`}
                     >
                       {service.price}
                     </span>
                     <a
-                      href={`mailto:${contact.email}`}
-                      class="inline-flex w-full items-center gap-2 rounded-full border border-[#3d3834]/10 bg-[#FFFAFA] px-4 py-2 font-sans text-[10px] font-bold tracking-[0.2em] text-[#3d3834] uppercase transition-all duration-300 hover:border-[#3a4d45]/35 hover:bg-[#3a4d45] hover:text-[#FFFAFA]"
+                      href={getQuoteMailto(service.name)}
+                      data-quote-trigger
+                      data-quote-service={service.name}
+                      class="inline-flex items-center gap-2 whitespace-nowrap rounded-md border border-[#3d3834]/14 bg-[#FFFAFA] px-4 py-2 font-sans text-[10px] font-bold tracking-[0.2em] text-[#3d3834] uppercase transition-all duration-300 hover:border-[#3a4d45]/40 hover:bg-[#3a4d45] hover:text-[#FFFAFA]"
                     >
                       Demander un devis
                     </a>
@@ -396,11 +405,11 @@ const getServiceGalleryCardWidth = (src: string) => {
                 <div class="service-gallery space-y-4" data-service-gallery-root>
                   <div class="flex flex-wrap items-center justify-between gap-3">
                     <div class="flex items-center gap-3">
-                      <span class="inline-flex rounded-full border border-[#3d3834]/8 bg-[#fffaf8] px-3 py-1.5 font-sans text-[9px] font-bold tracking-[0.18em] text-[#3d3834]/66 uppercase">
+                      <span class="inline-flex rounded-md border border-[#3d3834]/14 bg-[#fffaf8] px-3 py-1.5 font-sans text-[9px] font-bold tracking-[0.18em] text-[#3d3834]/72 uppercase">
                         {service.gallery.length} visuels
                       </span>
                     </div>
-                    <span class="inline-flex items-center gap-2 rounded-full border border-[#3d3834]/8 bg-[#fffaf8] px-3 py-1.5 font-sans text-[9px] font-bold tracking-[0.2em] text-[#3d3834]/62 uppercase">
+                    <span class="inline-flex items-center gap-2 rounded-md border border-[#3d3834]/14 bg-[#fffaf8] px-3 py-1.5 font-sans text-[9px] font-bold tracking-[0.2em] text-[#3d3834]/72 uppercase">
                       <span aria-hidden="true" class="text-sm leading-none text-[#3a4d45]">←</span>
                       Faire défiler
                       <span aria-hidden="true" class="text-sm leading-none text-[#3a4d45]">→</span>
@@ -436,19 +445,19 @@ const getServiceGalleryCardWidth = (src: string) => {
                             aria-label={`Voir ${img.label} en grand`}
                           >
                             <div
-                              class="relative flex h-[18rem] items-center justify-center overflow-hidden rounded-lg border border-[#3d3834]/8 bg-[linear-gradient(180deg,#fffdfa_0%,#f2e9e4_100%)] p-3 transition-all duration-500 sm:h-[21rem] sm:p-4 md:h-[24rem] lg:h-[27rem]"
+                              class="relative flex h-[18rem] items-center justify-center overflow-hidden rounded-lg border border-[#3d3834]/14 bg-[linear-gradient(180deg,#fffdfa_0%,#f2e9e4_100%)] p-3 transition-all duration-500 sm:h-[21rem] sm:p-4 md:h-[24rem] lg:h-[27rem]"
                             >
                               <Image
                                 src={img.src}
                                 alt={img.alt}
                                 width={serviceImageDimensions[img.src]?.width ?? getImageDimensions(img.src, img).width}
                                 height={serviceImageDimensions[img.src]?.height ?? getImageDimensions(img.src, img).height}
-                                class="h-full w-full rounded-lg object-contain transition-transform duration-500 group-hover:scale-[1.02]"
+                                class="h-full w-full rounded-md object-contain transition-transform duration-500 group-hover:scale-[1.02]"
                                 loading={i === 0 ? "eager" : "lazy"}
                                 decoding="async"
                                 sizes="(min-width: 1024px) 42vw, 90vw"
                               />
-                              <span class="absolute bottom-4 left-4 inline-flex rounded-full border border-[#FFFAFA]/20 bg-[#3d3834]/78 px-3 py-1.5 font-sans text-[9px] font-bold tracking-[0.22em] text-[#FFFAFA] uppercase backdrop-blur-sm">
+                              <span class="absolute bottom-4 left-4 inline-flex rounded-md border border-[#FFFAFA]/20 bg-[#3d3834]/78 px-3 py-1.5 font-sans text-[9px] font-bold tracking-[0.22em] text-[#FFFAFA] uppercase backdrop-blur-sm">
                                 {img.label}
                               </span>
                             </div>
@@ -458,7 +467,7 @@ const getServiceGalleryCardWidth = (src: string) => {
                     </div>
 
                     <div class="pointer-events-none mt-2 flex items-center gap-3 px-2 md:hidden">
-                      <span class="font-sans text-[9px] font-bold tracking-[0.2em] text-[#3d3834]/48 uppercase">
+                      <span class="font-sans text-[9px] font-bold tracking-[0.2em] text-[#3d3834]/72 uppercase">
                         Glisser
                       </span>
                       <div class="relative h-px flex-1 overflow-hidden rounded-full bg-[#3d3834]/10">
@@ -472,38 +481,38 @@ const getServiceGalleryCardWidth = (src: string) => {
                 </div>
 
                 {/* ── Infos compactes ── */}
-                <div class="grid gap-6 border-t border-[#3d3834]/8 pt-6 lg:grid-cols-[minmax(0,1.15fr)_minmax(18rem,0.85fr)] lg:items-start lg:gap-8">
+                <div class="grid gap-6 border-t border-[#3d3834]/14 pt-6 lg:grid-cols-[minmax(0,1.15fr)_minmax(18rem,0.85fr)] lg:items-start lg:gap-8">
                   <div class="space-y-4">
                     <p class="max-w-2xl font-sans text-[0.98rem] leading-8 text-[#3d3834]/72">
                       {service.description}
                     </p>
                     <div class="flex flex-wrap gap-2">
                       {service.tags.map((tag) => (
-                        <span class="rounded-full border border-[#3d3834]/8 bg-[#fffaf8] px-3 py-1 font-sans text-[9px] font-bold tracking-[0.16em] text-[#3d3834]/70 uppercase">
+                        <span class="rounded-md border border-[#3d3834]/14 bg-[#fffaf8] px-3 py-1 font-sans text-[9px] font-bold tracking-[0.16em] text-[#3d3834]/72 uppercase">
                           {tag}
                         </span>
                       ))}
                     </div>
                   </div>
                   <div class="grid gap-3 sm:grid-cols-3 lg:grid-cols-1 xl:grid-cols-3">
-                    <div class="rounded-lg border border-[#3d3834]/8 bg-[#fffaf8] px-4 py-4">
-                      <p class="font-sans text-[9px] font-bold tracking-[0.2em] text-[#3d3834]/50 uppercase">
+                    <div class="rounded-lg border border-[#3d3834]/14 bg-[#fffaf8] px-4 py-4">
+                      <p class="font-sans text-[9px] font-bold tracking-[0.2em] text-[#3d3834]/72 uppercase">
                         Format
                       </p>
                       <p class="mt-2 font-serif text-[1.35rem] leading-tight text-[#3d3834]">
                         {service.format}
                       </p>
                     </div>
-                    <div class="rounded-lg border border-[#3d3834]/8 bg-[#fffaf8] px-4 py-4">
-                      <p class="font-sans text-[9px] font-bold tracking-[0.2em] text-[#3d3834]/50 uppercase">
+                    <div class="rounded-lg border border-[#3d3834]/14 bg-[#fffaf8] px-4 py-4">
+                      <p class="font-sans text-[9px] font-bold tracking-[0.2em] text-[#3d3834]/72 uppercase">
                         Adapté à
                       </p>
                       <p class="mt-2 font-serif text-[1.35rem] leading-tight text-[#3d3834]">
                         {service.universe}
                       </p>
                     </div>
-                    <div class="rounded-lg border border-[#3d3834]/8 bg-[#fffaf8] px-4 py-4">
-                      <p class="font-sans text-[9px] font-bold tracking-[0.2em] text-[#3d3834]/50 uppercase">
+                    <div class="rounded-lg border border-[#3d3834]/14 bg-[#fffaf8] px-4 py-4">
+                      <p class="font-sans text-[9px] font-bold tracking-[0.2em] text-[#3d3834]/72 uppercase">
                         Focus
                       </p>
                       <p class="mt-2 font-serif text-[1.35rem] leading-tight text-[#3d3834]">
@@ -528,11 +537,11 @@ const getServiceGalleryCardWidth = (src: string) => {
       aria-hidden="true"
     >
       <div data-service-gallery-close class="absolute inset-0"></div>
-      <div class="relative z-10 my-auto w-full max-w-[min(96vw,1380px)] overflow-hidden rounded-lg border border-[#FFFAFA]/10 bg-[#FFFAFA] shadow-[0_35px_120px_-50px_rgba(61,56,52,0.6)] lg:max-h-[92vh]">
+      <div class="relative z-10 my-auto w-full max-w-[min(96vw,1380px)] overflow-hidden rounded-lg border border-[#FFFAFA]/16 bg-[#FFFAFA] shadow-[0_35px_120px_-50px_rgba(61,56,52,0.6)] lg:max-h-[92vh]">
         <button
           type="button"
           id="service-gallery-modal-close"
-          class="absolute top-4 right-4 z-20 inline-flex h-11 w-11 items-center justify-center rounded-full border border-[#3d3834]/10 bg-[#FFFAFA]/92 font-sans text-xs font-bold tracking-[0.2em] text-[#3d3834] uppercase shadow-[0_10px_30px_-24px_rgba(61,56,52,0.55)] transition-all duration-300 hover:border-[#3a4d45]/30 hover:bg-[#3a4d45] hover:text-[#FFFAFA]"
+          class="absolute top-4 right-4 z-20 inline-flex h-11 w-11 items-center justify-center rounded-lg border border-[#3d3834]/14 bg-[#FFFAFA]/92 font-sans text-xs font-bold tracking-[0.2em] text-[#3d3834] uppercase shadow-[0_10px_30px_-24px_rgba(61,56,52,0.55)] transition-all duration-300 hover:border-[#3a4d45]/40 hover:bg-[#3a4d45] hover:text-[#FFFAFA]"
           aria-label="Fermer la popup"
         >
           X
@@ -545,12 +554,12 @@ const getServiceGalleryCardWidth = (src: string) => {
               <button
                 type="button"
                 id="service-gallery-modal-prev"
-                class="absolute left-0 top-1/2 z-10 inline-flex h-11 w-11 items-center justify-center rounded-full border border-[#FFFAFA]/14 bg-[#FFFAFA]/10 font-sans text-lg text-[#FFFAFA] backdrop-blur-sm transition-all duration-300 hover:bg-[#FFFAFA] hover:text-[#3d3834] disabled:pointer-events-none disabled:opacity-30"
+                class="absolute left-0 top-1/2 z-10 inline-flex h-11 w-11 items-center justify-center rounded-lg border border-[#FFFAFA]/16 bg-[#FFFAFA]/10 font-sans text-lg text-[#FFFAFA] backdrop-blur-sm transition-all duration-300 hover:bg-[#FFFAFA] hover:text-[#3d3834] disabled:pointer-events-none disabled:opacity-30"
                 aria-label="Image précédente"
               >
                 ‹
               </button>
-              <div class="relative inline-flex max-h-[78vh] w-full max-w-full items-center justify-center overflow-hidden rounded-lg border border-[#FFFAFA]/8 bg-[#312d2a] p-3 shadow-[0_24px_60px_-45px_rgba(61,56,52,0.45)] md:p-4">
+              <div class="relative inline-flex max-h-[78vh] w-full max-w-full items-center justify-center overflow-hidden rounded-lg">
                 {
                   firstServiceImage && (
                     <Image
@@ -569,7 +578,7 @@ const getServiceGalleryCardWidth = (src: string) => {
               <button
                 type="button"
                 id="service-gallery-modal-next"
-                class="absolute right-0 top-1/2 z-10 inline-flex h-11 w-11  items-center justify-center rounded-full border border-[#FFFAFA]/14 bg-[#FFFAFA]/10 font-sans text-lg text-[#FFFAFA] backdrop-blur-sm transition-all duration-300 hover:bg-[#FFFAFA] hover:text-[#3d3834] disabled:pointer-events-none disabled:opacity-30"
+                class="absolute right-0 top-1/2 z-10 inline-flex h-11 w-11  items-center justify-center rounded-lg border border-[#FFFAFA]/16 bg-[#FFFAFA]/10 font-sans text-lg text-[#FFFAFA] backdrop-blur-sm transition-all duration-300 hover:bg-[#FFFAFA] hover:text-[#3d3834] disabled:pointer-events-none disabled:opacity-30"
                 aria-label="Image suivante"
               >
                 ›
@@ -582,41 +591,41 @@ const getServiceGalleryCardWidth = (src: string) => {
               <div class="space-y-4">
                 <div class="flex flex-wrap items-center gap-2.5">
                   <p id="service-gallery-modal-eyebrow" class="font-sans text-[10px] font-bold tracking-[0.3em] text-[#3a4d45] uppercase"></p>
-                  <span id="service-gallery-modal-price" class="inline-flex rounded-full border border-[#3d3834]/10 bg-[#fffaf8] px-3 py-1.5 font-sans text-[9px] font-bold tracking-[0.22em] text-[#3d3834]/70 uppercase"></span>
+                  <span id="service-gallery-modal-price" class="inline-flex rounded-md border border-[#3d3834]/14 bg-[#fffaf8] px-3 py-1.5 font-sans text-[9px] font-bold tracking-[0.22em] text-[#3d3834]/72 uppercase"></span>
                 </div>
                 <div>
                   <h2 id="service-gallery-modal-title" class="font-serif text-3xl leading-none text-[#3d3834] text-balance md:text-4xl"></h2>
-                  <p id="service-gallery-modal-service" class="mt-3 font-sans text-sm font-bold tracking-[0.2em] text-[#3d3834]/56 uppercase"></p>
+                  <p id="service-gallery-modal-service" class="mt-3 font-sans text-sm font-bold tracking-[0.2em] text-[#3d3834]/72 uppercase"></p>
                   <p id="service-gallery-modal-description" class="mt-4 font-sans text-sm leading-relaxed text-[#3d3834]/78 md:text-base"></p>
                 </div>
               </div>
 
-              <div class="rounded-lg border border-[#3d3834]/10 bg-[#fffaf8] p-5">
-                <p class="font-sans text-[10px] font-bold tracking-[0.22em] text-[#3d3834]/58 uppercase">
+              <div class="rounded-lg border border-[#3d3834]/14 bg-[#fffaf8] p-5">
+                <p class="font-sans text-[10px] font-bold tracking-[0.22em] text-[#3d3834]/72 uppercase">
                   Détails
                 </p>
                 <dl class="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-1">
                   <div class="space-y-1">
-                    <dt class="font-sans text-[10px] font-bold tracking-[0.22em] text-[#3d3834]/55 uppercase">Format</dt>
+                    <dt class="font-sans text-[10px] font-bold tracking-[0.22em] text-[#3d3834]/72 uppercase">Format</dt>
                     <dd id="service-gallery-modal-format" class="font-serif text-[1.45rem] leading-tight text-[#3d3834] break-words"></dd>
                   </div>
                   <div class="space-y-1">
-                    <dt class="font-sans text-[10px] font-bold tracking-[0.22em] text-[#3d3834]/55 uppercase">Adapté à</dt>
+                    <dt class="font-sans text-[10px] font-bold tracking-[0.22em] text-[#3d3834]/72 uppercase">Adapté à</dt>
                     <dd id="service-gallery-modal-universe" class="font-serif text-[1.45rem] leading-tight text-[#3d3834] break-words"></dd>
                   </div>
                   <div class="space-y-1">
-                    <dt class="font-sans text-[10px] font-bold tracking-[0.22em] text-[#3d3834]/55 uppercase">Focus</dt>
+                    <dt class="font-sans text-[10px] font-bold tracking-[0.22em] text-[#3d3834]/72 uppercase">Focus</dt>
                     <dd id="service-gallery-modal-focus" class="font-serif text-[1.45rem] leading-tight text-[#3d3834] break-words"></dd>
                   </div>
                   <div class="space-y-1">
-                    <dt class="font-sans text-[10px] font-bold tracking-[0.22em] text-[#3d3834]/55 uppercase">Dimensions</dt>
+                    <dt class="font-sans text-[10px] font-bold tracking-[0.22em] text-[#3d3834]/72 uppercase">Dimensions</dt>
                     <dd id="service-gallery-modal-dimensions" class="font-serif text-[1.35rem] leading-tight text-[#3d3834]"></dd>
                   </div>
                 </dl>
               </div>
 
-              <div class="rounded-lg border border-[#3d3834]/10 bg-[#FFFAFA] p-5">
-                <p class="font-sans text-[10px] font-bold tracking-[0.22em] text-[#3d3834]/58 uppercase">
+              <div class="rounded-lg border border-[#3d3834]/14 bg-[#FFFAFA] p-5">
+                <p class="font-sans text-[10px] font-bold tracking-[0.22em] text-[#3d3834]/72 uppercase">
                   Note visuelle
                 </p>
                 <p id="service-gallery-modal-alt" class="mt-3 font-sans text-sm leading-relaxed text-[#3d3834]/78 md:text-[0.95rem]"></p>
@@ -627,14 +636,80 @@ const getServiceGalleryCardWidth = (src: string) => {
       </div>
     </div>
 
+    <dialog
+      id="quote-dialog"
+      class="m-auto w-[min(92vw,30rem)] rounded-lg border border-[#3d3834]/14 bg-[#FFFAFA] p-0 text-[#3d3834] shadow-[0_35px_120px_-50px_rgba(61,56,52,0.6)] backdrop:bg-[#3d3834]/74"
+      aria-labelledby="quote-dialog-title"
+      data-email={contact.email}
+    >
+      <div class="relative space-y-6 p-7 md:p-8">
+        <button
+          type="button"
+          data-quote-close
+          class="absolute top-4 right-4 inline-flex h-10 w-10 items-center justify-center rounded-md border border-[#3d3834]/14 bg-[#FFFAFA] font-sans text-xs font-bold text-[#3d3834] transition-all duration-300 hover:border-[#3a4d45]/40 hover:bg-[#3a4d45] hover:text-[#FFFAFA]"
+          aria-label="Fermer"
+        >
+          X
+        </button>
+
+        <div class="space-y-3 pr-10">
+          <p class="font-sans text-[10px] font-bold tracking-[0.3em] text-[#3a4d45] uppercase">
+            Demander un devis
+          </p>
+          <h2 id="quote-dialog-title" class="font-serif text-3xl leading-none text-balance">
+            Écris-moi pour en parler
+          </h2>
+          <p id="quote-dialog-service" class="hidden font-sans text-sm text-[#3d3834]/72"></p>
+        </div>
+
+        <div class="flex items-center justify-between gap-3 rounded-lg border border-[#3d3834]/14 bg-[#fffdfa] px-4 py-3">
+          <span class="truncate font-sans text-sm font-semibold">{contact.email}</span>
+          <button
+            type="button"
+            data-quote-copy
+            class="shrink-0 rounded-md border border-[#3d3834]/14 px-3 py-1.5 font-sans text-[9px] font-bold tracking-[0.18em] uppercase transition-all duration-300 hover:border-[#3a4d45]/40 hover:bg-[#3a4d45] hover:text-[#FFFAFA]"
+          >
+            Copier
+          </button>
+        </div>
+
+        <div class="grid gap-3">
+          <a
+            href={getQuoteMailto()}
+            data-quote-mailto
+            class="inline-flex items-center justify-center rounded-lg bg-[#3a4d45] px-6 py-3.5 font-sans text-[10px] font-bold tracking-[0.22em] text-[#FFFAFA] uppercase transition-all duration-300 hover:bg-[#3d3834]"
+          >
+            Ouvrir ma messagerie
+          </a>
+          <a
+            href="#"
+            data-quote-gmail
+            target="_blank"
+            rel="noreferrer"
+            class="inline-flex items-center justify-center rounded-lg border border-[#3d3834]/14 bg-[#FFFAFA] px-6 py-3.5 font-sans text-[10px] font-bold tracking-[0.22em] text-[#3d3834] uppercase transition-all duration-300 hover:border-[#3a4d45]/40 hover:bg-[#3a4d45] hover:text-[#FFFAFA]"
+          >
+            Écrire depuis Gmail
+          </a>
+          <a
+            href={contact.instagramUrl}
+            target="_blank"
+            rel="noreferrer"
+            class="inline-flex items-center justify-center rounded-lg border border-[#3d3834]/14 bg-[#FFFAFA] px-6 py-3.5 font-sans text-[10px] font-bold tracking-[0.22em] text-[#3d3834] uppercase transition-all duration-300 hover:border-[#3a4d45]/40 hover:bg-[#3a4d45] hover:text-[#FFFAFA]"
+          >
+            Écrire sur Instagram
+          </a>
+        </div>
+      </div>
+    </dialog>
+
     <!-- ─── PROCESSUS & ENGAGEMENTS ─── -->
     <section class="relative overflow-hidden bg-[#FFFAFA] px-6 py-24">
       <div class="site-shell relative grid gap-8 xl:grid-cols-[minmax(0,1.04fr)_minmax(23rem,0.96fr)] xl:items-start">
         <div
-          class="section-panel fade-up overflow-hidden rounded-lg border border-[#3d3834]/10 bg-[linear-gradient(180deg,#4b443f_0%,#3d3834_100%)] p-8 text-[#FFFAFA] shadow-[0_30px_90px_-52px_rgba(61,56,52,0.46)] md:p-10 xl:p-12"
+          class="section-panel fade-up overflow-hidden rounded-lg border border-[#3d3834]/14 bg-[linear-gradient(180deg,#4b443f_0%,#3d3834_100%)] p-8 text-[#FFFAFA] shadow-[0_30px_90px_-52px_rgba(61,56,52,0.46)] md:p-10 xl:p-12"
         >
           <p
-            class="font-sans text-[10px] font-bold tracking-[0.35em] text-[#6f9184] uppercase"
+            class="font-sans text-[10px] font-bold tracking-[0.35em] text-[#9bb9ad] uppercase"
           >
             Comment ça se passe
           </p>
@@ -650,11 +725,11 @@ const getServiceGalleryCardWidth = (src: string) => {
             visuel final soit cohérent avec ton univers de livre.
           </p>
 
-          <div class="mt-10 space-y-3 border-t border-[#FFFAFA]/10 pt-8 md:mt-12 md:pt-9">
+          <div class="mt-10 space-y-3 border-t border-[#FFFAFA]/16 pt-8 md:mt-12 md:pt-9">
             {
               process.map((item) => (
-                <div class="grid gap-4 rounded-lg border border-[#FFFAFA]/10 bg-[#FFFAFA]/[0.04] px-4 py-4 md:grid-cols-[auto_1fr] md:items-start md:px-5">
-                  <span class="inline-flex h-12 w-12 items-center justify-center rounded-full border border-[#6f9184]/35 bg-[#6f9184]/10 font-serif text-2xl text-[#6f9184]">
+                <div class="grid gap-4 rounded-lg border border-[#FFFAFA]/16 bg-[#FFFAFA]/[0.04] px-4 py-4 md:grid-cols-[auto_1fr] md:items-start md:px-5">
+                  <span class="inline-flex h-12 w-12 items-center justify-center rounded-full border border-[#9bb9ad]/35 bg-[#9bb9ad]/10 font-serif text-2xl text-[#9bb9ad]">
                     {item.step}
                   </span>
                   <div class="space-y-2">
@@ -679,7 +754,7 @@ const getServiceGalleryCardWidth = (src: string) => {
                   "section-panel fade-up flex h-full flex-col rounded-lg border p-7 shadow-[0_20px_70px_-45px_rgba(61,56,52,0.28)] backdrop-blur-sm md:p-8",
                   index === 2
                     ? "border-[#3a4d45]/14 bg-[linear-gradient(180deg,#f6efe9_0%,#fffaf8_100%)] md:col-span-2"
-                    : "border-[#3d3834]/10 bg-[#FFFAFA]",
+                    : "border-[#3d3834]/14 bg-[#FFFAFA]",
                 ]}
               >
                 <p class="font-sans text-[10px] font-bold tracking-[0.28em] text-[#3a4d45]/92 uppercase">
@@ -695,7 +770,7 @@ const getServiceGalleryCardWidth = (src: string) => {
                   item.actionLabel && item.actionHref && (
                     <a
                       href={item.actionHref}
-                      class="mt-auto inline-flex w-fit items-center gap-3 rounded-full border border-[#3a4d45]/14 bg-[#FFFAFA] px-5 py-3.5 font-sans text-[11px] font-bold tracking-[0.18em] text-[#3d3834] uppercase shadow-[0_14px_34px_-26px_rgba(61,56,52,0.35)] transition-all duration-300 hover:border-[#3a4d45]/30 hover:bg-[#3a4d45] hover:text-[#FFFAFA]"
+                      class="mt-auto inline-flex w-fit items-center gap-3 rounded-lg border border-[#3a4d45]/14 bg-[#FFFAFA] px-5 py-3.5 font-sans text-[11px] font-bold tracking-[0.18em] text-[#3d3834] uppercase shadow-[0_14px_34px_-26px_rgba(61,56,52,0.35)] transition-all duration-300 hover:border-[#3a4d45]/40 hover:bg-[#3a4d45] hover:text-[#FFFAFA]"
                     >
                       {item.actionLabel}
                     </a>
@@ -712,12 +787,12 @@ const getServiceGalleryCardWidth = (src: string) => {
     <section class="relative overflow-hidden bg-[#FFFAFA] px-6 py-24">
       <div class="site-shell relative mt-20">
         <div
-          class="section-panel fade-up rounded-lg border border-[#3d3834]/10 bg-[#3d3834] px-8 py-10 text-[#FFFAFA] shadow-[0_26px_90px_-55px_rgba(61,56,52,0.45)] md:px-10 md:py-12"
+          class="section-panel fade-up rounded-lg border border-[#3d3834]/14 bg-[#3d3834] px-8 py-10 text-[#FFFAFA] shadow-[0_26px_90px_-55px_rgba(61,56,52,0.45)] md:px-10 md:py-12"
         >
           <div class="grid gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-end">
             <div>
               <p
-                class="font-sans text-[10px] font-bold tracking-[0.35em] text-[#3a4d45] uppercase"
+                class="font-sans text-[10px] font-bold tracking-[0.35em] text-[#9bb9ad] uppercase"
               >
                 Demande personnalisée
               </p>
@@ -735,8 +810,9 @@ const getServiceGalleryCardWidth = (src: string) => {
 
             <div class="flex flex-wrap gap-3 lg:justify-end">
               <a
-                href={`mailto:${contact.email}`}
-                class="inline-flex items-center gap-3 rounded-full bg-[#3a4d45] px-7 py-4 font-sans text-[11px] font-bold tracking-[0.25em] text-[#FFFAFA] uppercase transition-all duration-300 hover:bg-[#FFFAFA] hover:text-[#3d3834]"
+                href={getQuoteMailto()}
+                data-quote-trigger
+                class="inline-flex items-center gap-3 rounded-lg bg-[#3a4d45] px-7 py-4 font-sans text-[11px] font-bold tracking-[0.25em] text-[#FFFAFA] uppercase transition-all duration-300 hover:bg-[#FFFAFA] hover:text-[#3d3834]"
               >
                 Envoyer un mail
               </a>
@@ -744,7 +820,7 @@ const getServiceGalleryCardWidth = (src: string) => {
                 href={contact.instagramUrl}
                 target="_blank"
                 rel="noreferrer"
-                class="inline-flex items-center gap-3 rounded-full border border-[#FFFAFA]/12 bg-[#FFFAFA] px-7 py-4 font-sans text-[11px] font-bold tracking-[0.25em] text-[#3d3834] uppercase transition-all duration-300 hover:bg-[#FFFAFA]"
+                class="inline-flex items-center gap-3 rounded-lg border border-[#FFFAFA]/16 bg-[#FFFAFA] px-7 py-4 font-sans text-[11px] font-bold tracking-[0.25em] text-[#3d3834] uppercase transition-all duration-300 hover:border-[#3a4d45] hover:bg-[#3a4d45] hover:text-[#FFFAFA]"
               >
                 Ouvrir Instagram
               </a>
@@ -1087,4 +1163,67 @@ const getServiceGalleryCardWidth = (src: string) => {
       true
     );
   });
+
+  // mailto: links do nothing when no mail client is configured, so offer
+  // webmail, copy and Instagram alternatives in a dialog.
+  const quoteDialog = document.getElementById("quote-dialog");
+
+  if (quoteDialog instanceof HTMLDialogElement) {
+    const quoteEmail = quoteDialog.dataset.email ?? "";
+    const quoteService = document.getElementById("quote-dialog-service");
+    const quoteMailto = quoteDialog.querySelector<HTMLAnchorElement>("[data-quote-mailto]");
+    const quoteGmail = quoteDialog.querySelector<HTMLAnchorElement>("[data-quote-gmail]");
+    const quoteCopy = quoteDialog.querySelector<HTMLButtonElement>("[data-quote-copy]");
+
+    const openQuoteDialog = (serviceName?: string) => {
+      const subject = serviceName
+        ? `Demande de devis - ${serviceName}`
+        : "Demande de devis";
+
+      if (quoteService) {
+        quoteService.textContent = serviceName ? `Prestation : ${serviceName}` : "";
+        quoteService.classList.toggle("hidden", !serviceName);
+      }
+
+      if (quoteMailto) {
+        quoteMailto.href = `mailto:${quoteEmail}?subject=${encodeURIComponent(subject)}`;
+      }
+
+      if (quoteGmail) {
+        quoteGmail.href = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(quoteEmail)}&su=${encodeURIComponent(subject)}`;
+      }
+
+      if (quoteCopy) {
+        quoteCopy.textContent = "Copier";
+      }
+
+      quoteDialog.showModal();
+    };
+
+    document.querySelectorAll<HTMLAnchorElement>("[data-quote-trigger]").forEach((trigger) => {
+      trigger.addEventListener("click", (event) => {
+        event.preventDefault();
+        openQuoteDialog(trigger.dataset.quoteService);
+      });
+    });
+
+    quoteDialog.querySelectorAll("[data-quote-close]").forEach((button) => {
+      button.addEventListener("click", () => quoteDialog.close());
+    });
+
+    quoteDialog.addEventListener("click", (event) => {
+      if (event.target === quoteDialog) {
+        quoteDialog.close();
+      }
+    });
+
+    quoteCopy?.addEventListener("click", async () => {
+      try {
+        await navigator.clipboard.writeText(quoteEmail);
+        quoteCopy.textContent = "Copié";
+      } catch {
+        quoteCopy.textContent = "Échec";
+      }
+    });
+  }
 </script>

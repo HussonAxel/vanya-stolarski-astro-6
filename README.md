@@ -42,7 +42,6 @@ Configuration :
 
 1. Copier `.env.example` en `.env`.
 2. Renseigner `ULULE_PROJECT_ID` avec l’identifiant du projet Ulule.
-3. Optionnel : ajuster `ULULE_SECONDARY_HREF` et `ULULE_SECONDARY_LABEL`.
 
 Notes techniques :
 

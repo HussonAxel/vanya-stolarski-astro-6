@@ -440,8 +440,8 @@ const getServiceGalleryCardWidth = (src: string) => {
                             data-format={service.format}
                             data-universe={service.universe}
                             data-focus={service.focus}
-                            data-width={serviceImageDimensions[img.src]?.width}
-                            data-height={serviceImageDimensions[img.src]?.height}
+                            data-width={serviceImageDimensions[img.src]?.width ?? img.width}
+                            data-height={serviceImageDimensions[img.src]?.height ?? img.height}
                             aria-label={`Voir ${img.label} en grand`}
                           >
                             <div
@@ -953,8 +953,14 @@ const getServiceGalleryCardWidth = (src: string) => {
 
     serviceGalleryModalImage.src = trigger.dataset.image ?? "";
     serviceGalleryModalImage.alt = trigger.dataset.alt ?? "";
-    serviceGalleryModalImage.width = width || 0;
-    serviceGalleryModalImage.height = height || 0;
+    // A 0 width/height attribute collapses the image, so drop unknown sizes.
+    if (width && height) {
+      serviceGalleryModalImage.width = width;
+      serviceGalleryModalImage.height = height;
+    } else {
+      serviceGalleryModalImage.removeAttribute("width");
+      serviceGalleryModalImage.removeAttribute("height");
+    }
 
     serviceGalleryModalTitle.textContent = trigger.dataset.title ?? "";
     serviceGalleryModalService.textContent = trigger.dataset.service ?? "";

@@ -34,6 +34,19 @@ Le site garde un fallback sur les fichiers locaux tant qu’aucun projet Sanity 
 
 Les tokens ne doivent jamais être préfixés par `PUBLIC_` ni commités. En production, seul `PUBLIC_SANITY_PROJECT_ID` et `PUBLIC_SANITY_DATASET` doivent être publics ; les tokens restent des variables secrètes du fournisseur de déploiement.
 
+### Cache CDN et webhook de publication
+
+Les pages alimentées par Sanity sont mises en cache sur le CDN Vercel (`routeRules` dans `astro.config.mjs`) : 1 heure de fraîcheur, puis jusqu’à 1 jour servies en l’état pendant leur régénération en arrière-plan. `/atelier-cartes` et `/coll-libris` sont prérendues au build.
+
+Pour qu’une publication soit visible immédiatement, créer un webhook dans [sanity.io/manage](https://www.sanity.io/manage) (API → Webhooks) :
+
+1. URL : `https://<domaine>/api/revalidate`, méthode `POST`, dataset `production`.
+2. Déclencheurs : création, mise à jour et suppression ; brouillons exclus.
+3. En-tête HTTP : `Authorization: Bearer <secret>`.
+4. Déclarer le même secret dans la variable Vercel `SANITY_REVALIDATE_SECRET`, puis redéployer (la valeur est lue au build).
+
+Le webhook marque toutes les pages en cache comme périmées : la visite suivante reçoit encore l’ancienne version et déclenche sa régénération.
+
 ## Campagne Ulule dynamique
 
 Le menu principal embarque une carte `Dernière campagne Ulule` rendue côté serveur via une server island Astro.

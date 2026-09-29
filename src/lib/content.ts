@@ -23,7 +23,8 @@ const client = isSanityConfigured
       projectId: projectId as string,
       dataset,
       apiVersion: API_VERSION,
-      useCdn: true,
+      // Pages are cached on the CDN, so read fresh data when they re-render.
+      useCdn: false,
     })
   : null;
 

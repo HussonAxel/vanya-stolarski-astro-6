@@ -3,6 +3,8 @@ import { Image } from "astro:assets";
 import "../styles/global.css";
 import { getImageDimensions } from "../lib/image-dimensions";
 
+export const prerender = true;
+
 type Cover = {
   id: string;
   title: string;

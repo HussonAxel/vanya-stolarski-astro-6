@@ -50,6 +50,7 @@ const useContainFit = (src: string) =>
                     : "object-cover",
                 ]}
                 loading={index === 0 ? "eager" : "lazy"}
+                fetchpriority={index === 0 ? "high" : undefined}
                 decoding="async"
                 sizes="(min-width: 1280px) 42rem, 100vw"
               />

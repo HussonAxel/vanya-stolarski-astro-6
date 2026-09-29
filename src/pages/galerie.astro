@@ -53,7 +53,7 @@ const firstGalleryItem = galleryItems[0];
                     </div>
 
                     <div
-                        class="section-panel fade-up rounded-lg border border-[#FFFAFA]/16 bg-[#FFFAFA] p-8 backdrop-blur-sm"
+                        class="section-panel fade-up-onload rounded-lg border border-[#FFFAFA]/16 bg-[#FFFAFA] p-8 backdrop-blur-sm"
                     >
                         <div class="grid grid-cols-2 gap-6">
                             <div>
@@ -323,13 +323,10 @@ const firstGalleryItem = galleryItems[0];
                         >
                             {
                                 firstGalleryItem && (
-                                    <Image
+                                    /* Filled in by script when opened: a src here would download while the modal is closed. */
+                                    <img
                                         id="gallery-modal-image"
-                                        src={firstGalleryItem.image}
-                                        alt={firstGalleryItem.alt}
-                                        width={getImageDimensions(firstGalleryItem.image).width}
-                                        height={getImageDimensions(firstGalleryItem.image).height}
-                                        loading="lazy"
+                                        alt=""
                                         decoding="async"
                                         class="block max-h-[58vh] max-w-full rounded-lg object-contain md:max-h-[72vh] lg:max-h-[calc(92vh-5.5rem)]"
                                     />

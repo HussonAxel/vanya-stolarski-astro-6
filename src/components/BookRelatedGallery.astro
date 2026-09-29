@@ -101,12 +101,9 @@ const firstItem = items[0];
           <div class="relative inline-flex h-full w-full max-w-full items-center justify-center overflow-hidden rounded-lg">
             {
               firstItem && (
-                <Image
-                  src={firstItem.image}
-                  alt={firstItem.alt}
-                  width={getImageDimensions(firstItem.image, firstItem).width}
-                  height={getImageDimensions(firstItem.image, firstItem).height}
-                  loading="lazy"
+                /* Filled in by script when opened: a src here would download while the modal is closed. */
+                <img
+                  alt=""
                   decoding="async"
                   class="block max-h-[58vh] max-w-full rounded-lg object-contain md:max-h-[72vh] lg:max-h-[calc(92vh-5.5rem)]"
                   data-gallery-modal-image

@@ -1,6 +1,7 @@
 ---
 import { Image } from "astro:assets";
 import { getImageDimensions } from "../lib/image-dimensions";
+import { sizedImageUrl } from "../lib/image-url";
 import { getUluleCampaignCard } from "../lib/ulule";
 
 const campaign = await getUluleCampaignCard();
@@ -131,7 +132,7 @@ const campaignCoverDimensions = getImageDimensions(campaign.coverSrc);
                                 />
                             ) : (
                                 <img
-                                    src={campaign.coverSrc}
+                                    src={sizedImageUrl(campaign.coverSrc, 560)}
                                     alt={campaign.coverAlt}
                                     class="h-full w-auto max-w-full object-contain drop-shadow-[0_20px_30px_rgba(61,56,52,0.2)]"
                                     loading="lazy"

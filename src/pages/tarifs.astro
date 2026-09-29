@@ -278,7 +278,7 @@ const getServiceGalleryCardWidth = (src: string) => {
           </div>
 
           <div
-            class="section-panel fade-up rounded-lg border border-[#FFFAFA]/16 bg-[#FFFAFA] p-8 backdrop-blur-sm"
+            class="section-panel fade-up-onload rounded-lg border border-[#FFFAFA]/16 bg-[#FFFAFA] p-8 backdrop-blur-sm"
           >
             <div
               class="grid gap-6 sm:grid-cols-3 md:grid-cols-1 xl:grid-cols-3"
@@ -563,13 +563,10 @@ const getServiceGalleryCardWidth = (src: string) => {
               <div class="relative inline-flex max-h-[78vh] w-full max-w-full items-center justify-center overflow-hidden rounded-lg">
                 {
                   firstServiceImage && (
-                    <Image
+                    /* Filled in by script when opened: a src here would download while the modal is closed. */
+                    <img
                       id="service-gallery-modal-image"
-                      src={firstServiceImage.src}
-                      alt={firstServiceImage.alt}
-                      width={serviceImageDimensions[firstServiceImage.src]?.width ?? getImageDimensions(firstServiceImage.src, firstServiceImage).width}
-                      height={serviceImageDimensions[firstServiceImage.src]?.height ?? getImageDimensions(firstServiceImage.src, firstServiceImage).height}
-                      loading="lazy"
+                      alt=""
                       decoding="async"
                       class="block max-h-[68vh] max-w-full rounded-lg object-contain transition-opacity duration-200 md:max-h-[74vh] lg:max-h-[calc(92vh-8rem)]"
                     />

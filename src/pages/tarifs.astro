@@ -2,6 +2,7 @@
 import { Image } from "astro:assets";
 import { getServicesContent } from "../lib/content";
 import { getImageDimensions } from "../lib/image-dimensions";
+import { sizedImageUrl } from "../lib/image-url";
 import Layout from "../layouts/Layout.astro";
 
 const services = await getServicesContent();
@@ -430,7 +431,7 @@ const getServiceGalleryCardWidth = (src: string) => {
                             type="button"
                             class="service-gallery-trigger block w-full text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#3a4d45] focus-visible:ring-offset-4 focus-visible:ring-offset-[#fffdfa]"
                             data-service-gallery-trigger
-                            data-image={img.src}
+                            data-image={sizedImageUrl(img.src, 2400)}
                             data-alt={img.alt}
                             data-title={img.label}
                             data-service={service.name}
@@ -448,7 +449,7 @@ const getServiceGalleryCardWidth = (src: string) => {
                               class="relative flex h-[18rem] items-center justify-center overflow-hidden rounded-lg border border-[#3d3834]/14 bg-[linear-gradient(180deg,#fffdfa_0%,#f2e9e4_100%)] p-3 transition-all duration-500 sm:h-[21rem] sm:p-4 md:h-[24rem] lg:h-[27rem]"
                             >
                               <Image
-                                src={img.src}
+                                src={sizedImageUrl(img.src, 1400)}
                                 alt={img.alt}
                                 width={serviceImageDimensions[img.src]?.width ?? getImageDimensions(img.src, img).width}
                                 height={serviceImageDimensions[img.src]?.height ?? getImageDimensions(img.src, img).height}
@@ -564,13 +565,13 @@ const getServiceGalleryCardWidth = (src: string) => {
                   firstServiceImage && (
                     <Image
                       id="service-gallery-modal-image"
-                      src={firstServiceImage.src}
+                      src={sizedImageUrl(firstServiceImage.src, 2400)}
                       alt={firstServiceImage.alt}
                       width={serviceImageDimensions[firstServiceImage.src]?.width ?? getImageDimensions(firstServiceImage.src, firstServiceImage).width}
                       height={serviceImageDimensions[firstServiceImage.src]?.height ?? getImageDimensions(firstServiceImage.src, firstServiceImage).height}
                       loading="lazy"
                       decoding="async"
-                      class="block max-h-[68vh] max-w-full rounded-lg object-contain md:max-h-[74vh] lg:max-h-[calc(92vh-8rem)]"
+                      class="block max-h-[68vh] max-w-full rounded-lg object-contain transition-opacity duration-200 md:max-h-[74vh] lg:max-h-[calc(92vh-8rem)]"
                     />
                   )
                 }
@@ -589,7 +590,7 @@ const getServiceGalleryCardWidth = (src: string) => {
           <div class="min-h-0 overflow-y-auto p-6 md:p-8 lg:max-h-[92vh] lg:p-9">
             <div class="space-y-6">
               <div class="space-y-4">
-                <div class="flex flex-wrap items-center gap-2.5">
+                <div class="flex flex-wrap items-center gap-2.5 pr-12">
                   <p id="service-gallery-modal-eyebrow" class="font-sans text-[10px] font-bold tracking-[0.3em] text-[#3a4d45] uppercase"></p>
                   <span id="service-gallery-modal-price" class="inline-flex rounded-md border border-[#3d3834]/14 bg-[#fffaf8] px-3 py-1.5 font-sans text-[9px] font-bold tracking-[0.22em] text-[#3d3834]/72 uppercase"></span>
                 </div>
@@ -951,7 +952,33 @@ const getServiceGalleryCardWidth = (src: string) => {
     const width = Number(trigger.dataset.width ?? 0);
     const height = Number(trigger.dataset.height ?? 0);
 
-    serviceGalleryModalImage.src = trigger.dataset.image ?? "";
+    const fullSrc = trigger.dataset.image ?? "";
+    const thumb = trigger.querySelector("img");
+    const modalImage = serviceGalleryModalImage;
+
+    // Changing src keeps the previous picture on screen until the new file
+    // arrives. Show the already-loaded thumbnail at once, or hide the image
+    // until it loads, then swap in the large version.
+    if (thumb?.complete && thumb.naturalWidth > 0) {
+      modalImage.style.opacity = "";
+      modalImage.src = thumb.currentSrc;
+    } else {
+      modalImage.style.opacity = "0";
+      modalImage.src = fullSrc;
+    }
+
+    if (fullSrc && modalImage.src !== fullSrc) {
+      const fullImage = new Image();
+      fullImage.src = fullSrc;
+      fullImage
+        .decode()
+        .then(() => {
+          if (currentServiceGalleryIndex === index) {
+            modalImage.src = fullSrc;
+          }
+        })
+        .catch(() => {});
+    }
     serviceGalleryModalImage.alt = trigger.dataset.alt ?? "";
     // A 0 width/height attribute collapses the image, so drop unknown sizes.
     if (width && height) {
@@ -1031,6 +1058,12 @@ const getServiceGalleryCardWidth = (src: string) => {
 
   serviceGalleryTriggers.forEach((trigger, index) => {
     trigger.addEventListener("click", () => openServiceGalleryModal(index));
+  });
+
+  serviceGalleryModalImage?.addEventListener("load", () => {
+    if (serviceGalleryModalImage instanceof HTMLImageElement) {
+      serviceGalleryModalImage.style.opacity = "";
+    }
   });
 
   if (serviceGalleryModalClose instanceof HTMLButtonElement) {

@@ -5,7 +5,7 @@ import react from '@astrojs/react';
 import sanity from '@sanity/astro';
 import vercel from '@astrojs/vercel';
 import { cacheVercel } from '@astrojs/vercel/cache';
-import { defineConfig, passthroughImageService } from 'astro/config';
+import { defineConfig } from 'astro/config';
 
 import tailwindcss from '@tailwindcss/vite';
 import { SANITY_CACHE_TAG } from './src/lib/cache.ts';
@@ -42,7 +42,7 @@ export default defineConfig({
     '/_server-islands/[name]': sanityPage,
   },
   image: {
-    service: passthroughImageService(),
+    service: { entrypoint: './src/lib/sanity-image-service.ts' },
     domains: ['cdn.sanity.io'],
   },
   integrations: [

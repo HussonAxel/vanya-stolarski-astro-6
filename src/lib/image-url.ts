@@ -1,7 +1,9 @@
+export const isSanityImageUrl = (src: string) => src.startsWith("https://cdn.sanity.io/images/");
+
 // Sanity serves the uploaded original (sometimes a 10 MB PNG) unless the URL
 // asks for a resized, re-encoded version. Other sources are returned untouched.
 export const sizedImageUrl = (src: string, width: number) => {
-  if (!src.startsWith("https://cdn.sanity.io/images/")) {
+  if (!isSanityImageUrl(src)) {
     return src;
   }
 

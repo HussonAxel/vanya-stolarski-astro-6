@@ -280,6 +280,7 @@ const useContainFit = (src: string) =>
                       alt={`Couverture de ${getBookTitle(entry)}`}
                       loading="lazy"
                       decoding="async"
+                      sizes="(min-width: 768px) 180px, 100vw"
                       width={dimensions.width}
                       height={dimensions.height}
                       class:list={[

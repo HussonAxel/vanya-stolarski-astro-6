@@ -2,6 +2,7 @@
 import { Image } from "astro:assets";
 import Layout from "../layouts/Layout.astro";
 import { getImageDimensions } from "../lib/image-dimensions";
+import { sizedImageUrl } from "../lib/image-url";
 import { getGalleryContent, getBooksContent } from "../lib/content";
 import { getBookTitle } from "../lib/books";
 
@@ -256,7 +257,7 @@ const firstGalleryItem = galleryItems[0];
                                         data-artist={item.artist}
                                         data-gallery-trigger
                                         data-title={item.title}
-                                        data-image={item.image}
+                                        data-image={sizedImageUrl(item.image, 2400)}
                                         data-alt={item.alt}
                                         data-book-label={galleryBookFilterLabels[item.bookSlug] ?? item.bookSlug}
                                         data-book-href={`/livres/${item.bookSlug}`}

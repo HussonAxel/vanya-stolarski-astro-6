@@ -1,6 +1,7 @@
 ---
 import { Image } from "astro:assets";
 import { getImageDimensions } from "../lib/image-dimensions";
+import { sizedImageUrl } from "../lib/image-url";
 import type { GalleryItemViewModel } from "../lib/books";
 
 interface Props {
@@ -47,7 +48,7 @@ const firstItem = items[0];
               class="gallery-card fade-up group relative mb-4 block w-full break-inside-avoid overflow-hidden rounded-lg border border-[#3d3834]/14 bg-[#FFFAFA] shadow-[0_24px_80px_-52px_rgba(61,56,52,0.45)] transition-all duration-300 hover:shadow-[0_30px_90px_-52px_rgba(61,56,52,0.5)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#3a4d45]"
               data-gallery-trigger
               data-title={item.title}
-              data-image={item.image}
+              data-image={sizedImageUrl(item.image, 2400)}
               data-alt={item.alt}
               data-book-label={item.bookLabel}
               data-book-href={item.bookHref}

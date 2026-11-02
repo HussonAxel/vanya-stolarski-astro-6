@@ -19,8 +19,10 @@ const {
 const galleryId = `card-gallery-${Math.random().toString(36).slice(2, 10)}`;
 const slides = items.length > 0 ? items : [];
 const hasMultiple = slides.length > 1;
-const useContainFit = (src: string) =>
-  /(?:Cover_CDR_Ulule\.webp|Cover_TLL_broche\.webp|coeur-de-renard-tome-2--relie\.webp)$/i.test(src);
+// Portrait mockups taller than the frame would be zoomed in by object-cover,
+// so show them whole. Based on dimensions, since src may be a Sanity CDN URL.
+const useContainFit = ({ width, height }: { width: number; height: number }) =>
+  height / width > 4.8 / 4;
 ---
 
 <div
@@ -47,7 +49,7 @@ const useContainFit = (src: string) =>
                 alt={item.alt}
                 class:list={[
                   "h-full w-full transition-transform duration-700 group-hover:scale-[1.03]",
-                  useContainFit(item.src)
+                  useContainFit(dimensions)
                     ? "bg-[#f6efec] p-3 object-contain"
                     : "object-cover",
                 ]}

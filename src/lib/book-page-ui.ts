@@ -166,7 +166,6 @@ export const bindBookRelatedGalleries = () => {
     const modalBook = section?.querySelector("[data-gallery-modal-book]");
     const modalArtistDetail = section?.querySelector("[data-gallery-modal-artist-detail]");
     const modalDate = section?.querySelector("[data-gallery-modal-date]");
-    const modalAlt = section?.querySelector("[data-gallery-modal-alt]");
     const modalLink = section?.querySelector("[data-gallery-modal-link]");
     const closeButtons = Array.from(section?.querySelectorAll("[data-gallery-close]") ?? []);
     const closeButton = section?.querySelector("[data-gallery-close-button]");
@@ -183,7 +182,6 @@ export const bindBookRelatedGalleries = () => {
         !(modalBook instanceof HTMLElement) ||
         !(modalArtistDetail instanceof HTMLElement) ||
         !(modalDate instanceof HTMLElement) ||
-        !(modalAlt instanceof HTMLElement) ||
         !(modalLink instanceof HTMLAnchorElement)
       ) {
         return;
@@ -198,7 +196,6 @@ export const bindBookRelatedGalleries = () => {
       modalBook.textContent = trigger.dataset.bookLabel ?? "";
       modalArtistDetail.textContent = trigger.dataset.artistLabel ?? "";
       modalDate.textContent = trigger.dataset.date ?? "";
-      modalAlt.textContent = trigger.dataset.alt ?? "";
       const bookHref = trigger.dataset.bookHref ?? "";
       modalLink.href = bookHref || "#";
       modalLink.toggleAttribute("hidden", !bookHref);

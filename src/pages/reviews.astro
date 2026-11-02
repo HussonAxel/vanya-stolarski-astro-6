@@ -12,14 +12,9 @@ const reviews = await getReviewsContent();
     >
       <div class="site-shell relative mt-20">
         <div
-          class="mt-10 grid gap-10 md:grid-cols-[1.15fr_0.85fr] md:items-end"
+          class="mt-10"
         >
           <div class="space-y-6">
-            <span
-              class="inline-flex rounded-md border border-[#FFFAFA]/16 bg-[#FFFAFA] px-4 py-2 font-sans text-[10px] font-bold tracking-[0.25em] text-[#3d3834] uppercase"
-            >
-              Avis de lecture
-            </span>
             <h1
               class="max-w-4xl font-serif text-5xl leading-none text-balance md:text-7xl"
             >
@@ -29,20 +24,9 @@ const reviews = await getReviewsContent();
               class="max-w-2xl font-sans text-base leading-relaxed text-[#FFFAFA] md:text-lg"
             >
               Je garde une trace des livres tels qu'ils ont été reçus, ressentis et retenus.
-              Une sélection de courts extraits d’avis Amazon, avec leur pseudonyme, leur note et leur lien source. Vérifiés le 2 novembre 2026.
             </p>
           </div>
 
-          <div
-            class="section-panel fade-up-onload rounded-lg border border-[#FFFAFA]/16 bg-[#FFFAFA] p-8 backdrop-blur-sm"
-          >
-            <p class="font-serif text-6xl text-[#3a4d45]">{reviews.length}</p>
-            <p
-              class="mt-3 font-sans text-[10px] font-bold tracking-[0.25em] text-[#3d3834] uppercase"
-            >
-              Extraits Amazon sélectionnés
-            </p>
-          </div>
         </div>
       </div>
     </section>
@@ -54,7 +38,6 @@ const reviews = await getReviewsContent();
             <div class="rounded-lg border border-[#3d3834]/14 p-5">
               <h2 class="font-serif text-xl">{source.book}</h2>
               <p class="mt-3 font-sans text-sm">{source.rating !== undefined ? `${source.rating.toLocaleString('fr-FR')} / 5 · ${source.ratingCount} évaluations Amazon` : 'Aucun avis client affiché lors du relevé.'}</p>
-              <p class="mt-2 font-sans text-xs">Relevé du 2 novembre 2026 ; les données peuvent évoluer.</p>
               <a class="mt-3 inline-block underline underline-offset-4" href={source.url} target="_blank" rel="noopener noreferrer">Consulter la fiche Amazon</a>
             </div>
           ))}
@@ -75,12 +58,6 @@ const reviews = await getReviewsContent();
                 <div class="grid gap-10 xl:grid-cols-[16rem_minmax(0,1fr)] xl:gap-14">
                   <aside class="space-y-6">
                     <div class="flex flex-wrap items-center gap-3">
-                      <span
-                        class="rounded-md px-4 py-2 font-sans text-[10px] font-bold tracking-[0.25em] uppercase"
-                        style={`background:${review.accent}; color:#FFFAFA;`}
-                      >
-                        {review.tag}
-                      </span>
                       <span class="font-sans text-[10px] font-bold tracking-[0.25em] text-[#3d3834] uppercase">
                         {review.source}
                       </span>
@@ -159,12 +136,6 @@ const reviews = await getReviewsContent();
                   </aside>
 
                   <div class="space-y-6 md:space-y-7">
-                    <div class="flex items-center gap-3">
-                      <span class="h-px w-12 bg-[#3a4d45]/28" />
-                      <span class="font-sans text-[9px] font-bold tracking-[0.26em] text-[#3d3834]/72 uppercase">
-                        Extrait
-                      </span>
-                    </div>
 
                     <blockquote class="max-w-[34ch] font-serif text-[1.9rem] leading-[1.1] text-[#3d3834] text-balance md:text-[2.9rem]">
                       {review.text}
@@ -172,9 +143,6 @@ const reviews = await getReviewsContent();
 
                     {hasExtendedBody && (
                       <div class="max-w-[72ch] space-y-3">
-                        <p class="font-sans text-[9px] font-bold tracking-[0.24em] text-[#3d3834]/72 uppercase">
-                          Lecture complète
-                        </p>
                         <p class="font-sans text-[15px] leading-8 text-[#3d3834]/74 md:text-base md:leading-[1.9]">
                           {review.excerpt}
                         </p>

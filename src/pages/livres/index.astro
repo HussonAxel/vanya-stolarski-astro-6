@@ -46,11 +46,6 @@ const orderedBooks = [...books].sort((left, right) => {
       <div class="site-shell relative flex flex-col gap-10">
         <div class="mt-20 grid gap-10 md:grid-cols-[1.3fr_0.7fr] md:items-end">
           <div class="space-y-6">
-            <span
-              class="inline-flex rounded-md border border-[#FFFAFA]/16 bg-[#FFFAFA] px-4 py-2 font-sans text-[10px] font-bold tracking-[0.25em] text-[#3d3834] uppercase"
-            >
-              Bibliothèque
-            </span>
             <h1
               class="max-w-4xl font-serif text-5xl leading-none text-balance md:text-7xl"
             >
@@ -60,26 +55,14 @@ const orderedBooks = [...books].sort((left, right) => {
               class="max-w-2xl font-sans text-base leading-relaxed text-[#FFFAFA] md:text-lg"
             >
               Les histoires vivent ici, cruelles et douces à la fois, garnies de leur plus bel écrin deluxe. Vous y trouverez tant des récits historiques que fantastiques.
-              Chaque fiche rassemble les couvertures, les informations clés, les
-              genres, les liens d'achat et une présentation plus ample de chaque
-              roman.
             </p>
           </div>
 
           <div
             class="fade-up-onload rounded-lg border border-[#FFFAFA]/16 bg-[#FFFAFA] p-8 backdrop-blur-sm"
           >
-            <div class="grid grid-cols-2 gap-6">
-              <div>
-                <p class="font-serif text-5xl text-[#3a4d45]">
-                  {books.length}
-                </p>
-                <p
-                  class="mt-2 font-sans text-[10px] font-bold tracking-[0.25em] text-[#3d3834] uppercase"
-                >
-                  Livres
-                </p>
-              </div>
+            <div class="grid gap-6">
+
               <div>
                 <p class="font-serif text-5xl text-[#3a4d45]">
                   {getBookReleaseDate(latestBook)}

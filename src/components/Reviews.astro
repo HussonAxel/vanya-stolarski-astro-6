@@ -22,9 +22,6 @@ const totalLabel = String(featuredReviews.length).padStart(2, "0");
         >
           Avis
         </h2>
-        <span class="font-sans text-[10px] font-bold tracking-[0.25em] text-[#3d3834]/72 uppercase">
-          Lectrices
-        </span>
       </div>
 
       <a href="/reviews" class="reviews-all-link">
@@ -57,9 +54,7 @@ const totalLabel = String(featuredReviews.length).padStart(2, "0");
               <p class="reviews-summary-count">{source.ratingCount} évaluations sur Amazon</p>
             </div>
           ))}
-          <p class="font-sans text-xs leading-relaxed">Notes relevées le 2 novembre 2026. Elles peuvent évoluer sur Amazon.</p>
         </div>
-        <div class="reviews-summary-footer"><span>{reviews.length} courts extraits sélectionnés</span></div>
       </aside>
 
       <div
@@ -275,22 +270,6 @@ const totalLabel = String(featuredReviews.length).padStart(2, "0");
     margin: 0.5rem 0 0;
     color: rgb(61 56 52 / 0.72);
     font-size: 0.6875rem;
-  }
-
-  .reviews-summary-footer {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding-top: 1rem;
-    border-top: 1px solid var(--reviews-line);
-    color: rgb(61 56 52 / 0.72);
-    font-size: 0.625rem;
-    letter-spacing: 0.08em;
-  }
-
-  .reviews-summary-footer span:first-child {
-    color: var(--reviews-forest);
-    font-size: 0.8rem;
   }
 
   /* Subgrid keeps the summary exactly as tall as the cards, with controls on their own row.
@@ -562,13 +541,6 @@ const totalLabel = String(featuredReviews.length).padStart(2, "0");
     .reviews-score {
       margin-top: 1.5rem;
       font-size: 3.5rem;
-    }
-
-    .reviews-summary-footer {
-      max-width: 8rem;
-      padding-top: 0;
-      border-top: 0;
-      text-align: right;
     }
 
     /* Let cards bleed to the screen edge so the next one peeks in as a swipe hint. */

@@ -238,11 +238,6 @@ const getServiceGalleryCardWidth = (src: string) => {
           class="mt-10 grid gap-10 md:grid-cols-[1.12fr_0.88fr] md:items-end"
         >
           <div class="space-y-6">
-            <span
-              class="inline-flex rounded-md border border-[#FFFAFA]/16 bg-[#FFFAFA] px-4 py-2 font-sans text-[10px] font-bold tracking-[0.25em] text-[#3d3834] uppercase"
-            >
-              Tarifs
-            </span>
             <h1 class="max-w-5xl font-serif text-5xl leading-none text-balance md:text-7xl">
               Illustration de livres : prestations et tarifs
             </h1>
@@ -282,16 +277,9 @@ const getServiceGalleryCardWidth = (src: string) => {
             class="section-panel fade-up-onload rounded-lg border border-[#FFFAFA]/16 bg-[#FFFAFA] p-8 backdrop-blur-sm"
           >
             <div
-              class="grid gap-6 sm:grid-cols-3 md:grid-cols-1 xl:grid-cols-3"
+              class="grid gap-6 sm:grid-cols-2 md:grid-cols-1 xl:grid-cols-2"
             >
-              <div>
-                <p class="font-serif text-5xl text-[#3a4d45]">7</p>
-                <p
-                  class="mt-2 font-sans text-[10px] font-bold tracking-[0.25em] text-[#3d3834] uppercase"
-                >
-                  Services
-                </p>
-              </div>
+
               <div>
                 <p class="font-serif text-5xl text-[#3a4d45]">
                   {genresSnapshot.value}
@@ -479,7 +467,6 @@ const getServiceGalleryCardWidth = (src: string) => {
                       <span aria-hidden="true" class="font-serif text-lg leading-none text-[#3a4d45]/72">→</span>
                     </div>
 
-
                   </div>
                 </div>
 
@@ -624,12 +611,6 @@ const getServiceGalleryCardWidth = (src: string) => {
                 </dl>
               </div>
 
-              <div class="rounded-lg border border-[#3d3834]/14 bg-[#FFFAFA] p-5">
-                <p class="font-sans text-[10px] font-bold tracking-[0.22em] text-[#3d3834]/72 uppercase">
-                  Note visuelle
-                </p>
-                <p id="service-gallery-modal-alt" class="mt-3 font-sans text-sm leading-relaxed text-[#3d3834]/78 md:text-[0.95rem]"></p>
-              </div>
             </div>
           </div>
         </div>
@@ -758,10 +739,7 @@ const getServiceGalleryCardWidth = (src: string) => {
                     : "border-[#3d3834]/14 bg-[#FFFAFA]",
                 ]}
               >
-                <p class="font-sans text-[10px] font-bold tracking-[0.28em] text-[#3a4d45]/92 uppercase">
-                  Repère
-                </p>
-                <h3 class="mt-5 max-w-[11ch] font-serif text-[2.35rem] leading-[0.92] text-[#3d3834] text-balance">
+                <h3 class="max-w-[11ch] font-serif text-[2.35rem] leading-[0.92] text-[#3d3834] text-balance">
                   {item.title}
                 </h3>
                 <p class="mt-5 max-w-[26rem] font-sans text-[1rem] leading-8 text-[#3d3834]/84">
@@ -891,9 +869,6 @@ const getServiceGalleryCardWidth = (src: string) => {
   const serviceGalleryModalDimensions = document.getElementById(
     "service-gallery-modal-dimensions"
   );
-  const serviceGalleryModalAlt = document.getElementById(
-    "service-gallery-modal-alt"
-  );
   const serviceGalleryModalClose = document.getElementById(
     "service-gallery-modal-close"
   );
@@ -942,8 +917,7 @@ const getServiceGalleryCardWidth = (src: string) => {
       !(serviceGalleryModalFormat instanceof HTMLElement) ||
       !(serviceGalleryModalUniverse instanceof HTMLElement) ||
       !(serviceGalleryModalFocus instanceof HTMLElement) ||
-      !(serviceGalleryModalDimensions instanceof HTMLElement) ||
-      !(serviceGalleryModalAlt instanceof HTMLElement)
+      !(serviceGalleryModalDimensions instanceof HTMLElement)
     ) {
       return;
     }
@@ -999,7 +973,6 @@ const getServiceGalleryCardWidth = (src: string) => {
     serviceGalleryModalFormat.textContent = trigger.dataset.format ?? "";
     serviceGalleryModalUniverse.textContent = trigger.dataset.universe ?? "";
     serviceGalleryModalFocus.textContent = trigger.dataset.focus ?? "";
-    serviceGalleryModalAlt.textContent = trigger.dataset.alt ?? "";
     serviceGalleryModalDimensions.textContent =
       width && height ? `${width} x ${height}px` : "Format variable";
 

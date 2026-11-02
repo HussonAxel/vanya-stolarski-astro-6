@@ -29,14 +29,9 @@ const firstGalleryItem = galleryItems[0];
         >
             <div class="site-shell relative mt-20">
                 <div
-                    class="mt-10 grid gap-10 md:grid-cols-[1.15fr_0.85fr] md:items-end"
+                    class="mt-10"
                 >
                     <div class="space-y-6">
-                        <span
-                            class="inline-flex rounded-md border border-[#FFFAFA]/16 bg-[#FFFAFA] px-4 py-2 font-sans text-[10px] font-bold tracking-[0.25em] text-[#3d3834] uppercase"
-                        >
-                            Galerie éditoriale
-                        </span>
                         <h1
                             class="max-w-4xl font-serif text-5xl leading-none text-balance md:text-7xl"
                         >
@@ -46,39 +41,9 @@ const firstGalleryItem = galleryItems[0];
                             class="max-w-2xl font-sans text-base leading-relaxed text-[#FFFAFA] md:text-lg"
                         >
                             J'y rassemble les visages, les gestes et les tensions qui continuent de me suivre.
-                            Les images se lisent d'abord comme une matiere
-                            visuelle. Au clic, chaque illustration s'ouvre dans
-                            une fiche plus détaillée avec son contexte et son
-                            rattachement au roman.
                         </p>
                     </div>
 
-                    <div
-                        class="section-panel fade-up-onload rounded-lg border border-[#FFFAFA]/16 bg-[#FFFAFA] p-8 backdrop-blur-sm"
-                    >
-                        <div class="grid grid-cols-2 gap-6">
-                            <div>
-                                <p class="font-serif text-5xl text-[#3a4d45]">
-                                    {galleryItems.length}
-                                </p>
-                                <p
-                                    class="mt-2 font-sans text-[10px] font-bold tracking-[0.25em] text-[#3d3834] uppercase"
-                                >
-                                    Visuels
-                                </p>
-                            </div>
-                            <div>
-                                <p class="font-serif text-5xl text-[#3a4d45]">
-                                    {galleryArtistFilters.length - 1}
-                                </p>
-                                <p
-                                    class="mt-2 font-sans text-[10px] font-bold tracking-[0.25em] text-[#3d3834] uppercase"
-                                >
-                                    Artistes
-                                </p>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </section>
@@ -125,12 +90,6 @@ const firstGalleryItem = galleryItems[0];
                                             class="font-sans text-[10px] font-bold tracking-[0.24em] text-[#3d3834]/72 uppercase"
                                         >
                                             Romans
-                                        </p>
-                                        <p
-                                            class="mt-1 font-sans text-sm text-[#3d3834]/72"
-                                        >
-                                            Partir d'un univers puis ne garder
-                                            que les artistes.
                                         </p>
                                     </div>
                                 </div>
@@ -188,13 +147,6 @@ const firstGalleryItem = galleryItems[0];
                                             class="font-sans text-[10px] font-bold tracking-[0.24em] text-[#3d3834]/72 uppercase"
                                         >
                                             Artistes
-                                        </p>
-                                        <p
-                                            class="mt-1 font-sans text-sm text-[#3d3834]/72"
-                                        >
-                                            Voir tout un regard ou croiser avec
-                                            un roman sans tomber sur une grille
-                                            vide.
                                         </p>
                                     </div>
                                 </div>
@@ -349,11 +301,6 @@ const firstGalleryItem = galleryItems[0];
                                         class="font-sans text-[10px] font-bold tracking-[0.3em] text-[#3d3834] uppercase"
                                     >
                                     </p>
-                                    <span
-                                        class="inline-flex rounded-md border border-[#3d3834]/14 bg-[#fffaf8] px-3 py-1.5 font-sans text-[9px] font-bold tracking-[0.22em] text-[#3d3834]/72 uppercase"
-                                    >
-                                        Illustration
-                                    </span>
                                 </div>
                                 <div>
                                     <h2
@@ -372,13 +319,8 @@ const firstGalleryItem = galleryItems[0];
                             <div
                                 class="rounded-lg border border-[#3d3834]/14 bg-[#fffaf8] p-5"
                             >
-                                <p
-                                    class="font-sans text-[10px] font-bold tracking-[0.22em] text-[#3d3834]/72 uppercase"
-                                >
-                                    Contexte
-                                </p>
                                 <dl
-                                    class="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-1"
+                                    class="grid gap-4 sm:grid-cols-2 lg:grid-cols-1"
                                 >
                                     <div class="space-y-1">
                                         <dt
@@ -419,21 +361,6 @@ const firstGalleryItem = galleryItems[0];
                                         </dd>
                                     </div>
                                 </dl>
-                            </div>
-
-                            <div
-                                class="rounded-lg border border-[#3d3834]/14 bg-[#FFFAFA] p-5"
-                            >
-                                <p
-                                    class="font-sans text-[10px] font-bold tracking-[0.22em] text-[#3d3834]/72 uppercase"
-                                >
-                                    Note visuelle
-                                </p>
-                                <p
-                                    id="gallery-modal-alt"
-                                    class="mt-3 font-sans text-sm leading-relaxed text-[#3d3834]/78 md:text-[0.95rem]"
-                                >
-                                </p>
                             </div>
 
                             <div class="flex flex-wrap gap-3 pt-1">
@@ -480,7 +407,6 @@ const firstGalleryItem = galleryItems[0];
                 "gallery-modal-artist-detail",
             );
             const modalDate = document.getElementById("gallery-modal-date");
-            const modalAlt = document.getElementById("gallery-modal-alt");
             const modalLink = document.getElementById("gallery-modal-link");
             const modalCloseButtons = Array.from(
                 document.querySelectorAll("[data-gallery-close]"),
@@ -622,7 +548,6 @@ const firstGalleryItem = galleryItems[0];
                     !modalBook ||
                     !modalArtistDetail ||
                     !modalDate ||
-                    !modalAlt ||
                     !modalLink
                 ) {
                     return;
@@ -640,7 +565,6 @@ const firstGalleryItem = galleryItems[0];
                 modalArtistDetail.textContent =
                     trigger.dataset.artistLabel ?? "";
                 modalDate.textContent = trigger.dataset.date ?? "";
-                modalAlt.textContent = trigger.dataset.alt ?? "";
                 const bookHref = trigger.dataset.bookHref ?? "";
                 modalLink.setAttribute("href", bookHref || "#");
                 modalLink.toggleAttribute("hidden", !bookHref);

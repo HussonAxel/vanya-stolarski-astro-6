@@ -27,6 +27,7 @@ export const bookStructuredData = (book: Book) => ({
   '@type': 'Book',
   '@id': `${canonicalUrl(`/livres/${book.slug}`)}#book`,
   name: book.identity.title,
+  alternateName: `${book.identity.title} — ${book.identity.tome}`,
   url: canonicalUrl(`/livres/${book.slug}`),
   author: { '@id': `${SITE_URL}/#author` },
   inLanguage: 'fr',

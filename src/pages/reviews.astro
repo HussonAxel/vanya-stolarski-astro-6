@@ -1,6 +1,7 @@
 ---
 import { getReviewsContent } from "../lib/content";
 import Layout from "../layouts/Layout.astro";
+import { amazonReviewSources } from "../data/reviews";
 const reviews = await getReviewsContent();
 ---
 
@@ -28,8 +29,7 @@ const reviews = await getReviewsContent();
               class="max-w-2xl font-sans text-base leading-relaxed text-[#FFFAFA] md:text-lg"
             >
               Je garde une trace des livres tels qu'ils ont été reçus, ressentis et retenus.
-              Amazon, Instagram et retours de lecture : chaque avis garde sa
-              source, sa date et un extrait plus développé.
+              Une sélection de courts extraits d’avis Amazon, avec leur pseudonyme, leur note et leur lien source. Vérifiés le 2 novembre 2026.
             </p>
           </div>
 
@@ -40,7 +40,7 @@ const reviews = await getReviewsContent();
             <p
               class="mt-3 font-sans text-[10px] font-bold tracking-[0.25em] text-[#3d3834] uppercase"
             >
-              Avis déjà intégrés
+              Extraits Amazon sélectionnés
             </p>
           </div>
         </div>
@@ -49,6 +49,16 @@ const reviews = await getReviewsContent();
 
     <section class="relative overflow-hidden bg-[#FFFAFA] px-6 py-20">
       <div class="site-shell">
+        <div class="mb-8 grid gap-5 md:grid-cols-3">
+          {amazonReviewSources.map(source => (
+            <div class="rounded-lg border border-[#3d3834]/14 p-5">
+              <h2 class="font-serif text-xl">{source.book}</h2>
+              <p class="mt-3 font-sans text-sm">{source.rating !== undefined ? `${source.rating.toLocaleString('fr-FR')} / 5 · ${source.ratingCount} évaluations Amazon` : 'Aucun avis client affiché lors du relevé.'}</p>
+              <p class="mt-2 font-sans text-xs">Relevé du 2 novembre 2026 ; les données peuvent évoluer.</p>
+              <a class="mt-3 inline-block underline underline-offset-4" href={source.url} target="_blank" rel="noopener noreferrer">Consulter la fiche Amazon</a>
+            </div>
+          ))}
+        </div>
         {
           reviews.map((review, index) => {
             const hasExtendedBody =
@@ -77,8 +87,8 @@ const reviews = await getReviewsContent();
                     </div>
 
                     <div class="space-y-3">
-                      <div class="flex gap-1" style={`color:${review.accent};`}>
-                        {Array.from({ length: review.rating }).map(() => (
+                      <div class="flex gap-1" role="img" aria-label={`${review.rating} étoiles sur 5`} style={`color:${review.accent};`}>
+                        {Array.from({ length: review.rating ?? 0 }).map(() => (
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             width="16"

@@ -12,12 +12,13 @@ interface Props {
 const { title, description, image, imageAlt, noindex = false, structuredData = [] } = Astro.props;
 const canonical = canonicalUrl(Astro.url.pathname);
 const imageUrl = image ? new URL(image, SITE_URL).href : undefined;
+const bookEntity = structuredData.find(entity => entity['@type'] === 'Book');
 const graph = {
   '@context': 'https://schema.org',
   '@graph': [
     { '@type': 'Person', '@id': `${SITE_URL}/#author`, name: SITE_NAME, url: `${SITE_URL}/`, jobTitle: 'Autrice et illustratrice', sameAs: ['https://www.instagram.com/vanyastolar.auteure/', 'https://www.tiktok.com/@vanyastolar.auteure'] },
     { '@type': 'WebSite', '@id': `${SITE_URL}/#website`, url: `${SITE_URL}/`, name: SITE_NAME, inLanguage: 'fr', publisher: { '@id': `${SITE_URL}/#author` } },
-    { '@type': 'WebPage', '@id': `${canonical}#webpage`, url: canonical, name: title, description, inLanguage: 'fr', isPartOf: { '@id': `${SITE_URL}/#website` } },
+    { '@type': 'WebPage', '@id': `${canonical}#webpage`, url: canonical, name: title, description, inLanguage: 'fr', isPartOf: { '@id': `${SITE_URL}/#website` }, ...(bookEntity ? { mainEntity: { '@id': bookEntity['@id'] } } : {}) },
     ...structuredData,
   ],
 };

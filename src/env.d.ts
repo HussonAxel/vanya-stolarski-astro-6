@@ -7,6 +7,8 @@ interface ImportMetaEnv {
   readonly SANITY_API_WRITE_TOKEN?: string;
   readonly SANITY_REVALIDATE_SECRET?: string;
   readonly ULULE_PROJECT_ID?: string;
+  readonly PUBLIC_VERCEL_ANALYTICS_ENABLED?: string;
+  readonly PUBLIC_VERCEL_ANALYTICS_CUSTOM_EVENTS?: string;
 }
 
 interface ImportMeta {

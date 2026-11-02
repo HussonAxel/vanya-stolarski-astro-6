@@ -2,6 +2,7 @@
 import "../styles/global.css";
 import Hero from "../components/Hero.astro";
 import SeoHead from "../components/SeoHead.astro";
+import SiteAnalytics from "../components/SiteAnalytics.astro";
 
 interface Props {
   title: string;
@@ -25,135 +26,25 @@ const seo = Astro.props;
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png?v=lune-3" />
     <SeoHead {...seo} />
     <style>
-      :root {
-        --header-ease: cubic-bezier(0.22, 1, 0.36, 1);
-        --header-ease-soft: cubic-bezier(0.34, 1.56, 0.64, 1);
-        --dock-progress: 0;
-        --dock-eased: 0;
-      }
-
-      #site-header,
-      #site-header-shell,
-      #site-header-badge,
-      #site-header-brand,
-      #site-header-brand-text,
-      #site-menu-toggle {
-        will-change: transform, opacity, max-width, padding, box-shadow, background-color, backdrop-filter;
-      }
-
-      #site-header {
-        transform-origin: top center;
-        padding-top: calc(1rem - (0.38rem * var(--dock-eased)));
-        padding-bottom: calc(1rem - (0.62rem * var(--dock-eased)));
-        transition: padding 0.18s linear;
-      }
-
       #site-header-shell {
+        backdrop-filter: blur(14px);
         transform-origin: top center;
-        max-width: calc(var(--site-shell-width) - (49rem * var(--dock-eased)));
-        padding: calc(0.75rem - (0.2rem * var(--dock-eased))) calc(1rem - (0.3rem * var(--dock-eased)));
-        border-color: rgba(61, 56, 52, calc(0.1 + (0.06 * var(--dock-eased))));
-        background: rgba(255, 250, 250, calc(0.92 - (0.1 * var(--dock-eased))));
-        backdrop-filter: blur(calc(14px + (8px * var(--dock-eased)))) saturate(calc(1 + (0.12 * var(--dock-eased))));
-        box-shadow:
-          0 calc(18px - (2px * var(--dock-eased))) calc(50px - (12px * var(--dock-eased))) calc(-30px + (2px * var(--dock-eased))) rgba(61, 56, 52, calc(0.35 + (0.12 * var(--dock-eased)))),
-          0 0 0 1px rgba(255, 250, 250, calc(0.24 * var(--dock-eased))) inset;
-        transform: translateY(calc(-1px * var(--dock-eased))) scale(calc(1 - (0.015 * var(--dock-eased))));
-        transition:
-          max-width 0.18s linear,
-          padding 0.18s linear,
-          border-color 0.18s linear,
-          background-color 0.18s linear,
-          box-shadow 0.18s linear,
-          transform 0.18s linear,
-          backdrop-filter 0.18s linear;
+        transition: transform 180ms ease-out;
       }
-
-      #site-header-badge,
-      #site-menu-toggle {
-        height: calc(3rem - (0.35rem * var(--dock-eased)));
-        width: calc(3rem - (0.35rem * var(--dock-eased)));
-        transform: scale(calc(1 - (0.04 * var(--dock-eased))));
-        transition:
-          height 0.18s linear,
-          width 0.18s linear,
-          font-size 0.18s linear,
-          transform 0.18s linear,
-          box-shadow 0.18s linear;
-      }
-
-      #site-header-badge {
-        font-size: calc(1.5rem - (0.35rem * var(--dock-eased)));
-      }
-
-      #site-header-brand {
-        transition:
-          max-width 0.18s linear,
-          opacity 0.18s linear,
-          transform 0.18s linear;
-      }
-
-      #site-header-brand-text {
-        transition: opacity 0.18s linear, letter-spacing 0.18s linear;
-      }
-
-      @media (min-width: 640px) {
-        #site-header-brand {
-          max-width: calc(12rem - (12rem * var(--dock-eased)));
-          opacity: calc(1 - (1 * var(--dock-eased)));
-          overflow: hidden;
-          transform: translateX(calc(-0.35rem * var(--dock-eased))) scale(calc(1 - (0.04 * var(--dock-eased))));
-        }
-
-        #site-header-brand-text {
-          opacity: calc(1 - (1 * var(--dock-eased)));
-          letter-spacing: calc(0.28em - (0.08em * var(--dock-eased)));
-        }
-      }
-
-      @keyframes headerDockSnapIn {
-        0% {
-          transform: translateY(0) scale(1);
-        }
-        55% {
-          transform: translateY(-3px) scale(0.972);
-        }
-        100% {
-          transform: translateY(calc(-1px * var(--dock-eased))) scale(calc(1 - (0.015 * var(--dock-eased))));
-        }
-      }
-
-      @keyframes headerDockFloat {
-        0% {
-          transform: translateY(calc(-1px - (1px * var(--dock-eased)))) scale(calc(1 - (0.015 * var(--dock-eased))));
-        }
-        100% {
-          transform: translateY(calc(-3px - (1px * var(--dock-eased)))) scale(calc(1 - (0.015 * var(--dock-eased))));
-        }
-      }
-
-      body.site-header-docking #site-header-shell {
-        animation: headerDockSnapIn 0.5s var(--header-ease) both;
-      }
-
-      body.site-header-floating #site-header-shell {
-        animation: headerDockFloat 4.8s ease-in-out infinite alternate;
-      }
-
+      body.site-header-docked #site-header-shell { transform: translateY(-4px); }
       @media (prefers-reduced-motion: reduce) {
-        #site-header,
-        #site-header-shell,
-        #site-header-badge,
-        #site-header-brand,
-        #site-header-brand-text,
-        #site-menu-toggle {
-          transition: none;
-          animation: none !important;
-        }
+        #site-header-shell { transition: none; transform: none !important; }
       }
+      .skip-link {
+        position: fixed; top: 0.5rem; left: 0.5rem; z-index: 100;
+        padding: 0.75rem 1rem; background: #fffafa; color: #3d3834;
+        transform: translateY(-200%);
+      }
+      .skip-link:focus { transform: translateY(0); }
     </style>
   </head>
   <body class="bg-[#FFFAFA] text-[#3d3834]">
+    <a href="#site-content" class="skip-link">Aller au contenu</a>
     <header id="site-header" class="fixed inset-x-0 top-0 z-[60] px-4 py-4">
       <div id="site-header-shell" class="site-shell flex w-full items-center justify-between rounded-lg border border-[#3d3834]/14 bg-[#FFFAFA]/92 px-4 py-3 shadow-[0_18px_50px_-30px_rgba(61,56,52,0.35)] backdrop-blur-md">
         <a href="/" class="inline-flex items-center gap-3 text-[#3d3834]">
@@ -219,13 +110,21 @@ const seo = Astro.props;
 
     <aside
       id="site-menu-panel"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="site-menu-title"
+      tabindex="-1"
+      inert
       class="pointer-events-none fixed inset-0 z-50 overflow-y-auto opacity-0 transition-opacity duration-300"
       aria-hidden="true"
     >
+      <button type="button" id="site-menu-close" class="fixed right-8 top-8 z-10 rounded-md bg-[#3d3834] px-5 py-3 text-[#fffafa]">Fermer le menu</button>
       <Hero />
     </aside>
 
-    <slot />
+    <div id="site-content" tabindex="-1">
+      <slot />
+    </div>
 
     <script>
       const observer = new IntersectionObserver(
@@ -247,44 +146,14 @@ const seo = Astro.props;
       const menuOverlay = document.getElementById("site-menu-overlay");
       const menuOpenIcon = document.getElementById("site-menu-icon-open");
       const menuCloseIcon = document.getElementById("site-menu-icon-close");
+      const menuClose = document.getElementById("site-menu-close");
+      const background = document.getElementById("site-content");
+      const header = document.getElementById("site-header");
       const menuLinks = Array.from(document.querySelectorAll("#site-menu-panel a"));
       let lastTrigger: HTMLElement | null = null;
-      let headerDockInitialized = false;
-      let headerDockTimeout: number | null = null;
       let headerScrollTicking = false;
-
       const syncHeaderDock = () => {
-        const maxScroll = 180;
-        const rawProgress = Math.min(window.scrollY / maxScroll, 1);
-        const easedProgress = 1 - Math.pow(1 - rawProgress, 3);
-        const shouldDock = rawProgress > 0.16;
-        const isDocked = document.body.classList.contains("site-header-docked");
-
-        document.documentElement.style.setProperty("--dock-progress", rawProgress.toFixed(4));
-        document.documentElement.style.setProperty("--dock-eased", easedProgress.toFixed(4));
-        document.body.classList.toggle("site-header-floating", rawProgress > 0.72);
-
-        if (!headerDockInitialized) {
-          document.body.classList.toggle("site-header-docked", shouldDock);
-          headerDockInitialized = true;
-          return;
-        }
-
-        if (shouldDock !== isDocked) {
-          document.body.classList.remove("site-header-docking");
-          void document.body.offsetWidth;
-          document.body.classList.toggle("site-header-docked", shouldDock);
-
-          if (shouldDock) {
-            document.body.classList.add("site-header-docking");
-            if (headerDockTimeout) {
-              window.clearTimeout(headerDockTimeout);
-            }
-            headerDockTimeout = window.setTimeout(() => {
-              document.body.classList.remove("site-header-docking");
-            }, 520);
-          }
-        }
+        document.body.classList.toggle("site-header-docked", window.scrollY > 30);
       };
 
       const requestHeaderSync = () => {
@@ -313,6 +182,13 @@ const seo = Astro.props;
           "aria-label",
           isOpen ? "Fermer le menu" : "Ouvrir le menu"
         );
+        if (!isOpen && menuPanel.contains(document.activeElement)) {
+          (lastTrigger ?? menuToggle).focus();
+        }
+        menuPanel.inert = !isOpen;
+        if (background) background.inert = isOpen;
+        if (header) header.inert = isOpen;
+        if (header) header.style.visibility = isOpen ? "hidden" : "";
         menuPanel.setAttribute("aria-hidden", String(!isOpen));
         menuOverlay.setAttribute("aria-hidden", String(!isOpen));
         menuPanel.classList.toggle("pointer-events-none", !isOpen);
@@ -329,6 +205,8 @@ const seo = Astro.props;
           menuCloseIcon.classList.toggle("hidden", !isOpen);
         }
 
+        if (isOpen && menuClose instanceof HTMLButtonElement) menuClose.focus();
+
         if (!isOpen && lastTrigger instanceof HTMLElement) {
           lastTrigger.focus();
         }
@@ -342,6 +220,8 @@ const seo = Astro.props;
         });
       }
 
+      menuClose?.addEventListener("click", () => setMenuState(false));
+
       if (menuOverlay instanceof HTMLElement) {
         menuOverlay.addEventListener("click", () => setMenuState(false));
       }
@@ -351,8 +231,20 @@ const seo = Astro.props;
       });
 
       document.addEventListener("keydown", (event) => {
+        if (menuToggle?.getAttribute("aria-expanded") !== "true") return;
         if (event.key === "Escape") {
+          event.preventDefault();
           setMenuState(false);
+        }
+        if (event.key === "Tab" && menuPanel instanceof HTMLElement) {
+          const focusable = [...menuPanel.querySelectorAll<HTMLElement>('a[href], button:not([disabled]), [tabindex="0"]')]
+            .filter(element => !element.closest('[inert]') && element.getClientRects().length > 0);
+          const first = focusable[0], last = focusable.at(-1);
+          if (event.shiftKey && document.activeElement === first) {
+            event.preventDefault(); last?.focus();
+          } else if (!event.shiftKey && document.activeElement === last) {
+            event.preventDefault(); first?.focus();
+          }
         }
       });
 
@@ -360,5 +252,6 @@ const seo = Astro.props;
       window.addEventListener("resize", requestHeaderSync, { passive: true });
       syncHeaderDock();
     </script>
+    <SiteAnalytics />
   </body>
 </html>

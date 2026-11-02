@@ -247,6 +247,7 @@ const reviewDocuments = (): SanityDocument[] =>
     _id: `review-${review.id || index + 1}`,
     _type: "review",
     rating: review.rating,
+    sourceVerifiedAt: review.sourceVerifiedAt,
     text: review.text,
     excerpt: review.excerpt,
     book: bookBySlug.has(review.bookSlug)

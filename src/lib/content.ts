@@ -5,6 +5,7 @@ import type { GalleryItem } from "../data/gallery";
 import { galleryItems as localGalleryItems } from "../data/gallery";
 import type { Review } from "../data/reviews";
 import { reviews as localReviews } from "../data/reviews";
+import { mergeVerifiedReviews } from "./reviews";
 import type { Citation } from "../data/citations";
 import { citations as localCitations } from "../data/citations";
 import type { Service } from "../data/services";
@@ -119,7 +120,8 @@ const reviewsQuery = `*[_type == "review" && coalesce(published, true)] | order(
   tag,
   accent,
   link,
-  isbn
+  isbn,
+  sourceVerifiedAt
 }`;
 
 const citationsQuery = `*[_type == "citation" && coalesce(published, true)] | order(coalesce(order, 100) asc, quoteNumber asc) {
@@ -291,10 +293,10 @@ export const getGalleryContent = async (): Promise<GalleryItem[]> => {
 
 export const getReviewsContent = async (): Promise<Review[]> => {
   const result = await fetchOrFallback<Review>(reviewsQuery, localReviews, "les avis");
-  return result.map((value, index) => ({
+  const mapped = result.map((value, index) => ({
     ...value,
     id: value.id || `review-${index + 1}`,
-    rating: value.rating || 5,
+    rating: value.rating,
     text: value.text || "",
     excerpt: value.excerpt || value.text || "",
     bookSlug: value.bookSlug || "",
@@ -305,6 +307,7 @@ export const getReviewsContent = async (): Promise<Review[]> => {
     tag: value.tag || "Avis",
     accent: value.accent || "#3a4d45",
   }));
+  return mergeVerifiedReviews(localReviews, mapped);
 };
 
 export const getCitationsContent = async (): Promise<Citation[]> => {

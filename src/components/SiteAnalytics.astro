@@ -1,0 +1,40 @@
+---
+// Enable in Vercel once Web Analytics is active for this project.
+const enabled = import.meta.env.PUBLIC_VERCEL_ANALYTICS_ENABLED === 'true';
+const customEvents = import.meta.env.PUBLIC_VERCEL_ANALYTICS_CUSTOM_EVENTS === 'true';
+---
+<span hidden data-site-analytics data-enabled={enabled} data-custom-events={customEvents}></span>
+<script>
+  import { inject, track } from '@vercel/analytics';
+  import { conversionForLink } from '../lib/conversion-events';
+  const config = document.querySelector<HTMLElement>('[data-site-analytics]');
+  if (config?.dataset.enabled === 'true' && import.meta.env.PROD && location.hostname === 'www.vanyastolarski.fr') {
+    inject({
+      mode: 'production',
+      beforeSend(event) {
+        const url = new URL(event.url);
+        url.search = '';
+        url.hash = '';
+        return { ...event, url: url.href };
+      },
+    });
+    if (config.dataset.customEvents === 'true') {
+      document.addEventListener('click', event => {
+        if (!(event.target instanceof Element)) return;
+        const quote = event.target.closest('[data-quote-trigger]');
+        if (quote) {
+          track('quote_open', { page: location.pathname, destination: 'quote_dialog' });
+          return;
+        }
+        if (event.target.closest('[data-contact-instagram]')) {
+          track('contact_click', { page: location.pathname, destination: 'instagram' });
+          return;
+        }
+        const link = event.target.closest<HTMLAnchorElement>('a[href]');
+        if (!link) return;
+        const conversion = conversionForLink(link.href, location.href);
+        if (conversion) track(conversion.name, conversion.data);
+      });
+    }
+  }
+</script>

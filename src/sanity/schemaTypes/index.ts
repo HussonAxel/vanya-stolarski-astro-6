@@ -328,7 +328,8 @@ const review = defineType({
   title: "Avis de lecture",
   type: "document",
   fields: [
-    defineField({ name: "rating", title: "Note", type: "number", validation: (Rule) => Rule.required().integer().min(1).max(5) }),
+    defineField({ name: "rating", title: "Note vérifiée sur Amazon", type: "number", validation: (Rule) => Rule.required().integer().min(1).max(5) }),
+    defineField({ name: "sourceVerifiedAt", title: "Source Amazon vérifiée le", type: "date", description: "Vérifier le pseudonyme, la note, l’extrait et le lien individuel Amazon avant de renseigner cette date." }),
     defineField({ name: "text", title: "Extrait", type: "text", rows: 5, validation: (Rule) => Rule.required() }),
     defineField({ name: "excerpt", title: "Avis complet", type: "text", rows: 14, validation: (Rule) => Rule.required() }),
     defineField({ name: "book", title: "Livre lié", type: "reference", to: [{ type: "book" }] }),

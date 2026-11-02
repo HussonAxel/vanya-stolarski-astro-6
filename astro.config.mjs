@@ -13,7 +13,7 @@ import { SANITY_CACHE_TAG } from './src/lib/cache.ts';
 const projectId = process.env.PUBLIC_SANITY_PROJECT_ID || 'placeholder';
 const dataset = process.env.PUBLIC_SANITY_DATASET || 'production';
 
-// @sanity/astro 3.5.1 strips only POSIX separators from its package aliases.
+// Keep Sanity's package aliases compatible with Windows path separators.
 // On Windows that aliases `sanity` to package.json. Use Vite's dedupe instead.
 if (process.platform === 'win32') {
   process.env.SANITY_ASTRO_DISABLE_MODULE_DEDUPE = 'true';

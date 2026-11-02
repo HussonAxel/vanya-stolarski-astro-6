@@ -5,6 +5,15 @@ import { amazonReviewSources } from "../data/reviews";
 const reviews = await getReviewsContent();
 const featuredReviews = reviews.slice(0, 8);
 const totalLabel = String(featuredReviews.length).padStart(2, "0");
+
+// Single Amazon rating for all books, weighted by each book's number of ratings.
+const ratedSources = amazonReviewSources.filter(
+  (source) => source.rating !== undefined && source.ratingCount,
+);
+const totalRatings = ratedSources.reduce((sum, source) => sum + source.ratingCount!, 0);
+const averageRating = totalRatings
+  ? ratedSources.reduce((sum, source) => sum + source.rating! * source.ratingCount!, 0) / totalRatings
+  : 0;
 ---
 
 <section
@@ -45,16 +54,14 @@ const totalLabel = String(featuredReviews.length).padStart(2, "0");
     </div>
 
     <div class="reviews-layout">
-      <aside class="reviews-summary" aria-label="Évaluations Amazon par livre">
-        <div>
-          {amazonReviewSources.filter(source => source.rating !== undefined).map(source => (
-            <div class="mb-6">
-              <a href={source.url} target="_blank" rel="noopener noreferrer" class="reviews-summary-label underline underline-offset-4">{source.book}</a>
-              <p class="font-serif text-4xl mt-2">{source.rating!.toLocaleString('fr-FR')} / 5</p>
-              <p class="reviews-summary-count">{source.ratingCount} évaluations sur Amazon</p>
-            </div>
-          ))}
-        </div>
+      <aside class="reviews-summary" aria-label="Note moyenne sur Amazon">
+        {totalRatings > 0 && (
+          <div>
+            <p class="reviews-summary-label">Note moyenne</p>
+            <p class="font-serif text-4xl mt-2">{averageRating.toLocaleString('fr-FR', { minimumFractionDigits: 1, maximumFractionDigits: 1 })} / 5</p>
+            <p class="reviews-summary-count">{totalRatings} évaluations sur Amazon</p>
+          </div>
+        )}
       </aside>
 
       <div

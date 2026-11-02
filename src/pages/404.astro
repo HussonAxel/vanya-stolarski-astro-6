@@ -1,0 +1,15 @@
+---
+import Layout from '../layouts/Layout.astro';
+Astro.response.status = 404;
+---
+<Layout title="Page introuvable | Vanya Stolarski" description="Cette page est introuvable. Retrouvez les romans et les prestations d’illustration de Vanya Stolarski." noindex>
+  <main class="site-shell px-6 pt-40 pb-24">
+    <h1 class="font-serif text-5xl">Page introuvable</h1>
+    <p class="mt-6">Cette page n’existe pas ou n’est plus disponible.</p>
+    <nav aria-label="Retrouver une page" class="mt-8 flex flex-wrap gap-6 underline">
+      <a href="/livres">Découvrir les romans</a>
+      <a href="/tarifs">Voir les prestations d’illustration</a>
+      <a href="/">Revenir à l’accueil</a>
+    </nav>
+  </main>
+</Layout>

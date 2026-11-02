@@ -8,6 +8,7 @@ import { getBookTitle } from "../lib/books";
 
 const galleryItems = await getGalleryContent();
 const books = await getBooksContent();
+const publishedBookSlugs = new Set(books.map(book => book.slug));
 const galleryArtistFilters = ["all", ...new Set(galleryItems.map((item) => item.artist).filter(Boolean))];
 const galleryBookFilters = ["all", ...new Set(galleryItems.map((item) => item.bookSlug).filter(Boolean))];
 const galleryBookFilterLabels = Object.fromEntries(
@@ -21,7 +22,7 @@ const galleryBookFilterLabels = Object.fromEntries(
 const firstGalleryItem = galleryItems[0];
 ---
 
-<Layout title="Galerie - Vanya Stolarski">
+<Layout title="Galerie des univers des romans | Vanya Stolarski" description="Explorez les univers des romans de Vanya Stolarski en images : galerie d’illustrations, personnages et scènes, avec les artistes et les livres associés.">
     <main class="overflow-hidden bg-[#FFFAFA] text-[#3d3834]">
         <section
             class="relative overflow-hidden bg-[#3d3834] px-6 py-24 text-[#FFFAFA]"
@@ -39,12 +40,12 @@ const firstGalleryItem = galleryItems[0];
                         <h1
                             class="max-w-4xl font-serif text-5xl leading-none text-balance md:text-7xl"
                         >
-                            J'y rassemble les visages, les gestes et les
-                            tensions qui continuent de me suivre.
+                            Les univers des romans en illustrations
                         </h1>
                         <p
                             class="max-w-2xl font-sans text-base leading-relaxed text-[#FFFAFA] md:text-lg"
                         >
+                            J'y rassemble les visages, les gestes et les tensions qui continuent de me suivre.
                             Les images se lisent d'abord comme une matiere
                             visuelle. Au clic, chaque illustration s'ouvre dans
                             une fiche plus détaillée avec son contexte et son
@@ -260,7 +261,7 @@ const firstGalleryItem = galleryItems[0];
                                         data-image={sizedImageUrl(item.image, 2400)}
                                         data-alt={item.alt}
                                         data-book-label={galleryBookFilterLabels[item.bookSlug] ?? item.bookSlug}
-                                        data-book-href={`/livres/${item.bookSlug}`}
+                                        data-book-href={publishedBookSlugs.has(item.bookSlug) ? `/livres/${item.bookSlug}` : undefined}
                                         data-artist-label={item.artist}
                                         data-date={item.date}
                                         data-description={item.description}

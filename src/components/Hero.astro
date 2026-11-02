@@ -6,6 +6,12 @@ const currentPath = Astro.url.pathname;
 
 const navLinks = [
   {
+    label: "Illustration & tarifs",
+    subtitle: "Prestations",
+    icon: "image",
+    href: "/tarifs",
+  },
+  {
     label: "Livres",
     subtitle: "Collection",
     icon: "book",
@@ -90,11 +96,11 @@ const isActive = (href: string) =>
                     Autrice & Illustratrice
                   </span>
                 </div>
-                <h1
+                <p
                   class="font-serif text-5xl leading-none tracking-tight text-[#3d3834] lg:text-6xl"
                 >
                   Explorer
-                </h1>
+                </p>
               </div>
 
               <nav class="hero-nav space-y-2">

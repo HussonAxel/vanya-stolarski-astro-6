@@ -1,0 +1,19 @@
+<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><style>
+body{font-family:var(--font-sans,system-ui);color:var(--foreground);line-height:1.5;margin:0}
+p{color:var(--muted-foreground)}.legend{display:flex;gap:18px;font-size:13px;margin:18px 0}.dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px;background:var(--chart-2)}.dot.after{background:var(--chart-1)}
+.metric{margin:18px 0}.metric strong{font-size:14px}.barrow{display:grid;grid-template-columns:46px 1fr 45px;gap:10px;align-items:center;font-size:12px;margin-top:5px}.track{height:9px;background:var(--secondary);border-radius:9px;overflow:hidden}.bar{height:9px;background:var(--chart-2);border-radius:9px}.afterbar{background:var(--chart-1)}
+table{width:100%;border-collapse:collapse;font-size:13px;margin-top:24px}th,td{text-align:left;vertical-align:top;padding:10px 6px;border-bottom:1px solid var(--border)}th{color:var(--muted-foreground);font-weight:500}.snippet{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:16px;margin-top:20px}.snippet strong{color:var(--chart-1);font-size:17px}.note{font-size:12px}.ok{color:var(--success)}
+</style></head><body>
+<p>Avant : site en ligne · Après : modifications locales · 13 pages comparées</p>
+<div class="legend"><span><i class="dot"></i>Avant</span><span><i class="dot after"></i>Après</span><span>Échelle : 13 pages</span></div>
+<div class="metric"><strong>Descriptions</strong><div class="barrow"><span>Avant</span><div class="track"><div class="bar" style="width:7.6923076923076925%"></div></div><span>1/13</span></div><div class="barrow"><span>Après</span><div class="track"><div class="bar afterbar" style="width:100%"></div></div><span>13/13</span></div></div><div class="metric"><strong>URL canoniques</strong><div class="barrow"><span>Avant</span><div class="track"><div class="bar" style="width:0%"></div></div><span>0/13</span></div><div class="barrow"><span>Après</span><div class="track"><div class="bar afterbar" style="width:100%"></div></div><span>13/13</span></div></div><div class="metric"><strong>Titres distincts</strong><div class="barrow"><span>Avant</span><div class="track"><div class="bar" style="width:92.3076923076923%"></div></div><span>12/13</span></div><div class="barrow"><span>Après</span><div class="track"><div class="bar afterbar" style="width:100%"></div></div><span>13/13</span></div></div>
+<table><thead><tr><th>Point contrôlé</th><th>Avant</th><th>Après</th></tr></thead><tbody>
+<tr><td>Sitemap</td><td>Erreur 404</td><td>13 URL, alimentées par le catalogue</td></tr>
+<tr><td>Tomes de Cœur de Renard</td><td>Titres identiques</td><td>Tome 1 / Tome 2 distingués</td></tr>
+<tr><td>Livre introuvable</td><td>Redirection vers le catalogue</td><td>Véritable erreur 404</td></tr>
+<tr><td>Accueil</td><td>H1 « Explorer » dans le menu</td><td>Autrice et illustratrice, deux accès explicites</td></tr>
+<tr><td>Résumés et informations des livres</td><td>Contenu publié</td><td>Conservé ; extraits SEO issus du texte existant</td></tr>
+</tbody></table>
+<div class="snippet"><span class="note">Exemple de présentation SEO proposée · /tarifs</span><br><strong>Illustration de livres : prestations et tarifs | Vanya Stolarski</strong><p>Couvertures de livres, jaspages, pages de garde, cartographie et illustrations sur mesure : découvrez les prestations de Vanya Stolarski et demandez un devis.</p><span class="note">Google peut afficher un autre titre ou extrait.</span></div>
+<p class="note"><span class="ok">✓ 4 tests SEO réussis · Vérification Astro sans erreur</span><br>Build : assemblage Vercel bloqué par une permission Windows (EPERM). Modifications non déployées.<br>Ce bilan mesure les corrections techniques. Aucun gain de trafic ou de classement n’est encore mesuré.</p>
+</body></html>

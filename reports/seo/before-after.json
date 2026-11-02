@@ -1,0 +1,307 @@
+{
+  "date": "2026-11-02",
+  "beforeOrigin": "https://www.vanyastolarski.fr",
+  "afterOrigin": "http://localhost:4321",
+  "deployment": "not deployed",
+  "before": [
+    {
+      "canonical": null,
+      "description": null,
+      "h1": [
+        "Explorer"
+      ],
+      "jsonLd": 0,
+      "path": "/",
+      "status": 200,
+      "title": "Vanya Stolarski - Autrice & Illustratrice"
+    },
+    {
+      "canonical": null,
+      "description": null,
+      "h1": [
+        "Explorer",
+        "Les histoires vivent ici, cruelles et douces à la fois, garnies de leur plus bel écrin deluxe. Vous y trouverez tant des récits historiques que fantastiques."
+      ],
+      "jsonLd": 0,
+      "path": "/livres",
+      "status": 200,
+      "title": "Livres - Vanya Stolarski"
+    },
+    {
+      "canonical": null,
+      "description": null,
+      "h1": [
+        "Explorer",
+        "J'habille les univers de livre comme j'approche mes romans, par regard, matiere et presence."
+      ],
+      "jsonLd": 0,
+      "path": "/tarifs",
+      "status": 200,
+      "title": "Tarifs - Vanya Stolarski"
+    },
+    {
+      "canonical": null,
+      "description": null,
+      "h1": [
+        "Explorer",
+        "J'y rassemble les visages, les gestes et les tensions qui continuent de me suivre."
+      ],
+      "jsonLd": 0,
+      "path": "/galerie",
+      "status": 200,
+      "title": "Galerie - Vanya Stolarski"
+    },
+    {
+      "canonical": null,
+      "description": null,
+      "h1": [
+        "Explorer",
+        "Je garde une trace des livres tels qu'ils ont été reçus, ressentis et retenus"
+      ],
+      "jsonLd": 0,
+      "path": "/reviews",
+      "status": 200,
+      "title": "Avis de lecture - Vanya Stolarski"
+    },
+    {
+      "canonical": null,
+      "description": null,
+      "h1": [
+        "Explorer",
+        "Je garde ici les phrases qui portent encore le souffle entier de mes romans."
+      ],
+      "jsonLd": 0,
+      "path": "/citations",
+      "status": 200,
+      "title": "Citations - Vanya Stolarski"
+    },
+    {
+      "canonical": null,
+      "description": null,
+      "h1": [
+        "Explorer",
+        "Coll'Libris"
+      ],
+      "jsonLd": 0,
+      "path": "/coll-libris",
+      "status": 200,
+      "title": "Coll'Libris - Cartes collector | Vanya Stolarski"
+    },
+    {
+      "canonical": null,
+      "description": "Atelier interactif Three.js pour tester les matières et effets des cartes de Vanya Stolarski.",
+      "h1": [
+        "Composez la lumière.Révélez la couverture."
+      ],
+      "jsonLd": 0,
+      "path": "/atelier-cartes",
+      "status": 200,
+      "title": "Atelier cartes 3D - Vanya Stolarski"
+    },
+    {
+      "canonical": null,
+      "description": null,
+      "h1": [
+        "Explorer",
+        "Coeur de Renard"
+      ],
+      "jsonLd": 0,
+      "path": "/livres/coeur-de-renard",
+      "status": 200,
+      "title": "Coeur de Renard - Vanya Stolarski"
+    },
+    {
+      "canonical": null,
+      "description": null,
+      "h1": [
+        "Explorer",
+        "Coeur de Renard"
+      ],
+      "jsonLd": 0,
+      "path": "/livres/coeur-de-renard-tome-2",
+      "status": 200,
+      "title": "Coeur de Renard - Vanya Stolarski"
+    },
+    {
+      "canonical": null,
+      "description": null,
+      "h1": [
+        "Explorer",
+        "Fous-Papillons"
+      ],
+      "jsonLd": 0,
+      "path": "/livres/fous-papillons",
+      "status": 200,
+      "title": "Fous-Papillons - Vanya Stolarski"
+    },
+    {
+      "canonical": null,
+      "description": null,
+      "h1": [
+        "Explorer",
+        "Le coeur d'Ankaa"
+      ],
+      "jsonLd": 0,
+      "path": "/livres/le-coeur-dankaa",
+      "status": 200,
+      "title": "Le coeur d'Ankaa - Vanya Stolarski"
+    },
+    {
+      "canonical": null,
+      "description": null,
+      "h1": [
+        "Explorer",
+        "Trouver la Lune"
+      ],
+      "jsonLd": 0,
+      "path": "/livres/trouver-la-lune",
+      "status": 200,
+      "title": "Trouver la Lune - Vanya Stolarski"
+    }
+  ],
+  "after": [
+    {
+      "canonical": "https://www.vanyastolarski.fr/",
+      "description": "Découvrez les romans de Vanya Stolarski et ses prestations d’illustration : couvertures, jaspages, pages de garde et cartographie. Livres, galerie et tarifs.",
+      "h1": [
+        "Vanya Stolarski, autrice et illustratrice"
+      ],
+      "jsonLd": 1,
+      "path": "/",
+      "status": 200,
+      "title": "Vanya Stolarski | Romans et illustration de livres"
+    },
+    {
+      "canonical": "https://www.vanyastolarski.fr/livres",
+      "description": "Explorez les romans de Vanya Stolarski : présentations, genres, couvertures, éditions, premiers chapitres et liens d’achat réunis dans la bibliothèque.",
+      "h1": [
+        "Les romans de Vanya Stolarski"
+      ],
+      "jsonLd": 1,
+      "path": "/livres",
+      "status": 200,
+      "title": "Romans de Vanya Stolarski | Livres et éditions"
+    },
+    {
+      "canonical": "https://www.vanyastolarski.fr/tarifs",
+      "description": "Couvertures de livres, jaspages, pages de garde, cartographie et illustrations sur mesure : découvrez les prestations de Vanya Stolarski et demandez un devis.",
+      "h1": [
+        "Illustration de livres : prestations et tarifs"
+      ],
+      "jsonLd": 1,
+      "path": "/tarifs",
+      "status": 200,
+      "title": "Illustration de livres : prestations et tarifs | Vanya Stolarski"
+    },
+    {
+      "canonical": "https://www.vanyastolarski.fr/galerie",
+      "description": "Explorez les univers des romans de Vanya Stolarski en images : galerie d’illustrations, personnages et scènes, avec les artistes et les livres associés.",
+      "h1": [
+        "Les univers des romans en illustrations"
+      ],
+      "jsonLd": 1,
+      "path": "/galerie",
+      "status": 200,
+      "title": "Galerie des univers des romans | Vanya Stolarski"
+    },
+    {
+      "canonical": "https://www.vanyastolarski.fr/reviews",
+      "description": "Découvrez les avis de lecture sur les romans de Vanya Stolarski : ressentis, retours de lectrices et liens vers les avis publiés, réunis par livre.",
+      "h1": [
+        "Avis de lecture sur les romans de Vanya Stolarski"
+      ],
+      "jsonLd": 1,
+      "path": "/reviews",
+      "status": 200,
+      "title": "Avis de lecture sur les romans | Vanya Stolarski"
+    },
+    {
+      "canonical": "https://www.vanyastolarski.fr/citations",
+      "description": "Retrouvez les citations et extraits des romans de Vanya Stolarski. Parcourez les phrases de ses livres et découvrez les titres dont elles sont issues.",
+      "h1": [
+        "Citations et extraits des romans de Vanya Stolarski"
+      ],
+      "jsonLd": 1,
+      "path": "/citations",
+      "status": 200,
+      "title": "Citations et extraits des romans | Vanya Stolarski"
+    },
+    {
+      "canonical": "https://www.vanyastolarski.fr/coll-libris",
+      "description": "Découvrez Coll’Libris, les cartes collector présentées par Vanya Stolarski : collection, visuels et aperçus interactifs pour explorer chaque carte.",
+      "h1": [
+        "Coll'Libris"
+      ],
+      "jsonLd": 1,
+      "path": "/coll-libris",
+      "status": 200,
+      "title": "Coll'Libris - Cartes collector | Vanya Stolarski"
+    },
+    {
+      "canonical": "https://www.vanyastolarski.fr/atelier-cartes",
+      "description": "Atelier interactif pour tester les matières et effets des cartes de Vanya Stolarski.",
+      "h1": [
+        "Composez la lumière.Révélez la couverture."
+      ],
+      "jsonLd": 1,
+      "path": "/atelier-cartes",
+      "status": 200,
+      "title": "Atelier cartes 3D - Vanya Stolarski"
+    },
+    {
+      "canonical": "https://www.vanyastolarski.fr/livres/trouver-la-lune",
+      "description": "Trouver la Lune, Tome I : Une sorcière des astres qui doit veiller sur leur équilibre. Un chevalier du soleil déterminé à venger sa famille perdue dans un…",
+      "h1": [
+        "Trouver la Lune"
+      ],
+      "jsonLd": 1,
+      "path": "/livres/trouver-la-lune",
+      "status": 200,
+      "title": "Trouver la Lune — Tome I | Vanya Stolarski"
+    },
+    {
+      "canonical": "https://www.vanyastolarski.fr/livres/coeur-de-renard",
+      "description": "Coeur de Renard, Tome 1 : Il est escroc. Elle va en être victime. Elle va la traquer sans merci. Il va l'aider sous une fausse identité. A Paris, en 1943, la…",
+      "h1": [
+        "Coeur de Renard"
+      ],
+      "jsonLd": 1,
+      "path": "/livres/coeur-de-renard",
+      "status": 200,
+      "title": "Coeur de Renard — Tome 1 | Vanya Stolarski"
+    },
+    {
+      "canonical": "https://www.vanyastolarski.fr/livres/fous-papillons",
+      "description": "Fous-Papillons : Mariée de force au général de l'Etat major, Esther se retrouve embourbée dans les conflits politiques d'une France de 1890. Son cœur est…",
+      "h1": [
+        "Fous-Papillons"
+      ],
+      "jsonLd": 1,
+      "path": "/livres/fous-papillons",
+      "status": 200,
+      "title": "Fous-Papillons | Vanya Stolarski"
+    },
+    {
+      "canonical": "https://www.vanyastolarski.fr/livres/coeur-de-renard-tome-2",
+      "description": "Coeur de Renard, Tome 2 : Il l'a trahie Elle n'a plus qu'une option : Cambrioler sa propre banque. Même si cela revient, À lui offrir une seconde chance. En…",
+      "h1": [
+        "Coeur de Renard"
+      ],
+      "jsonLd": 1,
+      "path": "/livres/coeur-de-renard-tome-2",
+      "status": 200,
+      "title": "Coeur de Renard — Tome 2 | Vanya Stolarski"
+    },
+    {
+      "canonical": "https://www.vanyastolarski.fr/livres/le-coeur-dankaa",
+      "description": "Le coeur d'Ankaa, Tome 1 : Chassé de chez lui, Johen se met en quête du coeur d'Ankaa qui, il en est persuadé, va permettre de rétablir l'ordre dans son…",
+      "h1": [
+        "Le coeur d'Ankaa"
+      ],
+      "jsonLd": 1,
+      "path": "/livres/le-coeur-dankaa",
+      "status": 200,
+      "title": "Le coeur d'Ankaa — Tome 1 | Vanya Stolarski"
+    }
+  ]
+}

@@ -1,6 +1,7 @@
 ---
 import { Image } from "astro:assets";
 import "../styles/global.css";
+import SeoHead from "../components/SeoHead.astro";
 import { getImageDimensions } from "../lib/image-dimensions";
 
 export const prerender = true;
@@ -125,12 +126,8 @@ const positions: Array<[string, string, number, number]> = [
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="generator" content={Astro.generator} />
-    <meta
-      name="description"
-      content="Atelier interactif Three.js pour tester les matières et effets des cartes de Vanya Stolarski."
-    />
+    <SeoHead title="Atelier cartes 3D - Vanya Stolarski" description="Atelier interactif pour tester les matières et effets des cartes de Vanya Stolarski." />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png?v=lune-3" />
-    <title>Atelier cartes 3D - Vanya Stolarski</title>
   </head>
   <body class="card-lab-body">
     <main class="card-lab-shell">

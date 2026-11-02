@@ -1,12 +1,18 @@
 ---
 import "../styles/global.css";
 import Hero from "../components/Hero.astro";
+import SeoHead from "../components/SeoHead.astro";
 
 interface Props {
   title: string;
+  description: string;
+  image?: string;
+  imageAlt?: string;
+  noindex?: boolean;
+  structuredData?: Record<string, unknown>[];
 }
 
-const { title } = Astro.props;
+const seo = Astro.props;
 
 ---
 
@@ -17,7 +23,7 @@ const { title } = Astro.props;
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="generator" content={Astro.generator} />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png?v=lune-3" />
-    <title>{title}</title>
+    <SeoHead {...seo} />
     <style>
       :root {
         --header-ease: cubic-bezier(0.22, 1, 0.36, 1);

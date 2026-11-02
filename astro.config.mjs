@@ -25,6 +25,8 @@ const sanityPage = { maxAge: 3600, swr: 86400, tags: [SANITY_CACHE_TAG] };
 
 // https://astro.build/config
 export default defineConfig({
+  site: 'https://www.vanyastolarski.fr',
+  trailingSlash: 'never',
   output: 'server',
   adapter: vercel(),
   cache: {
@@ -38,6 +40,7 @@ export default defineConfig({
     '/tarifs': sanityPage,
     '/reviews': sanityPage,
     '/citations': sanityPage,
+    '/sitemap.xml': sanityPage,
     // Latest Ulule campaign island, shown in the menu of every page.
     '/_server-islands/[name]': sanityPage,
   },

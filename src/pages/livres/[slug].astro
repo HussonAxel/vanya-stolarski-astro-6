@@ -12,6 +12,7 @@ import {
 } from "../../lib/books";
 import Layout from "../../layouts/Layout.astro";
 import { getImageDimensions } from "../../lib/image-dimensions";
+import { bookDescription, bookSeoTitle, bookStructuredData, canonicalUrl } from "../../lib/seo";
 
 const books = await getBooksContent();
 const allGalleryItems = await getGalleryContent();
@@ -19,7 +20,7 @@ const slug = Astro.params.slug || "";
 const book = books.find((entry) => entry.slug === slug);
 
 if (!book) {
-  return Astro.redirect("/livres");
+  return Astro.rewrite("/404");
 }
 
 const pageModel = buildBookPageModel(book, books, allGalleryItems);
@@ -28,7 +29,20 @@ const useContainFit = (src: string) =>
   /(?:Cover_CDR_Ulule\.webp|coeur-de-renard-tome-2--relie\.webp)$/i.test(src);
 ---
 
-<Layout title={`${pageModel.hero.title} - Vanya Stolarski`}>
+<Layout
+  title={bookSeoTitle(book)}
+  description={bookDescription(book)}
+  image={book.media.cover.src}
+  imageAlt={book.media.cover.alt}
+  structuredData={[
+    bookStructuredData(book),
+    { '@type': 'BreadcrumbList', itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Accueil', item: canonicalUrl('/') },
+      { '@type': 'ListItem', position: 2, name: 'Livres', item: canonicalUrl('/livres') },
+      { '@type': 'ListItem', position: 3, name: bookSeoTitle(book).split(' | ')[0], item: canonicalUrl(`/livres/${book.slug}`) },
+    ] },
+  ]}
+>
   <main class="bg-[#FFFAFA] text-[#3d3834]">
     <section
       class="relative overflow-hidden bg-[#3d3834] px-6 py-20 text-[#FFFAFA] md:py-24"

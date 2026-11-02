@@ -6,9 +6,10 @@ import { getImageDimensions } from "../lib/image-dimensions";
 interface Props {
   items: BookGalleryItem[];
   title?: string;
+  sizes?: string;
 }
 
-const { items, title = "Galerie du livre" } = Astro.props as Props;
+const { items, title = "Galerie du livre", sizes = "(min-width: 640px) 28rem, calc(100vw - 5rem)" } = Astro.props as Props;
 const galleryId = `gallery-${Math.random().toString(36).slice(2, 10)}`;
 const slides = items.length > 0 ? items : [];
 const hasMultiple = slides.length > 1;
@@ -52,7 +53,7 @@ const useContainFit = (src: string) =>
                 loading={index === 0 ? "eager" : "lazy"}
                 fetchpriority={index === 0 ? "high" : undefined}
                 decoding="async"
-                sizes="(min-width: 1280px) 42rem, 100vw"
+                sizes={sizes}
               />
             </figure>
           );

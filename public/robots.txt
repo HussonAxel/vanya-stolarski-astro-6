@@ -1,0 +1,8 @@
+# Cloudflare adds its managed crawler/content-signal policy at the edge.
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /api/
+Disallow: /_server-islands/
+
+Sitemap: https://www.vanyastolarski.fr/sitemap.xml
